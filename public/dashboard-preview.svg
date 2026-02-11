@@ -1,0 +1,45 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" rx="16" fill="#F8FAFC"/>
+<!-- Sidebar -->
+<rect width="260" height="800" fill="white"/>
+<rect x="32" y="40" width="40" height="40" rx="8" fill="#921ac6"/>
+<rect x="84" y="48" width="120" height="24" rx="4" fill="#E2E8F0"/>
+<rect x="32" y="120" width="196" height="48" rx="8" fill="#F3E8FF"/>
+<rect x="32" y="180" width="196" height="48" rx="8" fill="white"/>
+<rect x="32" y="240" width="196" height="48" rx="8" fill="white"/>
+<rect x="32" y="300" width="196" height="48" rx="8" fill="white"/>
+
+<!-- Main Content Header -->
+<rect x="300" y="40" width="860" height="80" rx="12" fill="white"/>
+<circle cx="1120" cy="80" r="24" fill="#E2E8F0"/>
+<rect x="340" y="68" width="200" height="24" rx="4" fill="#E2E8F0"/>
+
+<!-- Stats Cards -->
+<rect x="300" y="160" width="266" height="140" rx="12" fill="white"/>
+<rect x="332" y="192" width="48" height="48" rx="8" fill="#F3E8FF"/>
+<rect x="332" y="260" width="100" height="16" rx="4" fill="#E2E8F0"/>
+<rect x="480" y="192" width="60" height="32" rx="4" fill="#E2E8F0"/>
+
+<rect x="597" y="160" width="266" height="140" rx="12" fill="white"/>
+<rect x="629" y="192" width="48" height="48" rx="8" fill="#DCFCE7"/>
+<rect x="629" y="260" width="100" height="16" rx="4" fill="#E2E8F0"/>
+
+<rect x="894" y="160" width="266" height="140" rx="12" fill="white"/>
+<rect x="926" y="192" width="48" height="48" rx="8" fill="#FEE2E2"/>
+<rect x="926" y="260" width="100" height="16" rx="4" fill="#E2E8F0"/>
+
+<!-- Main Chart Area -->
+<rect x="300" y="340" width="560" height="420" rx="12" fill="white"/>
+<path d="M340 680 L400 600 L460 640 L520 520 L580 580 L640 480 L700 520 L760 440 L820 400" stroke="#921ac6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M340 680 V720 H820 V400" stroke="#E2E8F0" stroke-width="2"/>
+
+<!-- Side Panel/List -->
+<rect x="894" y="340" width="266" height="420" rx="12" fill="white"/>
+<rect x="926" y="380" width="202" height="60" rx="8" fill="#F8FAFC"/>
+<rect x="926" y="460" width="202" height="60" rx="8" fill="#F8FAFC"/>
+<rect x="926" y="540" width="202" height="60" rx="8" fill="#F8FAFC"/>
+<rect x="926" y="620" width="202" height="60" rx="8" fill="#F8FAFC"/>
+
+<!-- Floating Elements (Mockup decoration) -->
+<circle cx="1100" cy="200" r="6" fill="#EF4444"/>
+</svg>

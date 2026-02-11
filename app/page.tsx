@@ -101,8 +101,8 @@ export default function Home() {
                   <div className="bg-slate-50 rounded-xl overflow-hidden aspect-[16/10]">
                     <img
                       alt="Dashboard interface"
-                      className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoz9N5JLlH33qh6BU-9cIsoU8y4uUhfM0JVIMh6phiQEZ0fSUye_ZLU9_Edtr8mkg-56RJZbH_5DLRd0m-Jg30xx6NeXFy6Dj1w944fFShVfZ_fUKNqSixc9U7vdF6a8OGdc27yR4NeqF0XE-s1PW4WlbDi2NJIONVt6HNRYnHLkiXIaVSsgEQFNwz1x4a0Pj9igVmQVEKj4g0UZjuLlMf-Wj8b40YDnRdDuNzw83lrYiyw8jOofWKGbUaxzsG1ynVe8elW5DUBV1m"
+                      className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity bg-slate-50"
+                      src="/dashboard-preview.svg"
                     />
                   </div>
 
