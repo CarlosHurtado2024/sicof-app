@@ -26,6 +26,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { RolUsuario } from '@/types/db'
+import PresenceWrapper from '@/components/presence/PresenceWrapper'
 
 // Definimos la estructura de navegación por rol
 interface NavItem {
@@ -188,6 +189,14 @@ export default async function DashboardLayout({
                         <h1 className="font-semibold text-lg text-slate-800">Comisaría de Familia</h1>
                     </div>
                     <div className="flex items-center gap-3">
+                        <PresenceWrapper
+                            currentUser={{
+                                id: user.id,
+                                nombre: profile?.nombre || user.email || 'Usuario',
+                                email: user.email || '',
+                                rol: userRole || 'USUARIO_EXTERNO',
+                            }}
+                        />
                         <span className="text-sm text-slate-500">
                             {user.email}
                         </span>
