@@ -17,8 +17,20 @@ export async function registrarCrisis(formData: {
 }) {
     const supabase = await createClient()
 
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) throw new Error('No autorizado')
+    const { data: { user: dbUser }, error: authError } = await supabase.auth.getUser()
+
+    let user = dbUser
+
+    if (!user) {
+        console.warn('getUser fallo, intentando getSession...', authError)
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+        if (session && session.user) {
+            user = session.user
+        } else {
+            console.error('Error de autenticación final en registrarCrisis:', sessionError)
+            throw new Error(`No autorizado: ${authError?.message || sessionError?.message || 'Usuario no encontrado'}`)
+        }
+    }
 
     try {
         const ahora = new Date().toISOString()
@@ -87,6 +99,17 @@ export async function registrarCrisis(formData: {
             fecha_hora_ingreso: ahora,
         })
 
+        // 6. Registrar alerta de crisis en tiempo real
+        await supabase.from('alertas_crisis').insert({
+            expediente_id: expediente.id,
+            radicado,
+            nombre_victima: formData.nombre_victima,
+            tipologia: formData.tipologia,
+            descripcion: formData.descripcion_breve,
+            estado: 'PENDIENTE',
+            creado_por: user.id,
+        })
+
         revalidatePath('/dashboard/recepcion')
         return { success: true, radicado, id: expediente.id }
 
@@ -126,4 +149,23 @@ export async function buscarPersonaPorDocumento(documento: string) {
         expedientes: Array.from(expedientesMap.values()),
         totalRegistros: personas.length,
     }
+}
+
+export async function atenderCrisis(alertaId: string) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) throw new Error('No autorizado')
+
+    const { error } = await supabase
+        .from('alertas_crisis')
+        .update({
+            estado: 'ATENDIDA',
+            atendido_por: user.id,
+            atendida_at: new Date().toISOString()
+        })
+        .eq('id', alertaId)
+
+    if (error) throw new Error(error.message)
+    revalidatePath('/dashboard')
+    return { success: true }
 }

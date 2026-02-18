@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import FloatingSidebar from '@/components/floating-sidebar'
 import PresenceWrapper from '@/components/presence/PresenceWrapper'
 import UserMenu from '@/components/user-menu'
+import { CrisisAlertBanner } from '@/components/crisis-alert-banner'
 import type { RolUsuario } from '@/types/db'
 
 interface ClientLayoutWrapperProps {
@@ -33,6 +34,9 @@ export default function ClientLayoutWrapper({
 
     return (
         <>
+            {/* Global Crisis Alert System */}
+            <CrisisAlertBanner userRole={userRole} userId={userId} />
+
             {/* Floating Sidebar - Only Navigation */}
             <FloatingSidebar userRole={userRole} />
 

@@ -56,6 +56,15 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
                         <p className="text-sm text-slate-500">Radicado de Emergencia</p>
                         <p className="text-2xl font-mono font-bold text-emerald-700">{success.radicado}</p>
                     </div>
+                    <div className="bg-red-50 border border-red-100 rounded-lg p-3 my-2 animate-pulse">
+                        <p className="text-sm text-red-800 font-bold flex items-center justify-center gap-2">
+                            <Siren className="h-4 w-4" />
+                            ¡Alerta enviada al equipo psicosocial!
+                        </p>
+                        <p className="text-xs text-red-600 mt-1">
+                            Psicología y Trabajo Social han sido notificados.
+                        </p>
+                    </div>
                     <p className="text-sm text-slate-600">
                         Nivel de riesgo: <span className="font-bold text-red-600">CRÍTICO</span> — Término de 4 horas activado para medida provisional.
                     </p>
@@ -165,8 +174,8 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
                                 type="button"
                                 onClick={() => update('tipologia', opt.value)}
                                 className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-all duration-200 ${formData.tipologia === opt.value
-                                        ? 'bg-red-600 text-white border-red-600 shadow-md scale-105'
-                                        : 'bg-white text-slate-600 border-slate-200 hover:border-red-300 hover:bg-red-50'
+                                    ? 'bg-red-600 text-white border-red-600 shadow-md scale-105'
+                                    : 'bg-white text-slate-600 border-slate-200 hover:border-red-300 hover:bg-red-50'
                                     }`}
                             >
                                 <span className="block text-base mb-0.5">{opt.emoji}</span>
