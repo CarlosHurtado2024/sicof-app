@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { usePresence } from '@/lib/hooks/usePresence'
 import OnlineUsersPanel from './OnlineUsersPanel'
 import { Users, X } from 'lucide-react'
@@ -42,33 +43,39 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
                 </span>
             </button>
 
-            {/* Sliding Panel Overlay with Enhanced Blur */}
-            {isPanelOpen && (
-                <div
-                    className="fixed inset-0 z-40 bg-black/30 backdrop-blur-md transition-all duration-300"
-                    onClick={() => setIsPanelOpen(false)}
-                />
+            {/* Portal: Render overlay and panel at document.body level to escape stacking context */}
+            {typeof window !== 'undefined' && createPortal(
+                <>
+                    {/* Sliding Panel Overlay with Enhanced Blur */}
+                    {isPanelOpen && (
+                        <div
+                            className="fixed inset-0 z-[60] bg-black/30 backdrop-blur-md transition-all duration-300"
+                            onClick={() => setIsPanelOpen(false)}
+                        />
+                    )}
+
+                    {/* Sliding Panel */}
+                    <div
+                        className={`fixed right-0 top-0 z-[70] h-full w-80 transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${isPanelOpen ? 'translate-x-0' : 'translate-x-full'
+                            }`}
+                    >
+                        {/* Close button */}
+                        <button
+                            onClick={() => setIsPanelOpen(false)}
+                            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+
+                        <OnlineUsersPanel
+                            allUsers={allUsers}
+                            onlineUsers={onlineUsers}
+                            currentUserId={currentUser.id}
+                        />
+                    </div>
+                </>,
+                document.body
             )}
-
-            {/* Sliding Panel */}
-            <div
-                className={`fixed right-0 top-0 z-50 h-full w-80 transform bg-white shadow-2xl transition-transform duration-300 ease-in-out ${isPanelOpen ? 'translate-x-0' : 'translate-x-full'
-                    }`}
-            >
-                {/* Close button */}
-                <button
-                    onClick={() => setIsPanelOpen(false)}
-                    className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
-                >
-                    <X className="h-4 w-4" />
-                </button>
-
-                <OnlineUsersPanel
-                    allUsers={allUsers}
-                    onlineUsers={onlineUsers}
-                    currentUserId={currentUser.id}
-                />
-            </div>
         </>
     )
 }
