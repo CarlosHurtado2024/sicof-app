@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { usePresence } from '@/lib/hooks/usePresence'
 import OnlineUsersPanel from './OnlineUsersPanel'
-import { Users, X, ChevronLeft } from 'lucide-react'
+import { Users, X } from 'lucide-react'
 
 interface PresenceWrapperProps {
     currentUser: {
@@ -22,30 +22,30 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
 
     return (
         <>
-            {/* Floating Presence Button */}
+            {/* Presence Button with Purple Theme */}
             <button
                 onClick={() => setIsPanelOpen(!isPanelOpen)}
-                className="group relative flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 shadow-sm transition-all duration-200 hover:border-blue-300 hover:shadow-md"
+                className="group relative flex items-center gap-2 rounded-xl border border-[#7C3AED]/30 bg-[#7C3AED]/10 backdrop-blur-sm px-4 py-2.5 shadow-md shadow-[#7C3AED]/10 transition-all duration-200 hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/20 hover:shadow-lg hover:shadow-[#7C3AED]/20"
                 title="Ver equipo conectado"
             >
                 <div className="relative">
-                    <Users className="h-4 w-4 text-slate-500 transition-colors group-hover:text-blue-600" />
+                    <Users className="h-5 w-5 text-[#7C3AED] transition-colors group-hover:text-[#6B31D1]" />
                     {/* Online count badge */}
                     {onlineCount > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm">
+                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-white">
                             {onlineCount}
                         </span>
                     )}
                 </div>
-                <span className="hidden text-xs font-medium text-slate-600 group-hover:text-blue-700 md:inline">
+                <span className="hidden text-sm font-semibold text-[#7C3AED] group-hover:text-[#6B31D1] md:inline">
                     Equipo
                 </span>
             </button>
 
-            {/* Sliding Panel Overlay */}
+            {/* Sliding Panel Overlay with Enhanced Blur */}
             {isPanelOpen && (
                 <div
-                    className="fixed inset-0 z-40 bg-black/20 backdrop-blur-[2px] transition-opacity duration-300"
+                    className="fixed inset-0 z-40 bg-black/30 backdrop-blur-md transition-all duration-300"
                     onClick={() => setIsPanelOpen(false)}
                 />
             )}
@@ -58,7 +58,7 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
                 {/* Close button */}
                 <button
                     onClick={() => setIsPanelOpen(false)}
-                    className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                    className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
                 >
                     <X className="h-4 w-4" />
                 </button>
