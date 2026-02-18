@@ -76,14 +76,14 @@ export function MinutaForm() {
     return (
         <Card className="w-full border-0 shadow-lg bg-white overflow-hidden">
             {/* Gradient Header */}
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white pb-5">
+            <CardHeader className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white pb-5">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <FileText className="h-5 w-5 text-white" />
                     </div>
                     <div>
                         <CardTitle className="text-white text-lg">Minuta de Ingreso</CardTitle>
-                        <CardDescription className="text-blue-100">
+                        <CardDescription className="text-violet-100">
                             Control de vigilancia y recepción
                         </CardDescription>
                     </div>
@@ -104,7 +104,7 @@ export function MinutaForm() {
                     {/* Search by Document */}
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                            <Search className="h-3.5 w-3.5 text-blue-500" />
+                            <Search className="h-3.5 w-3.5 text-[#7C3AED]" />
                             Buscar por Documento
                         </Label>
                         <div className="relative">
@@ -112,24 +112,24 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Ingrese cédula o TI para buscar..."
-                                className="pr-10 bg-blue-50/50 border-blue-200 focus:border-blue-400 focus:ring-blue-300"
+                                className="pr-10 bg-violet-50/50 border-violet-200 focus:border-[#7C3AED] focus:ring-[#7C3AED]/50"
                             />
                             {buscando && (
-                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-blue-400 animate-spin" />
+                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-[#7C3AED] animate-spin" />
                             )}
                         </div>
                     </div>
 
                     {/* Search Result: Person Found */}
                     {buscado && resultado?.persona && (
-                        <div className="rounded-lg border border-blue-200 overflow-hidden animate-in slide-in-from-top-2 duration-300">
-                            <div className="flex items-center gap-3 p-3 bg-blue-50">
-                                <div className="p-1.5 bg-blue-100 rounded-full">
-                                    <UserCheck className="h-4 w-4 text-blue-600" />
+                        <div className="rounded-lg border border-violet-200 overflow-hidden animate-in slide-in-from-top-2 duration-300">
+                            <div className="flex items-center gap-3 p-3 bg-violet-50">
+                                <div className="p-1.5 bg-violet-100 rounded-full">
+                                    <UserCheck className="h-4 w-4 text-[#7C3AED]" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-blue-900">{resultado.persona.nombres}</p>
-                                    <p className="text-xs text-blue-600">Doc: {resultado.persona.documento}</p>
+                                    <p className="text-sm font-semibold text-violet-900">{resultado.persona.nombres}</p>
+                                    <p className="text-xs text-violet-600">Doc: {resultado.persona.documento}</p>
                                 </div>
                             </div>
 
@@ -146,8 +146,8 @@ export function MinutaForm() {
                                             <div key={i} className="flex items-center justify-between text-xs bg-white p-2 rounded border border-red-100">
                                                 <span className="font-mono font-medium text-red-800">{exp.radicado}</span>
                                                 <span className={`px-2 py-0.5 rounded-full font-medium ${exp.estado === 'TRAMITE' ? 'bg-amber-100 text-amber-700' :
-                                                        exp.estado === 'CERRADO' ? 'bg-slate-100 text-slate-600' :
-                                                            'bg-blue-100 text-blue-700'
+                                                    exp.estado === 'CERRADO' ? 'bg-slate-100 text-slate-600' :
+                                                        'bg-blue-100 text-blue-700'
                                                     }`}>
                                                     {exp.estado}
                                                 </span>
@@ -220,7 +220,7 @@ export function MinutaForm() {
                                 name="motivo_visita"
                                 required
                                 defaultValue=""
-                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition-colors"
+                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50 focus:border-[#7C3AED] transition-colors"
                             >
                                 <option value="" disabled>Seleccione...</option>
                                 <option value="ORIENTACION">📋 Orientación General</option>
@@ -257,7 +257,7 @@ export function MinutaForm() {
                     <Button
                         type="submit"
                         disabled={guardando}
-                        className="bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-200 gap-2"
+                        className="bg-[#7C3AED] hover:bg-[#6D28D9] shadow-md shadow-violet-200 gap-2"
                     >
                         {guardando ? (
                             <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>
