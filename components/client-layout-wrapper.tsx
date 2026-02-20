@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import TopNavBar from '@/components/floating-sidebar'
 import PresenceWrapper from '@/components/presence/PresenceWrapper'
 import UserMenu from '@/components/user-menu'
+import NotificationBell from '@/components/notification-bell'
 import { CrisisAlertBanner } from '@/components/crisis-alert-banner'
 import type { RolUsuario } from '@/types/db'
 
@@ -37,11 +38,12 @@ export default function ClientLayoutWrapper({
             {/* Global Crisis Alert System */}
             <CrisisAlertBanner userRole={userRole} userId={userId} />
 
-            {/* Top Navigation Bar — Logo + Nav + Equipo + Avatar */}
+            {/* Top Navigation Bar — Logo + Nav + Notifications + Equipo + Avatar */}
             <TopNavBar
                 userRole={userRole}
                 rightSlot={
                     <>
+                        <NotificationBell userId={userId} />
                         <PresenceWrapper
                             currentUser={{
                                 id: userId,
