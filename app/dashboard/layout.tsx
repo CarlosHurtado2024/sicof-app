@@ -42,7 +42,7 @@ export default async function DashboardLayout({
             />
 
             {/* Main Content with top padding to account for fixed header */}
-            <main className="lg:ml-32 pt-20 p-8 lg:p-16 lg:pt-20 max-w-[1920px]">
+            <main className="pt-24 p-6 lg:p-10 lg:pt-24 max-w-[1920px] mx-auto">
                 {children}
             </main>
         </div>
