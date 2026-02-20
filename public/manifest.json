@@ -1,0 +1,42 @@
+{
+    "name": "SICOF - Sistema de Gestión Integral",
+    "short_name": "SICOF",
+    "description": "Gestión inteligente y segura para Comisarías de Familia - Ley 2126",
+    "start_url": "/dashboard",
+    "display": "standalone",
+    "background_color": "#F5F3FF",
+    "theme_color": "#7C3AED",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

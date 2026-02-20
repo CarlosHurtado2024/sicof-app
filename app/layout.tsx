@@ -8,12 +8,16 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "SICOF - Sistema de Gestión Integral",
   description: "Gestión para Comisarías de Familia - Ley 2126",
+  manifest: "/manifest.json",
+  themeColor: "#7C3AED",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg",
+    shortcut: "/icon-192.png",
+    apple: "/icon-192.png",
   },
 };
 
