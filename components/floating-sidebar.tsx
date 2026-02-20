@@ -2,11 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { SicofLogoIcon } from '@/components/sicof-logo'
 import {
     LayoutDashboard,
     Users,
     FileText,
-    Gavel,
     Bell,
     Calendar,
     ClipboardList,
@@ -106,8 +106,8 @@ export default function FloatingSidebar({ userRole }: FloatingSidebarProps) {
         <aside className="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
             <div className="backdrop-blur-xl bg-slate-900/80 border border-white/10 shadow-2xl flex flex-col items-center py-8 rounded-[2rem] w-20 gap-6">
                 {/* Logo */}
-                <div className="w-12 h-12 bg-[#7C3AED] rounded-2xl flex items-center justify-center shadow-lg shadow-[#7C3AED]/30">
-                    <Gavel className="h-7 w-7 text-white" />
+                <div className="w-14 h-14 flex items-center justify-center">
+                    <SicofLogoIcon className="w-12 h-12" inverted={true} />
                 </div>
 
                 {/* Navigation */}
@@ -119,8 +119,8 @@ export default function FloatingSidebar({ userRole }: FloatingSidebarProps) {
                                 key={item.href}
                                 href={item.href}
                                 className={`group relative flex items-center justify-center w-12 h-12 rounded-2xl transition-all ${isActive
-                                        ? 'bg-[#7C3AED] text-white shadow-[0_0_15px_rgba(124,58,237,0.4)]'
-                                        : 'text-slate-400 hover:text-white hover:bg-white/10'
+                                    ? 'bg-[#7C3AED] text-white shadow-[0_0_15px_rgba(124,58,237,0.4)]'
+                                    : 'text-slate-400 hover:text-white hover:bg-white/10'
                                     }`}
                             >
                                 {item.icon}

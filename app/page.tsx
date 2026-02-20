@@ -1,6 +1,7 @@
 
 import Link from "next/link"
-import { Gavel, Menu, ArrowRight, PlayCircle, CheckCircle, XCircle, Share2, Brain, FolderArchive, Quote, Shield, Zap, Clock, Users, ChevronRight, Star, Lock, BarChart3, FileText } from "lucide-react"
+import { SicofLogo, SicofLogoIcon } from "@/components/sicof-logo"
+import { Gavel, Menu, ArrowRight, PlayCircle, CheckCircle, XCircle, Share2, Brain, FolderArchive, Shield, Zap, Clock, Users, ChevronRight, Star, Lock, BarChart3, FileText } from "lucide-react"
 
 export const metadata = {
   title: 'SICOF — Sistema Integral para Comisarías de Familia',
@@ -16,14 +17,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-[72px]">
             {/* Logo */}
-            <div className="flex-shrink-0 flex items-center gap-2.5 cursor-pointer">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-violet-500/25">
-                <Gavel className="w-5 h-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold text-lg tracking-tight text-slate-900 leading-none">SICOF</span>
-                <span className="text-[10px] font-medium text-slate-400 tracking-widest uppercase">gov platform</span>
-              </div>
+            <div className="flex-shrink-0 cursor-pointer">
+              <SicofLogo iconClassName="h-10 w-10" inverted={false} showSubtitle={true} />
             </div>
 
             {/* Desktop Menu */}
@@ -474,11 +469,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
 
             <div className="col-span-1">
-              <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-9 h-9 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center text-white">
-                  <Gavel className="w-4 h-4" />
-                </div>
-                <span className="font-bold text-lg tracking-tight">SICOF</span>
+              <div className="mb-4">
+                <SicofLogo iconClassName="h-9 w-9" inverted={true} showSubtitle={false} />
               </div>
               <p className="text-slate-400 text-sm leading-relaxed">Soluciones tecnológicas integrales para la administración de justicia familiar moderna.</p>
             </div>

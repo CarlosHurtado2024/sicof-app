@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { AlertCircle, User, Lock, Eye, EyeOff, Gavel, Shield, ArrowRight, CheckCircle } from 'lucide-react'
+import { AlertCircle, User, Lock, Eye, EyeOff, Shield, ArrowRight, CheckCircle } from 'lucide-react'
 import Link from 'next/link'
+import { SicofLogo } from '@/components/sicof-logo'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
@@ -57,13 +58,7 @@ export default function LoginPage() {
                 <div className="relative z-10 flex flex-col justify-between w-full p-12 lg:p-16">
                     {/* Logo */}
                     <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center text-white shadow-lg shadow-violet-500/30">
-                            <Gavel className="w-5 h-5" />
-                        </div>
-                        <div>
-                            <span className="font-bold text-xl text-white tracking-tight">SICOF</span>
-                            <p className="text-violet-300/60 text-[10px] font-medium tracking-[0.2em] uppercase">Gov Platform</p>
-                        </div>
+                        <SicofLogo iconClassName="h-12 w-12" inverted={true} showSubtitle={true} />
                     </div>
 
                     {/* Main Content */}
@@ -123,10 +118,7 @@ export default function LoginPage() {
                 {/* Mobile header */}
                 <div className="lg:hidden flex items-center justify-between p-6 border-b border-slate-100">
                     <div className="flex items-center gap-2.5">
-                        <div className="w-9 h-9 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center text-white">
-                            <Gavel className="w-4 h-4" />
-                        </div>
-                        <span className="font-bold text-lg text-slate-900 tracking-tight">SICOF</span>
+                        <SicofLogo iconClassName="h-9 w-9" inverted={false} showSubtitle={false} />
                     </div>
                     <Link href="/" className="text-sm text-slate-500 hover:text-[#7C3AED] transition-colors font-medium">
                         ← Volver al inicio
