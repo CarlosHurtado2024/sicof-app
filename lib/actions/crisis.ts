@@ -109,6 +109,37 @@ export async function registrarCrisis(formData: {
             estado: 'PENDIENTE',
             creado_por: user.id,
         })
+        // 7. Notificar a Psicólogos y Trabajadores Sociales
+        try {
+            const { data: destinatarios } = await supabase
+                .from('usuarios')
+                .select('id, rol')
+                .in('rol', ['PSICOLOGO', 'TRABAJADOR_SOCIAL'])
+
+            if (destinatarios && destinatarios.length > 0) {
+                const tipologiaLabel: Record<string, string> = {
+                    'FISICA': 'Física',
+                    'PSICOLOGICA': 'Psicológica',
+                    'SEXUAL': 'Sexual',
+                    'ECONOMICA': 'Económica',
+                    'PATRIMONIAL': 'Patrimonial',
+                }
+
+                const notificaciones = destinatarios.map((dest) => ({
+                    usuario_id: dest.id,
+                    titulo: `🚨 Caso de CRISIS: ${radicado}`,
+                    mensaje: `Atención urgente. Caso de crisis por violencia ${tipologiaLabel[formData.tipologia] || formData.tipologia}. Víctima: ${formData.nombre_victima}. Nivel de riesgo: CRÍTICO.`,
+                    tipo: 'ALERTA',
+                    enlace: `/dashboard/casos/${expediente.id}`,
+                    expediente_id: expediente.id,
+                    leida: false,
+                }))
+
+                await supabase.from('notificaciones_internas').insert(notificaciones)
+            }
+        } catch (notifError) {
+            console.error("Error enviando notificaciones de crisis:", notifError)
+        }
 
         revalidatePath('/dashboard/recepcion')
         return { success: true, radicado, id: expediente.id }

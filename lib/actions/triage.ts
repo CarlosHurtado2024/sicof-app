@@ -227,6 +227,39 @@ export async function radicarCaso(data: z.infer<typeof TriageSchema>) {
             }
         }
 
+        // E. Notificar a Psicólogos y Trabajadores Sociales
+        try {
+            const { data: destinatarios } = await supabase
+                .from('usuarios')
+                .select('id, rol')
+                .in('rol', ['PSICOLOGO', 'TRABAJADOR_SOCIAL'])
+
+            if (destinatarios && destinatarios.length > 0) {
+                const tipologiaLabel: Record<string, string> = {
+                    'FISICA': 'Física',
+                    'PSICOLOGICA': 'Psicológica',
+                    'SEXUAL': 'Sexual',
+                    'ECONOMICA': 'Económica',
+                    'PATRIMONIAL': 'Patrimonial',
+                }
+
+                const notificaciones = destinatarios.map((dest) => ({
+                    usuario_id: dest.id,
+                    titulo: `Nuevo caso radicado: ${radicado}`,
+                    mensaje: `Se ha registrado un nuevo caso de violencia ${tipologiaLabel[data.caso.tipologia] || data.caso.tipologia}. Víctima: ${data.victima.nombres}. Requiere valoración del equipo psicosocial.`,
+                    tipo: 'CASO',
+                    enlace: `/dashboard/casos/${expediente.id}`,
+                    expediente_id: expediente.id,
+                    leida: false,
+                }))
+
+                await supabase.from('notificaciones_internas').insert(notificaciones)
+            }
+        } catch (notifError) {
+            // No bloquear la radicación si falla la notificación
+            console.error("Error enviando notificaciones:", notifError)
+        }
+
         revalidatePath('/dashboard/recepcion')
         return { success: true, radicado: expediente.radicado, id: expediente.id };
 

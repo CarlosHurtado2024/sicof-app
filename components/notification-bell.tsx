@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Bell, Check, CheckCheck, ExternalLink, AlertTriangle, Info, FileText, Settings, ClipboardList } from 'lucide-react'
+import { Bell, Check, CheckCheck, ExternalLink, AlertTriangle, Info, FileText, Settings, ClipboardList, Siren } from 'lucide-react'
 import { useNotifications, type NotificacionInterna } from '@/lib/hooks/useNotifications'
 import { useRouter } from 'next/navigation'
 
@@ -11,7 +11,7 @@ interface NotificationBellProps {
 
 const TIPO_CONFIG: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
     INFO: { icon: <Info className="w-4 h-4" />, color: 'text-blue-600', bg: 'bg-blue-50' },
-    ALERTA: { icon: <AlertTriangle className="w-4 h-4" />, color: 'text-amber-600', bg: 'bg-amber-50' },
+    ALERTA: { icon: <Siren className="w-4 h-4 animate-pulse" />, color: 'text-red-600', bg: 'bg-red-50' },
     CASO: { icon: <FileText className="w-4 h-4" />, color: 'text-violet-600', bg: 'bg-violet-50' },
     SISTEMA: { icon: <Settings className="w-4 h-4" />, color: 'text-slate-600', bg: 'bg-slate-100' },
     TAREA: { icon: <ClipboardList className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50' },
@@ -55,6 +55,52 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             router.push(notif.enlace)
             setOpen(false)
         }
+    }
+
+    // Effect to play alert sound 3 times for new crisis notifications
+    useEffect(() => {
+        if (notifications.length > 0) {
+            const newestNotif = notifications[0]
+            // Only play if it's an unread ALERTA (crisis) and it was just received (within last 10 seconds to avoid re-play on mount)
+            const isJustReceived = (Date.now() - new Date(newestNotif.created_at).getTime()) < 10000
+
+            if (newestNotif.tipo === 'ALERTA' && !newestNotif.leida && isJustReceived) {
+                playCrisisSound(3)
+            }
+        }
+    }, [notifications])
+
+    const playCrisisSound = (times: number) => {
+        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)()
+
+        let count = 0
+        const playOne = () => {
+            if (count >= times) {
+                audioCtx.close()
+                return
+            }
+
+            const oscillator = audioCtx.createOscillator()
+            const gainNode = audioCtx.createGain()
+
+            oscillator.connect(gainNode)
+            gainNode.connect(audioCtx.destination)
+
+            oscillator.type = 'sine'
+            oscillator.frequency.setValueAtTime(880, audioCtx.currentTime) // A5 note
+
+            gainNode.gain.setValueAtTime(0, audioCtx.currentTime)
+            gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.05)
+            gainNode.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3)
+
+            oscillator.start(audioCtx.currentTime)
+            oscillator.stop(audioCtx.currentTime + 0.3)
+
+            count++
+            setTimeout(playOne, 800) // 800ms between beeps
+        }
+
+        playOne()
     }
 
     return (
