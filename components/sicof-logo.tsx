@@ -12,8 +12,8 @@ export function SicofLogoIcon({ className = "w-10 h-10", inverted = false }: Sic
     const gid = `sg${rawId.replace(/:/g, "x")}`
 
     const shieldFill = inverted ? "white" : `url(#${gid})`
-    const fig = inverted ? "rgba(255,255,255,0.42)" : "rgba(67,20,138,0.72)"
-    const line = inverted ? "rgba(255,255,255,0.42)" : "rgba(67,20,138,0.72)"
+    const fig = inverted ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0.95)"
+    const line = inverted ? "rgba(255,255,255,0.42)" : "rgba(255,255,255,0.95)"
 
     return (
         <svg viewBox="0 0 100 112" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
