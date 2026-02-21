@@ -1,3 +1,4 @@
+// Página de manejo de rutas no encontradas o en construcción
 import UnderConstruction from "@/components/under-construction"
 import { Metadata } from "next"
 
