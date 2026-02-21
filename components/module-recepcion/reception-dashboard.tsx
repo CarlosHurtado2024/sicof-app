@@ -91,63 +91,11 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                 </div>
             </header>
 
-            {/* KPIs Grid */}
-            {!isCrisisMode && (
-                <section className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-8 mb-8 sm:mb-12">
-                    <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-8 transition-all hover:shadow-md">
-                        <div className="flex justify-between items-start mb-3 sm:mb-6">
-                            <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">En Atención</p>
-                            <span className="flex h-2.5 w-2.5 relative">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                            </span>
-                        </div>
-                        <div className="flex items-baseline">
-                            <h3 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mr-2 sm:mr-3">{kpis.enAtencion}</h3>
-                            <span className="text-xs sm:text-sm text-slate-500 font-medium hidden sm:inline">personas</span>
-                        </div>
-                    </Card>
-
-                    <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-8 transition-all hover:shadow-md">
-                        <div className="flex justify-between items-start mb-3 sm:mb-6">
-                            <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">Ingresos Hoy</p>
-                            <Users className="h-4 w-4 sm:h-5 sm:w-5 text-slate-300 dark:text-slate-700" />
-                        </div>
-                        <div className="flex items-baseline">
-                            <h3 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mr-2 sm:mr-3">{kpis.totalHoy}</h3>
-                        </div>
-                    </Card>
-
-                    <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-8 transition-all hover:shadow-md">
-                        <div className="flex justify-between items-start mb-3 sm:mb-6">
-                            <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">Radicados Hoy</p>
-                            <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-slate-300 dark:text-slate-700" />
-                        </div>
-                        <div className="flex items-baseline">
-                            <h3 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mr-2 sm:mr-3">{kpis.radicadosHoy}</h3>
-                            <span className="text-xs text-emerald-600 font-bold bg-emerald-50 dark:bg-emerald-500/10 px-2 py-1 rounded">
-                                +{Math.round((kpis.radicadosHoy / Math.max(kpis.totalHoy, 1)) * 100)}%
-                            </span>
-                        </div>
-                    </Card>
-
-                    <Card className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-8 transition-all hover:shadow-md">
-                        <div className="flex justify-between items-start mb-3 sm:mb-6">
-                            <p className="text-[10px] sm:text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em]">Alertas Crisis</p>
-                            <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-slate-300 dark:text-slate-700" />
-                        </div>
-                        <div className="flex items-baseline">
-                            <h3 className="text-3xl sm:text-5xl font-bold text-slate-900 dark:text-white mr-2 sm:mr-3">{kpis.crisisHoy}</h3>
-                            <span className="text-xs sm:text-sm text-slate-500 font-medium hidden sm:inline">hoy</span>
-                        </div>
-                    </Card>
-                </section>
-            )}
-
+            {/* KPIs Grid - Retirado según la petición del usuario */}
             {/* Main Content - Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10">
                 {/* Left Column: Form */}
-                <section className="lg:col-span-4">
+                <section className="lg:col-span-6">
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
                         <div className="px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-700">
                             <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center">
@@ -168,7 +116,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                 </section>
 
                 {/* Right Column: Live Queue */}
-                <section className={`lg:col-span-8 ${isCrisisMode ? 'opacity-50 pointer-events-none filter grayscale' : ''}`}>
+                <section className={`lg:col-span-6 ${isCrisisMode ? 'opacity-50 pointer-events-none filter grayscale' : ''}`}>
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden h-full flex flex-col">
                         <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                             <div>
@@ -196,13 +144,12 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                         <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-700">Visitante</th>
                                         <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-700">Motivo</th>
                                         <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-700">Estado</th>
-                                        <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100 dark:border-slate-700 text-right">Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
                                     {filteredMinutas.length === 0 ? (
                                         <tr>
-                                            <td colSpan={5} className="px-8 py-12 text-center text-slate-500 bg-slate-50/30 dark:bg-slate-900/30">
+                                            <td colSpan={4} className="px-8 py-12 text-center text-slate-500 bg-slate-50/30 dark:bg-slate-900/30">
                                                 <p className="mb-2 text-lg">📭</p>
                                                 No hay registros de ingreso hoy.
                                             </td>
@@ -248,11 +195,6 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                                             <span className="text-sm text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-tight">En Proceso</span>
                                                         </div>
                                                     )}
-                                                </td>
-                                                <td className="px-8 py-6 text-right">
-                                                    <button className="text-slate-300 hover:text-[#7C3AED] transition-colors">
-                                                        <MoreVertical className="h-5 w-5" />
-                                                    </button>
                                                 </td>
                                             </tr>
                                         ))
