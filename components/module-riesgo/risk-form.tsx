@@ -13,9 +13,10 @@ import { useRouter } from 'next/navigation'
 
 interface RiskFormProps {
     expedienteId: string;
+    userRole?: string;
 }
 
-export function RiskForm({ expedienteId }: RiskFormProps) {
+export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
     const router = useRouter();
     const [checklist, setChecklist] = useState<RiskChecklist>({
         amenaza_muerte: false,
@@ -52,7 +53,12 @@ export function RiskForm({ expedienteId }: RiskFormProps) {
 
         if (result.success) {
             alert(`✅ Valoración Guardada. Nuevo Nivel de Riesgo: ${calculatedRisk}`);
-            router.push('/dashboard/recepcion'); // Redirect to reception for now
+            const redirectPath = userRole === 'AUXILIAR'
+                ? '/dashboard/recepcion'
+                : (userRole === 'PSICOLOGO' || userRole === 'TRABAJADOR_SOCIAL')
+                    ? '/dashboard/casos'
+                    : '/dashboard';
+            router.push(redirectPath);
         } else {
             alert(`Error: ${result.error}`);
         }

@@ -1,8 +1,11 @@
 
 import { RiskForm } from '@/components/module-riesgo/risk-form'
+import { getUserProfile } from '@/lib/auth-helpers'
 
 export default async function ValoracionRiesgoPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params
+    const profileData = await getUserProfile()
+    const userRole = profileData?.profile?.rol ?? ''
 
     return (
         <div className="space-y-6">
@@ -13,7 +16,7 @@ export default async function ValoracionRiesgoPage({ params }: { params: Promise
                 </div>
             </div>
 
-            <RiskForm expedienteId={id} />
+            <RiskForm expedienteId={id} userRole={userRole} />
         </div>
     )
 }
