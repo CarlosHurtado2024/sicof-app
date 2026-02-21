@@ -63,7 +63,7 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] p-8 lg:p-10 text-white shadow-xl shadow-violet-500/15">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-violet-500/15">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                 <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl"></div>
                 <div className="relative z-10">
@@ -72,7 +72,7 @@ export default async function DashboardPage() {
                             <p className="text-violet-200 text-sm font-medium mb-1">
                                 {getGreeting()}, {firstName} 👋
                             </p>
-                            <h2 className="text-2xl lg:text-3xl font-bold tracking-tight">
+                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                                 {getRolTitle(userRole)}
                             </h2>
                             <p className="text-violet-200/80 mt-2 text-sm max-w-lg">
@@ -359,8 +359,8 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
                         key={i}
                         variant={action.variant}
                         className={`w-full justify-between rounded-lg text-sm ${action.variant === 'default'
-                                ? 'bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm shadow-violet-500/20'
-                                : 'border-slate-200 hover:border-violet-300 hover:text-[#7C3AED] hover:bg-violet-50/50'
+                            ? 'bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm shadow-violet-500/20'
+                            : 'border-slate-200 hover:border-violet-300 hover:text-[#7C3AED] hover:bg-violet-50/50'
                             }`}
                         asChild
                     >

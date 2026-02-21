@@ -89,15 +89,15 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
             {/* === STEPPER DE 5 FASES === */}
             <Card className="border-0 shadow-sm overflow-hidden">
                 <CardContent className="p-0">
-                    <div className="flex items-center w-full">
+                    <div className="flex items-center w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
                         {FASES_ORDEN.map((fase, i) => {
                             const completada = faseCompletada(faseActual, fase)
                             const esActual = fase === faseActual
                             const info = FASES_INFO[fase]
 
                             return (
-                                <div key={fase} className="flex-1 relative">
-                                    <div className={`flex flex-col items-center py-4 px-2 transition-all
+                                <div key={fase} className="flex-1 relative min-w-[80px] snap-center">
+                                    <div className={`flex flex-col items-center py-3 sm:py-4 px-2 transition-all
                                         ${esActual ? 'bg-blue-50 border-b-2 border-blue-600' : ''}
                                         ${completada ? 'bg-emerald-50/50' : ''}
                                     `}>
@@ -174,7 +174,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                             </div>
                         </CardHeader>
                         <CardContent className="p-4 space-y-4">
-                            <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                 <div>
                                     <p className="text-slate-400 text-xs uppercase tracking-wide">Radicado</p>
                                     <p className="font-mono font-bold text-blue-700">{expediente.radicado}</p>
@@ -231,7 +231,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                     {/* FASE 2: VALORACIÓN */}
                     <Card className="border-0 shadow-sm">
                         <CardHeader className="border-b bg-slate-50/50">
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                                 <div className="flex items-center gap-2">
                                     <HeartPulse className="h-5 w-5 text-purple-600" />
                                     <CardTitle className="text-base">Fase 2: Valoración Interdisciplinaria</CardTitle>

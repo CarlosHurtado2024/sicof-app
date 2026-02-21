@@ -142,6 +142,12 @@ export function TriageForm() {
     const [competenciaResult, setCompetenciaResult] = useState<CompetenciaResultado | null>(null);
     const [loading, setLoading] = useState(false);
     const [showAutoRemision, setShowAutoRemision] = useState(false);
+    const [modalState, setModalState] = useState<{
+        open: boolean;
+        type: 'success' | 'error';
+        radicado?: string;
+        message?: string;
+    }>({ open: false, type: 'success' });
 
     const updateField = (section: keyof FormData, field: string, value: any) => {
         setData(prev => ({
@@ -232,13 +238,12 @@ export function TriageForm() {
             // @ts-ignore
             const result = await radicarCaso(data);
             if (result.success) {
-                alert(`✅ Caso radicado: ${result.radicado}`);
-                window.location.href = '/dashboard/recepcion';
+                setModalState({ open: true, type: 'success', radicado: result.radicado });
             } else {
-                alert(`❌ Error: ${result.error}`);
+                setModalState({ open: true, type: 'error', message: result.error });
             }
         } catch (error: any) {
-            alert(`❌ Error: ${error.message}`);
+            setModalState({ open: true, type: 'error', message: error.message });
         } finally {
             setLoading(false);
         }
@@ -326,7 +331,7 @@ export function TriageForm() {
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <div className="w-1 h-4 bg-blue-500 rounded-full" /> Identificación
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <Label className="text-sm font-medium">Nombres Completos *</Label>
                                         <Input value={data.victima.nombres} onChange={e => updateField('victima', 'nombres', e.target.value)} placeholder="Nombres y apellidos" />
@@ -374,7 +379,7 @@ export function TriageForm() {
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <div className="w-1 h-4 bg-purple-500 rounded-full" /> Datos Sociodemográficos
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <Label className="text-sm font-medium">Sexo *</Label>
                                         <StyledSelect value={data.victima.genero} onChange={v => updateField('victima', 'genero', v)}
@@ -414,7 +419,7 @@ export function TriageForm() {
                                     <div className="w-1 h-4 bg-rose-500 rounded-full" /> Enfoque Diferencial
                                     <span className="text-[10px] bg-rose-100 text-rose-600 px-2 py-0.5 rounded-full font-bold">OBLIGATORIO</span>
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <Label className="text-sm font-medium text-rose-700">Pertenencia Étnica *</Label>
                                         <StyledSelect value={data.victima.grupo_etnico} onChange={v => updateField('victima', 'grupo_etnico', v)}
@@ -463,7 +468,7 @@ export function TriageForm() {
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <div className="w-1 h-4 bg-teal-500 rounded-full" /> Contacto y Ubicación
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2 md:col-span-2">
                                         <Label className="text-sm font-medium">Dirección de Residencia</Label>
                                         <Input value={data.victima.direccion} onChange={e => updateField('victima', 'direccion', e.target.value)} placeholder="Dirección completa" />
@@ -489,7 +494,7 @@ export function TriageForm() {
                             </div>
 
                             {/* Education */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                     <Label className="text-sm font-medium">Nivel Educativo</Label>
                                     <StyledSelect value={data.victima.nivel_educativo} onChange={v => updateField('victima', 'nivel_educativo', v)}
@@ -516,7 +521,7 @@ export function TriageForm() {
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <div className="w-1 h-4 bg-orange-500 rounded-full" /> Identificación del Agresor
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="text-sm font-medium">Nombres Completos *</Label>
                                         <Input value={data.agresor.nombres} onChange={e => updateField('agresor', 'nombres', e.target.value)} placeholder="Nombres y apellidos" />
@@ -581,7 +586,7 @@ export function TriageForm() {
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <div className="w-1 h-4 bg-slate-400 rounded-full" /> Datos Adicionales
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div className="space-y-2">
                                         <Label className="text-sm font-medium">Dirección para Notificación</Label>
                                         <Input value={data.agresor.direccion} onChange={e => updateField('agresor', 'direccion', e.target.value)} placeholder="Dirección" />
@@ -617,7 +622,7 @@ export function TriageForm() {
                     {/* ================ PASO 3: HECHOS Y COMPETENCIA ================ */}
                     {step === 3 && (
                         <div className="space-y-6">
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div className="space-y-2">
                                     <Label className="text-sm font-medium">Fecha de los Hechos *</Label>
                                     <Input type="date" value={data.caso.fecha_hechos} onChange={e => updateField('caso', 'fecha_hechos', e.target.value)} />
@@ -935,6 +940,118 @@ export function TriageForm() {
                     </div>
                 </CardFooter>
             </Card>
+
+            {/* ══════ SUCCESS / ERROR MODAL ══════ */}
+            {modalState.open && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                    {/* Backdrop */}
+                    <div
+                        className="absolute inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
+                        onClick={() => {
+                            if (modalState.type === 'error') setModalState({ ...modalState, open: false });
+                        }}
+                    />
+
+                    {/* Modal Card */}
+                    <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+                        {/* Top accent */}
+                        <div className={`h-1.5 w-full ${modalState.type === 'success'
+                            ? 'bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500'
+                            : 'bg-gradient-to-r from-red-400 via-red-500 to-rose-500'
+                            }`} />
+
+                        <div className="px-8 pt-8 pb-6 text-center">
+                            {/* Icon */}
+                            <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-5 ${modalState.type === 'success'
+                                ? 'bg-emerald-50 border-2 border-emerald-200'
+                                : 'bg-red-50 border-2 border-red-200'
+                                }`}>
+                                {modalState.type === 'success' ? (
+                                    <CheckCircle2 className="h-8 w-8 text-emerald-500" />
+                                ) : (
+                                    <AlertTriangle className="h-8 w-8 text-red-500" />
+                                )}
+                            </div>
+
+                            {/* Title */}
+                            <h2 className={`text-xl font-bold tracking-tight mb-2 ${modalState.type === 'success' ? 'text-slate-900' : 'text-red-800'
+                                }`}>
+                                {modalState.type === 'success'
+                                    ? 'Caso Radicado Exitosamente'
+                                    : 'Error al Radicar'
+                                }
+                            </h2>
+
+                            {modalState.type === 'success' ? (
+                                <>
+                                    <p className="text-sm text-slate-500 mb-5">
+                                        El caso ha sido registrado en el sistema con el siguiente número de radicado:
+                                    </p>
+
+                                    {/* Radicado Number */}
+                                    <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl px-6 py-4 mb-5">
+                                        <p className="text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-1">
+                                            Número de Radicado
+                                        </p>
+                                        <p className="text-2xl font-bold font-mono text-emerald-700 tracking-wide">
+                                            {modalState.radicado}
+                                        </p>
+                                    </div>
+
+                                    {/* Case summary mini */}
+                                    <div className="bg-slate-50 rounded-xl p-4 mb-5 text-left space-y-2">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-slate-400">Víctima</span>
+                                            <span className="font-medium text-slate-700">{data.victima.nombres}</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-slate-400">Tipología</span>
+                                            <span className="font-medium text-slate-700">{data.caso.tipologia}</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-slate-400">Ámbito</span>
+                                            <span className="font-medium text-slate-700">{data.caso.ambito === 'FAMILIAR' ? 'Familiar' : 'No Familiar'}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex flex-col gap-2.5">
+                                        <Button
+                                            onClick={() => window.location.href = `/dashboard/casos/${modalState.radicado}`}
+                                            className="w-full bg-emerald-600 hover:bg-emerald-700 gap-2 shadow-lg shadow-emerald-200 py-3"
+                                        >
+                                            <FileText className="h-4 w-4" />
+                                            Ver Expediente del Caso
+                                        </Button>
+                                        <Button
+                                            variant="outline"
+                                            onClick={() => window.location.href = '/dashboard/recepcion'}
+                                            className="w-full gap-2 py-3"
+                                        >
+                                            <ArrowRight className="h-4 w-4" />
+                                            Volver a Recepción
+                                        </Button>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl p-4 mb-5">
+                                        {modalState.message}
+                                    </p>
+                                    <Button
+                                        onClick={() => setModalState({ ...modalState, open: false })}
+                                        variant="outline"
+                                        className="w-full gap-2 border-red-200 text-red-700 hover:bg-red-50 py-3"
+                                    >
+                                        <X className="h-4 w-4" />
+                                        Cerrar e Intentar de Nuevo
+                                    </Button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

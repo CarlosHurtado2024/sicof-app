@@ -76,7 +76,8 @@ export default async function CasosListPage() {
             {/* Table Card */}
             <Card className="border border-slate-100 shadow-sm rounded-xl overflow-hidden">
                 <CardContent className="p-0">
-                    <div className="overflow-x-auto">
+                    {/* Desktop Table — hidden on mobile */}
+                    <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
                                 <tr className="bg-slate-50/80 border-b border-slate-100">
@@ -162,6 +163,54 @@ export default async function CasosListPage() {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+
+                    {/* Mobile Card View */}
+                    <div className="md:hidden divide-y divide-slate-100">
+                        {(!expedientes || expedientes.length === 0) ? (
+                            <div className="px-4 py-12 text-center">
+                                <div className="flex flex-col items-center">
+                                    <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-3">
+                                        <FolderHeart className="h-6 w-6 text-slate-300" />
+                                    </div>
+                                    <p className="text-slate-500 font-medium mb-1">No hay expedientes</p>
+                                    <p className="text-slate-400 text-xs">Los casos radicados aparecerán aquí</p>
+                                </div>
+                            </div>
+                        ) : (
+                            expedientes.map((exp: any) => {
+                                const victima = exp.personas?.find((p: any) => p.tipo === 'VICTIMA')
+                                const faseKey = exp.fase_proceso as FaseProceso || 'RECEPCION'
+                                const faseConfig = FASE_CONFIG[faseKey] || FASE_CONFIG.RECEPCION
+                                const riesgoConfig = RIESGO_CONFIG[exp.nivel_riesgo] || RIESGO_CONFIG.SIN_RIESGO
+                                return (
+                                    <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
+                                        <div className="p-4 hover:bg-violet-50/30 transition-colors active:bg-violet-50">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <span className="font-mono font-bold text-[#7C3AED] text-xs bg-violet-50 px-2 py-0.5 rounded">{exp.radicado}</span>
+                                                <span className="text-[10px] text-slate-400">
+                                                    {new Date(exp.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
+                                                </span>
+                                            </div>
+                                            <p className="font-semibold text-slate-800 text-sm truncate mb-2">{victima?.nombres || '—'}</p>
+                                            <div className="flex items-center gap-2 flex-wrap">
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
+                                                    <span className={`w-1 h-1 rounded-full ${faseConfig.dot}`}></span>
+                                                    {FASES_INFO[faseKey]?.nombre || faseKey}
+                                                </span>
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${riesgoConfig.bg} ${riesgoConfig.text}`}>
+                                                    <span className={`w-1 h-1 rounded-full ${riesgoConfig.dot}`}></span>
+                                                    {riesgoConfig.label}
+                                                </span>
+                                                {exp.tipologia_violencia && (
+                                                    <span className="text-[10px] text-slate-500 font-medium">{exp.tipologia_violencia}</span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        )}
                     </div>
                 </CardContent>
             </Card>
