@@ -41,8 +41,8 @@ export default async function DashboardLayout({
                 userId={user.id}
             />
 
-            {/* Main Content with top padding to account for fixed header */}
-            <main className="pt-20 px-4 pb-4 sm:px-6 sm:pb-6 lg:px-10 lg:pb-10 max-w-[1920px] mx-auto safe-top">
+            {/* Main Content */}
+            <main className="px-4 py-6 sm:px-6 lg:px-10 max-w-[1920px] mx-auto">
                 {children}
             </main>
         </div>

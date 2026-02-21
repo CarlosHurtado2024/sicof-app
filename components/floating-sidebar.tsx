@@ -109,7 +109,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
 
     return (
         <>
-            <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm safe-top">
+            <header className="sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm safe-top">
                 <div className="flex items-center h-14 sm:h-16 px-3 sm:px-4 gap-1">
                     {/* Mobile Hamburger */}
                     <button
