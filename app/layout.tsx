@@ -10,13 +10,13 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
+  themeColor: "#7C3AED",
 };
 
 export const metadata: Metadata = {
   title: "SICOF - Sistema de Gestión Integral",
   description: "Gestión para Comisarías de Familia - Ley 2126",
   manifest: "/manifest.json",
-  themeColor: "#7C3AED",
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
