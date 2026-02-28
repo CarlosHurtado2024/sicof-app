@@ -92,7 +92,7 @@ export default async function DashboardPage() {
             </div>
 
             {/* KPI Cards */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
                 <KPICard
                     title="Total Expedientes"
                     value={stats.totalCasos}
@@ -150,15 +150,15 @@ function KPICard({ title, value, icon, gradient, bgLight, textColor }: {
 }) {
     return (
         <Card className="border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group rounded-xl overflow-hidden">
-            <CardContent className="p-5 flex items-center gap-4">
-                <div className={`${bgLight} ${textColor} p-3 rounded-xl group-hover:scale-105 transition-transform duration-300`}>
+            <CardContent className="p-3 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+                <div className={`${bgLight} ${textColor} p-2 sm:p-3 rounded-lg sm:rounded-xl group-hover:scale-105 transition-transform duration-300`}>
                     {icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                    <p className="text-2xl font-bold text-slate-800 tabular-nums">{value}</p>
-                    <p className="text-xs text-slate-500 font-medium truncate">{title}</p>
+                    <p className="text-xl sm:text-2xl font-bold text-slate-800 tabular-nums">{value}</p>
+                    <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate">{title}</p>
                 </div>
-                <TrendingUp className="h-4 w-4 text-slate-300 group-hover:text-emerald-500 transition-colors" />
+                <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-300 group-hover:text-emerald-500 transition-colors hidden sm:block" />
             </CardContent>
         </Card>
     )

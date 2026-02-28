@@ -33,6 +33,15 @@ const FASE_ICONS: Record<FaseProceso, React.ReactNode> = {
     CIERRE: <CheckCircle className="h-5 w-5" />,
 }
 
+// Iconos más pequeños para el stepper móvil
+const FASE_ICONS_SM: Record<FaseProceso, React.ReactNode> = {
+    RECEPCION: <ClipboardList className="h-4 w-4" />,
+    VALORACION: <HeartPulse className="h-4 w-4" />,
+    MEDIDAS: <Shield className="h-4 w-4" />,
+    SEGUIMIENTO: <Eye className="h-4 w-4" />,
+    CIERRE: <CheckCircle className="h-4 w-4" />,
+}
+
 const RIESGO_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
     SIN_RIESGO: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Sin Riesgo' },
     BAJO: { bg: 'bg-green-100', text: 'text-green-700', label: 'Bajo' },
@@ -89,15 +98,16 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
             {/* === STEPPER DE 5 FASES === */}
             <Card className="border-0 shadow-sm overflow-hidden">
                 <CardContent className="p-0">
-                    <div className="flex items-center w-full overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+                    {/* Desktop/Tablet: Horizontal stepper (sm+) */}
+                    <div className="hidden sm:flex items-center w-full overflow-x-auto scrollbar-hide">
                         {FASES_ORDEN.map((fase, i) => {
                             const completada = faseCompletada(faseActual, fase)
                             const esActual = fase === faseActual
                             const info = FASES_INFO[fase]
 
                             return (
-                                <div key={fase} className="flex-1 relative min-w-[80px] snap-center">
-                                    <div className={`flex flex-col items-center py-3 sm:py-4 px-2 transition-all
+                                <div key={fase} className="flex-1 relative min-w-[80px]">
+                                    <div className={`flex flex-col items-center py-4 px-2 transition-all
                                         ${esActual ? 'bg-blue-50 border-b-2 border-blue-600' : ''}
                                         ${completada ? 'bg-emerald-50/50' : ''}
                                     `}>
@@ -125,6 +135,49 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                 </div>
                             )
                         })}
+                    </div>
+
+                    {/* Mobile: Vertical compact stepper (< sm) */}
+                    <div className="sm:hidden px-4 py-3">
+                        <div className="flex flex-col gap-0">
+                            {FASES_ORDEN.map((fase, i) => {
+                                const completada = faseCompletada(faseActual, fase)
+                                const esActual = fase === faseActual
+                                const info = FASES_INFO[fase]
+                                const isLast = i === FASES_ORDEN.length - 1
+
+                                return (
+                                    <div key={fase} className="flex items-stretch gap-3">
+                                        {/* Vertical line + circle */}
+                                        <div className="flex flex-col items-center">
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
+                                                ${esActual ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30' : ''}
+                                                ${completada ? 'bg-emerald-500 text-white' : ''}
+                                                ${!esActual && !completada ? 'bg-slate-200 text-slate-400' : ''}
+                                            `}>
+                                                {completada ? <CheckCircle className="h-4 w-4" /> : FASE_ICONS_SM[fase]}
+                                            </div>
+                                            {!isLast && (
+                                                <div className={`w-0.5 flex-1 min-h-[12px] ${completada ? 'bg-emerald-300' : 'bg-slate-200'}`} />
+                                            )}
+                                        </div>
+                                        {/* Phase label */}
+                                        <div className={`pb-3 pt-1 ${isLast ? '' : ''}`}>
+                                            <p className={`text-sm font-semibold leading-tight
+                                                ${esActual ? 'text-blue-700' : ''}
+                                                ${completada ? 'text-emerald-700' : ''}
+                                                ${!esActual && !completada ? 'text-slate-400' : ''}
+                                            `}>
+                                                {info.nombre}
+                                            </p>
+                                            {esActual && (
+                                                <span className="text-[10px] text-blue-500 font-medium">Fase actual</span>
+                                            )}
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </CardContent>
             </Card>

@@ -103,6 +103,13 @@ function getNavItems(rol: RolUsuario | undefined): NavItem[] {
     }
 }
 
+// Helper: /dashboard solo coincide exacto; el resto usa prefix match
+function isNavActive(pathname: string | null, href: string): boolean {
+    if (!pathname) return false
+    if (href === '/dashboard') return pathname === '/dashboard'
+    return pathname === href || pathname.startsWith(href + '/')
+}
+
 // Maximum items to show directly in the bottom bar (excluding "More" button)
 const MAX_BOTTOM_ITEMS = 4
 
@@ -119,7 +126,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
 
     // Check if any overflow item is active (to highlight "More" button)
     const isOverflowActive = overflowItems.some(
-        item => pathname === item.href || pathname?.startsWith(item.href + '/')
+        item => isNavActive(pathname, item.href)
     )
 
     // Close More menu when navigating
@@ -158,7 +165,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                     {/* Navigation Items — hidden on phones, horizontal on tablet/desktop */}
                     <nav className="hidden sm:flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
                         {navItems.map((item) => {
-                            const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+                            const isActive = isNavActive(pathname, item.href)
                             return (
                                 <Link
                                     key={item.href}
@@ -194,7 +201,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
             {/* ─── Phone-only Bottom Navigation Bar ─── */}
             <nav className="mobile-bottom-nav sm:hidden" aria-label="Navegación principal móvil">
                 {bottomBarItems.map((item) => {
-                    const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+                    const isActive = isNavActive(pathname, item.href)
                     return (
                         <Link
                             key={item.href}
@@ -230,7 +237,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                         {moreMenuOpen && (
                             <div className="mobile-bottom-nav-overflow">
                                 {overflowItems.map((item) => {
-                                    const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+                                    const isActive = isNavActive(pathname, item.href)
                                     return (
                                         <Link
                                             key={item.href}
