@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { PlusCircle, Eye, ChevronRight, FolderHeart, Search, Filter, ArrowUpDown } from 'lucide-react'
 import { FASES_INFO, type FaseProceso } from '@/lib/case-workflow'
+import ExpedientesSearch from '@/components/expedientes-search'
+import { Suspense } from 'react'
 
 const RIESGO_CONFIG: Record<string, { bg: string; text: string; dot: string; label: string }> = {
     SIN_RIESGO: { bg: 'bg-slate-50', text: 'text-slate-600', dot: 'bg-slate-400', label: 'Sin Riesgo' },
@@ -22,10 +24,17 @@ const FASE_CONFIG: Record<string, { bg: string; text: string; dot: string }> = {
     CIERRE: { bg: 'bg-slate-50', text: 'text-slate-600', dot: 'bg-slate-400' },
 }
 
-export default async function CasosListPage() {
-    const supabase = await createClient()
+interface PageProps {
+    searchParams: Promise<{ q?: string }>
+}
 
-    const { data: expedientes } = await supabase
+export default async function CasosListPage({ searchParams }: PageProps) {
+    const { q } = await searchParams
+    const supabase = await createClient()
+    const searchQuery = q?.trim() || ''
+
+    // Build the query
+    let query = supabase
         .from('expedientes')
         .select(`
             *,
@@ -33,6 +42,27 @@ export default async function CasosListPage() {
         `)
         .order('created_at', { ascending: false })
         .limit(50)
+
+    const { data: allExpedientes } = await query
+
+    // Filter on the client side after fetching (since we need to search across the `personas` relation)
+    let expedientes = allExpedientes || []
+
+    if (searchQuery) {
+        const lowerQ = searchQuery.toLowerCase()
+        expedientes = expedientes.filter((exp: any) => {
+            // Search in radicado
+            if (exp.radicado?.toLowerCase().includes(lowerQ)) return true
+
+            // Search in personas (names and documents)
+            if (exp.personas?.some((p: any) =>
+                p.nombres?.toLowerCase().includes(lowerQ) ||
+                p.documento?.toLowerCase().includes(lowerQ)
+            )) return true
+
+            return false
+        })
+    }
 
     const total = expedientes?.length || 0
 
@@ -66,10 +96,20 @@ export default async function CasosListPage() {
                 </div>
             </div>
 
-            {/* Stats bar */}
-            <div className="flex items-center gap-6 text-sm">
-                <div className="flex items-center gap-2 text-slate-500">
-                    <span className="font-bold text-slate-800">{total}</span> expedientes encontrados
+            {/* Search Bar + Stats */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <Suspense fallback={
+                    <div className="flex-1 max-w-md h-10 bg-slate-100 rounded-xl animate-pulse" />
+                }>
+                    <ExpedientesSearch />
+                </Suspense>
+                <div className="flex items-center gap-2 text-sm text-slate-500 flex-shrink-0">
+                    <span className="font-bold text-slate-800">{total}</span>
+                    {searchQuery ? (
+                        <span>resultados para "<span className="font-medium text-violet-600">{searchQuery}</span>"</span>
+                    ) : (
+                        <span>expedientes encontrados</span>
+                    )}
                 </div>
             </div>
 
@@ -96,10 +136,23 @@ export default async function CasosListPage() {
                                         <td colSpan={7} className="px-5 py-16 text-center">
                                             <div className="flex flex-col items-center">
                                                 <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-3">
-                                                    <FolderHeart className="h-6 w-6 text-slate-300" />
+                                                    {searchQuery ? (
+                                                        <Search className="h-6 w-6 text-slate-300" />
+                                                    ) : (
+                                                        <FolderHeart className="h-6 w-6 text-slate-300" />
+                                                    )}
                                                 </div>
-                                                <p className="text-slate-500 font-medium mb-1">No hay expedientes registrados</p>
-                                                <p className="text-slate-400 text-xs">Los casos radicados aparecerán aquí</p>
+                                                {searchQuery ? (
+                                                    <>
+                                                        <p className="text-slate-500 font-medium mb-1">No se encontraron expedientes</p>
+                                                        <p className="text-slate-400 text-xs">Intenta con otro nombre o número de documento</p>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <p className="text-slate-500 font-medium mb-1">No hay expedientes registrados</p>
+                                                        <p className="text-slate-400 text-xs">Los casos radicados aparecerán aquí</p>
+                                                    </>
+                                                )}
                                             </div>
                                         </td>
                                     </tr>
@@ -171,10 +224,23 @@ export default async function CasosListPage() {
                             <div className="px-4 py-12 text-center">
                                 <div className="flex flex-col items-center">
                                     <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-3">
-                                        <FolderHeart className="h-6 w-6 text-slate-300" />
+                                        {searchQuery ? (
+                                            <Search className="h-6 w-6 text-slate-300" />
+                                        ) : (
+                                            <FolderHeart className="h-6 w-6 text-slate-300" />
+                                        )}
                                     </div>
-                                    <p className="text-slate-500 font-medium mb-1">No hay expedientes</p>
-                                    <p className="text-slate-400 text-xs">Los casos radicados aparecerán aquí</p>
+                                    {searchQuery ? (
+                                        <>
+                                            <p className="text-slate-500 font-medium mb-1">No se encontraron expedientes</p>
+                                            <p className="text-slate-400 text-xs">Intenta con otro nombre o documento</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p className="text-slate-500 font-medium mb-1">No hay expedientes</p>
+                                            <p className="text-slate-400 text-xs">Los casos radicados aparecerán aquí</p>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         ) : (
@@ -192,8 +258,11 @@ export default async function CasosListPage() {
                                                     {new Date(exp.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
                                                 </span>
                                             </div>
-                                            <p className="font-semibold text-slate-800 text-sm truncate mb-2">{victima?.nombres || '—'}</p>
-                                            <div className="flex items-center gap-2 flex-wrap">
+                                            <p className="font-semibold text-slate-800 text-sm truncate">{victima?.nombres || '—'}</p>
+                                            {victima?.documento && (
+                                                <p className="text-[11px] text-slate-400 font-mono mb-2">Doc: {victima.documento}</p>
+                                            )}
+                                            <div className="flex items-center gap-2 flex-wrap mt-1">
                                                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
                                                     <span className={`w-1 h-1 rounded-full ${faseConfig.dot}`}></span>
                                                     {FASES_INFO[faseKey]?.nombre || faseKey}

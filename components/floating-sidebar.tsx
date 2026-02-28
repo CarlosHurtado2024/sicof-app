@@ -7,6 +7,7 @@ import { SicofLogoIcon } from '@/components/sicof-logo'
 import {
     LayoutDashboard,
     Users,
+    UserSearch,
     FileText,
     Bell,
     Calendar,
@@ -43,6 +44,7 @@ function getNavItems(rol: RolUsuario | undefined): NavItem[] {
     const common: NavItem[] = [
         { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
         { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-5 w-5" /> },
+        { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-5 w-5" /> },
     ]
 
     switch (rol) {
