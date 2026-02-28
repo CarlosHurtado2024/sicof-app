@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SicofLogoIcon } from '@/components/sicof-logo'
@@ -23,7 +23,8 @@ import {
     FolderHeart,
     LogOut,
     Menu,
-    X
+    X,
+    MoreHorizontal
 } from 'lucide-react'
 import type { RolUsuario } from '@/types/db'
 
@@ -102,24 +103,48 @@ function getNavItems(rol: RolUsuario | undefined): NavItem[] {
     }
 }
 
+// Maximum items to show directly in the bottom bar (excluding "More" button)
+const MAX_BOTTOM_ITEMS = 4
+
 export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     const pathname = usePathname()
     const navItems = getNavItems(userRole)
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [moreMenuOpen, setMoreMenuOpen] = useState(false)
+    const moreMenuRef = useRef<HTMLDivElement>(null)
+
+    // Determine which items go in the bottom bar vs overflow
+    const needsMore = navItems.length > MAX_BOTTOM_ITEMS
+    const bottomBarItems = needsMore ? navItems.slice(0, MAX_BOTTOM_ITEMS - 1) : navItems
+    const overflowItems = needsMore ? navItems.slice(MAX_BOTTOM_ITEMS - 1) : []
+
+    // Check if any overflow item is active (to highlight "More" button)
+    const isOverflowActive = overflowItems.some(
+        item => pathname === item.href || pathname?.startsWith(item.href + '/')
+    )
+
+    // Close More menu when navigating
+    useEffect(() => {
+        setMoreMenuOpen(false)
+    }, [pathname])
+
+    // Close More menu when clicking outside
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
+                setMoreMenuOpen(false)
+            }
+        }
+        if (moreMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside)
+            return () => document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [moreMenuOpen])
 
     return (
         <>
+            {/* ─── Top Header Bar ─── */}
             <header className="sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm safe-top">
                 <div className="flex items-center h-14 sm:h-16 px-3 sm:px-4 gap-1">
-                    {/* Mobile Hamburger */}
-                    <button
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 hover:text-[#7C3AED] hover:bg-violet-50 transition-all flex-shrink-0"
-                        aria-label="Menú"
-                    >
-                        {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                    </button>
-
                     {/* Logo */}
                     <Link href="/dashboard" className="flex-shrink-0 mr-2 sm:mr-3">
                         <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/20">
@@ -127,11 +152,11 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                         </div>
                     </Link>
 
-                    {/* Divider — hidden on mobile */}
-                    <div className="w-px h-8 bg-slate-200 mr-2 flex-shrink-0 hidden md:block" />
+                    {/* Divider — hidden on phones */}
+                    <div className="w-px h-8 bg-slate-200 mr-2 flex-shrink-0 hidden sm:block" />
 
-                    {/* Navigation Items — hidden on mobile, horizontal on desktop */}
-                    <nav className="hidden md:flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
+                    {/* Navigation Items — hidden on phones, horizontal on tablet/desktop */}
+                    <nav className="hidden sm:flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
                         {navItems.map((item) => {
                             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
                             return (
@@ -154,8 +179,8 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                         })}
                     </nav>
 
-                    {/* Spacer for mobile to push right slot */}
-                    <div className="flex-1 md:hidden" />
+                    {/* Spacer for phone to push right slot */}
+                    <div className="flex-1 sm:hidden" />
 
                     {/* Right slot: Notifications + Team + Avatar */}
                     {rightSlot && (
@@ -166,39 +191,63 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                 </div>
             </header>
 
-            {/* Mobile Menu Overlay */}
-            {mobileMenuOpen && (
-                <div className="fixed inset-0 z-40 md:hidden">
-                    {/* Backdrop */}
-                    <div
-                        className="absolute inset-0 bg-black/30 backdrop-blur-sm"
-                        onClick={() => setMobileMenuOpen(false)}
-                    />
+            {/* ─── Phone-only Bottom Navigation Bar ─── */}
+            <nav className="mobile-bottom-nav sm:hidden" aria-label="Navegación principal móvil">
+                {bottomBarItems.map((item) => {
+                    const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+                    return (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`mobile-bottom-nav-item ${isActive ? 'active' : ''}`}
+                        >
+                            <span className="mobile-bottom-nav-icon">
+                                {item.icon}
+                            </span>
+                            <span className="mobile-bottom-nav-label">{item.label}</span>
+                            {isActive && <span className="mobile-bottom-nav-indicator" />}
+                        </Link>
+                    )
+                })}
 
-                    {/* Slide-down Panel */}
-                    <div className="absolute top-14 left-0 right-0 bg-white border-b border-slate-200 shadow-xl max-h-[70vh] overflow-y-auto safe-top animate-in slide-in-from-top-2 duration-200">
-                        <nav className="p-3 space-y-1">
-                            {navItems.map((item) => {
-                                const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
-                                return (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive
-                                            ? 'bg-[#7C3AED] text-white shadow-md shadow-violet-500/25'
-                                            : 'text-slate-600 hover:text-[#7C3AED] hover:bg-violet-50'
-                                            }`}
-                                    >
-                                        {item.icon}
-                                        <span>{item.label}</span>
-                                    </Link>
-                                )
-                            })}
-                        </nav>
+                {/* "More" button if overflow items exist */}
+                {needsMore && (
+                    <div className="relative" ref={moreMenuRef}>
+                        <button
+                            onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+                            className={`mobile-bottom-nav-item ${isOverflowActive || moreMenuOpen ? 'active' : ''}`}
+                            aria-label="Más opciones"
+                            aria-expanded={moreMenuOpen}
+                        >
+                            <span className="mobile-bottom-nav-icon">
+                                <MoreHorizontal className="h-5 w-5" />
+                            </span>
+                            <span className="mobile-bottom-nav-label">Más</span>
+                            {(isOverflowActive || moreMenuOpen) && <span className="mobile-bottom-nav-indicator" />}
+                        </button>
+
+                        {/* Overflow menu popup */}
+                        {moreMenuOpen && (
+                            <div className="mobile-bottom-nav-overflow">
+                                {overflowItems.map((item) => {
+                                    const isActive = pathname === item.href || pathname?.startsWith(item.href + '/')
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setMoreMenuOpen(false)}
+                                            className={`mobile-bottom-nav-overflow-item ${isActive ? 'active' : ''}`}
+                                        >
+                                            <span className="mobile-bottom-nav-overflow-icon">{item.icon}</span>
+                                            <span>{item.label}</span>
+                                        </Link>
+                                    )
+                                })}
+                            </div>
+                        )}
                     </div>
-                </div>
-            )}
+                )}
+            </nav>
         </>
     )
 }

@@ -120,3 +120,192 @@
     touch-action: manipulation;
   }
 }
+
+/* ─── Mobile Bottom Navigation Bar (phones only, < 640px) ─── */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  align-items: stretch;
+  justify-content: space-around;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+  box-shadow: 0 -4px 24px -4px rgba(0, 0, 0, 0.08),
+              0 -1px 6px -1px rgba(0, 0, 0, 0.04);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  height: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 639px) {
+  .mobile-bottom-nav {
+    display: flex;
+  }
+}
+
+.mobile-bottom-nav-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 2px;
+  padding: 6px 2px 8px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.mobile-bottom-nav-item.active {
+  color: #7C3AED;
+}
+
+.mobile-bottom-nav-item:active {
+  transform: scale(0.92);
+}
+
+.mobile-bottom-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
+  background: rgba(124, 58, 237, 0.1);
+  transform: translateY(-1px);
+}
+
+.mobile-bottom-nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.mobile-bottom-nav-item.active .mobile-bottom-nav-label {
+  font-weight: 600;
+  color: #7C3AED;
+}
+
+/* Active indicator dot */
+.mobile-bottom-nav-indicator {
+  position: absolute;
+  bottom: calc(4px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #7C3AED;
+  animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes bottomNavIndicatorIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* Overflow "More" popup */
+.mobile-bottom-nav-overflow {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: -8px;
+  min-width: 200px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.15),
+              0 4px 12px -4px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  padding: 6px;
+  animation: bottomNavOverflowIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom right;
+}
+
+@keyframes bottomNavOverflowIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mobile-bottom-nav-overflow-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.mobile-bottom-nav-overflow-item:active {
+  transform: scale(0.98);
+}
+
+.mobile-bottom-nav-overflow-item.active {
+  background: rgba(124, 58, 237, 0.08);
+  color: #7C3AED;
+  font-weight: 600;
+}
+
+.mobile-bottom-nav-overflow-item:not(.active):hover {
+  background: #f8fafc;
+  color: #7C3AED;
+}
+
+.mobile-bottom-nav-overflow-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+}
+
+/* Add bottom spacing to main content on phones to prevent content from being hidden behind the bottom nav */
+@media (max-width: 639px) {
+  main {
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
