@@ -286,7 +286,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                         <CardHeader className="border-b bg-slate-50/50">
                             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                                 <div className="flex items-center gap-2">
-                                    <HeartPulse className="h-5 w-5 text-purple-600" />
+                                    <HeartPulse className="h-5 w-5 text-slate-700" />
                                     <CardTitle className="text-base">Fase 2: Valoración Interdisciplinaria</CardTitle>
                                 </div>
                                 <Link href={`/dashboard/casos/${id}/valoracion`}>
@@ -358,7 +358,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                     <div className="space-y-2">
                                         {expediente.audiencias.map((a: any) => (
                                             <div key={a.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                                                <Scale className="h-4 w-4 text-violet-600" />
+                                                <Scale className="h-4 w-4 text-slate-600" />
                                                 <div className="flex-1">
                                                     <p className="text-sm font-medium">{a.tipo?.replace(/_/g, ' ')}</p>
                                                     <p className="text-xs text-slate-500">

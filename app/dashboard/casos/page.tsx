@@ -18,7 +18,7 @@ const RIESGO_CONFIG: Record<string, { bg: string; text: string; dot: string; lab
 
 const FASE_CONFIG: Record<string, { bg: string; text: string; dot: string }> = {
     RECEPCION: { bg: 'bg-blue-50', text: 'text-blue-700', dot: 'bg-blue-500' },
-    VALORACION: { bg: 'bg-violet-50', text: 'text-violet-700', dot: 'bg-violet-500' },
+    VALORACION: { bg: 'bg-slate-100', text: 'text-slate-700', dot: 'bg-slate-900' },
     MEDIDAS: { bg: 'bg-amber-50', text: 'text-amber-700', dot: 'bg-amber-500' },
     SEGUIMIENTO: { bg: 'bg-emerald-50', text: 'text-emerald-700', dot: 'bg-emerald-500' },
     CIERRE: { bg: 'bg-slate-50', text: 'text-slate-600', dot: 'bg-slate-400' },
@@ -73,13 +73,13 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                 <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
                     <span>Inicio</span>
                     <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="text-[#7C3AED]">Expedientes</span>
+                    <span className="text-[#1B2A4A]">Expedientes</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-800 flex items-center gap-3">
-                            <div className="p-2 bg-violet-50 rounded-xl">
-                                <FolderHeart className="h-5 w-5 text-[#7C3AED]" />
+                            <div className="p-2 bg-slate-100 rounded-xl">
+                                <FolderHeart className="h-5 w-5 text-[#1B2A4A]" />
                             </div>
                             Expedientes
                         </h1>
@@ -87,7 +87,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                     </div>
                     <div className="flex items-center gap-3">
                         <Link href="/dashboard/recepcion/nuevo-caso">
-                            <Button className="bg-[#7C3AED] hover:bg-[#6D28D9] gap-2 rounded-xl font-semibold text-sm shadow-lg shadow-violet-500/20 transition-all hover:-translate-y-0.5 px-5 py-2.5">
+                            <Button className="bg-[#1B2A4A] hover:bg-[#142035] gap-2 rounded-xl font-semibold text-sm shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 px-5 py-2.5">
                                 <PlusCircle size={16} />
                                 Radicar Nuevo Caso
                             </Button>
@@ -106,7 +106,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                 <div className="flex items-center gap-2 text-sm text-slate-500 flex-shrink-0">
                     <span className="font-bold text-slate-800">{total}</span>
                     {searchQuery ? (
-                        <span>resultados para "<span className="font-medium text-violet-600">{searchQuery}</span>"</span>
+                        <span>resultados para "<span className="font-medium text-slate-800">{searchQuery}</span>"</span>
                     ) : (
                         <span>expedientes encontrados</span>
                     )}
@@ -163,9 +163,9 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                         const faseConfig = FASE_CONFIG[faseKey] || FASE_CONFIG.RECEPCION
                                         const riesgoConfig = RIESGO_CONFIG[exp.nivel_riesgo] || RIESGO_CONFIG.SIN_RIESGO
                                         return (
-                                            <tr key={exp.id} className="hover:bg-violet-50/30 transition-colors group">
+                                            <tr key={exp.id} className="hover:bg-slate-100/30 transition-colors group">
                                                 <td className="px-5 py-4">
-                                                    <span className="font-mono font-bold text-[#7C3AED] text-xs bg-violet-50 px-2.5 py-1 rounded-md">{exp.radicado}</span>
+                                                    <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2.5 py-1 rounded-md">{exp.radicado}</span>
                                                 </td>
                                                 <td className="px-5 py-4">
                                                     <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                                         <Button
                                                             variant="ghost"
                                                             size="sm"
-                                                            className="gap-1.5 text-[#7C3AED] hover:text-[#6D28D9] hover:bg-violet-50 rounded-lg font-semibold text-xs"
+                                                            className="gap-1.5 text-[#1B2A4A] hover:text-[#142035] hover:bg-slate-100 rounded-lg font-semibold text-xs"
                                                         >
                                                             <Eye size={14} />
                                                             Ver
@@ -251,9 +251,9 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                 const riesgoConfig = RIESGO_CONFIG[exp.nivel_riesgo] || RIESGO_CONFIG.SIN_RIESGO
                                 return (
                                     <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
-                                        <div className="p-4 hover:bg-violet-50/30 transition-colors active:bg-violet-50">
+                                        <div className="p-4 hover:bg-slate-100/30 transition-colors active:bg-slate-100">
                                             <div className="flex items-center justify-between mb-2">
-                                                <span className="font-mono font-bold text-[#7C3AED] text-xs bg-violet-50 px-2 py-0.5 rounded">{exp.radicado}</span>
+                                                <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2 py-0.5 rounded">{exp.radicado}</span>
                                                 <span className="text-[10px] text-slate-400">
                                                     {new Date(exp.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
                                                 </span>

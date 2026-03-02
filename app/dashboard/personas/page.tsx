@@ -1,4 +1,4 @@
-
+﻿
 import { createClient } from '@/lib/supabase/server'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -49,13 +49,13 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                 <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
                     <span>Inicio</span>
                     <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="text-[#7C3AED]">Personas</span>
+                    <span className="text-[#1B2A4A]">Personas</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-800 flex items-center gap-3">
-                            <div className="p-2 bg-violet-50 rounded-xl">
-                                <UserSearch className="h-5 w-5 text-[#7C3AED]" />
+                            <div className="p-2 bg-slate-100 rounded-xl">
+                                <UserSearch className="h-5 w-5 text-[#1B2A4A]" />
                             </div>
                             Personas Registradas
                         </h1>
@@ -72,7 +72,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                 <div className="flex items-center gap-2 text-sm text-slate-500 flex-shrink-0">
                     <span className="font-bold text-slate-800">{total}</span>
                     {searchQuery ? (
-                        <span>resultados para "<span className="font-medium text-violet-600">{searchQuery}</span>"</span>
+                        <span>resultados para "<span className="font-medium text-slate-800">{searchQuery}</span>"</span>
                     ) : (
                         <span>personas registradas</span>
                     )}
@@ -123,7 +123,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                         const initials = p.nombres?.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase() || '??'
                                         const fotoUrl = p.datos_demograficos?.foto_url
                                         return (
-                                            <tr key={p.id} className="hover:bg-violet-50/30 transition-colors group">
+                                            <tr key={p.id} className="hover:bg-slate-100/30 transition-colors group">
                                                 <td className="px-5 py-4">
                                                     <div className="flex items-center gap-3">
                                                         {fotoUrl ? (
@@ -148,7 +148,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 <td className="px-5 py-4">
                                                     {p.expediente ? (
                                                         <Link href={`/dashboard/casos/${p.expediente.id}`}>
-                                                            <span className="font-mono font-bold text-[#7C3AED] text-xs bg-violet-50 px-2.5 py-1 rounded-md hover:bg-violet-100 transition-colors">
+                                                            <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2.5 py-1 rounded-md hover:bg-slate-200 transition-colors">
                                                                 {p.expediente.radicado}
                                                             </span>
                                                         </Link>
@@ -161,7 +161,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 </td>
                                                 <td className="px-5 py-4 text-right">
                                                     <Link href={`/dashboard/personas/${p.id}`}>
-                                                        <Button variant="ghost" size="sm" className="gap-1.5 text-[#7C3AED] hover:text-[#6D28D9] hover:bg-violet-50 rounded-lg font-semibold text-xs">
+                                                        <Button variant="ghost" size="sm" className="gap-1.5 text-[#1B2A4A] hover:text-[#142035] hover:bg-slate-100 rounded-lg font-semibold text-xs">
                                                             <Eye size={14} />
                                                             Ver
                                                         </Button>
@@ -203,7 +203,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                 const fotoUrl = p.datos_demograficos?.foto_url
                                 return (
                                     <Link key={p.id} href={`/dashboard/personas/${p.id}`} className="block">
-                                        <div className="p-4 hover:bg-violet-50/30 transition-colors active:bg-violet-50">
+                                        <div className="p-4 hover:bg-slate-100/30 transition-colors active:bg-slate-100">
                                             <div className="flex items-center gap-3 mb-2">
                                                 {fotoUrl ? (
                                                     <img src={fotoUrl} alt="" className="w-9 h-9 rounded-full object-cover ring-2 ring-slate-100" />
@@ -222,7 +222,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                             </div>
                                             <div className="flex items-center gap-3 text-[11px] text-slate-500 ml-12">
                                                 {p.expediente && (
-                                                    <span className="font-mono text-[#7C3AED] font-bold">{p.expediente.radicado}</span>
+                                                    <span className="font-mono text-[#1B2A4A] font-bold">{p.expediente.radicado}</span>
                                                 )}
                                                 {p.telefono && (
                                                     <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{p.telefono}</span>

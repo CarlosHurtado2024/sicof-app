@@ -63,19 +63,19 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7C3AED] via-[#6D28D9] to-[#5B21B6] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-violet-500/15">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1B2A4A] via-[#142035] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/15">
                 <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
                 <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl"></div>
                 <div className="relative z-10">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <p className="text-violet-200 text-sm font-medium mb-1">
+                            <p className="text-slate-300 text-sm font-medium mb-1">
                                 {getGreeting()}, {firstName} 👋
                             </p>
                             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                                 {getRolTitle(userRole)}
                             </h2>
-                            <p className="text-violet-200/80 mt-2 text-sm max-w-lg">
+                            <p className="text-slate-300/80 mt-2 text-sm max-w-lg">
                                 {getRolDescription(userRole)}
                             </p>
                         </div>
@@ -97,9 +97,9 @@ export default async function DashboardPage() {
                     title="Total Expedientes"
                     value={stats.totalCasos}
                     icon={<FolderHeart className="h-5 w-5" />}
-                    gradient="from-violet-500 to-purple-600"
-                    bgLight="bg-violet-50"
-                    textColor="text-violet-600"
+                    gradient="from-slate-900 to-slate-800"
+                    bgLight="bg-slate-100"
+                    textColor="text-slate-800"
                 />
                 <KPICard
                     title="En Trámite"
@@ -121,7 +121,7 @@ export default async function DashboardPage() {
                     title="Medidas Vigentes"
                     value={stats.medidasVigentes}
                     icon={<ShieldCheck className="h-5 w-5" />}
-                    gradient="from-blue-500 to-indigo-600"
+                    gradient="from-blue-500 to-slate-700"
                     bgLight="bg-blue-50"
                     textColor="text-blue-600"
                 />
@@ -130,7 +130,7 @@ export default async function DashboardPage() {
             {/* Role-specific modules */}
             <div>
                 <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <span className="w-1 h-5 bg-[#7C3AED] rounded-full"></span>
+                    <span className="w-1 h-5 bg-[#1B2A4A] rounded-full"></span>
                     Módulos Disponibles
                 </h3>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -170,8 +170,8 @@ function AuxiliarModules() {
         <>
             <ModuleCard
                 icon={<Users className="h-5 w-5" />}
-                iconBg="bg-violet-50"
-                iconColor="text-[#7C3AED]"
+                iconBg="bg-slate-100"
+                iconColor="text-[#1B2A4A]"
                 title="Recepción y Radicación"
                 subtitle="Ventanilla Única Digital"
                 description="Registro de minuta, ingreso de usuarios, validación de competencia y generación de radicado."
@@ -223,8 +223,8 @@ function PsicosocialModules() {
             />
             <ModuleCard
                 icon={<FileText className="h-5 w-5" />}
-                iconBg="bg-indigo-50"
-                iconColor="text-indigo-600"
+                iconBg="bg-slate-100"
+                iconColor="text-slate-700"
                 title="Informes Periciales"
                 subtitle="Equipo Interdisciplinario"
                 description="Generar informes de valoración psicológica, visita domiciliaria y verificación de derechos."
@@ -305,8 +305,8 @@ function ComisarioModules() {
             />
             <ModuleCard
                 icon={<Scale className="h-5 w-5" />}
-                iconBg="bg-violet-50"
-                iconColor="text-violet-600"
+                iconBg="bg-slate-100"
+                iconColor="text-slate-800"
                 title="Audiencias"
                 subtitle="Sala de Audiencia"
                 description="Programar, dirigir audiencias y emitir fallos de medidas de protección."
@@ -340,7 +340,7 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <Card className="flex flex-col border border-slate-100 shadow-sm hover:shadow-md hover:border-violet-200/50 transition-all duration-300 rounded-xl overflow-hidden group">
+        <Card className="flex flex-col border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-300/50 transition-all duration-300 rounded-xl overflow-hidden group">
             <div className="p-6 flex-1">
                 <div className="flex items-start gap-3.5 mb-4">
                     <div className={`${iconBg} ${iconColor} p-2.5 rounded-xl group-hover:scale-105 transition-transform duration-300 flex-shrink-0`}>
@@ -359,8 +359,8 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
                         key={i}
                         variant={action.variant}
                         className={`w-full justify-between rounded-lg text-sm ${action.variant === 'default'
-                            ? 'bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm shadow-violet-500/20'
-                            : 'border-slate-200 hover:border-violet-300 hover:text-[#7C3AED] hover:bg-violet-50/50'
+                            ? 'bg-[#1B2A4A] hover:bg-[#142035] text-white shadow-sm shadow-slate-900/20'
+                            : 'border-slate-200 hover:border-slate-400 hover:text-[#1B2A4A] hover:bg-slate-100/50'
                             }`}
                         asChild
                     >
@@ -404,6 +404,6 @@ function getRolDescription(rol: RolUsuario | undefined): string {
         case 'ABOGADO': return 'Asesora jurídicamente y apoya la generación de documentos procesales.'
         case 'COMISARIO': return 'Firma autos, dirige audiencias y monitorea indicadores de gestión.'
         case 'ADMINISTRADOR': return 'Acceso completo a todos los módulos del sistema.'
-        default: return 'Bienvenido al sistema SICOF.'
+        default: return 'Bienvenido al sistema Komi.'
     }
 }

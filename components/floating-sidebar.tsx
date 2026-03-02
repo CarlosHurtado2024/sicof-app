@@ -156,7 +156,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                 <div className="flex items-center h-14 sm:h-16 px-3 sm:px-4 gap-1">
                     {/* Logo */}
                     <Link href="/dashboard" className="flex-shrink-0 mr-2 sm:mr-3">
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#7C3AED] to-[#5B21B6] rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/20">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#1B2A4A] to-[#0F1A2E] rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
                             <SicofLogoIcon className="w-6 h-6 sm:w-7 sm:h-7" inverted={true} />
                         </div>
                     </Link>
@@ -173,8 +173,8 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                                     key={item.href}
                                     href={item.href}
                                     className={`group relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${isActive
-                                        ? 'bg-[#7C3AED] text-white shadow-md shadow-violet-500/25'
-                                        : 'text-slate-500 hover:text-[#7C3AED] hover:bg-violet-50'
+                                        ? 'bg-[#1B2A4A] text-white shadow-md shadow-slate-900/25'
+                                        : 'text-slate-500 hover:text-[#1B2A4A] hover:bg-slate-100'
                                         }`}
                                 >
                                     {item.icon}

@@ -48,7 +48,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400 text-sm mb-2 font-medium">
                         <span>Inicio</span>
                         <ChevronRight className="h-3.5 w-3.5" />
-                        <span className="text-[#7C3AED]">Recepción</span>
+                        <span className="text-[#1B2A4A]">Recepción</span>
                     </div>
                     <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
                         {isCrisisMode ? '🚨 Atención de Emergencia' : 'Recepción y Radicación'}
@@ -68,7 +68,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     </div>
                     {!isCrisisMode && (
                         <Link href="/dashboard/recepcion/nuevo-caso" className="w-full sm:w-auto">
-                            <Button className="w-full sm:w-auto bg-[#7C3AED] hover:opacity-90 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center shadow-lg shadow-[#7C3AED]/25 transition-all active:scale-95">
+                            <Button className="w-full sm:w-auto bg-[#1B2A4A] hover:opacity-90 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center shadow-lg shadow-[#1B2A4A]/25 transition-all active:scale-95">
                                 <Plus className="h-5 w-5 mr-2" />
                                 Radicar Caso
                             </Button>
@@ -99,7 +99,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
                         <div className="px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-700">
                             <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white flex items-center">
-                                <FileText className="mr-3 text-[#7C3AED] h-5 w-5 sm:h-6 sm:w-6" />
+                                <FileText className="mr-3 text-[#1B2A4A] h-5 w-5 sm:h-6 sm:w-6" />
                                 {isCrisisMode ? 'Registro de Crisis' : 'Nueva Minuta'}
                             </h4>
                         </div>
@@ -121,11 +121,11 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                         <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                             <div>
                                 <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">Live Queue</h4>
-                                <p className="text-[10px] text-[#7C3AED] font-bold uppercase tracking-[0.2em] mt-1">Actividad en Tiempo Real</p>
+                                <p className="text-[10px] text-[#1B2A4A] font-bold uppercase tracking-[0.2em] mt-1">Actividad en Tiempo Real</p>
                             </div>
                             <div className="relative">
                                 <input
-                                    className="pl-10 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#7C3AED]/20 w-full sm:w-64 transition-all"
+                                    className="pl-10 pr-4 py-2 text-sm bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-[#1B2A4A]/20 w-full sm:w-64 transition-all"
                                     placeholder="Buscar registros..."
                                     type="text"
                                     value={searchTerm}
@@ -177,7 +177,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                                     <span className={`px-3 py-1 rounded-full text-[11px] font-bold border uppercase tracking-wider ${minuta.motivo_visita === 'DENUNCIA'
                                                         ? 'bg-rose-50 text-rose-600 dark:bg-rose-500/10 dark:text-rose-400 border-rose-100 dark:border-rose-500/20'
                                                         : minuta.motivo_visita === 'AUDIENCIA'
-                                                            ? 'bg-purple-50 text-purple-600 dark:bg-purple-500/10 dark:text-purple-400 border-purple-100 dark:border-purple-500/20'
+                                                            ? 'bg-slate-100 text-slate-800 dark:bg-slate-700/10 dark:text-slate-500 border-slate-200 dark:border-slate-700/20'
                                                             : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-600'
                                                         }`}>
                                                         {minuta.motivo_visita}
@@ -191,8 +191,8 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                                         </div>
                                                     ) : (
                                                         <div className="flex items-center">
-                                                            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 mr-2.5"></span>
-                                                            <span className="text-sm text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-tight">En Proceso</span>
+                                                            <span className="h-1.5 w-1.5 rounded-full bg-slate-900 mr-2.5"></span>
+                                                            <span className="text-sm text-slate-700 dark:text-indigo-400 font-bold uppercase tracking-tight">En Proceso</span>
                                                         </div>
                                                     )}
                                                 </td>
@@ -230,8 +230,8 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                                         Listo
                                                     </span>
                                                 ) : (
-                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-indigo-600 uppercase">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-slate-700 uppercase">
+                                                        <span className="h-1.5 w-1.5 rounded-full bg-slate-900"></span>
                                                         Activo
                                                     </span>
                                                 )}
@@ -240,7 +240,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider ${minuta.motivo_visita === 'DENUNCIA'
                                                     ? 'bg-rose-50 text-rose-600 border-rose-100'
                                                     : minuta.motivo_visita === 'AUDIENCIA'
-                                                        ? 'bg-purple-50 text-purple-600 border-purple-100'
+                                                        ? 'bg-slate-100 text-slate-800 border-slate-200'
                                                         : 'bg-slate-100 text-slate-600 border-slate-200'
                                                     }`}>
                                                     {minuta.motivo_visita}
@@ -254,7 +254,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
 
                         {minutas?.length > 0 && (
                             <div className="p-4 sm:p-6 border-t border-slate-100 dark:border-slate-700 text-center">
-                                <button className="text-xs font-bold text-slate-400 hover:text-[#7C3AED] transition-colors uppercase tracking-[0.2em]">
+                                <button className="text-xs font-bold text-slate-400 hover:text-[#1B2A4A] transition-colors uppercase tracking-[0.2em]">
                                     Cargar más registros
                                 </button>
                             </div>

@@ -1,4 +1,4 @@
-
+﻿
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -10,20 +10,21 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#7C3AED",
+  themeColor: "#1B2A4A",
 };
 
 export const metadata: Metadata = {
-  title: "SICOF - Sistema de Gestión Integral",
+  title: "Komi — Familia y Bienestar",
   description: "Gestión para Comisarías de Familia - Ley 2126",
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/ico_komi.ico", type: "image/x-icon" },
+      { url: "/logo_komi.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/icon-192.png",
+    shortcut: "/ico_komi.ico",
     apple: "/icon-192.png",
   },
 };

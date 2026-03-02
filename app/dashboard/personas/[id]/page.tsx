@@ -79,7 +79,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 <ChevronRight className="h-3.5 w-3.5" />
                 <Link href="/dashboard/personas" className="hover:text-slate-600">Personas</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="text-[#7C3AED] truncate max-w-[200px]">{persona.nombres}</span>
+                <span className="text-[#1B2A4A] truncate max-w-[200px]">{persona.nombres}</span>
             </div>
 
             {/* Back button */}
@@ -129,7 +129,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                     <Card className="border-0 shadow-sm">
                         <CardHeader className="border-b bg-slate-50/50">
                             <CardTitle className="text-base flex items-center gap-2">
-                                <FileText className="h-4 w-4 text-[#7C3AED]" />
+                                <FileText className="h-4 w-4 text-[#1B2A4A]" />
                                 Datos Personales
                             </CardTitle>
                         </CardHeader>
@@ -152,7 +152,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                             {/* Special flags */}
                             <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
                                 {persona.discapacidad && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-purple-50 text-purple-700">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
                                         ♿ Persona con discapacidad
                                     </span>
                                 )}
@@ -187,16 +187,16 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                     <Card className="border-0 shadow-sm">
                         <CardHeader className="border-b bg-slate-50/50">
                             <CardTitle className="text-base flex items-center gap-2">
-                                <FolderHeart className="h-4 w-4 text-[#7C3AED]" />
+                                <FolderHeart className="h-4 w-4 text-[#1B2A4A]" />
                                 Expediente Principal
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="p-4">
                             {persona.expediente ? (
                                 <Link href={`/dashboard/casos/${persona.expediente.id}`} className="block">
-                                    <div className="p-3 bg-violet-50/50 rounded-lg border border-violet-100 hover:bg-violet-50 transition-colors">
+                                    <div className="p-3 bg-slate-50/50 rounded-lg border border-slate-200 hover:bg-slate-100 transition-colors">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="font-mono font-bold text-[#7C3AED] text-xs">{persona.expediente.radicado}</span>
+                                            <span className="font-mono font-bold text-[#1B2A4A] text-xs">{persona.expediente.radicado}</span>
                                             {persona.expediente.nivel_riesgo && (
                                                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.bg || ''} ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.text || ''}`}>
                                                     {RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.label || persona.expediente.nivel_riesgo}
@@ -229,7 +229,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                                     <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
                                         <div className="p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
                                             <div className="flex items-center justify-between">
-                                                <span className="font-mono font-bold text-[#7C3AED] text-xs">{exp.radicado}</span>
+                                                <span className="font-mono font-bold text-[#1B2A4A] text-xs">{exp.radicado}</span>
                                                 <span className="text-[10px] text-slate-400">{exp.estado}</span>
                                             </div>
                                             <p className="text-xs text-slate-500 mt-1">{exp.tipologia_violencia}</p>

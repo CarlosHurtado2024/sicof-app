@@ -3,7 +3,7 @@ import UnderConstruction from "@/components/under-construction"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-    title: "Página no encontrada o en construcción - SICOF",
+    title: "Página no encontrada o en construcción - Komi",
 }
 
 export default function NotFound() {

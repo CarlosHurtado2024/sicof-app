@@ -71,7 +71,7 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
             <Button
                 onClick={() => setIsOpen(true)}
                 variant="outline"
-                className="gap-2 rounded-xl border-violet-200 text-[#7C3AED] hover:bg-violet-50 hover:text-[#6D28D9]"
+                className="gap-2 rounded-xl border-slate-300 text-[#1B2A4A] hover:bg-slate-100 hover:text-[#142035]"
             >
                 <Pencil size={14} />
                 Editar Datos
@@ -112,7 +112,7 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
                             <select
                                 value={form.zona}
                                 onChange={(e) => handleChange('zona', e.target.value)}
-                                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-400"
+                                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500"
                             >
                                 <option value="">Sin especificar</option>
                                 <option value="URBANA">Urbana</option>
@@ -135,7 +135,7 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
                             id="discapacidad"
                             checked={form.discapacidad}
                             onChange={(e) => handleChange('discapacidad', e.target.checked)}
-                            className="w-4 h-4 rounded border-slate-300 text-[#7C3AED] focus:ring-violet-500"
+                            className="w-4 h-4 rounded border-slate-300 text-[#1B2A4A] focus:ring-slate-900"
                         />
                         <label htmlFor="discapacidad" className="text-sm text-slate-700">Persona con discapacidad</label>
                     </div>
@@ -157,7 +157,7 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
                     <Button
                         onClick={handleSubmit}
                         disabled={isPending}
-                        className="bg-[#7C3AED] hover:bg-[#6D28D9] gap-2 rounded-xl font-semibold shadow-lg shadow-violet-500/20"
+                        className="bg-[#1B2A4A] hover:bg-[#142035] gap-2 rounded-xl font-semibold shadow-lg shadow-slate-900/20"
                     >
                         {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                         {isPending ? 'Guardando...' : 'Guardar Cambios'}
@@ -178,7 +178,7 @@ function FormField({ label, value, onChange, type = 'text' }: {
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-400 transition-all"
+                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500 transition-all"
             />
         </div>
     )

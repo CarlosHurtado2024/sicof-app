@@ -1,0 +1,759 @@
+================================================================================
+    SICOF — SISTEMA INTEGRAL PARA COMISARÍAS DE FAMILIA
+    Documentación Completa del Funcionamiento de la Aplicación
+    Fecha: 2 de marzo de 2026
+================================================================================
+
+
+1. ¿QUÉ ES SICOF?
+================================================================================
+
+SICOF (Sistema Integral de Comisarías de Familia) es una aplicación web tipo
+PWA (Progressive Web App) diseñada para digitalizar y modernizar los procesos
+de atención a víctimas de violencia intrafamiliar en las Comisarías de Familia
+de Colombia.
+
+La plataforma cubre todo el ciclo de vida de un caso, desde la recepción
+inicial del usuario hasta el cierre del expediente o la gestión de incidentes
+de incumplimiento, siguiendo estrictamente la ruta de atención integral
+establecida por la Ley 2126 de 2021.
+
+Objetivos principales:
+  - Digitalizar la gestión de expedientes y minutas de atención.
+  - Automatizar la validación de competencia legal y la valoración de riesgo.
+  - Garantizar el cumplimiento de los términos legales (4 horas para medida
+    provisional, 30 días para audiencia, 10 días para fallo, etc.).
+  - Facilitar la comunicación en tiempo real entre el equipo interdisciplinario
+    mediante notificaciones instantáneas y alertas de crisis.
+  - Proveer un dashboard personalizado según el rol del funcionario.
+  - Funcionar como PWA, instalable en cualquier dispositivo.
+
+
+2. TECNOLOGÍAS UTILIZADAS
+================================================================================
+
+  - Next.js 16.1.6      -> Framework principal (App Router, Server Components,
+                            Server Actions)
+  - React 19.2.3         -> Librería de interfaz de usuario
+  - TypeScript 5.x       -> Tipado estático
+  - Supabase             -> Backend-as-a-Service (Auth, PostgreSQL, Realtime,
+                            Storage)
+  - Tailwind CSS 4.x     -> Framework de estilos CSS
+  - Zod 4.x              -> Validación de esquemas de datos
+  - Radix UI             -> Componentes accesibles (Checkbox, Dropdown, etc.)
+  - Lucide React         -> Librería de íconos
+  - date-fns 4.x         -> Manipulación de fechas
+  - Netlify              -> Plataforma de hosting y despliegue
+
+
+3. ESTRUCTURA GENERAL DEL PROYECTO
+================================================================================
+
+El proyecto sigue la estructura estándar de Next.js con App Router:
+
+  app/                    -> Rutas y páginas de la aplicación
+    layout.tsx            -> Layout raíz (tipografía Inter, metadata, PWA)
+    page.tsx              -> Landing page pública
+    not-found.tsx         -> Página 404 personalizada
+    globals.css           -> Estilos globales
+    login/page.tsx        -> Página de inicio de sesión
+    auth/
+      callback/route.ts   -> Callback de autenticación OAuth
+      signout/route.ts    -> Cierre de sesión
+    dashboard/
+      layout.tsx          -> Layout protegido del dashboard
+      page.tsx            -> Dashboard principal con KPIs y módulos
+      recepcion/          -> Módulo de recepción (FUNCIONAL)
+      casos/              -> Lista y detalle de expedientes (FUNCIONAL)
+      personas/           -> Directorio de personas (FUNCIONAL)
+      valoraciones/       -> En construcción
+      casos-asignados/    -> En construcción
+      informes/           -> En construcción
+      gestion-documental/ -> En construcción
+      autos/              -> En construcción
+      terminos/           -> En construcción
+      audiencias/         -> En construcción
+      notificaciones/     -> En construcción
+      firma/              -> En construcción
+      control/            -> En construcción
+      estadisticas/       -> En construcción
+      agenda/             -> En construcción
+      administrativo/     -> En construcción
+      configuracion/      -> En construcción
+
+  components/             -> Componentes reutilizables de React
+    client-layout-wrapper.tsx   -> Wrapper client-side del layout
+    floating-sidebar.tsx        -> Barra de navegación (top + bottom móvil)
+    notification-bell.tsx       -> Campana de notificaciones en tiempo real
+    crisis-alert-banner.tsx     -> Banner de alertas de crisis
+    expedientes-search.tsx      -> Buscador de expedientes
+    personas-search.tsx         -> Buscador de personas
+    sicof-logo.tsx              -> Logo SVG de SICOF
+    under-construction.tsx      -> Página "En Construcción" reutilizable
+    user-menu.tsx               -> Menú de usuario (avatar + logout)
+    module-recepcion/
+      reception-dashboard.tsx   -> Dashboard de recepción
+      minuta-form.tsx           -> Formulario de registro de minutas
+      triage-form.tsx           -> Formulario de triaje (~71KB, el más grande)
+      crisis-form.tsx           -> Formulario de atención en crisis
+    module-riesgo/
+      risk-form.tsx             -> Formulario de valoración de riesgo
+    personas/
+      persona-edit-form.tsx     -> Formulario de edición de persona
+      persona-photo.tsx         -> Componente de foto de persona
+    presence/
+      OnlineUsersPanel.tsx      -> Panel de usuarios en línea
+      PresenceWrapper.tsx       -> Wrapper del sistema de presencia
+    ui/                         -> Componentes base (button, card, input, etc.)
+
+  lib/                    -> Lógica de negocio y utilidades
+    supabase/
+      server.ts           -> Cliente Supabase para Server Components
+      client.ts           -> Cliente Supabase para componentes cliente
+    actions/              -> Server Actions de Next.js
+      triage.ts           -> Radicación completa de casos
+      crisis.ts           -> Registro de crisis y alertas
+      personas.ts         -> Edición y fotos de personas
+      risk.ts             -> Guardar valoración de riesgo
+      minutas.ts          -> Crear minutas de registro
+    hooks/                -> Hooks personalizados de React
+      useNotifications.ts -> Notificaciones en tiempo real
+      useCrisisAlerts.ts  -> Alertas de crisis con sonido
+      usePresence.ts      -> Presencia de usuarios online
+    auth-helpers.ts       -> Obtener perfil de usuario autenticado
+    case-workflow.ts      -> Máquina de estados del flujo procesal
+    competence-logic.ts   -> Motor de reglas de competencia legal
+    deadline-logic.ts     -> Cálculo de términos y semáforos legales
+    risk-logic.ts         -> Algoritmo de valoración de riesgo
+    utils.ts              -> Utilidades generales
+
+  types/
+    db.ts                 -> Tipos TypeScript del modelo de datos
+
+  public/                 -> Archivos estáticos (íconos, manifest PWA)
+  middleware.ts           -> Middleware de autenticación de sesión
+
+
+4. AUTENTICACIÓN Y SEGURIDAD
+================================================================================
+
+La app utiliza Supabase Auth para manejar la autenticación:
+
+FLUJO DE LOGIN:
+  1. El usuario ingresa su correo y contraseña en la página /login.
+  2. Se llama a supabase.auth.signInWithPassword() desde el cliente.
+  3. Si las credenciales son correctas, Supabase devuelve un token JWT y
+     establece una sesión basada en cookies.
+  4. El usuario es redirigido al /dashboard.
+
+MIDDLEWARE DE SESIÓN (middleware.ts):
+  - Se ejecuta en CADA petición HTTP (excepto archivos estáticos).
+  - Crea un cliente Supabase server-side y llama a getUser() para refrescar
+    la sesión automáticamente.
+  - Esto mantiene las cookies de autenticación actualizadas.
+
+PROTECCIÓN DEL DASHBOARD (dashboard/layout.tsx):
+  - Es un Server Component que llama a getUserProfile().
+  - Si no hay usuario autenticado, redirige a /login.
+  - Si hay usuario, obtiene su perfil (nombre, rol) de la tabla "usuarios"
+    y pasa esta información a los componentes hijos.
+
+CIERRE DE SESIÓN:
+  - El usuario hace clic en "Cerrar Sesión" en el menú de usuario.
+  - Se envía un POST a /auth/signout que llama a supabase.auth.signOut().
+  - Se redirige al /login.
+
+
+5. ROLES DE USUARIO
+================================================================================
+
+El sistema implementa control de acceso basado en roles (RBAC) con 9 roles:
+
+  COMISARIO          -> Comisario/a de Familia
+                        Módulos: Firma, Audiencias, Control, Estadísticas
+
+  SECRETARIO         -> Secretario/a de Despacho
+                        Módulos: Documentos, Autos, Términos, Notificaciones
+
+  PSICOLOGO          -> Psicólogo/a
+                        Módulos: Valoraciones, Casos Asignados, Informes
+
+  TRABAJADOR_SOCIAL  -> Trabajador/a Social
+                        Módulos: Valoraciones, Casos Asignados, Informes
+
+  ABOGADO            -> Abogado/a
+                        Módulos: Documentos, Autos, Términos, Notificaciones
+
+  AUXILIAR           -> Auxiliar Administrativo
+                        Módulos: Recepción, Documentos, Agenda, Notificaciones
+
+  PRACTICANTE        -> Practicante
+                        Módulos: Solo los comunes
+
+  USUARIO_EXTERNO    -> Usuario Externo
+                        Módulos: Solo los comunes
+
+  ADMINISTRADOR      -> Administrador
+                        Módulos: Acceso total a todo el sistema
+
+MÓDULOS COMUNES A TODOS LOS ROLES:
+  - Dashboard (panel principal con KPIs)
+  - Expedientes (lista y detalle de casos)
+  - Personas (directorio de personas vinculadas a casos)
+
+La barra de navegación se adapta dinámicamente al rol del usuario. La función
+getNavItems() en floating-sidebar.tsx determina qué ítems de menú mostrar
+según el rol.
+
+
+6. MÓDULOS FUNCIONALES (IMPLEMENTADOS)
+================================================================================
+
+6.1. LANDING PAGE PÚBLICA  (Ruta: /)
+    - Página de presentación del sistema.
+    - Diseño moderno con información sobre la Ley 2126 y funcionalidades.
+    - Botón de acceso al login.
+
+6.2. DASHBOARD PRINCIPAL  (Ruta: /dashboard)
+    - KPIs en tiempo real consultados desde la base de datos:
+        * Total de Expedientes
+        * Casos en Trámite
+        * Casos en Seguimiento
+        * Medidas Vigentes
+    - Saludo personalizado según la hora del día y nombre del usuario.
+    - Módulos renderizados condicionalmente según el rol:
+        * Auxiliar: Recepción, Gestión Documental, Agenda
+        * Psicosocial: Valoraciones de Riesgo, Informes, Casos Asignados
+        * Secretario/Abogado: Autos, Términos, Notificaciones
+        * Comisario: Firma, Audiencias, Estadísticas
+        * Administrador: Todos los módulos
+
+6.3. MÓDULO DE RECEPCIÓN  (Ruta: /dashboard/recepcion)
+    - Vista del día con KPIs:
+        * Total de visitantes hoy
+        * Personas en atención (sin hora de salida)
+        * Casos de crisis registrados
+        * Radicados generados hoy
+    - Registro de minutas (nombre, documento, motivo, observaciones).
+    - Formulario de ATENCIÓN EN CRISIS para situaciones de emergencia.
+
+6.4. FORMULARIO DE TRIAJE / NUEVO CASO  (Ruta: /dashboard/recepcion/nuevo-caso)
+    Proceso de radicación en múltiples pasos:
+
+    Paso 1 - Datos de la Víctima:
+      Nombres, documento, tipo de documento, fecha de nacimiento, género,
+      dirección, zona (rural/urbana), barrio/vereda, teléfono, email,
+      nivel educativo, discapacidad, grupo étnico, víctima de conflicto armado.
+
+    Paso 2 - Datos del Agresor:
+      Nombres, documento, alias, dirección, teléfono, ocupación,
+      acceso a armas, parentesco con la víctima.
+
+    Paso 3 - Datos del Caso:
+      Relato de hechos (mínimo 20 caracteres), tipología de violencia
+      (Física, Psicológica, Sexual, Económica, Patrimonial), ámbito
+      (Familiar / No Familiar), fecha y lugar de los hechos, municipio.
+
+    Paso 4 - Validación de Competencia (automática):
+      El sistema evalúa automáticamente si la Comisaría es competente
+      para conocer el caso según el Art. 5 de la Ley 2126.
+
+    Paso 5 - Generación de Radicado:
+      Se genera un radicado único (formato COM-YYYY-NNNN) y se crea
+      todo el expediente con los registros asociados.
+
+6.5. LISTA DE EXPEDIENTES  (Ruta: /dashboard/casos)
+    - Lista de todos los expedientes registrados.
+    - Buscador por radicado, nombre de víctima o documento.
+    - Badges de colores para estado del caso y nivel de riesgo.
+    - Enlace al detalle de cada expediente.
+
+6.6. DETALLE DE CASO/EXPEDIENTE  (Ruta: /dashboard/casos/[id])
+    - Vista completa del expediente con toda su información.
+    - Stepper visual de las 5 fases del proceso.
+    - Datos de la víctima y el agresor.
+    - Historial de actuaciones.
+    - Valoraciones de riesgo realizadas.
+    - Formulario integrado para aplicar nueva valoración de riesgo.
+
+6.7. MÓDULO DE PERSONAS  (Ruta: /dashboard/personas)
+    - Lista de todas las personas registradas (víctimas y agresores).
+    - Búsqueda por nombre o documento.
+    - Badges de tipo (Víctima en azul, Agresor en rojo).
+    - Vista de detalle individual con:
+        * Foto de la persona (subida al Storage de Supabase)
+        * Información personal completa
+        * Expedientes vinculados
+        * Formulario de edición inline
+    - Subida de fotos (JPG, PNG, WebP, máximo 5MB).
+
+
+7. MÓDULOS EN CONSTRUCCIÓN
+================================================================================
+
+Los siguientes 13 módulos muestran una página amigable de "En Construcción"
+con opciones para regresar a la página anterior o al dashboard:
+
+  - /dashboard/valoraciones         -> Valoraciones de Riesgo
+  - /dashboard/casos-asignados      -> Casos Asignados
+  - /dashboard/informes             -> Informes Periciales
+  - /dashboard/gestion-documental   -> Gestión Documental
+  - /dashboard/autos                -> Autos y Oficios
+  - /dashboard/terminos             -> Control de Términos
+  - /dashboard/audiencias           -> Audiencias
+  - /dashboard/notificaciones       -> Notificaciones Legales
+  - /dashboard/firma                -> Bandeja de Firma
+  - /dashboard/control              -> Tablero de Control
+  - /dashboard/estadisticas         -> Estadísticas
+  - /dashboard/agenda               -> Agenda y Programación
+  - /dashboard/administrativo       -> Administrativo
+
+
+8. MODELO DE DATOS (BASE DE DATOS)
+================================================================================
+
+La base de datos es PostgreSQL gestionada por Supabase. Las tablas principales
+son las siguientes:
+
+TABLA: usuarios
+  Campos: id, email, nombre, rol, created_at
+  Descripción: Almacena los usuarios del sistema con su rol asignado.
+
+TABLA: expedientes
+  Campos: id, radicado, fecha_apertura, estado, fase_proceso, nivel_riesgo,
+          comisaria_id, funcionario_psicosocial_id, fecha_conocimiento_hechos,
+          hechos_relato, tipologia_violencia, fecha_hechos, lugar_hechos,
+          es_competencia, descripcion_remision, created_at
+  Descripción: Tabla central que almacena los expedientes/casos legales.
+
+TABLA: personas
+  Campos: id, expediente_id, tipo (VICTIMA/AGRESOR/SOLICITANTE/TERCERO),
+          nombres, documento, tipo_documento, fecha_nacimiento, edad_calculada,
+          genero, direccion_residencia, zona, barrio_vereda, telefono, email,
+          autoriza_notificaciones, nivel_educativo, discapacidad,
+          tipo_discapacidad, grupo_etnico, es_victima_conflicto,
+          pertenece_ddhh, alias, ocupacion, acceso_armas, datos_demograficos
+  Descripción: Personas vinculadas a expedientes. El campo datos_demograficos
+               es JSONB y contiene la URL de la foto entre otros datos.
+
+TABLA: medidas
+  Campos: id, expediente_id, tipo, categoria (PROVISIONAL/DEFINITIVA),
+          descripcion, fundamento_legal, dictada_por, fecha_inicio,
+          fecha_fin, estado, created_at
+  Descripción: Medidas de protección dictadas en los casos.
+
+TABLA: actuaciones
+  Campos: id, expediente_id, tipo, contenido, archivo_url, autor_id, created_at
+  Descripción: Registro cronológico de acciones en cada expediente.
+
+TABLA: valoraciones_riesgo
+  Campos: id, expediente_id, funcionario_id, fecha_valoracion,
+          respuestas_checklist (JSONB), nivel_riesgo_calculado,
+          recomendacion_medidas, created_at
+  Descripción: Valoraciones de riesgo aplicadas con el checklist de 15
+               indicadores.
+
+TABLA: seguimientos
+  Campos: id, expediente_id, funcionario_id, fecha_programada,
+          fecha_realizada, tipo, resultado, cumplimiento, observaciones
+  Descripción: Seguimientos de cumplimiento de medidas.
+
+TABLA: audiencias
+  Campos: id, expediente_id, tipo, fecha_programada, fecha_realizada,
+          estado, acta_contenido, fallo_contenido, comisario_id
+  Descripción: Audiencias programadas o realizadas.
+
+TABLA: citaciones_notificaciones
+  Campos: id, expediente_id, audiencia_id, persona_id, tipo, medio,
+          fecha_envio, fecha_recibido, estado, funcionario_id, observaciones
+  Descripción: Citaciones y notificaciones legales enviadas.
+
+TABLA: terminos_legales
+  Campos: id, expediente_id, tipo, fecha_inicio, fecha_vencimiento,
+          cumplido, alerta_enviada
+  Descripción: Plazos legales con sistema de semáforo de vencimiento.
+
+TABLA: incidentes_incumplimiento
+  Campos: id, expediente_id, medida_id, fecha_reporte,
+          descripcion_incumplimiento, sancion_tipo, sancion_detalle,
+          estado, comisario_id
+  Descripción: Incidentes por incumplimiento de medidas de protección.
+
+TABLA: minutas
+  Campos: id, fecha_hora_ingreso, fecha_hora_salida, nombre_visitante,
+          documento_visitante, telefono_contacto, motivo_visita,
+          funcionario_id, observaciones
+  Descripción: Registro diario de visitantes a la Comisaría.
+
+TABLA: alertas_crisis
+  Campos: id, expediente_id, radicado, nombre_victima, tipologia,
+          descripcion, estado (PENDIENTE/ATENDIDA), creado_por,
+          atendido_por, atendida_at
+  Descripción: Alertas de crisis en tiempo real para el equipo.
+
+TABLA: notificaciones_internas
+  Campos: id, usuario_id, titulo, mensaje, tipo (INFO/ALERTA/CASO/
+          SISTEMA/TAREA), leida, enlace, expediente_id, created_at
+  Descripción: Notificaciones internas del sistema para cada usuario.
+
+TABLA: user_presence
+  Campos: user_id, last_seen, status (online/away/offline), updated_at
+  Descripción: Estado de presencia de cada usuario en tiempo real.
+
+
+ENUMERACIONES (ENUMS):
+  EstadoCaso:          TRAMITE, SEGUIMIENTO, CERRADO, ARCHIVO
+  FaseProceso:         RECEPCION, VALORACION, MEDIDAS, SEGUIMIENTO, CIERRE
+  RiesgoNivel:         SIN_RIESGO, BAJO, MODERADO, ALTO, CRITICO
+  TipologiaViolencia:  FISICA, PSICOLOGICA, SEXUAL, ECONOMICA, PATRIMONIAL
+  PersonaGenero:       MASCULINO, FEMENINO, TRANS, NO_BINARIO, OTRO
+  PersonaTipoDoc:      CC, TI, CE, PASAPORTE, PPT
+  MinutaMotivo:        ORIENTACION, DENUNCIA, SEGUIMIENTO, AUDIENCIA, OTRO
+  RolUsuario:          COMISARIO, SECRETARIO, PSICOLOGO, TRABAJADOR_SOCIAL,
+                       ABOGADO, AUXILIAR, PRACTICANTE, USUARIO_EXTERNO,
+                       ADMINISTRADOR
+
+
+9. LÓGICA DE NEGOCIO
+================================================================================
+
+9.1. FLUJO DEL PROCESO (MÁQUINA DE ESTADOS)
+    Archivo: lib/case-workflow.ts
+
+    Cada expediente pasa por 5 fases obligatorias en orden:
+
+    FASE 1: RECEPCIÓN       -> Registro inicial, triaje, validación de competencia
+    FASE 2: VALORACIÓN      -> Valoración psicológica, de riesgo y social
+    FASE 3: MEDIDAS         -> Medidas provisionales (4h), audiencia y fallo
+    FASE 4: SEGUIMIENTO     -> Verificación del cumplimiento de medidas
+    FASE 5: CIERRE          -> Levantamiento de medidas o incidente
+
+    Requisitos para avanzar entre fases:
+
+    Recepción -> Valoración:
+      * Debe tener registrada al menos una víctima
+      * Debe tener registrado al menos un agresor
+
+    Valoración -> Medidas:
+      * Debe tener al menos una valoración de riesgo realizada
+
+    Medidas -> Seguimiento:
+      * Debe tener al menos una medida de protección dictada
+        (provisional o definitiva)
+
+    Seguimiento -> Cierre:
+      * Debe tener al menos una verificación de cumplimiento realizada
+
+    La función puedeAvanzarFase() evalúa estos requisitos y retorna:
+      - puede_avanzar: si se cumplen todos los requisitos (true/false)
+      - fase_destino: a qué fase avanzaría
+      - requisitos_faltantes: lista de lo que falta por hacer
+      - mensaje: texto descriptivo para el usuario
+
+
+9.2. VALIDACIÓN DE COMPETENCIA LEGAL
+    Archivo: lib/competence-logic.ts
+
+    Implementa el Artículo 5 de la Ley 2126/2021 para determinar si la
+    Comisaría de Familia es competente para conocer un caso.
+
+    Criterios evaluados:
+      - ¿Los hechos ocurrieron en el municipio?
+      - ¿La víctima tiene domicilio en el municipio?
+      - ¿Es violencia intrafamiliar?
+      - ¿El agresor es familiar?
+      - ¿Hay NNA (Niños, Niñas, Adolescentes) involucrados?
+      - ¿Es violencia sexual?
+      - Edad de la víctima
+      - Parentesco entre víctima y agresor
+
+    Si NO es competente, el sistema indica:
+      - A quién remitir (Fiscalía, ICBF, Inspección de Policía, Juez de
+        Familia, Defensoría, otra Comisaría)
+      - El fundamento legal aplicable
+      - Si se puede dictar medida provisional mientras se remite
+      - Alertas especiales (NNA en peligro, riesgo de feminicidio)
+      - El texto completo del Auto de Remisión generado automáticamente
+
+
+9.3. VALORACIÓN DE RIESGO
+    Archivo: lib/risk-logic.ts
+
+    Utiliza un checklist de 15 indicadores con pesos diferenciados:
+
+    INDICADORES CRÍTICOS (peso 3 cada uno):
+      - Amenaza de muerte
+      - Amenaza con arma
+      - Violencia sexual
+      - Violación de medidas previas
+
+    INDICADORES DE ALTO RIESGO (peso 2 cada uno):
+      - Aumento de severidad de la violencia
+      - Acceso a armas
+      - Consumo de sustancias psicoactivas
+      - Presencia de NNA en el hogar
+
+    INDICADORES GENERALES (peso 1 cada uno):
+      - Violencia frecuente
+      - Antecedentes penales del agresor
+      - Víctima embarazada
+      - Víctima con discapacidad
+      - Dependencia económica de la víctima
+      - Celos excesivos del agresor
+      - Amenaza de suicidio del agresor
+
+    CLASIFICACIÓN POR PUNTAJE:
+      8+ puntos  -> CRÍTICO   (vida en peligro inminente)
+      5-7 puntos -> ALTO      (riesgo grave)
+      3-4 puntos -> MODERADO  (riesgo latente)
+      1-2 puntos -> BAJO      (alerta temprana)
+      0 puntos   -> SIN RIESGO
+
+
+9.4. TÉRMINOS LEGALES Y SEMÁFOROS
+    Archivo: lib/deadline-logic.ts
+
+    El sistema controla 4 tipos de plazos legales:
+
+    MEDIDA_PROVISIONAL_4H  -> 4 horas desde conocimiento del hecho (Art. 17)
+    AUDIENCIA_30DIAS       -> 30 días desde radicación del caso
+    FALLO_10DIAS           -> 10 días desde la audiencia
+    INCIDENTE              -> Resolución oportuna del incidente
+
+    Sistema de semáforo visual:
+      VERDE    -> Más del 50% del tiempo disponible restante
+      AMARILLO -> Menos del 50% del tiempo pero NO vencido aún
+      ROJO     -> Plazo VENCIDO
+
+    La función formatearTiempoRestante() muestra el tiempo restante en
+    formato legible, por ejemplo: "2d 5h restantes" o "45m restantes"
+    o "VENCIDO".
+
+
+10. SISTEMA DE NOTIFICACIONES EN TIEMPO REAL
+================================================================================
+
+10.1. NOTIFICACIONES INTERNAS
+    Archivo: lib/hooks/useNotifications.ts
+
+    - Se almacenan en la tabla "notificaciones_internas".
+    - Se obtienen filtradas por el ID del usuario actual.
+    - Usan Supabase Realtime para recibir nuevas notificaciones al instante
+      sin necesidad de refrescar la página.
+    - El canal de suscripción se llama "user-notifications".
+    - Se escucha el evento INSERT en la tabla filtrado por usuario_id.
+    - Tipos de notificación: INFO, ALERTA, CASO, SISTEMA, TAREA.
+    - Se muestran máximo 30 notificaciones.
+    - Se pueden marcar como leídas (individual o todas a la vez).
+    - El componente NotificationBell muestra el conteo de no leídas.
+
+10.2. ALERTAS DE CRISIS
+    Archivo: lib/hooks/useCrisisAlerts.ts
+
+    - Solo las reciben los roles: PSICOLOGO, TRABAJADOR_SOCIAL, COMISARIO
+      y ADMINISTRADOR.
+    - Se suscriben a la tabla "alertas_crisis" en tiempo real.
+    - Al recibir una nueva alerta con estado PENDIENTE:
+        * Se reproduce un sonido de alerta automáticamente.
+        * Se muestra un banner con los datos de la crisis.
+    - Acciones disponibles:
+        * "Atender": navega al expediente y marca la alerta como ATENDIDA.
+        * "Descartar": cierra el banner sin atender.
+    - Si otro usuario atiende la crisis (detectado por UPDATE en la tabla),
+      la alerta desaparece para todos los demás automáticamente.
+
+10.3. SONIDO EN NOTIFICACIONES DE CRISIS
+    El componente notification-bell.tsx reproduce un tono corto 3 veces
+    cuando llega una notificación tipo ALERTA (crisis), para alertar al
+    personal psicosocial sin interrumpir el proceso de registro.
+
+
+11. PRESENCIA DE USUARIOS EN LÍNEA
+================================================================================
+
+    Archivo: lib/hooks/usePresence.ts
+
+    El sistema muestra en tiempo real qué funcionarios están conectados:
+
+    ESTADOS:
+      - online  (punto verde)  -> Usuario activo en la aplicación
+      - away    (punto amarillo) -> Usuario inactivo por más de 5 minutos
+      - offline (punto gris)   -> Usuario desconectado
+
+    FUNCIONAMIENTO:
+      1. Al entrar a la app, se registra el estado "online" en la tabla
+         "user_presence" y en el canal de Supabase Realtime "sicof-presence".
+      2. Se monitorea la actividad del usuario (mouse, teclado, click, scroll).
+      3. Si no hay actividad por 5 minutos, el estado cambia a "away".
+      4. Al detectar actividad de nuevo, vuelve a "online".
+      5. Un "heartbeat" actualiza last_seen cada 30 segundos.
+      6. Al cerrar el navegador, se marca como "offline".
+
+    INTERFAZ:
+      - Se muestra como avatares en la barra superior.
+      - Al hacer clic se expande un panel con la lista de todos los usuarios,
+        su rol, y su estado actual (online, away, offline).
+
+
+12. PWA (PROGRESSIVE WEB APP)
+================================================================================
+
+    La aplicación está configurada como PWA y se puede instalar desde el
+    navegador en cualquier dispositivo.
+
+    Configuración (public/manifest.json):
+      - Nombre: "SICOF - Sistema de Gestión Integral"
+      - Nombre corto: "SICOF"
+      - Modo de pantalla: standalone (sin barra del navegador)
+      - URL de inicio: /dashboard
+      - Color de tema: #7C3AED (violeta/púrpura)
+      - Color de fondo: #F5F3FF (violeta muy claro)
+      - Orientación: any (paisaje o retrato)
+      - Íconos: Múltiples resoluciones (192px y 512px) en formato PNG,
+        incluyendo versiones "maskable" para Android.
+
+    La referencia al manifest está en el layout raíz (app/layout.tsx).
+    El viewport está configurado con viewportFit: "cover" para dispositivos
+    con notch (como iPhones modernos).
+
+
+13. DISEÑO RESPONSIVO
+================================================================================
+
+    La aplicación está optimizada para todos los tamaños de pantalla:
+
+    MÓVIL (menos de 640px):
+      - Barra de navegación inferior (bottom bar) tipo app nativa.
+      - Máximo 4 ítems directos + botón "Más" para overflow.
+      - Layouts de una columna.
+      - KPIs en grid de 2x2.
+      - Formularios con campos full-width.
+
+    TABLET (640px - 1024px):
+      - Barra de navegación superior (top bar) con íconos sin texto.
+      - Tooltips al pasar el mouse sobre los íconos de navegación.
+      - Grids de 2 columnas para módulos.
+
+    DESKTOP (más de 1024px):
+      - Barra de navegación superior con íconos Y texto.
+      - KPIs en grid de 4 columnas.
+      - Módulos en grid de 3 columnas.
+      - Formularios con campos en 2 columnas.
+      - Ancho máximo de contenido: 1920px.
+
+    SOPORTE PARA SAFE AREAS:
+      - Se usa safe-area-inset-* para dispositivos con notch.
+      - La bottom bar mobile usa padding-bottom seguro.
+
+
+14. NAVEGACIÓN Y LAYOUT
+================================================================================
+
+    ESTRUCTURA DEL LAYOUT DEL DASHBOARD:
+
+    +------------------------------------------------------+
+    | HEADER (sticky top)                                  |
+    | [Logo] [Nav Desktop] ............. [🔔] [👥] [👤]    |
+    +------------------------------------------------------+
+    |                                                      |
+    |              CONTENIDO PRINCIPAL                     |
+    |              (max-width: 1920px)                     |
+    |                                                      |
+    +------------------------------------------------------+
+    | BOTTOM NAV (solo móvil, sticky bottom)               |
+    | [Home] [Exp] [Personas] [Más...]                     |
+    +------------------------------------------------------+
+
+    COMPONENTES:
+      - ClientLayoutWrapper: Ensambla la barra de navegación con las
+        notificaciones, presencia y menú de usuario.
+      - TopNavBar: Renderiza la navegación. En desktop, muestra links
+        horizontales. En móvil, muestra una barra inferior con hasta
+        4 ítems + un menú "Más" para los demás.
+      - UserMenu: Avatar del usuario con dropdown para cerrar sesión.
+      - NotificationBell: Campana con conteo de notificaciones no leídas.
+      - PresenceWrapper: Avatares de usuarios online.
+
+
+15. SERVER ACTIONS (OPERACIONES DEL BACKEND)
+================================================================================
+
+    Todas las operaciones de escritura se realizan a través de Server Actions
+    de Next.js, ubicadas en lib/actions/:
+
+    15.1. radicarCaso(data)  [triage.ts]
+      Proceso completo de radicación que:
+        1. Valida todos los datos con Zod (TriageSchema).
+        2. Verifica la competencia legal automáticamente.
+        3. Genera un radicado único (formato COM-YYYY-NNNN).
+        4. Inserta el expediente con fase RECEPCION.
+        5. Crea registros de víctima y agresor en tabla "personas".
+        6. Si NO es competente, genera auto de remisión como actuación.
+        7. Si ES competente, crea:
+           - Término legal de 4 horas (medida provisional).
+           - Término legal de 30 días (audiencia).
+        8. Registra la minuta de ingreso automáticamente.
+        9. Envía notificaciones al equipo psicosocial.
+
+    15.2. registrarCrisis(formData)  [crisis.ts]
+      Registro de emergencia que:
+        1. Crea expediente con nivel CRITICO y radicado URG-YYYY-NNNN.
+        2. Registra víctima con datos mínimos.
+        3. Crea actuación de "Atención en Crisis".
+        4. Establece término legal de 4 horas.
+        5. Registra en minuta.
+        6. Crea alerta de crisis en tiempo real.
+        7. Envía notificaciones a todos los Psicólogos y Trabajadores Sociales.
+
+    15.3. buscarPersonaPorDocumento(documento)  [crisis.ts]
+      Busca si una persona ya tiene registros previos en el sistema.
+      Retorna la persona y todos los expedientes vinculados.
+
+    15.4. atenderCrisis(alertaId)  [crisis.ts]
+      Marca una alerta de crisis como ATENDIDA por el usuario actual.
+
+    15.5. guardarValoracionRiesgo(expedienteId, checklist, observaciones)  [risk.ts]
+      1. Calcula el nivel de riesgo con el algoritmo ponderado.
+      2. Inserta la valoración en "valoraciones_riesgo".
+      3. Actualiza el nivel de riesgo del expediente.
+
+    15.6. crearMinuta(formData)  [minutas.ts]
+      Valida los datos con Zod y registra una nueva entrada en la minuta
+      diaria de visitantes.
+
+    15.7. editarPersona(personaId, data)  [personas.ts]
+      Actualiza los datos de una persona (nombre, teléfono, dirección, etc.).
+      Convierte strings vacíos a null para limpieza de datos.
+
+    15.8. subirFotoPersona(personaId, formData)  [personas.ts]
+      1. Valida el tipo de archivo (solo JPG, PNG, WebP).
+      2. Valida el tamaño (máximo 5MB).
+      3. Sube la foto al Storage de Supabase (bucket "personas-fotos").
+      4. Obtiene la URL pública.
+      5. Guarda la URL en datos_demograficos.foto_url de la persona.
+
+
+16. CONFIGURACIÓN Y DESPLIEGUE
+================================================================================
+
+    VARIABLES DE ENTORNO (.env.local):
+      NEXT_PUBLIC_SUPABASE_URL      -> URL del proyecto Supabase
+      NEXT_PUBLIC_SUPABASE_ANON_KEY -> Clave anónima (pública) de Supabase
+
+    DESPLIEGUE EN NETLIFY:
+      - Configurado en netlify.toml.
+      - Usa el plugin @netlify/plugin-nextjs para soporte completo de
+        Server Components y Server Actions.
+
+    COMANDOS DE DESARROLLO:
+      npm run dev    -> Inicia el servidor de desarrollo
+      npm run build  -> Genera el build de producción
+      npm run start  -> Inicia el servidor de producción
+      npm run lint   -> Verifica el código con ESLint
+
+
+================================================================================
+    FIN DE LA DOCUMENTACIÓN
+    SICOF v0.1.0
+    Última actualización: 2 de marzo de 2026
+================================================================================

@@ -19,9 +19,9 @@ export default function UnderConstruction({
         <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 text-center animate-in fade-in zoom-in duration-500">
             {/* Icon Area */}
             <div className="relative mb-8">
-                <div className="absolute inset-0 bg-purple-200 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-                <div className="relative bg-white p-6 rounded-3xl shadow-xl border border-purple-100">
-                    <Construction className="w-16 h-16 text-[#7C3AED]" />
+                <div className="absolute inset-0 bg-slate-300 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                <div className="relative bg-white p-6 rounded-3xl shadow-xl border border-slate-200">
+                    <Construction className="w-16 h-16 text-[#1B2A4A]" />
                     <div className="absolute -top-2 -right-2 bg-amber-400 p-1.5 rounded-lg shadow-lg rotate-12">
                         <Timer className="w-5 h-5 text-white" />
                     </div>
@@ -30,9 +30,9 @@ export default function UnderConstruction({
 
             {/* Text Content */}
             <div className="max-w-md space-y-4">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-100 mb-2">
-                    <Hammer className="w-4 h-4 text-[#7C3AED]" />
-                    <span className="text-xs font-bold text-[#7C3AED] uppercase tracking-wider">Próximamente</span>
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 mb-2">
+                    <Hammer className="w-4 h-4 text-[#1B2A4A]" />
+                    <span className="text-xs font-bold text-[#1B2A4A] uppercase tracking-wider">Próximamente</span>
                 </div>
 
                 <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -56,7 +56,7 @@ export default function UnderConstruction({
 
                 <button
                     onClick={() => window.location.href = '/dashboard'}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#7C3AED] hover:bg-[#6D28D9] transition-all duration-200 shadow-lg shadow-purple-200"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#1B2A4A] hover:bg-[#142035] transition-all duration-200 shadow-lg shadow-slate-300"
                 >
                     Ir al Panel Principal
                 </button>
@@ -65,7 +65,7 @@ export default function UnderConstruction({
             {/* Decorative Brand footer */}
             <div className="mt-16 opacity-30 flex items-center gap-2 grayscale">
                 <SicofLogoIcon className="w-6 h-6" />
-                <span className="font-bold tracking-tighter text-lg">SICOF</span>
+                <span className="font-bold tracking-tighter text-lg">Komi</span>
             </div>
         </div>
     )

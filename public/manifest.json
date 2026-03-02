@@ -1,11 +1,11 @@
-{
-    "name": "SICOF - Sistema de Gestión Integral",
-    "short_name": "SICOF",
-    "description": "Gestión inteligente y segura para Comisarías de Familia - Ley 2126",
+﻿{
+    "name": "Komi — Familia y Bienestar",
+    "short_name": "Komi",
+    "description": "Plataforma integral de familia y bienestar para Comisarías de Familia - Ley 2126",
     "start_url": "/dashboard",
     "display": "standalone",
-    "background_color": "#F5F3FF",
-    "theme_color": "#7C3AED",
+    "background_color": "#F1F5F9",
+    "theme_color": "#1B2A4A",
     "orientation": "any",
     "icons": [
         {

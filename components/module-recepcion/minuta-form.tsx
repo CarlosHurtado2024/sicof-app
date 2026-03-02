@@ -76,14 +76,14 @@ export function MinutaForm() {
     return (
         <Card className="w-full border-0 shadow-lg bg-white overflow-hidden">
             {/* Gradient Header */}
-            <CardHeader className="bg-gradient-to-r from-[#7C3AED] to-[#5B21B6] text-white pb-5">
+            <CardHeader className="bg-gradient-to-r from-[#1B2A4A] to-[#0F1A2E] text-white pb-5">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <FileText className="h-5 w-5 text-white" />
                     </div>
                     <div>
                         <CardTitle className="text-white text-lg">Minuta de Ingreso</CardTitle>
-                        <CardDescription className="text-violet-100">
+                        <CardDescription className="text-slate-200">
                             Control de vigilancia y recepción
                         </CardDescription>
                     </div>
@@ -104,7 +104,7 @@ export function MinutaForm() {
                     {/* Search by Document */}
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                            <Search className="h-3.5 w-3.5 text-[#7C3AED]" />
+                            <Search className="h-3.5 w-3.5 text-[#1B2A4A]" />
                             Buscar por Documento
                         </Label>
                         <div className="relative">
@@ -112,24 +112,24 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Ingrese cédula o TI para buscar..."
-                                className="pr-10 bg-violet-50/50 border-violet-200 focus:border-[#7C3AED] focus:ring-[#7C3AED]/50"
+                                className="pr-10 bg-slate-100/50 border-slate-300 focus:border-[#1B2A4A] focus:ring-[#1B2A4A]/50"
                             />
                             {buscando && (
-                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-[#7C3AED] animate-spin" />
+                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-[#1B2A4A] animate-spin" />
                             )}
                         </div>
                     </div>
 
                     {/* Search Result: Person Found */}
                     {buscado && resultado?.persona && (
-                        <div className="rounded-lg border border-violet-200 overflow-hidden animate-in slide-in-from-top-2 duration-300">
-                            <div className="flex items-center gap-3 p-3 bg-violet-50">
-                                <div className="p-1.5 bg-violet-100 rounded-full">
-                                    <UserCheck className="h-4 w-4 text-[#7C3AED]" />
+                        <div className="rounded-lg border border-slate-300 overflow-hidden animate-in slide-in-from-top-2 duration-300">
+                            <div className="flex items-center gap-3 p-3 bg-slate-100">
+                                <div className="p-1.5 bg-slate-200 rounded-full">
+                                    <UserCheck className="h-4 w-4 text-[#1B2A4A]" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-violet-900">{resultado.persona.nombres}</p>
-                                    <p className="text-xs text-violet-600">Doc: {resultado.persona.documento}</p>
+                                    <p className="text-sm font-semibold text-slate-900">{resultado.persona.nombres}</p>
+                                    <p className="text-xs text-slate-800">Doc: {resultado.persona.documento}</p>
                                 </div>
                             </div>
 
@@ -220,7 +220,7 @@ export function MinutaForm() {
                                 name="motivo_visita"
                                 required
                                 defaultValue=""
-                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#7C3AED]/50 focus:border-[#7C3AED] transition-colors"
+                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]/50 focus:border-[#1B2A4A] transition-colors"
                             >
                                 <option value="" disabled>Seleccione...</option>
                                 <option value="ORIENTACION">📋 Orientación General</option>
@@ -257,7 +257,7 @@ export function MinutaForm() {
                     <Button
                         type="submit"
                         disabled={guardando}
-                        className="bg-[#7C3AED] hover:bg-[#6D28D9] shadow-md shadow-violet-200 gap-2"
+                        className="bg-[#1B2A4A] hover:bg-[#142035] shadow-md shadow-slate-300 gap-2"
                     >
                         {guardando ? (
                             <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>

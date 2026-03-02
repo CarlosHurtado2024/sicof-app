@@ -53,12 +53,12 @@ export default function PersonasSearch() {
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}
                     placeholder="Buscar por nombre o documento..."
-                    className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-violet-500/30 focus:border-violet-400 placeholder:text-slate-400 transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500 placeholder:text-slate-400 transition-all"
                     aria-label="Buscar personas por nombre o documento"
                 />
                 <div className="absolute right-3 top-1/2 -translate-y-1/2">
                     {isPending ? (
-                        <Loader2 className="h-4 w-4 text-violet-500 animate-spin" />
+                        <Loader2 className="h-4 w-4 text-slate-900 animate-spin" />
                     ) : query ? (
                         <button
                             onClick={handleClear}

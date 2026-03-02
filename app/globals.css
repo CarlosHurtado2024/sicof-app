@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @config "../tailwind.config.ts";
 
@@ -168,7 +168,7 @@
 }
 
 .mobile-bottom-nav-item.active {
-  color: #7C3AED;
+  color: #1B2A4A;
 }
 
 .mobile-bottom-nav-item:active {
@@ -186,7 +186,7 @@
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
-  background: rgba(124, 58, 237, 0.1);
+  background: rgba(27, 42, 74, 0.1);
   transform: translateY(-1px);
 }
 
@@ -205,7 +205,7 @@
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-label {
   font-weight: 600;
-  color: #7C3AED;
+  color: #1B2A4A;
 }
 
 /* Active indicator dot */
@@ -217,7 +217,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7C3AED;
+  background: #1B2A4A;
   animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -277,14 +277,14 @@
 }
 
 .mobile-bottom-nav-overflow-item.active {
-  background: rgba(124, 58, 237, 0.08);
-  color: #7C3AED;
+  background: rgba(27, 42, 74, 0.08);
+  color: #1B2A4A;
   font-weight: 600;
 }
 
 .mobile-bottom-nav-overflow-item:not(.active):hover {
   background: #f8fafc;
-  color: #7C3AED;
+  color: #1B2A4A;
 }
 
 .mobile-bottom-nav-overflow-icon {
@@ -299,8 +299,8 @@
 }
 
 .mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
-  background: rgba(124, 58, 237, 0.12);
-  color: #7C3AED;
+  background: rgba(27, 42, 74, 0.12);
+  color: #1B2A4A;
 }
 
 /* Add bottom spacing to main content on phones to prevent content from being hidden behind the bottom nav */

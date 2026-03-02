@@ -117,7 +117,7 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
                     <a href="tel:155" className="flex items-center gap-2 p-2 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700 hover:bg-blue-100 transition-colors">
                         <Phone className="h-4 w-4" /> Línea 155
                     </a>
-                    <a href="tel:141" className="flex items-center gap-2 p-2 bg-purple-50 border border-purple-200 rounded-lg text-sm text-purple-700 hover:bg-purple-100 transition-colors">
+                    <a href="tel:141" className="flex items-center gap-2 p-2 bg-slate-100 border border-slate-300 rounded-lg text-sm text-slate-700 hover:bg-slate-200 transition-colors">
                         <HeartPulse className="h-4 w-4" /> ICBF 141
                     </a>
                     <a href="tel:123" className="flex items-center gap-2 p-2 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700 hover:bg-red-100 transition-colors">

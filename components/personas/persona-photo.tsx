@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useState, useRef } from 'react'
 import { Camera, Loader2, User, UserX } from 'lucide-react'
@@ -60,7 +60,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#7C3AED] hover:bg-[#6D28D9] text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 disabled:opacity-50"
+                className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#1B2A4A] hover:bg-[#142035] text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 disabled:opacity-50"
                 title="Subir foto"
             >
                 {isUploading ? (

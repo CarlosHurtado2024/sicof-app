@@ -1,4 +1,4 @@
-
+﻿
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
@@ -310,7 +310,7 @@ export function TriageForm() {
                     <CardTitle className="flex items-center gap-2 text-lg">
                         {step === 1 && <><User className="h-5 w-5 text-blue-500" /> Datos de la Víctima</>}
                         {step === 2 && <><ShieldAlert className="h-5 w-5 text-orange-500" /> Datos del Agresor</>}
-                        {step === 3 && <><Scale className="h-5 w-5 text-purple-500" /> Hechos y Competencia Legal</>}
+                        {step === 3 && <><Scale className="h-5 w-5 text-slate-700" /> Hechos y Competencia Legal</>}
                         {step === 4 && <><Gavel className="h-5 w-5 text-emerald-500" /> Confirmación y Radicación</>}
                     </CardTitle>
                     <CardDescription>
@@ -377,7 +377,7 @@ export function TriageForm() {
                             {/* Demographics */}
                             <div>
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <div className="w-1 h-4 bg-purple-500 rounded-full" /> Datos Sociodemográficos
+                                    <div className="w-1 h-4 bg-slate-700 rounded-full" /> Datos Sociodemográficos
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
@@ -673,30 +673,30 @@ export function TriageForm() {
                             </div>
 
                             {/* Competence Questions */}
-                            <div className="p-4 bg-indigo-50 border border-indigo-200 rounded-xl space-y-3">
+                            <div className="p-4 bg-slate-100 border border-indigo-200 rounded-xl space-y-3">
                                 <h4 className="text-sm font-bold text-indigo-800 flex items-center gap-2">
                                     <Scale className="h-4 w-4" /> Verificación de Competencia (Art. 5, Ley 2126/2021)
                                 </h4>
                                 <div className="space-y-2.5">
-                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-indigo-50/50 transition-colors">
+                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-slate-100/50 transition-colors">
                                         <input type="checkbox" checked={data.caso.ambito === 'FAMILIAR'} onChange={e => updateField('caso', 'ambito', e.target.checked ? 'FAMILIAR' : 'NO_FAMILIAR')}
-                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-400" />
+                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-slate-700 focus:ring-indigo-400" />
                                         <div>
                                             <span className="text-sm font-medium text-slate-700">¿Es violencia en contexto familiar?</span>
                                             <p className="text-xs text-slate-400">El agresor es miembro del núcleo familiar o persona con quien se tiene/tuvo relación sentimental</p>
                                         </div>
                                     </label>
-                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-indigo-50/50 transition-colors">
+                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-slate-100/50 transition-colors">
                                         <input type="checkbox" checked={data.caso.hechos_lugar_municipio} onChange={e => updateField('caso', 'hechos_lugar_municipio', e.target.checked)}
-                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-400" />
+                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-slate-700 focus:ring-indigo-400" />
                                         <div>
                                             <span className="text-sm font-medium text-slate-700">¿Los hechos ocurrieron en este municipio?</span>
                                             <p className="text-xs text-slate-400">Competencia territorial según Art. 8</p>
                                         </div>
                                     </label>
-                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-indigo-50/50 transition-colors">
+                                    <label className="flex items-start gap-3 p-2.5 bg-white rounded-lg border border-indigo-100 cursor-pointer hover:bg-slate-100/50 transition-colors">
                                         <input type="checkbox" checked={data.caso.victima_domicilio_municipio} onChange={e => updateField('caso', 'victima_domicilio_municipio', e.target.checked)}
-                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-indigo-600 focus:ring-indigo-400" />
+                                            className="h-4 w-4 mt-0.5 rounded border-indigo-300 text-slate-700 focus:ring-indigo-400" />
                                         <div>
                                             <span className="text-sm font-medium text-slate-700">¿La víctima tiene domicilio en este municipio?</span>
                                             <p className="text-xs text-slate-400">Competencia territorial alternativa</p>

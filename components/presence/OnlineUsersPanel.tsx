@@ -17,7 +17,7 @@ const ROL_LABELS: Record<string, string> = {
 }
 
 const ROL_COLORS: Record<string, string> = {
-    COMISARIO: 'bg-purple-100 text-purple-700 border-purple-200',
+    COMISARIO: 'bg-slate-200 text-slate-700 border-slate-300',
     SECRETARIO: 'bg-sky-100 text-sky-700 border-sky-200',
     PSICOLOGO: 'bg-rose-100 text-rose-700 border-rose-200',
     TRABAJADOR_SOCIAL: 'bg-amber-100 text-amber-700 border-amber-200',
@@ -205,7 +205,7 @@ export default function OnlineUsersPanel({
     return (
         <div className="flex h-full flex-col">
             {/* Header */}
-            <div className="border-b border-slate-100 bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3">
+            <div className="border-b border-slate-100 bg-gradient-to-r from-blue-600 to-slate-700 px-4 py-3">
                 <div className="flex items-center gap-2">
                     <Users className="h-4 w-4 text-white/90" />
                     <h3 className="text-sm font-bold text-white">Equipo</h3>
