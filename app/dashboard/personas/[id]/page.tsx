@@ -74,10 +74,10 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
     return (
         <div className="space-y-6 max-w-[1000px] mx-auto">
             {/* Breadcrumb */}
-            <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium">
-                <Link href="/dashboard" className="hover:text-slate-600">Inicio</Link>
+            <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium animate-fade-in-up">
+                <Link href="/dashboard" className="hover:text-slate-600 transition-colors">Inicio</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <Link href="/dashboard/personas" className="hover:text-slate-600">Personas</Link>
+                <Link href="/dashboard/personas" className="hover:text-slate-600 transition-colors">Personas</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
                 <span className="text-[#1B2A4A] truncate max-w-[200px]">{persona.nombres}</span>
             </div>
@@ -91,8 +91,10 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
             </Link>
 
             {/* Profile Header Card */}
-            <Card className="border-0 shadow-sm overflow-hidden">
-                <div className={`h-20 sm:h-28 ${isVictima ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-red-500 to-rose-600'}`} />
+            <Card className="border-0 shadow-sm overflow-hidden rounded-2xl">
+                <div className={`h-20 sm:h-28 relative ${isVictima ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-red-500 to-rose-600'}`}>
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:24px_24px]" />
+                </div>
                 <CardContent className="relative px-4 sm:px-6 pb-6">
                     {/* Photo */}
                     <div className="-mt-12 sm:-mt-14 mb-4">
@@ -109,7 +111,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                         <div>
                             <h1 className="text-xl sm:text-2xl font-bold text-slate-800">{persona.nombres}</h1>
                             <div className="flex items-center gap-2 mt-1">
-                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold ${isVictima ? 'bg-blue-50 text-blue-700' : 'bg-red-50 text-red-700'}`}>
+                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${isVictima ? 'bg-blue-50 text-blue-700' : 'bg-red-50 text-red-700'}`}>
                                     {isVictima ? <User className="h-3 w-3" /> : <UserX className="h-3 w-3" />}
                                     {isVictima ? 'Víctima' : 'Agresor'}
                                 </span>
@@ -126,10 +128,12 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 {/* Main Info (2/3) */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Personal Data */}
-                    <Card className="border-0 shadow-sm">
-                        <CardHeader className="border-b bg-slate-50/50">
-                            <CardTitle className="text-base flex items-center gap-2">
-                                <FileText className="h-4 w-4 text-[#1B2A4A]" />
+                    <Card className="border-0 shadow-sm rounded-2xl">
+                        <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
+                            <CardTitle className="text-base flex items-center gap-2.5">
+                                <div className="p-1.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-lg">
+                                    <FileText className="h-3.5 w-3.5 text-white" />
+                                </div>
                                 Datos Personales
                             </CardTitle>
                         </CardHeader>
@@ -184,10 +188,12 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 {/* Sidebar (1/3) — Expedientes */}
                 <div className="space-y-6">
                     {/* Expediente principal */}
-                    <Card className="border-0 shadow-sm">
-                        <CardHeader className="border-b bg-slate-50/50">
-                            <CardTitle className="text-base flex items-center gap-2">
-                                <FolderHeart className="h-4 w-4 text-[#1B2A4A]" />
+                    <Card className="border-0 shadow-sm rounded-2xl card-hover">
+                        <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
+                            <CardTitle className="text-base flex items-center gap-2.5">
+                                <div className="p-1.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-lg">
+                                    <FolderHeart className="h-3.5 w-3.5 text-white" />
+                                </div>
                                 Expediente Principal
                             </CardTitle>
                         </CardHeader>
@@ -247,11 +253,11 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
 
 function InfoField({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | null | undefined }) {
     return (
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50/50 hover:bg-slate-50 transition-colors">
             <div className="text-slate-400 mt-0.5 flex-shrink-0">{icon}</div>
             <div>
-                <p className="text-slate-400 text-xs uppercase tracking-wide">{label}</p>
-                <p className="font-medium text-slate-700">{value || '—'}</p>
+                <p className="text-slate-400 text-[11px] uppercase tracking-wide font-medium">{label}</p>
+                <p className="font-medium text-slate-700 text-sm">{value || '—'}</p>
             </div>
         </div>
     )

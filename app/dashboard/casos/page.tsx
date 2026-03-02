@@ -69,7 +69,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
     return (
         <div className="space-y-6 max-w-[1400px] mx-auto">
             {/* Breadcrumb + Header */}
-            <div>
+            <div className="animate-fade-in-up">
                 <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
                     <span>Inicio</span>
                     <ChevronRight className="h-3.5 w-3.5" />
@@ -78,16 +78,16 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-800 flex items-center gap-3">
-                            <div className="p-2 bg-slate-100 rounded-xl">
-                                <FolderHeart className="h-5 w-5 text-[#1B2A4A]" />
+                            <div className="p-2.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-xl shadow-sm">
+                                <FolderHeart className="h-5 w-5 text-white" />
                             </div>
                             Expedientes
                         </h1>
-                        <p className="text-slate-500 text-sm mt-1 ml-12">Gestión de casos — Ruta de Atención Integral</p>
+                        <p className="text-slate-400 text-sm mt-1 ml-[52px]">Gestión de casos — Ruta de Atención Integral</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Link href="/dashboard/recepcion/nuevo-caso">
-                            <Button className="bg-[#1B2A4A] hover:bg-[#142035] gap-2 rounded-xl font-semibold text-sm shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 px-5 py-2.5">
+                            <Button className="bg-[#1B2A4A] hover:bg-[#142035] gap-2 rounded-xl font-bold text-sm shadow-lg shadow-slate-900/15 transition-all hover:-translate-y-0.5 px-5 py-2.5">
                                 <PlusCircle size={16} />
                                 Radicar Nuevo Caso
                             </Button>
@@ -114,7 +114,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
             </div>
 
             {/* Table Card */}
-            <Card className="border border-slate-100 shadow-sm rounded-xl overflow-hidden">
+            <Card className="border border-slate-100/80 shadow-sm rounded-2xl overflow-hidden bg-white">
                 <CardContent className="p-0">
                     {/* Desktop Table — hidden on mobile */}
                     <div className="hidden md:block overflow-x-auto">
@@ -163,7 +163,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                         const faseConfig = FASE_CONFIG[faseKey] || FASE_CONFIG.RECEPCION
                                         const riesgoConfig = RIESGO_CONFIG[exp.nivel_riesgo] || RIESGO_CONFIG.SIN_RIESGO
                                         return (
-                                            <tr key={exp.id} className="hover:bg-slate-100/30 transition-colors group">
+                                            <tr key={exp.id} className="hover:bg-slate-50 transition-all duration-200 group">
                                                 <td className="px-5 py-4">
                                                     <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2.5 py-1 rounded-md">{exp.radicado}</span>
                                                 </td>
@@ -182,7 +182,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                                     <span className="text-xs text-slate-600 font-medium">{exp.tipologia_violencia || '—'}</span>
                                                 </td>
                                                 <td className="px-5 py-4">
-                                                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
+                                                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
                                                         <span className={`w-1.5 h-1.5 rounded-full ${faseConfig.dot}`}></span>
                                                         {FASES_INFO[faseKey]?.nombre || faseKey}
                                                     </span>
@@ -251,7 +251,12 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                 const riesgoConfig = RIESGO_CONFIG[exp.nivel_riesgo] || RIESGO_CONFIG.SIN_RIESGO
                                 return (
                                     <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
-                                        <div className="p-4 hover:bg-slate-100/30 transition-colors active:bg-slate-100">
+                                        <div className={`p-4 hover:bg-slate-50 transition-all duration-200 active:bg-slate-100 border-l-[3px] ${riesgoConfig === RIESGO_CONFIG.CRITICO ? 'border-l-red-500' :
+                                                riesgoConfig === RIESGO_CONFIG.ALTO ? 'border-l-orange-500' :
+                                                    riesgoConfig === RIESGO_CONFIG.MODERADO ? 'border-l-amber-500' :
+                                                        riesgoConfig === RIESGO_CONFIG.BAJO ? 'border-l-emerald-500' :
+                                                            'border-l-transparent'
+                                            }`}>
                                             <div className="flex items-center justify-between mb-2">
                                                 <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2 py-0.5 rounded">{exp.radicado}</span>
                                                 <span className="text-[10px] text-slate-400">
@@ -263,11 +268,11 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                                 <p className="text-[11px] text-slate-400 font-mono mb-2">Doc: {victima.documento}</p>
                                             )}
                                             <div className="flex items-center gap-2 flex-wrap mt-1">
-                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${faseConfig.bg} ${faseConfig.text}`}>
                                                     <span className={`w-1 h-1 rounded-full ${faseConfig.dot}`}></span>
                                                     {FASES_INFO[faseKey]?.nombre || faseKey}
                                                 </span>
-                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-semibold ${riesgoConfig.bg} ${riesgoConfig.text}`}>
+                                                <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${riesgoConfig.bg} ${riesgoConfig.text}`}>
                                                     <span className={`w-1 h-1 rounded-full ${riesgoConfig.dot}`}></span>
                                                     {riesgoConfig.label}
                                                 </span>

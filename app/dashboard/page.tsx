@@ -63,25 +63,27 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1B2A4A] via-[#142035] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/15">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
-                <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-2xl"></div>
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0B1628] via-[#1B2A4A] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/20 animate-fade-in-up">
+                {/* Grid pattern */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px]" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
+                <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-500/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
                 <div className="relative z-10">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
-                            <p className="text-slate-300 text-sm font-medium mb-1">
+                            <p className="text-slate-400 text-sm font-medium mb-1">
                                 {getGreeting()}, {firstName} 👋
                             </p>
                             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                                 {getRolTitle(userRole)}
                             </h2>
-                            <p className="text-slate-300/80 mt-2 text-sm max-w-lg">
+                            <p className="text-slate-400 mt-2 text-sm max-w-lg">
                                 {getRolDescription(userRole)}
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
                             <Link href="/dashboard/recepcion/nuevo-caso">
-                                <Button className="bg-white/15 hover:bg-white/25 text-white border border-white/20 backdrop-blur-sm rounded-xl px-5 py-2.5 font-semibold text-sm transition-all hover:-translate-y-0.5 gap-2">
+                                <Button className="bg-white text-[#0B1628] hover:bg-slate-100 rounded-xl px-5 py-2.5 font-bold text-sm transition-all hover:-translate-y-0.5 gap-2 shadow-lg shadow-black/20">
                                     <PlusCircle className="h-4 w-4" />
                                     Nuevo Caso
                                 </Button>
@@ -92,20 +94,20 @@ export default async function DashboardPage() {
             </div>
 
             {/* KPI Cards */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 stagger-children">
                 <KPICard
                     title="Total Expedientes"
                     value={stats.totalCasos}
                     icon={<FolderHeart className="h-5 w-5" />}
-                    gradient="from-slate-900 to-slate-800"
-                    bgLight="bg-slate-100"
-                    textColor="text-slate-800"
+                    gradient="from-[#1B2A4A] to-[#2C4A7C]"
+                    bgLight="bg-slate-50"
+                    textColor="text-[#1B2A4A]"
                 />
                 <KPICard
                     title="En Trámite"
                     value={stats.casosEnTramite}
                     icon={<Timer className="h-5 w-5" />}
-                    gradient="from-amber-500 to-orange-600"
+                    gradient="from-amber-500 to-orange-500"
                     bgLight="bg-amber-50"
                     textColor="text-amber-600"
                 />
@@ -113,7 +115,7 @@ export default async function DashboardPage() {
                     title="En Seguimiento"
                     value={stats.casosSeguimiento}
                     icon={<Eye className="h-5 w-5" />}
-                    gradient="from-emerald-500 to-teal-600"
+                    gradient="from-emerald-500 to-teal-500"
                     bgLight="bg-emerald-50"
                     textColor="text-emerald-600"
                 />
@@ -121,7 +123,7 @@ export default async function DashboardPage() {
                     title="Medidas Vigentes"
                     value={stats.medidasVigentes}
                     icon={<ShieldCheck className="h-5 w-5" />}
-                    gradient="from-blue-500 to-slate-700"
+                    gradient="from-blue-500 to-cyan-500"
                     bgLight="bg-blue-50"
                     textColor="text-blue-600"
                 />
@@ -129,11 +131,11 @@ export default async function DashboardPage() {
 
             {/* Role-specific modules */}
             <div>
-                <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <span className="w-1 h-5 bg-[#1B2A4A] rounded-full"></span>
+                <h3 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2.5">
+                    <span className="w-1.5 h-6 bg-gradient-to-b from-[#1B2A4A] to-[#2C4A7C] rounded-full" />
                     Módulos Disponibles
                 </h3>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 stagger-children">
                     {(userRole === 'AUXILIAR' || userRole === 'ADMINISTRADOR') && <AuxiliarModules />}
                     {(userRole === 'PSICOLOGO' || userRole === 'TRABAJADOR_SOCIAL' || userRole === 'ADMINISTRADOR') && <PsicosocialModules />}
                     {(userRole === 'SECRETARIO' || userRole === 'ABOGADO' || userRole === 'ADMINISTRADOR') && <SecretarioModules />}
@@ -149,16 +151,16 @@ function KPICard({ title, value, icon, gradient, bgLight, textColor }: {
     title: string; value: number; icon: React.ReactNode; gradient: string; bgLight: string; textColor: string
 }) {
     return (
-        <Card className="border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group rounded-xl overflow-hidden">
-            <CardContent className="p-3 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                <div className={`${bgLight} ${textColor} p-2 sm:p-3 rounded-lg sm:rounded-xl group-hover:scale-105 transition-transform duration-300`}>
-                    {icon}
+        <Card className="border border-slate-100/80 shadow-sm hover:shadow-lg transition-all duration-500 group rounded-2xl overflow-hidden card-hover bg-white">
+            <CardContent className="p-4 sm:p-5">
+                <div className="flex items-center justify-between mb-3">
+                    <div className={`bg-gradient-to-br ${gradient} text-white p-2.5 rounded-xl shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                        {icon}
+                    </div>
+                    <TrendingUp className="h-4 w-4 text-slate-200 group-hover:text-emerald-500 transition-colors duration-300" />
                 </div>
-                <div className="flex-1 min-w-0">
-                    <p className="text-xl sm:text-2xl font-bold text-slate-800 tabular-nums">{value}</p>
-                    <p className="text-[10px] sm:text-xs text-slate-500 font-medium truncate">{title}</p>
-                </div>
-                <TrendingUp className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-slate-300 group-hover:text-emerald-500 transition-colors hidden sm:block" />
+                <p className="text-2xl sm:text-3xl font-extrabold text-slate-800 tabular-nums tracking-tight">{value}</p>
+                <p className="text-xs text-slate-400 font-medium mt-0.5">{title}</p>
             </CardContent>
         </Card>
     )
@@ -340,10 +342,12 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <Card className="flex flex-col border border-slate-100 shadow-sm hover:shadow-md hover:border-slate-300/50 transition-all duration-300 rounded-xl overflow-hidden group">
-            <div className="p-6 flex-1">
+        <Card className="flex flex-col border border-slate-100/80 shadow-sm hover:shadow-lg hover:border-slate-200 transition-all duration-500 rounded-2xl overflow-hidden group card-hover bg-white relative">
+            {/* Left accent bar on hover */}
+            <div className={`absolute left-0 top-0 bottom-0 w-0.5 ${iconBg === 'bg-slate-100' ? 'bg-[#1B2A4A]' : iconColor.replace('text-', 'bg-')} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+            <div className="p-5 sm:p-6 flex-1">
                 <div className="flex items-start gap-3.5 mb-4">
-                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-xl group-hover:scale-105 transition-transform duration-300 flex-shrink-0`}>
+                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                         {icon}
                     </div>
                     <div className="min-w-0">
@@ -353,20 +357,20 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
                 </div>
                 <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
             </div>
-            <div className="px-6 pb-5 pt-0 flex flex-col gap-2">
+            <div className="px-5 sm:px-6 pb-5 pt-0 flex flex-col gap-2">
                 {actions.map((action, i) => (
                     <Button
                         key={i}
                         variant={action.variant}
-                        className={`w-full justify-between rounded-lg text-sm ${action.variant === 'default'
-                            ? 'bg-[#1B2A4A] hover:bg-[#142035] text-white shadow-sm shadow-slate-900/20'
-                            : 'border-slate-200 hover:border-slate-400 hover:text-[#1B2A4A] hover:bg-slate-100/50'
+                        className={`w-full justify-between rounded-xl text-sm transition-all duration-300 ${action.variant === 'default'
+                            ? 'bg-[#1B2A4A] hover:bg-[#142035] text-white shadow-sm shadow-slate-900/15'
+                            : 'border-slate-200 hover:border-[#1B2A4A]/30 hover:text-[#1B2A4A] hover:bg-slate-50'
                             }`}
                         asChild
                     >
                         <Link href={action.href}>
                             <span>{action.label}</span>
-                            <ArrowRight size={14} className="opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <ArrowRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
                         </Link>
                     </Button>
                 ))}
