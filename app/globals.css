@@ -131,14 +131,12 @@
   z-index: 50;
   align-items: stretch;
   justify-content: space-around;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-top: 1px solid rgba(148, 163, 184, 0.15);
-  box-shadow: 0 -4px 24px -4px rgba(0, 0, 0, 0.08),
-              0 -1px 6px -1px rgba(0, 0, 0, 0.04);
+  background: #1B2A4A;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -4px 24px -4px rgba(0, 0, 0, 0.25),
+              0 -1px 6px -1px rgba(0, 0, 0, 0.15);
   padding-bottom: env(safe-area-inset-bottom, 0px);
-  height: calc(64px + env(safe-area-inset-bottom, 0px));
+  height: calc(72px + env(safe-area-inset-bottom, 0px));
 }
 
 @media (max-width: 639px) {
@@ -154,9 +152,9 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  gap: 2px;
-  padding: 6px 2px 8px;
-  color: #94a3b8;
+  gap: 4px;
+  padding: 8px 2px 10px;
+  color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
@@ -168,7 +166,7 @@
 }
 
 .mobile-bottom-nav-item.active {
-  color: #1B2A4A;
+  color: #ffffff;
 }
 
 .mobile-bottom-nav-item:active {
@@ -179,45 +177,53 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.mobile-bottom-nav-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
 .mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
-  background: rgba(27, 42, 74, 0.1);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .mobile-bottom-nav-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
   text-align: center;
   transition: all 0.2s ease;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-label {
-  font-weight: 600;
-  color: #1B2A4A;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.04em;
 }
 
-/* Active indicator dot */
+/* Active indicator bar */
 .mobile-bottom-nav-indicator {
   position: absolute;
   bottom: calc(4px + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: #1B2A4A;
+  width: 16px;
+  height: 3px;
+  border-radius: 2px;
+  background: #ffffff;
   animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -238,11 +244,11 @@
   bottom: calc(100% + 8px);
   right: -8px;
   min-width: 200px;
-  background: white;
+  background: #1B2A4A;
   border-radius: 16px;
-  box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.15),
-              0 4px 12px -4px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(148, 163, 184, 0.12);
+  box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.4),
+              0 4px 12px -4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 6px;
   animation: bottomNavOverflowIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom right;
@@ -267,7 +273,7 @@
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  color: #475569;
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   transition: all 0.15s ease;
 }
@@ -277,14 +283,14 @@
 }
 
 .mobile-bottom-nav-overflow-item.active {
-  background: rgba(27, 42, 74, 0.08);
-  color: #1B2A4A;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
   font-weight: 600;
 }
 
 .mobile-bottom-nav-overflow-item:not(.active):hover {
-  background: #f8fafc;
-  color: #1B2A4A;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
 }
 
 .mobile-bottom-nav-overflow-icon {
@@ -294,18 +300,18 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: #f1f5f9;
+  background: rgba(255, 255, 255, 0.08);
   flex-shrink: 0;
 }
 
 .mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
-  background: rgba(27, 42, 74, 0.12);
-  color: #1B2A4A;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
 }
 
 /* Add bottom spacing to main content on phones to prevent content from being hidden behind the bottom nav */
 @media (max-width: 639px) {
   main {
-    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
   }
 }

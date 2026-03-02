@@ -32,7 +32,7 @@ export default async function DashboardLayout({
 
     return (
         <div className="bg-[#f8fafc] dark:bg-slate-900 min-h-screen">
-            {/* Client-side components wrapper */}
+            {/* Client-side components wrapper: Sidebar + Bottom Nav */}
             <ClientLayoutWrapper
                 userRole={userRole}
                 userName={profile?.nombre || 'Usuario'}
@@ -41,11 +41,10 @@ export default async function DashboardLayout({
                 userId={user.id}
             />
 
-            {/* Main Content */}
-            <main className="px-4 py-6 sm:px-6 lg:px-10 max-w-[1920px] mx-auto">
+            {/* Main Content — Offset left for sidebar on desktop/tablet */}
+            <main className="px-4 py-6 sm:pl-[84px] sm:pr-6 lg:pr-10 max-w-[1920px]">
                 {children}
             </main>
         </div>
     )
 }
-

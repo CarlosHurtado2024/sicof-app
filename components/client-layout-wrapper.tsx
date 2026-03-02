@@ -34,7 +34,7 @@ export default function ClientLayoutWrapper({
 
     return (
         <>
-            {/* Top Navigation Bar — Logo + Nav + Notifications + Equipo + Avatar */}
+            {/* Left Sidebar (desktop/tablet) + Bottom Nav (phone) */}
             <TopNavBar
                 userRole={userRole}
                 rightSlot={
@@ -52,6 +52,7 @@ export default function ClientLayoutWrapper({
                             userName={userName}
                             userEmail={userEmail}
                             userInitial={userInitial}
+                            variant="sidebar"
                         />
                     </>
                 }

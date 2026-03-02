@@ -108,13 +108,13 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             {/* Bell Button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative flex items-center justify-center w-10 h-10 rounded-xl text-slate-500 hover:text-[#1B2A4A] hover:bg-slate-100 transition-all"
+                className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#1B2A4A] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all"
                 aria-label="Notificaciones"
             >
                 <Bell className="w-5 h-5" />
                 {/* Red dot for unread */}
                 {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 flex items-center justify-center">
+                    <span className="absolute top-1 right-1 flex items-center justify-center">
                         <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75" />
                         <span className="relative inline-flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-[9px] font-bold text-white">
                             {unreadCount > 9 ? '9+' : unreadCount}
@@ -125,7 +125,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
 
             {/* Dropdown */}
             {open && (
-                <div className="fixed inset-x-3 top-14 sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-96 max-h-[480px] bg-white rounded-2xl shadow-2xl shadow-slate-900/10 border border-slate-200/60 overflow-hidden z-[60] animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="fixed inset-x-3 top-14 sm:absolute sm:inset-x-auto sm:left-full sm:bottom-0 sm:top-auto sm:ml-3 w-auto sm:w-96 max-h-[480px] bg-white rounded-2xl shadow-2xl shadow-slate-900/10 border border-slate-200/60 overflow-hidden z-[60] animate-in fade-in slide-in-from-top-2 duration-200">
                     {/* Header */}
                     <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
                         <div className="flex items-center gap-2">

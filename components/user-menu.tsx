@@ -34,7 +34,7 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
     }
 
     const buttonClasses = variant === 'sidebar'
-        ? "w-12 h-12 rounded-full bg-slate-700 text-white text-xs font-bold ring-2 ring-white/10 cursor-pointer hover:ring-white/20 transition-all focus:outline-none focus:ring-white/30"
+        ? "w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/10 text-white text-xs font-bold cursor-pointer hover:bg-white/15 transition-all focus:outline-none flex items-center justify-center"
         : "h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm hover:bg-blue-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 
     return (

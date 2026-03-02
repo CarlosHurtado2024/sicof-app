@@ -151,56 +151,70 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
 
     return (
         <>
-            {/* ─── Top Header Bar ─── */}
-            <header className="sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm safe-top">
-                <div className="flex items-center h-14 sm:h-16 px-3 sm:px-4 gap-1">
+            {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#1B2A4A] safe-top safe-bottom">
+                {/* Logo */}
+                <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
+                    <div className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white/15 flex items-center justify-center transition-all duration-200 group">
+                        <SicofLogoIcon className="w-7 h-7" inverted={true} />
+                    </div>
+                </Link>
+
+                {/* Divider */}
+                <div className="w-8 h-px bg-white/10 mb-3" />
+
+                {/* Nav Items */}
+                <nav className="flex-1 flex flex-col items-center gap-1 overflow-y-auto scrollbar-hide py-1 w-full px-2">
+                    {navItems.map((item) => {
+                        const isActive = isNavActive(pathname, item.href)
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`group relative flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-200 flex-shrink-0 ${isActive
+                                    ? 'bg-white text-[#1B2A4A] shadow-lg shadow-black/20'
+                                    : 'text-white/50 hover:text-white hover:bg-white/10'
+                                    }`}
+                            >
+                                {item.icon}
+                                {/* Active indicator bar */}
+                                {isActive && (
+                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[5px] w-[3px] h-5 bg-white rounded-full" />
+                                )}
+                                {/* Tooltip */}
+                                <span className="absolute left-full ml-3 px-2.5 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
+                                    {item.label}
+                                </span>
+                            </Link>
+                        )
+                    })}
+                </nav>
+
+                {/* Bottom Section: Right Slot (Notifications, Presence, Avatar) */}
+                <div className="flex flex-col items-center gap-2 py-4 border-t border-white/10 mt-auto w-full px-2">
+                    {rightSlot}
+                </div>
+            </aside>
+
+            {/* ─── Phone-only Top Header Bar (<640px) ─── */}
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#1B2A4A] safe-top">
+                <div className="flex items-center justify-between h-14 px-3">
                     {/* Logo */}
-                    <Link href="/dashboard" className="flex-shrink-0 mr-2 sm:mr-3">
-                        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#1B2A4A] to-[#0F1A2E] rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20">
-                            <SicofLogoIcon className="w-6 h-6 sm:w-7 sm:h-7" inverted={true} />
+                    <Link href="/dashboard" className="flex items-center gap-2">
+                        <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
+                            <SicofLogoIcon className="w-6 h-6" inverted={true} />
                         </div>
+                        <span className="text-white font-bold text-base tracking-tight">Komi</span>
                     </Link>
 
-                    {/* Divider — hidden on phones */}
-                    <div className="w-px h-8 bg-slate-200 mr-2 flex-shrink-0 hidden sm:block" />
-
-                    {/* Navigation Items — hidden on phones, horizontal on tablet/desktop */}
-                    <nav className="hidden sm:flex items-center gap-1 overflow-x-auto scrollbar-hide flex-1 min-w-0">
-                        {navItems.map((item) => {
-                            const isActive = isNavActive(pathname, item.href)
-                            return (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={`group relative flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all whitespace-nowrap flex-shrink-0 ${isActive
-                                        ? 'bg-[#1B2A4A] text-white shadow-md shadow-slate-900/25'
-                                        : 'text-slate-500 hover:text-[#1B2A4A] hover:bg-slate-100'
-                                        }`}
-                                >
-                                    {item.icon}
-                                    <span className="hidden xl:inline">{item.label}</span>
-                                    {/* Tooltip for when labels are hidden */}
-                                    <span className="xl:hidden absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-medium rounded-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-xl z-50">
-                                        {item.label}
-                                    </span>
-                                </Link>
-                            )
-                        })}
-                    </nav>
-
-                    {/* Spacer for phone to push right slot */}
-                    <div className="flex-1 sm:hidden" />
-
-                    {/* Right slot: Notifications + Team + Avatar */}
-                    {rightSlot && (
-                        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 ml-2 sm:ml-3">
-                            {rightSlot}
-                        </div>
-                    )}
+                    {/* Right: Notifications + Team + Avatar */}
+                    <div className="flex items-center gap-1">
+                        {rightSlot}
+                    </div>
                 </div>
             </header>
 
-            {/* ─── Phone-only Bottom Navigation Bar ─── */}
+            {/* ─── Phone-only Bottom Navigation Bar (<640px) ─── */}
             <nav className="mobile-bottom-nav sm:hidden" aria-label="Navegación principal móvil">
                 {bottomBarItems.map((item) => {
                     const isActive = isNavActive(pathname, item.href)

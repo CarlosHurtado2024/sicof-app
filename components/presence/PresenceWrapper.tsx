@@ -23,24 +23,21 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
 
     return (
         <>
-            {/* Presence Button with Navy Theme */}
+            {/* Presence Button */}
             <button
                 onClick={() => setIsPanelOpen(!isPanelOpen)}
-                className="group relative flex items-center gap-2 rounded-xl border border-[#1B2A4A]/30 bg-[#1B2A4A]/10 backdrop-blur-sm px-4 py-2.5 shadow-md shadow-[#1B2A4A]/10 transition-all duration-200 hover:border-[#1B2A4A]/50 hover:bg-[#1B2A4A]/20 hover:shadow-lg hover:shadow-[#1B2A4A]/20"
+                className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#1B2A4A] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all duration-200"
                 title="Ver equipo conectado"
             >
                 <div className="relative">
-                    <Users className="h-5 w-5 text-[#1B2A4A] transition-colors group-hover:text-[#6B31D1]" />
+                    <Users className="h-5 w-5" />
                     {/* Online count badge */}
                     {onlineCount > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-white">
+                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-[#1B2A4A]">
                             {onlineCount}
                         </span>
                     )}
                 </div>
-                <span className="hidden text-sm font-semibold text-[#1B2A4A] group-hover:text-[#6B31D1] md:inline">
-                    Equipo
-                </span>
             </button>
 
             {/* Portal: Render overlay and panel at document.body level to escape stacking context */}
