@@ -19,10 +19,10 @@ export default function UnderConstruction({
         <div className="flex flex-col items-center justify-center min-h-[70vh] p-6 text-center animate-fade-in-up">
             {/* Icon Area */}
             <div className="relative mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1B2A4A]/10 to-cyan-500/10 rounded-full blur-3xl scale-150 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#4C1D95]/10 to-fuchsia-500/10 rounded-full blur-3xl scale-150 animate-pulse" />
                 <div className="relative bg-white p-7 rounded-3xl shadow-lg border border-slate-100 group">
-                    <Construction className="w-14 h-14 text-[#1B2A4A] group-hover:scale-110 transition-transform duration-300" />
-                    <div className="absolute -top-2 -right-2 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] p-2 rounded-xl shadow-lg shadow-slate-900/20 animate-bounce [animation-duration:2s]">
+                    <Construction className="w-14 h-14 text-[#4C1D95] group-hover:scale-110 transition-transform duration-300" />
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] p-2 rounded-xl shadow-lg shadow-slate-900/20 animate-bounce [animation-duration:2s]">
                         <Sparkles className="w-4 h-4 text-white" />
                     </div>
                 </div>
@@ -32,10 +32,10 @@ export default function UnderConstruction({
             <div className="max-w-md space-y-4">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-50 border border-slate-100 mb-2">
                     <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1B2A4A] opacity-40" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#1B2A4A]" />
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4C1D95] opacity-40" />
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4C1D95]" />
                     </span>
-                    <span className="text-xs font-bold text-[#1B2A4A] uppercase tracking-wider">Próximamente</span>
+                    <span className="text-xs font-bold text-[#4C1D95] uppercase tracking-wider">Próximamente</span>
                 </div>
 
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -49,7 +49,7 @@ export default function UnderConstruction({
 
             {/* Progress bar decorative */}
             <div className="mt-8 w-48 bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-[#1B2A4A] to-cyan-500 rounded-full w-[65%] animate-pulse" />
+                <div className="h-full bg-gradient-to-r from-[#4C1D95] to-fuchsia-500 rounded-full w-[65%] animate-pulse" />
             </div>
             <p className="text-[11px] text-slate-400 mt-2 font-medium">65% completado</p>
 
@@ -65,7 +65,7 @@ export default function UnderConstruction({
 
                 <button
                     onClick={() => window.location.href = '/dashboard'}
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#1B2A4A] hover:bg-[#142035] transition-all duration-300 shadow-lg shadow-slate-900/15 hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#4C1D95] hover:bg-[#3B0764] transition-all duration-300 shadow-lg shadow-slate-900/15 hover:-translate-y-0.5"
                 >
                     Ir al Panel Principal
                 </button>

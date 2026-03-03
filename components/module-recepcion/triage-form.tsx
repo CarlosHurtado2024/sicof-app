@@ -127,7 +127,7 @@ function StyledSelect({ value, onChange, options, placeholder, required = false,
             value={value}
             onChange={e => onChange(e.target.value)}
             required={required}
-            className={`flex h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400 transition-all ${className}`}
+            className={`flex h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-purple-400 transition-all ${className}`}
         >
             {placeholder && <option value="" disabled>{placeholder}</option>}
             {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -265,13 +265,13 @@ export function TriageForm() {
                             <div key={s.id} className="flex items-center flex-1">
                                 <div className="flex items-center gap-3">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isDone ? 'bg-emerald-500 text-white shadow-md shadow-emerald-200' :
-                                        isActive ? 'bg-blue-600 text-white shadow-md shadow-blue-200 scale-110' :
+                                        isActive ? 'bg-purple-600 text-white shadow-md shadow-purple-200 scale-110' :
                                             'bg-slate-100 text-slate-400'
                                         }`}>
                                         {isDone ? <CheckCircle2 className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
                                     </div>
                                     <div className="hidden md:block">
-                                        <p className={`text-sm font-semibold ${isActive ? 'text-blue-700' : isDone ? 'text-emerald-700' : 'text-slate-400'}`}>
+                                        <p className={`text-sm font-semibold ${isActive ? 'text-purple-700' : isDone ? 'text-emerald-700' : 'text-slate-400'}`}>
                                             {s.label}
                                         </p>
                                         <p className="text-xs text-slate-400">{s.description}</p>
@@ -306,9 +306,9 @@ export function TriageForm() {
 
             {/* MAIN CARD */}
             <Card className="shadow-lg border-0 overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-slate-50 to-blue-50/50 border-b">
+                <CardHeader className="bg-gradient-to-r from-slate-50 to-purple-50/50 border-b">
                     <CardTitle className="flex items-center gap-2 text-lg">
-                        {step === 1 && <><User className="h-5 w-5 text-blue-500" /> Datos de la Víctima</>}
+                        {step === 1 && <><User className="h-5 w-5 text-purple-500" /> Datos de la Víctima</>}
                         {step === 2 && <><ShieldAlert className="h-5 w-5 text-orange-500" /> Datos del Agresor</>}
                         {step === 3 && <><Scale className="h-5 w-5 text-slate-700" /> Hechos y Competencia Legal</>}
                         {step === 4 && <><Gavel className="h-5 w-5 text-emerald-500" /> Confirmación y Radicación</>}
@@ -329,7 +329,7 @@ export function TriageForm() {
                             {/* Identification */}
                             <div>
                                 <h3 className="text-sm font-semibold text-slate-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <div className="w-1 h-4 bg-blue-500 rounded-full" /> Identificación
+                                    <div className="w-1 h-4 bg-purple-500 rounded-full" /> Identificación
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                     <div className="space-y-2">
@@ -441,7 +441,7 @@ export function TriageForm() {
                                         <div className="flex items-center gap-3 pt-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" checked={data.victima.discapacidad} onChange={e => updateField('victima', 'discapacidad', e.target.checked)}
-                                                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-400" />
+                                                    className="h-4 w-4 rounded border-slate-300 text-purple-600 focus:ring-purple-400" />
                                                 <span className="text-sm">Sí</span>
                                             </label>
                                         </div>
@@ -455,7 +455,7 @@ export function TriageForm() {
                                         <div className="flex items-center gap-3 pt-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" checked={data.victima.es_victima_conflicto} onChange={e => updateField('victima', 'es_victima_conflicto', e.target.checked)}
-                                                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-400" />
+                                                    className="h-4 w-4 rounded border-slate-300 text-purple-600 focus:ring-purple-400" />
                                                 <span className="text-sm">Sí, registrada en RUV</span>
                                             </label>
                                         </div>
@@ -912,7 +912,7 @@ export function TriageForm() {
 
                     <div className="flex gap-3">
                         {step < 4 && (
-                            <Button onClick={handleNext} className="bg-blue-600 hover:bg-blue-700 gap-2 shadow-md shadow-blue-200">
+                            <Button onClick={handleNext} className="bg-purple-600 hover:bg-purple-700 gap-2 shadow-md shadow-purple-200">
                                 Siguiente <ChevronRight className="h-4 w-4" />
                             </Button>
                         )}

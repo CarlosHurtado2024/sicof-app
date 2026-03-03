@@ -152,7 +152,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#1B2A4A] safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#4C1D95] safe-top safe-bottom">
                 {/* Logo */}
                 <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
                     <div className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white/15 flex items-center justify-center transition-all duration-200 group">
@@ -172,7 +172,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                                 key={item.href}
                                 href={item.href}
                                 className={`group relative flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-200 flex-shrink-0 ${isActive
-                                    ? 'bg-white text-[#1B2A4A] shadow-lg shadow-black/20'
+                                    ? 'bg-white text-[#4C1D95] shadow-lg shadow-black/20'
                                     : 'text-white/50 hover:text-white hover:bg-white/10'
                                     }`}
                             >
@@ -197,7 +197,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#1B2A4A] safe-top">
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#4C1D95] safe-top">
                 <div className="flex items-center justify-between h-14 px-3">
                     {/* Logo */}
                     <Link href="/dashboard" className="flex items-center gap-2">

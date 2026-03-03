@@ -8,7 +8,7 @@ import PersonasSearch from '@/components/personas-search'
 import { Suspense } from 'react'
 
 const TIPO_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-    VICTIMA: { bg: 'bg-blue-50', text: 'text-blue-700', label: 'Víctima' },
+    VICTIMA: { bg: 'bg-purple-50', text: 'text-purple-700', label: 'Víctima' },
     AGRESOR: { bg: 'bg-red-50', text: 'text-red-700', label: 'Agresor' },
 }
 
@@ -49,13 +49,13 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                 <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
                     <span>Inicio</span>
                     <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="text-[#1B2A4A]">Personas</span>
+                    <span className="text-[#4C1D95]">Personas</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-800 flex items-center gap-3">
                             <div className="p-2 bg-slate-100 rounded-xl">
-                                <UserSearch className="h-5 w-5 text-[#1B2A4A]" />
+                                <UserSearch className="h-5 w-5 text-[#4C1D95]" />
                             </div>
                             Personas Registradas
                         </h1>
@@ -129,7 +129,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                         {fotoUrl ? (
                                                             <img src={fotoUrl} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0 ring-2 ring-slate-100" />
                                                         ) : (
-                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${p.tipo === 'VICTIMA' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>
+                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${p.tipo === 'VICTIMA' ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
                                                                 {initials}
                                                             </div>
                                                         )}
@@ -148,7 +148,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 <td className="px-5 py-4">
                                                     {p.expediente ? (
                                                         <Link href={`/dashboard/casos/${p.expediente.id}`}>
-                                                            <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2.5 py-1 rounded-md hover:bg-slate-200 transition-colors">
+                                                            <span className="font-mono font-bold text-[#4C1D95] text-xs bg-slate-100 px-2.5 py-1 rounded-md hover:bg-slate-200 transition-colors">
                                                                 {p.expediente.radicado}
                                                             </span>
                                                         </Link>
@@ -161,7 +161,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 </td>
                                                 <td className="px-5 py-4 text-right">
                                                     <Link href={`/dashboard/personas/${p.id}`}>
-                                                        <Button variant="ghost" size="sm" className="gap-1.5 text-[#1B2A4A] hover:text-[#142035] hover:bg-slate-100 rounded-lg font-semibold text-xs">
+                                                        <Button variant="ghost" size="sm" className="gap-1.5 text-[#4C1D95] hover:text-[#3B0764] hover:bg-slate-100 rounded-lg font-semibold text-xs">
                                                             <Eye size={14} />
                                                             Ver
                                                         </Button>
@@ -208,7 +208,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 {fotoUrl ? (
                                                     <img src={fotoUrl} alt="" className="w-9 h-9 rounded-full object-cover ring-2 ring-slate-100" />
                                                 ) : (
-                                                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold ${p.tipo === 'VICTIMA' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>
+                                                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold ${p.tipo === 'VICTIMA' ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
                                                         {initials}
                                                     </div>
                                                 )}
@@ -222,7 +222,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                             </div>
                                             <div className="flex items-center gap-3 text-[11px] text-slate-500 ml-12">
                                                 {p.expediente && (
-                                                    <span className="font-mono text-[#1B2A4A] font-bold">{p.expediente.radicado}</span>
+                                                    <span className="font-mono text-[#4C1D95] font-bold">{p.expediente.radicado}</span>
                                                 )}
                                                 {p.telefono && (
                                                     <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{p.telefono}</span>

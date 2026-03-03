@@ -108,18 +108,18 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                             return (
                                 <div key={fase} className="flex-1 relative min-w-[80px]">
                                     <div className={`flex flex-col items-center py-4 px-2 transition-all
-                                        ${esActual ? 'bg-blue-50 border-b-2 border-blue-600' : ''}
+                                        ${esActual ? 'bg-purple-50 border-b-2 border-purple-600' : ''}
                                         ${completada ? 'bg-emerald-50/50' : ''}
                                     `}>
                                         <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-2
-                                            ${esActual ? 'bg-blue-600 text-white shadow-md' : ''}
+                                            ${esActual ? 'bg-purple-600 text-white shadow-md' : ''}
                                             ${completada ? 'bg-emerald-500 text-white' : ''}
                                             ${!esActual && !completada ? 'bg-slate-200 text-slate-400' : ''}
                                         `}>
                                             {completada ? <CheckCircle className="h-5 w-5" /> : FASE_ICONS[fase]}
                                         </div>
                                         <span className={`text-xs font-semibold text-center leading-tight
-                                            ${esActual ? 'text-blue-700' : ''}
+                                            ${esActual ? 'text-purple-700' : ''}
                                             ${completada ? 'text-emerald-700' : ''}
                                             ${!esActual && !completada ? 'text-slate-400' : ''}
                                         `}>
@@ -151,7 +151,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                         {/* Vertical line + circle */}
                                         <div className="flex flex-col items-center">
                                             <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
-                                                ${esActual ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30' : ''}
+                                                ${esActual ? 'bg-purple-600 text-white shadow-md shadow-purple-500/30' : ''}
                                                 ${completada ? 'bg-emerald-500 text-white' : ''}
                                                 ${!esActual && !completada ? 'bg-slate-200 text-slate-400' : ''}
                                             `}>
@@ -164,14 +164,14 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                         {/* Phase label */}
                                         <div className={`pb-3 pt-1 ${isLast ? '' : ''}`}>
                                             <p className={`text-sm font-semibold leading-tight
-                                                ${esActual ? 'text-blue-700' : ''}
+                                                ${esActual ? 'text-purple-700' : ''}
                                                 ${completada ? 'text-emerald-700' : ''}
                                                 ${!esActual && !completada ? 'text-slate-400' : ''}
                                             `}>
                                                 {info.nombre}
                                             </p>
                                             {esActual && (
-                                                <span className="text-[10px] text-blue-500 font-medium">Fase actual</span>
+                                                <span className="text-[10px] text-purple-500 font-medium">Fase actual</span>
                                             )}
                                         </div>
                                     </div>
@@ -222,7 +222,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                     <Card className="border-0 shadow-sm">
                         <CardHeader className="border-b bg-slate-50/50">
                             <div className="flex items-center gap-2">
-                                <ClipboardList className="h-5 w-5 text-blue-600" />
+                                <ClipboardList className="h-5 w-5 text-purple-600" />
                                 <CardTitle className="text-base">Fase 1: Recepción y Registro</CardTitle>
                             </div>
                         </CardHeader>
@@ -230,7 +230,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                 <div>
                                     <p className="text-slate-400 text-xs uppercase tracking-wide">Radicado</p>
-                                    <p className="font-mono font-bold text-blue-700">{expediente.radicado}</p>
+                                    <p className="font-mono font-bold text-purple-700">{expediente.radicado}</p>
                                 </div>
                                 <div>
                                     <p className="text-slate-400 text-xs uppercase tracking-wide">Fecha Apertura</p>
@@ -249,10 +249,10 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                             {/* Personas */}
                             <div className="grid md:grid-cols-2 gap-4">
                                 {victima && (
-                                    <div className="p-3 bg-blue-50 rounded-lg">
+                                    <div className="p-3 bg-purple-50 rounded-lg">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <User className="h-4 w-4 text-blue-600" />
-                                            <p className="text-xs font-bold text-blue-700 uppercase">Víctima</p>
+                                            <User className="h-4 w-4 text-purple-600" />
+                                            <p className="text-xs font-bold text-purple-700 uppercase">Víctima</p>
                                         </div>
                                         <p className="font-semibold text-slate-800">{victima.nombres}</p>
                                         <p className="text-xs text-slate-500">{victima.tipo_documento}: {victima.documento}</p>
@@ -365,7 +365,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                                         {new Date(a.fecha_programada).toLocaleString('es-CO')}
                                                     </p>
                                                 </div>
-                                                <span className={`text-xs px-2 py-1 rounded-full ${a.estado === 'PROGRAMADA' ? 'bg-blue-100 text-blue-700' : a.estado === 'REALIZADA' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
+                                                <span className={`text-xs px-2 py-1 rounded-full ${a.estado === 'PROGRAMADA' ? 'bg-purple-100 text-purple-700' : a.estado === 'REALIZADA' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
                                                     {a.estado}
                                                 </span>
                                             </div>
@@ -460,7 +460,7 @@ export default async function CasoDetallePage({ params }: { params: Promise<{ id
                                         .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
                                         .map((act: any) => (
                                             <div key={act.id} className="relative pl-4 border-l-2 border-slate-200 pb-3">
-                                                <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-blue-500" />
+                                                <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-purple-500" />
                                                 <p className="text-xs text-slate-400">{new Date(act.created_at).toLocaleString('es-CO')}</p>
                                                 <p className="text-sm font-medium text-slate-700">{act.tipo?.replace(/_/g, ' ')}</p>
                                                 {act.contenido && <p className="text-xs text-slate-500 mt-1 line-clamp-2">{act.contenido}</p>}

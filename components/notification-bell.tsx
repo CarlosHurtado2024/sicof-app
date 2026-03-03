@@ -10,7 +10,7 @@ interface NotificationBellProps {
 }
 
 const TIPO_CONFIG: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
-    INFO: { icon: <Info className="w-4 h-4" />, color: 'text-blue-600', bg: 'bg-blue-50' },
+    INFO: { icon: <Info className="w-4 h-4" />, color: 'text-purple-600', bg: 'bg-purple-50' },
     ALERTA: { icon: <Siren className="w-4 h-4 animate-pulse" />, color: 'text-red-600', bg: 'bg-red-50' },
     CASO: { icon: <FileText className="w-4 h-4" />, color: 'text-slate-800', bg: 'bg-slate-100' },
     SISTEMA: { icon: <Settings className="w-4 h-4" />, color: 'text-slate-600', bg: 'bg-slate-100' },
@@ -108,7 +108,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             {/* Bell Button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#1B2A4A] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all"
+                className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#4C1D95] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all"
                 aria-label="Notificaciones"
             >
                 <Bell className="w-5 h-5" />
@@ -131,7 +131,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                         <div className="flex items-center gap-2">
                             <h3 className="text-sm font-bold text-slate-900">Notificaciones</h3>
                             {unreadCount > 0 && (
-                                <span className="bg-slate-200 text-[#1B2A4A] text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                <span className="bg-slate-200 text-[#4C1D95] text-[10px] font-bold px-2 py-0.5 rounded-full">
                                     {unreadCount} nueva{unreadCount > 1 ? 's' : ''}
                                 </span>
                             )}
@@ -139,7 +139,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                         {unreadCount > 0 && (
                             <button
                                 onClick={markAllAsRead}
-                                className="flex items-center gap-1 text-xs text-[#1B2A4A] hover:text-[#142035] font-medium transition-colors"
+                                className="flex items-center gap-1 text-xs text-[#4C1D95] hover:text-[#3B0764] font-medium transition-colors"
                             >
                                 <CheckCheck className="w-3.5 h-3.5" />
                                 Marcar todas
@@ -151,7 +151,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                     <div className="overflow-y-auto max-h-[400px]">
                         {loading ? (
                             <div className="flex items-center justify-center py-12">
-                                <div className="w-6 h-6 border-2 border-slate-300 border-t-[#1B2A4A] rounded-full animate-spin" />
+                                <div className="w-6 h-6 border-2 border-slate-300 border-t-[#4C1D95] rounded-full animate-spin" />
                             </div>
                         ) : notifications.length === 0 ? (
                             <div className="flex flex-col items-center justify-center py-14 text-slate-400">
@@ -189,14 +189,14 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                                                 </p>
                                             )}
                                             {notif.enlace && (
-                                                <span className="inline-flex items-center gap-1 text-[10px] text-[#1B2A4A] font-medium mt-1.5">
+                                                <span className="inline-flex items-center gap-1 text-[10px] text-[#4C1D95] font-medium mt-1.5">
                                                     Ver detalle <ExternalLink className="w-2.5 h-2.5" />
                                                 </span>
                                             )}
                                         </div>
                                         {/* Unread indicator */}
                                         {!notif.leida && (
-                                            <div className="flex-shrink-0 w-2 h-2 bg-[#1B2A4A] rounded-full mt-2" />
+                                            <div className="flex-shrink-0 w-2 h-2 bg-[#4C1D95] rounded-full mt-2" />
                                         )}
                                     </button>
                                 )

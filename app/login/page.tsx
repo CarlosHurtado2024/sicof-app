@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
-import { AlertCircle, Eye, EyeOff, ArrowLeft, Loader2 } from 'lucide-react'
+import { AlertCircle, Eye, EyeOff, ArrowLeft, Loader2, Fingerprint } from 'lucide-react'
 import { SicofLogoIcon } from '@/components/sicof-logo'
 import Link from 'next/link'
 
@@ -41,157 +41,165 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="font-[Inter,system-ui,sans-serif] min-h-[100svh] flex flex-col antialiased bg-[#0B1628] selection:bg-cyan-400/20 selection:text-white">
+        <div className="font-[Inter,system-ui,sans-serif] min-h-[100svh] flex flex-col justify-center items-center antialiased bg-[#050505] selection:bg-purple-500/30 selection:text-white relative overflow-hidden">
 
-            {/* Background */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                {/* Subtle radial gradient */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(59,130,246,0.08),transparent)]" />
-                {/* Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] [background-size:48px_48px]" />
+            {/* Futuristic Background Elements */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                {/* Glowing Orbs */}
+                <div className="absolute top-[20%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-purple-600/10 blur-[140px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
+                <div className="absolute bottom-[20%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-fuchsia-600/10 blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
+
+                {/* Subtle Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)] opacity-30" />
             </div>
 
-            {/* Content */}
-            <main className="flex-grow flex items-center justify-center px-4 py-8 relative z-10">
+            {/* Back Link */}
+            <Link
+                href="/"
+                className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors font-medium z-20 group"
+            >
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                Regresar
+            </Link>
+
+            {/* Main Content */}
+            <main className="w-full max-w-[420px] px-6 relative z-10 perspective-1000">
                 <div
-                    className={`w-full max-w-[400px] transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    className={`transition-all duration-1000 ease-out transform ${mounted ? 'opacity-100 translate-y-0 rotate-x-0' : 'opacity-0 translate-y-12 rotate-x-12'
                         }`}
                 >
-                    {/* Back link */}
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-white transition-colors font-medium mb-8 group"
-                    >
-                        <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-                        Volver
-                    </Link>
+                    {/* Glassmorphism Card */}
+                    <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/[0.05] p-8 sm:p-10 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.8)] relative overflow-hidden group">
 
-                    {/* Logo & Title */}
-                    <div className="text-center mb-8">
-                        <div className={`transition-all duration-700 delay-100 ${mounted ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/5 border border-white/10 mb-5">
-                                <SicofLogoIcon className="w-10 h-10" inverted={true} />
+                        {/* Shimmer effect line */}
+                        <div className="absolute top-0 left-[-100%] w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent group-hover:left-[100%] transition-all duration-1000 ease-in-out" />
+
+                        {/* Header */}
+                        <div className="flex flex-col items-center text-center mb-10">
+                            <div className="w-14 h-14 bg-gradient-to-br from-purple-500/10 to-fuchsia-500/10 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-inner relative">
+                                <SicofLogoIcon className="w-8 h-8 opacity-90" inverted={true} />
+                                <div className="absolute inset-0 bg-purple-400/20 blur-xl rounded-full" />
                             </div>
-                        </div>
-                        <h1 className="text-2xl font-bold tracking-tight text-white mb-1">
-                            Bienvenido
-                        </h1>
-                        <p className="text-sm text-slate-500">
-                            Ingresa a tu cuenta de Komi
-                        </p>
-                    </div>
-
-                    {/* Form */}
-                    <form className="space-y-4" onSubmit={handleLogin}>
-                        {/* Email */}
-                        <div className="space-y-1.5">
-                            <label className="block text-sm font-medium text-slate-400" htmlFor="email">
-                                Correo electrónico
-                            </label>
-                            <input
-                                className="block w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-500/40 transition-all text-sm"
-                                id="email"
-                                name="email"
-                                placeholder="nombre@entidad.gov.co"
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                autoComplete="email"
-                            />
+                            <h1 className="text-2xl font-semibold tracking-tight text-white/90 mb-2">
+                                Acceso al Sistema
+                            </h1>
+                            <p className="text-sm text-white/40 font-light tracking-wide">
+                                Autenticación cifrada Komi
+                            </p>
                         </div>
 
-                        {/* Password */}
-                        <div className="space-y-1.5">
-                            <div className="flex justify-between items-center">
-                                <label className="block text-sm font-medium text-slate-400" htmlFor="password">
-                                    Contraseña
-                                </label>
-                                <a className="text-xs font-medium text-slate-500 hover:text-cyan-400 transition-colors" href="#">
-                                    ¿Olvidaste tu contraseña?
-                                </a>
-                            </div>
-                            <div className="relative">
+                        {/* Form */}
+                        <form className="space-y-6" onSubmit={handleLogin}>
+                            {/* Email */}
+                            <div className="space-y-1.5 relative group/input">
                                 <input
-                                    className="block w-full px-4 py-3 pr-11 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/40 focus:border-cyan-500/40 transition-all text-sm"
+                                    className="peer w-full bg-transparent border-b border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-purple-500 transition-colors text-sm font-light"
+                                    id="email"
+                                    name="email"
+                                    placeholder="Correo electrónico"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    autoComplete="email"
+                                />
+                                <label
+                                    htmlFor="email"
+                                    className="absolute left-0 -top-3.5 text-xs font-medium text-white/30 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-white/30 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-purple-400"
+                                >
+                                    ID de usuario
+                                </label>
+                            </div>
+
+                            {/* Password */}
+                            <div className="space-y-1.5 relative group/input">
+                                <input
+                                    className="peer w-full bg-transparent border-b border-white/10 px-0 py-3 pr-10 text-white placeholder-transparent focus:outline-none focus:border-purple-500 transition-colors text-sm font-light tracking-widest"
                                     id="password"
                                     name="password"
-                                    placeholder="•••••••••"
+                                    placeholder="Contraseña"
                                     type={showPassword ? 'text' : 'password'}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                     autoComplete="current-password"
                                 />
+                                <label
+                                    htmlFor="password"
+                                    className="absolute left-0 -top-3.5 text-xs font-medium text-white/30 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-white/30 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-purple-400 tracking-normal"
+                                >
+                                    Clave de acceso
+                                </label>
                                 <button
                                     type="button"
-                                    className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-600 hover:text-slate-400 transition-colors"
+                                    className="absolute right-0 top-3 text-white/20 hover:text-white/60 transition-colors"
                                     onClick={() => setShowPassword(!showPassword)}
                                     tabIndex={-1}
                                 >
-                                    {showPassword
-                                        ? <EyeOff className="h-[18px] w-[18px]" />
-                                        : <Eye className="h-[18px] w-[18px]" />
-                                    }
+                                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                                 </button>
                             </div>
-                        </div>
 
-                        {/* Error */}
-                        {error && (
-                            <div className="flex items-center text-sm text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-xl gap-2.5">
-                                <AlertCircle className="h-4 w-4 shrink-0" />
-                                <span className="text-xs font-medium">{error}</span>
-                            </div>
-                        )}
-
-                        {/* Submit */}
-                        <button
-                            className="w-full flex justify-center items-center py-3.5 px-4 rounded-xl text-sm font-bold text-[#0B1628] bg-white hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#0B1628] focus:ring-white transition-all duration-200 transform hover:-translate-y-0.5 shadow-lg shadow-black/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none gap-2 mt-2"
-                            type="submit"
-                            disabled={loading}
-                        >
-                            {loading ? (
-                                <>
-                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                    Ingresando...
-                                </>
-                            ) : (
-                                'Iniciar Sesión'
+                            {/* Error */}
+                            {error && (
+                                <div className="flex items-start text-xs text-red-400 bg-red-500/10 border border-red-500/20 p-3 rounded-lg gap-2 mt-4 backdrop-blur-sm">
+                                    <AlertCircle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+                                    <span className="font-light">{error}</span>
+                                </div>
                             )}
-                        </button>
-                    </form>
 
-                    {/* Divider */}
-                    <div className="flex items-center gap-3 my-6">
-                        <div className="flex-1 h-px bg-white/5" />
-                        <span className="text-xs text-slate-600 font-medium">o</span>
-                        <div className="flex-1 h-px bg-white/5" />
+                            {/* Submit */}
+                            <div className="pt-6">
+                                <button
+                                    className="relative w-full group/btn overflow-hidden rounded-xl bg-white/5 border border-white/10 transition-all hover:border-purple-500/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] disabled:opacity-50 disabled:pointer-events-none"
+                                    type="submit"
+                                    disabled={loading}
+                                >
+                                    <div className="px-4 py-3.5 flex items-center justify-center gap-2 relative z-10 text-sm font-medium text-white/90">
+                                        {loading ? (
+                                            <>
+                                                <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                                                Verificando
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Fingerprint className="w-4 h-4 text-purple-400 group-hover/btn:text-fuchsia-400 transition-colors" />
+                                                Autenticar
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
+                                </button>
+                            </div>
+                        </form>
+
+                        {/* Footer links */}
+                        <div className="mt-8 pt-6 border-t border-white/5 flex flex-col items-center gap-4">
+                            <a href="#" className="text-xs text-white/30 hover:text-purple-400 transition-colors font-light">
+                                ¿No puedes acceder a tu cuenta?
+                            </a>
+                        </div>
                     </div>
 
-                    {/* Secondary action */}
-                    <button
-                        type="button"
-                        className="w-full flex justify-center items-center py-3 px-4 rounded-xl text-sm font-medium text-slate-400 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white transition-all"
-                    >
-                        Solicitar acceso
-                    </button>
-
-                    {/* Footer info */}
-                    <div className="mt-8 flex justify-center items-center gap-4 text-[11px] text-slate-600">
-                        <a className="hover:text-slate-400 transition-colors" href="#">Privacidad</a>
-                        <span>·</span>
-                        <a className="hover:text-slate-400 transition-colors" href="#">Términos</a>
-                        <span>·</span>
-                        <a className="hover:text-slate-400 transition-colors" href="#">Soporte</a>
+                    {/* Hardware Info Placeholder */}
+                    <div className="mt-8 text-center text-[10px] text-white/20 font-mono tracking-widest flex items-center justify-center gap-3 opacity-50">
+                        <span>SYS.v2.4.0</span>
+                        <span className="w-1 h-1 rounded-full bg-purple-500/50" />
+                        <span>SECURE.CONN</span>
+                        <span className="w-1 h-1 rounded-full bg-purple-500/50" />
+                        <span>AES-256</span>
                     </div>
                 </div>
             </main>
 
-            {/* Footer */}
-            <footer className="py-4 text-center text-[11px] text-slate-700 relative z-10">
-                © 2026 Komi — Familia y Bienestar
-            </footer>
+            {/* Custom Animations required for this page */}
+            <style>{`
+                @keyframes shimmer {
+                    100% {
+                        transform: translateX(100%);
+                    }
+                }
+            `}</style>
         </div>
     )
 }

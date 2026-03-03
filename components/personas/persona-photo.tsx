@@ -51,7 +51,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
                     className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-white shadow-lg"
                 />
             ) : (
-                <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold ring-4 ring-white shadow-lg ${isVictima ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>
+                <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold ring-4 ring-white shadow-lg ${isVictima ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
                     {initials}
                 </div>
             )}
@@ -60,7 +60,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#1B2A4A] hover:bg-[#142035] text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 disabled:opacity-50"
+                className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#4C1D95] hover:bg-[#3B0764] text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 disabled:opacity-50"
                 title="Subir foto"
             >
                 {isUploading ? (

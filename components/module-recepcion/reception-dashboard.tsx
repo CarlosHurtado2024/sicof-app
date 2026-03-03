@@ -48,7 +48,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     <div className="flex items-center space-x-2 text-slate-500 text-sm mb-2 font-medium">
                         <span>Inicio</span>
                         <ChevronRight className="h-3.5 w-3.5" />
-                        <span className="text-[#1B2A4A] font-semibold">Recepción</span>
+                        <span className="text-[#4C1D95] font-semibold">Recepción</span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
                         {isCrisisMode ? '🚨 Atención de Emergencia' : 'Recepción y Radicación'}
@@ -68,7 +68,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     </div>
                     {!isCrisisMode && (
                         <Link href="/dashboard/recepcion/nuevo-caso" className="w-full sm:w-auto">
-                            <Button className="w-full sm:w-auto bg-[#1B2A4A] hover:bg-[#142035] text-white px-6 sm:px-8 py-3 rounded-xl font-bold text-sm flex items-center justify-center shadow-lg shadow-[#1B2A4A]/15 transition-all hover:-translate-y-0.5 active:scale-95">
+                            <Button className="w-full sm:w-auto bg-[#4C1D95] hover:bg-[#3B0764] text-white px-6 sm:px-8 py-3 rounded-xl font-bold text-sm flex items-center justify-center shadow-lg shadow-[#4C1D95]/15 transition-all hover:-translate-y-0.5 active:scale-95">
                                 <Plus className="h-5 w-5 mr-2" />
                                 Radicar Caso
                             </Button>
@@ -99,7 +99,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     <div className="bg-white rounded-2xl border border-slate-100/80 overflow-hidden flex flex-col shadow-sm">
                         <div className="px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100">
                             <h4 className="text-base sm:text-lg font-bold text-slate-900 flex items-center">
-                                <FileText className="mr-3 text-[#1B2A4A] h-5 w-5 sm:h-6 sm:w-6" />
+                                <FileText className="mr-3 text-[#4C1D95] h-5 w-5 sm:h-6 sm:w-6" />
                                 {isCrisisMode ? 'Registro de Crisis' : 'Nueva Minuta'}
                             </h4>
                         </div>
@@ -121,11 +121,11 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                         <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                             <div>
                                 <h4 className="text-base sm:text-lg font-bold text-slate-900">Live Queue</h4>
-                                <p className="text-[10px] text-[#1B2A4A] font-bold uppercase tracking-[0.2em] mt-1">Actividad en Tiempo Real</p>
+                                <p className="text-[10px] text-[#4C1D95] font-bold uppercase tracking-[0.2em] mt-1">Actividad en Tiempo Real</p>
                             </div>
                             <div className="relative">
                                 <input
-                                    className="pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-[#1B2A4A]/20 focus:border-[#1B2A4A]/30 w-full sm:w-64 transition-all"
+                                    className="pl-10 pr-4 py-2.5 text-sm bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-[#4C1D95]/20 focus:border-[#4C1D95]/30 w-full sm:w-64 transition-all"
                                     placeholder="Buscar registros..."
                                     type="text"
                                     value={searchTerm}
@@ -254,7 +254,7 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
 
                         {minutas?.length > 0 && (
                             <div className="p-4 sm:p-6 border-t border-slate-100 text-center">
-                                <button className="text-xs font-bold text-slate-400 hover:text-[#1B2A4A] transition-colors uppercase tracking-[0.2em]">
+                                <button className="text-xs font-bold text-slate-400 hover:text-[#4C1D95] transition-colors uppercase tracking-[0.2em]">
                                     Cargar más registros
                                 </button>
                             </div>

@@ -76,7 +76,7 @@ export function MinutaForm() {
     return (
         <Card className="w-full border-0 shadow-lg bg-white overflow-hidden">
             {/* Gradient Header */}
-            <CardHeader className="bg-gradient-to-r from-[#1B2A4A] to-[#0F1A2E] text-white pb-5">
+            <CardHeader className="bg-gradient-to-r from-[#4C1D95] to-[#0F1A2E] text-white pb-5">
                 <div className="flex items-center gap-3">
                     <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <FileText className="h-5 w-5 text-white" />
@@ -104,7 +104,7 @@ export function MinutaForm() {
                     {/* Search by Document */}
                     <div className="space-y-2">
                         <Label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                            <Search className="h-3.5 w-3.5 text-[#1B2A4A]" />
+                            <Search className="h-3.5 w-3.5 text-[#4C1D95]" />
                             Buscar por Documento
                         </Label>
                         <div className="relative">
@@ -112,10 +112,10 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Ingrese cédula o TI para buscar..."
-                                className="pr-10 bg-slate-100/50 border-slate-300 focus:border-[#1B2A4A] focus:ring-[#1B2A4A]/50"
+                                className="pr-10 bg-slate-100/50 border-slate-300 focus:border-[#4C1D95] focus:ring-[#4C1D95]/50"
                             />
                             {buscando && (
-                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-[#1B2A4A] animate-spin" />
+                                <Loader2 className="absolute right-3 top-2.5 h-5 w-5 text-[#4C1D95] animate-spin" />
                             )}
                         </div>
                     </div>
@@ -125,7 +125,7 @@ export function MinutaForm() {
                         <div className="rounded-lg border border-slate-300 overflow-hidden animate-in slide-in-from-top-2 duration-300">
                             <div className="flex items-center gap-3 p-3 bg-slate-100">
                                 <div className="p-1.5 bg-slate-200 rounded-full">
-                                    <UserCheck className="h-4 w-4 text-[#1B2A4A]" />
+                                    <UserCheck className="h-4 w-4 text-[#4C1D95]" />
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-semibold text-slate-900">{resultado.persona.nombres}</p>
@@ -147,7 +147,7 @@ export function MinutaForm() {
                                                 <span className="font-mono font-medium text-red-800">{exp.radicado}</span>
                                                 <span className={`px-2 py-0.5 rounded-full font-medium ${exp.estado === 'TRAMITE' ? 'bg-amber-100 text-amber-700' :
                                                     exp.estado === 'CERRADO' ? 'bg-slate-100 text-slate-600' :
-                                                        'bg-blue-100 text-blue-700'
+                                                        'bg-purple-100 text-purple-700'
                                                     }`}>
                                                     {exp.estado}
                                                 </span>
@@ -220,7 +220,7 @@ export function MinutaForm() {
                                 name="motivo_visita"
                                 required
                                 defaultValue=""
-                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1B2A4A]/50 focus:border-[#1B2A4A] transition-colors"
+                                className="flex h-10 w-full items-center rounded-md border border-input bg-slate-50/50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#4C1D95]/50 focus:border-[#4C1D95] transition-colors"
                             >
                                 <option value="" disabled>Seleccione...</option>
                                 <option value="ORIENTACION">📋 Orientación General</option>
@@ -257,7 +257,7 @@ export function MinutaForm() {
                     <Button
                         type="submit"
                         disabled={guardando}
-                        className="bg-[#1B2A4A] hover:bg-[#142035] shadow-md shadow-slate-300 gap-2"
+                        className="bg-[#4C1D95] hover:bg-[#3B0764] shadow-md shadow-slate-300 gap-2"
                     >
                         {guardando ? (
                             <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</>

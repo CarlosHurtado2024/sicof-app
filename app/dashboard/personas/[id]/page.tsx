@@ -79,7 +79,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 <ChevronRight className="h-3.5 w-3.5" />
                 <Link href="/dashboard/personas" className="hover:text-slate-600 transition-colors">Personas</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="text-[#1B2A4A] truncate max-w-[200px]">{persona.nombres}</span>
+                <span className="text-[#4C1D95] truncate max-w-[200px]">{persona.nombres}</span>
             </div>
 
             {/* Back button */}
@@ -92,7 +92,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
 
             {/* Profile Header Card */}
             <Card className="border-0 shadow-sm overflow-hidden rounded-2xl">
-                <div className={`h-20 sm:h-28 relative ${isVictima ? 'bg-gradient-to-r from-blue-500 to-indigo-600' : 'bg-gradient-to-r from-red-500 to-rose-600'}`}>
+                <div className={`h-20 sm:h-28 relative ${isVictima ? 'bg-gradient-to-r from-purple-500 to-indigo-600' : 'bg-gradient-to-r from-red-500 to-rose-600'}`}>
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:24px_24px]" />
                 </div>
                 <CardContent className="relative px-4 sm:px-6 pb-6">
@@ -111,7 +111,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                         <div>
                             <h1 className="text-xl sm:text-2xl font-bold text-slate-800">{persona.nombres}</h1>
                             <div className="flex items-center gap-2 mt-1">
-                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${isVictima ? 'bg-blue-50 text-blue-700' : 'bg-red-50 text-red-700'}`}>
+                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${isVictima ? 'bg-purple-50 text-purple-700' : 'bg-red-50 text-red-700'}`}>
                                     {isVictima ? <User className="h-3 w-3" /> : <UserX className="h-3 w-3" />}
                                     {isVictima ? 'Víctima' : 'Agresor'}
                                 </span>
@@ -131,7 +131,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                     <Card className="border-0 shadow-sm rounded-2xl">
                         <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
                             <CardTitle className="text-base flex items-center gap-2.5">
-                                <div className="p-1.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-lg">
+                                <div className="p-1.5 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] rounded-lg">
                                     <FileText className="h-3.5 w-3.5 text-white" />
                                 </div>
                                 Datos Personales
@@ -191,7 +191,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                     <Card className="border-0 shadow-sm rounded-2xl card-hover">
                         <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
                             <CardTitle className="text-base flex items-center gap-2.5">
-                                <div className="p-1.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-lg">
+                                <div className="p-1.5 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] rounded-lg">
                                     <FolderHeart className="h-3.5 w-3.5 text-white" />
                                 </div>
                                 Expediente Principal
@@ -202,7 +202,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                                 <Link href={`/dashboard/casos/${persona.expediente.id}`} className="block">
                                     <div className="p-3 bg-slate-50/50 rounded-lg border border-slate-200 hover:bg-slate-100 transition-colors">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="font-mono font-bold text-[#1B2A4A] text-xs">{persona.expediente.radicado}</span>
+                                            <span className="font-mono font-bold text-[#4C1D95] text-xs">{persona.expediente.radicado}</span>
                                             {persona.expediente.nivel_riesgo && (
                                                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.bg || ''} ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.text || ''}`}>
                                                     {RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.label || persona.expediente.nivel_riesgo}
@@ -235,7 +235,7 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                                     <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
                                         <div className="p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
                                             <div className="flex items-center justify-between">
-                                                <span className="font-mono font-bold text-[#1B2A4A] text-xs">{exp.radicado}</span>
+                                                <span className="font-mono font-bold text-[#4C1D95] text-xs">{exp.radicado}</span>
                                                 <span className="text-[10px] text-slate-400">{exp.estado}</span>
                                             </div>
                                             <p className="text-xs text-slate-500 mt-1">{exp.tipologia_violencia}</p>

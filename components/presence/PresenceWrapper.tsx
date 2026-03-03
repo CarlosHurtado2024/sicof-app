@@ -26,14 +26,14 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
             {/* Presence Button */}
             <button
                 onClick={() => setIsPanelOpen(!isPanelOpen)}
-                className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#1B2A4A] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all duration-200"
+                className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#4C1D95] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all duration-200"
                 title="Ver equipo conectado"
             >
                 <div className="relative">
                     <Users className="h-5 w-5" />
                     {/* Online count badge */}
                     {onlineCount > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-[#1B2A4A]">
+                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-[#4C1D95]">
                             {onlineCount}
                         </span>
                     )}

@@ -63,11 +63,11 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0B1628] via-[#1B2A4A] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/20 animate-fade-in-up">
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] via-[#4C1D95] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/20 animate-fade-in-up">
                 {/* Grid pattern */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px]" />
-                <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
-                <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-500/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-fuchsia-500/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
+                <div className="absolute bottom-0 left-0 w-60 h-60 bg-purple-500/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
                 <div className="relative z-10">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                         <div>
@@ -83,7 +83,7 @@ export default async function DashboardPage() {
                         </div>
                         <div className="flex items-center gap-3">
                             <Link href="/dashboard/recepcion/nuevo-caso">
-                                <Button className="bg-white text-[#0B1628] hover:bg-slate-100 rounded-xl px-5 py-2.5 font-bold text-sm transition-all hover:-translate-y-0.5 gap-2 shadow-lg shadow-black/20">
+                                <Button className="bg-white text-[#2E1065] hover:bg-slate-100 rounded-xl px-5 py-2.5 font-bold text-sm transition-all hover:-translate-y-0.5 gap-2 shadow-lg shadow-black/20">
                                     <PlusCircle className="h-4 w-4" />
                                     Nuevo Caso
                                 </Button>
@@ -99,9 +99,9 @@ export default async function DashboardPage() {
                     title="Total Expedientes"
                     value={stats.totalCasos}
                     icon={<FolderHeart className="h-5 w-5" />}
-                    gradient="from-[#1B2A4A] to-[#2C4A7C]"
+                    gradient="from-[#4C1D95] to-[#2C4A7C]"
                     bgLight="bg-slate-50"
-                    textColor="text-[#1B2A4A]"
+                    textColor="text-[#4C1D95]"
                 />
                 <KPICard
                     title="En Trámite"
@@ -123,16 +123,16 @@ export default async function DashboardPage() {
                     title="Medidas Vigentes"
                     value={stats.medidasVigentes}
                     icon={<ShieldCheck className="h-5 w-5" />}
-                    gradient="from-blue-500 to-cyan-500"
-                    bgLight="bg-blue-50"
-                    textColor="text-blue-600"
+                    gradient="from-purple-500 to-fuchsia-500"
+                    bgLight="bg-purple-50"
+                    textColor="text-purple-600"
                 />
             </div>
 
             {/* Role-specific modules */}
             <div>
                 <h3 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2.5">
-                    <span className="w-1.5 h-6 bg-gradient-to-b from-[#1B2A4A] to-[#2C4A7C] rounded-full" />
+                    <span className="w-1.5 h-6 bg-gradient-to-b from-[#4C1D95] to-[#2C4A7C] rounded-full" />
                     Módulos Disponibles
                 </h3>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 stagger-children">
@@ -173,7 +173,7 @@ function AuxiliarModules() {
             <ModuleCard
                 icon={<Users className="h-5 w-5" />}
                 iconBg="bg-slate-100"
-                iconColor="text-[#1B2A4A]"
+                iconColor="text-[#4C1D95]"
                 title="Recepción y Radicación"
                 subtitle="Ventanilla Única Digital"
                 description="Registro de minuta, ingreso de usuarios, validación de competencia y generación de radicado."
@@ -318,8 +318,8 @@ function ComisarioModules() {
             />
             <ModuleCard
                 icon={<BarChart3 className="h-5 w-5" />}
-                iconBg="bg-cyan-50"
-                iconColor="text-cyan-600"
+                iconBg="bg-fuchsia-50"
+                iconColor="text-fuchsia-600"
                 title="Tablero de Control"
                 subtitle="Indicadores y Estadísticas"
                 description="Casos activos, medidas vigentes, reincidencias y reportes para MinJusticia."
@@ -344,7 +344,7 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     return (
         <Card className="flex flex-col border border-slate-100/80 shadow-sm hover:shadow-lg hover:border-slate-200 transition-all duration-500 rounded-2xl overflow-hidden group card-hover bg-white relative">
             {/* Left accent bar on hover */}
-            <div className={`absolute left-0 top-0 bottom-0 w-0.5 ${iconBg === 'bg-slate-100' ? 'bg-[#1B2A4A]' : iconColor.replace('text-', 'bg-')} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+            <div className={`absolute left-0 top-0 bottom-0 w-0.5 ${iconBg === 'bg-slate-100' ? 'bg-[#4C1D95]' : iconColor.replace('text-', 'bg-')} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
             <div className="p-5 sm:p-6 flex-1">
                 <div className="flex items-start gap-3.5 mb-4">
                     <div className={`${iconBg} ${iconColor} p-2.5 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
@@ -363,8 +363,8 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
                         key={i}
                         variant={action.variant}
                         className={`w-full justify-between rounded-xl text-sm transition-all duration-300 ${action.variant === 'default'
-                            ? 'bg-[#1B2A4A] hover:bg-[#142035] text-white shadow-sm shadow-slate-900/15'
-                            : 'border-slate-200 hover:border-[#1B2A4A]/30 hover:text-[#1B2A4A] hover:bg-slate-50'
+                            ? 'bg-[#4C1D95] hover:bg-[#3B0764] text-white shadow-sm shadow-slate-900/15'
+                            : 'border-slate-200 hover:border-[#4C1D95]/30 hover:text-[#4C1D95] hover:bg-slate-50'
                             }`}
                         asChild
                     >

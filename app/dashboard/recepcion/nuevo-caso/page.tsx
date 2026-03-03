@@ -11,13 +11,13 @@ export default function NuevoCasoPage() {
                 <ChevronRight className="h-3.5 w-3.5" />
                 <span>Recepción</span>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="text-[#1B2A4A]">Nuevo Caso</span>
+                <span className="text-[#4C1D95]">Nuevo Caso</span>
             </div>
 
             {/* Header */}
             <div className="flex items-start gap-4">
                 <div className="p-3 bg-slate-100 rounded-xl flex-shrink-0">
-                    <ClipboardList className="h-6 w-6 text-[#1B2A4A]" />
+                    <ClipboardList className="h-6 w-6 text-[#4C1D95]" />
                 </div>
                 <div>
                     <h1 className="text-2xl font-bold tracking-tight text-slate-800">Registro de Caso y Triaje</h1>

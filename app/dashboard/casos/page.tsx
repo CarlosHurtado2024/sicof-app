@@ -17,7 +17,7 @@ const RIESGO_CONFIG: Record<string, { bg: string; text: string; dot: string; lab
 }
 
 const FASE_CONFIG: Record<string, { bg: string; text: string; dot: string }> = {
-    RECEPCION: { bg: 'bg-blue-50', text: 'text-blue-700', dot: 'bg-blue-500' },
+    RECEPCION: { bg: 'bg-purple-50', text: 'text-purple-700', dot: 'bg-purple-500' },
     VALORACION: { bg: 'bg-slate-100', text: 'text-slate-700', dot: 'bg-slate-900' },
     MEDIDAS: { bg: 'bg-amber-50', text: 'text-amber-700', dot: 'bg-amber-500' },
     SEGUIMIENTO: { bg: 'bg-emerald-50', text: 'text-emerald-700', dot: 'bg-emerald-500' },
@@ -73,12 +73,12 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                 <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
                     <span>Inicio</span>
                     <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="text-[#1B2A4A]">Expedientes</span>
+                    <span className="text-[#4C1D95]">Expedientes</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
                         <h1 className="text-2xl font-bold tracking-tight text-slate-800 flex items-center gap-3">
-                            <div className="p-2.5 bg-gradient-to-br from-[#1B2A4A] to-[#2C4A7C] rounded-xl shadow-sm">
+                            <div className="p-2.5 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] rounded-xl shadow-sm">
                                 <FolderHeart className="h-5 w-5 text-white" />
                             </div>
                             Expedientes
@@ -87,7 +87,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                     </div>
                     <div className="flex items-center gap-3">
                         <Link href="/dashboard/recepcion/nuevo-caso">
-                            <Button className="bg-[#1B2A4A] hover:bg-[#142035] gap-2 rounded-xl font-bold text-sm shadow-lg shadow-slate-900/15 transition-all hover:-translate-y-0.5 px-5 py-2.5">
+                            <Button className="bg-[#4C1D95] hover:bg-[#3B0764] gap-2 rounded-xl font-bold text-sm shadow-lg shadow-slate-900/15 transition-all hover:-translate-y-0.5 px-5 py-2.5">
                                 <PlusCircle size={16} />
                                 Radicar Nuevo Caso
                             </Button>
@@ -165,7 +165,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                         return (
                                             <tr key={exp.id} className="hover:bg-slate-50 transition-all duration-200 group">
                                                 <td className="px-5 py-4">
-                                                    <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2.5 py-1 rounded-md">{exp.radicado}</span>
+                                                    <span className="font-mono font-bold text-[#4C1D95] text-xs bg-slate-100 px-2.5 py-1 rounded-md">{exp.radicado}</span>
                                                 </td>
                                                 <td className="px-5 py-4">
                                                     <div className="flex items-center gap-3">
@@ -203,7 +203,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                                         <Button
                                                             variant="ghost"
                                                             size="sm"
-                                                            className="gap-1.5 text-[#1B2A4A] hover:text-[#142035] hover:bg-slate-100 rounded-lg font-semibold text-xs"
+                                                            className="gap-1.5 text-[#4C1D95] hover:text-[#3B0764] hover:bg-slate-100 rounded-lg font-semibold text-xs"
                                                         >
                                                             <Eye size={14} />
                                                             Ver
@@ -258,7 +258,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                                                             'border-l-transparent'
                                             }`}>
                                             <div className="flex items-center justify-between mb-2">
-                                                <span className="font-mono font-bold text-[#1B2A4A] text-xs bg-slate-100 px-2 py-0.5 rounded">{exp.radicado}</span>
+                                                <span className="font-mono font-bold text-[#4C1D95] text-xs bg-slate-100 px-2 py-0.5 rounded">{exp.radicado}</span>
                                                 <span className="text-[10px] text-slate-400">
                                                     {new Date(exp.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
                                                 </span>

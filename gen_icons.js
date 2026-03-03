@@ -21,7 +21,7 @@ async function processIcons() {
         .toFile('public/icon-512.png');
     console.log('Generated icon-512.png');
 
-    // 192 maskable (padded on a background #111827 or #FFFFFF, the theme_color is #1B2A4A, let's use white #ffffff for best contrast with black logo)
+    // 192 maskable (padded on a background #111827 or #FFFFFF, the theme_color is #4C1D95, let's use white #ffffff for best contrast with black logo)
     await sharp(svgBuffer)
         .resize(134, 134, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 1 } })
         .extend({
