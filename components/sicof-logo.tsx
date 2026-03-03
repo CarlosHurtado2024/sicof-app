@@ -35,7 +35,7 @@ export function SicofLogo({
     showSubtitle = true,
 }: SicofLogoProps) {
     const textColor = inverted ? "text-white" : "text-slate-900"
-    const subtitleColor = inverted ? "text-slate-300/60" : "text-[#4C1D95]"
+    const subtitleColor = inverted ? "text-white/30/60" : "text-purple-300"
 
     return (
         <div className={`flex items-center gap-2.5 ${className}`}>

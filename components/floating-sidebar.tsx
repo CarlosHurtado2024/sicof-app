@@ -152,7 +152,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#4C1D95] safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[72px] flex-col items-center bg-[#050505]/60 border-r border-white/5 backdrop-blur-3xl safe-top safe-bottom">
                 {/* Logo */}
                 <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
                     <div className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white/15 flex items-center justify-center transition-all duration-200 group">
@@ -171,18 +171,18 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`group relative flex items-center justify-center w-11 h-11 rounded-xl transition-all duration-200 flex-shrink-0 ${isActive
-                                    ? 'bg-white text-[#4C1D95] shadow-lg shadow-black/20'
-                                    : 'text-white/50 hover:text-white hover:bg-white/10'
+                                className={`group relative flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 flex-shrink-0 ${isActive
+                                    ? 'bg-white/[0.08] text-purple-300 shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-white/10'
+                                    : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'
                                     }`}
                             >
                                 {item.icon}
                                 {/* Active indicator bar */}
                                 {isActive && (
-                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[5px] w-[3px] h-5 bg-white rounded-full" />
+                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[6px] w-[3px] h-6 bg-purple-400 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]" />
                                 )}
                                 {/* Tooltip */}
-                                <span className="absolute left-full ml-3 px-2.5 py-1.5 bg-slate-900 text-white text-xs font-medium rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
+                                <span className="absolute left-full ml-4 px-3 py-1.5 bg-[#050505]/90 border border-white/10 text-white/90 text-[11px] font-medium tracking-wide uppercase rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-2xl backdrop-blur-xl z-[60] pointer-events-none">
                                     {item.label}
                                 </span>
                             </Link>
@@ -197,7 +197,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#4C1D95] safe-top">
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#050505]/80 backdrop-blur-2xl border-b border-white/5 safe-top">
                 <div className="flex items-center justify-between h-14 px-3">
                     {/* Logo */}
                     <Link href="/dashboard" className="flex items-center gap-2">

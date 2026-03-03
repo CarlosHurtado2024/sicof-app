@@ -49,14 +49,14 @@ export default function ExpedientesSearch() {
     return (
         <div className="relative flex-1 max-w-md">
             <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40 pointer-events-none" />
                 <input
                     ref={inputRef}
                     type="text"
                     value={query}
                     onChange={(e) => handleSearch(e.target.value)}
                     placeholder="Buscar por nombre o documento..."
-                    className="w-full pl-10 pr-10 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500 placeholder:text-slate-400 transition-all"
+                    className="w-full pl-10 pr-10 py-2.5 text-sm bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500 placeholder:text-white/40 transition-all"
                     aria-label="Buscar expedientes por nombre o documento"
                 />
                 {/* Loading / Clear */}
@@ -66,7 +66,7 @@ export default function ExpedientesSearch() {
                     ) : query ? (
                         <button
                             onClick={handleClear}
-                            className="p-0.5 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                            className="p-0.5 rounded-md text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors"
                             aria-label="Limpiar búsqueda"
                         >
                             <X className="h-3.5 w-3.5" />

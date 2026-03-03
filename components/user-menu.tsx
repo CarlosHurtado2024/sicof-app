@@ -48,7 +48,7 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
                 <DropdownMenuLabel>
                     <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">{userName}</p>
-                        <p className="text-xs leading-none text-slate-500">{userEmail}</p>
+                        <p className="text-xs leading-none text-white/50">{userEmail}</p>
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -59,7 +59,7 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                     onClick={handleSignOut}
-                    className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"
+                    className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-500/10 border border-red-500/20"
                 >
                     <LogOut className="mr-2 h-4 w-4" />
                     <span>Cerrar Sesión</span>

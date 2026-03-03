@@ -26,14 +26,14 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
             {/* Presence Button */}
             <button
                 onClick={() => setIsPanelOpen(!isPanelOpen)}
-                className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-500 sm:text-white/50 hover:text-[#4C1D95] sm:hover:text-white hover:bg-slate-100 sm:hover:bg-white/10 transition-all duration-200"
+                className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-white/50 sm:text-white/50 hover:text-purple-300 sm:hover:text-white hover:bg-white/10 sm:hover:bg-white/10 transition-all duration-200"
                 title="Ver equipo conectado"
             >
                 <div className="relative">
                     <Users className="h-5 w-5" />
                     {/* Online count badge */}
                     {onlineCount > 0 && (
-                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-sm ring-2 ring-[#4C1D95]">
+                        <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-emerald-500 px-1 text-[9px] font-bold text-white shadow-[0_0_20px_rgba(0,0,0,0.3)] ring-2 ring-[#4C1D95]">
                             {onlineCount}
                         </span>
                     )}
@@ -53,13 +53,13 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
 
                     {/* Desktop: Right Sidebar (sm+) */}
                     <div
-                        className={`fixed right-0 top-0 z-[70] h-full w-80 transform bg-white shadow-2xl transition-transform duration-300 ease-in-out hidden sm:block ${isPanelOpen ? 'sm:translate-x-0' : 'sm:translate-x-full'
+                        className={`fixed right-0 top-0 z-[70] h-full w-80 transform bg-white/[0.02] backdrop-blur-xl shadow-2xl transition-transform duration-300 ease-in-out hidden sm:block ${isPanelOpen ? 'sm:translate-x-0' : 'sm:translate-x-full'
                             }`}
                     >
                         {/* Close button */}
                         <button
                             onClick={() => setIsPanelOpen(false)}
-                            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-slate-900"
                         >
                             <X className="h-4 w-4" />
                         </button>
@@ -73,7 +73,7 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
 
                     {/* Mobile: Bottom Sheet (< sm) */}
                     <div
-                        className={`fixed bottom-0 left-0 right-0 z-[70] transform bg-white shadow-2xl transition-transform duration-300 ease-in-out rounded-t-2xl sm:hidden ${isPanelOpen ? 'translate-y-0' : 'translate-y-full'
+                        className={`fixed bottom-0 left-0 right-0 z-[70] transform bg-white/[0.02] backdrop-blur-xl shadow-2xl transition-transform duration-300 ease-in-out rounded-t-2xl sm:hidden ${isPanelOpen ? 'translate-y-0' : 'translate-y-full'
                             }`}
                         style={{ maxHeight: '60vh' }}
                     >
@@ -85,7 +85,7 @@ export default function PresenceWrapper({ currentUser }: PresenceWrapperProps) {
                         {/* Close button */}
                         <button
                             onClick={() => setIsPanelOpen(false)}
-                            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+                            className="absolute right-3 top-3 z-10 rounded-lg p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-slate-900"
                         >
                             <X className="h-4 w-4" />
                         </button>

@@ -73,7 +73,7 @@ export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
     }[calculatedRisk];
 
     return (
-        <Card className="w-full max-w-4xl mx-auto shadow-lg">
+        <Card className="w-full max-w-4xl mx-auto shadow-[0_0_30px_rgba(0,0,0,0.5)]">
             <CardHeader>
                 <CardTitle>Instrumento de Valoración de Riesgo</CardTitle>
                 <CardDescription>
@@ -83,7 +83,7 @@ export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
             <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-sm text-slate-500 uppercase">Indicadores Críticos</h3>
+                        <h3 className="font-semibold text-sm text-white/50 uppercase">Indicadores Críticos</h3>
                         <div className="flex items-start gap-2">
                             <Checkbox id="amenaza_muerte" checked={checklist.amenaza_muerte} onCheckedChange={(c: boolean) => handleCheck('amenaza_muerte', c)} />
                             <Label htmlFor="amenaza_muerte">Amenaza de muerte reciente</Label>
@@ -103,7 +103,7 @@ export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-sm text-slate-500 uppercase">Agravantes del Agresor</h3>
+                        <h3 className="font-semibold text-sm text-white/50 uppercase">Agravantes del Agresor</h3>
                         <div className="flex items-start gap-2">
                             <Checkbox id="consumo_sustancias" checked={checklist.consumo_sustancias} onCheckedChange={(c: boolean) => handleCheck('consumo_sustancias', c)} />
                             <Label htmlFor="consumo_sustancias">Consumo de alcohol o sustancias psicoactivas</Label>
@@ -119,7 +119,7 @@ export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-sm text-slate-500 uppercase">Contexto y Severidad</h3>
+                        <h3 className="font-semibold text-sm text-white/50 uppercase">Contexto y Severidad</h3>
                         <div className="flex items-start gap-2">
                             <Checkbox id="aumento_severidad" checked={checklist.aumento_severidad} onCheckedChange={(c: boolean) => handleCheck('aumento_severidad', c)} />
                             <Label htmlFor="aumento_severidad">Aumento en frecuencia o severidad de agresiones</Label>
@@ -135,7 +135,7 @@ export function RiskForm({ expedienteId, userRole }: RiskFormProps) {
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="font-semibold text-sm text-slate-500 uppercase">Vulnerabilidad de la Víctima</h3>
+                        <h3 className="font-semibold text-sm text-white/50 uppercase">Vulnerabilidad de la Víctima</h3>
                         <div className="flex items-start gap-2">
                             <Checkbox id="presencia_nna" checked={checklist.presencia_nna} onCheckedChange={(c: boolean) => handleCheck('presencia_nna', c)} />
                             <Label htmlFor="presencia_nna">Presencia de Niños, Niñas o Adolescentes</Label>

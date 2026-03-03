@@ -71,7 +71,7 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
             <Button
                 onClick={() => setIsOpen(true)}
                 variant="outline"
-                className="gap-2 rounded-xl border-slate-300 text-[#4C1D95] hover:bg-slate-100 hover:text-[#3B0764]"
+                className="gap-2 rounded-xl border-white/10 text-purple-300 hover:bg-white/10 hover:text-white"
             >
                 <Pencil size={14} />
                 Editar Datos
@@ -85,11 +85,11 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
             <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
 
             {/* Modal */}
-            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-lg z-50 max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl">
+            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-lg z-50 max-h-[90vh] overflow-y-auto bg-white/[0.02] backdrop-blur-xl rounded-2xl shadow-2xl">
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b border-slate-100 px-5 py-4 flex items-center justify-between rounded-t-2xl z-10">
-                    <h2 className="text-lg font-bold text-slate-800">Editar Persona</h2>
-                    <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors">
+                <div className="sticky top-0 bg-white/[0.02] backdrop-blur-xl border-b border-white/10 px-5 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                    <h2 className="text-lg font-bold text-white/90">Editar Persona</h2>
+                    <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors">
                         <X className="h-5 w-5" />
                     </button>
                 </div>
@@ -108,11 +108,11 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1 block">Zona</label>
+                            <label className="text-xs font-semibold text-white/50 uppercase tracking-wide mb-1 block">Zona</label>
                             <select
                                 value={form.zona}
                                 onChange={(e) => handleChange('zona', e.target.value)}
-                                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500"
+                                className="w-full px-3 py-2.5 text-sm bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 text-white/90 [&>option]:bg-[#050505] [&>option]:text-white"
                             >
                                 <option value="">Sin especificar</option>
                                 <option value="URBANA">Urbana</option>
@@ -135,29 +135,29 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
                             id="discapacidad"
                             checked={form.discapacidad}
                             onChange={(e) => handleChange('discapacidad', e.target.checked)}
-                            className="w-4 h-4 rounded border-slate-300 text-[#4C1D95] focus:ring-slate-900"
+                            className="w-4 h-4 rounded border-white/10 text-purple-600 focus:ring-purple-500 bg-white/5"
                         />
-                        <label htmlFor="discapacidad" className="text-sm text-slate-700">Persona con discapacidad</label>
+                        <label htmlFor="discapacidad" className="text-sm text-white/80">Persona con discapacidad</label>
                     </div>
 
                     {/* Error/Success */}
                     {error && (
-                        <div className="p-3 bg-red-50 text-red-700 text-sm rounded-lg border border-red-200">{error}</div>
+                        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-300 text-sm rounded-lg border border-red-200">{error}</div>
                     )}
                     {success && (
-                        <div className="p-3 bg-emerald-50 text-emerald-700 text-sm rounded-lg border border-emerald-200">✅ Datos actualizados correctamente</div>
+                        <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-lg border border-emerald-200">✅ Datos actualizados correctamente</div>
                     )}
                 </div>
 
                 {/* Footer */}
-                <div className="sticky bottom-0 bg-white border-t border-slate-100 px-5 py-4 flex items-center justify-end gap-3 rounded-b-2xl">
+                <div className="sticky bottom-0 bg-white/[0.02] backdrop-blur-xl border-t border-white/10 px-5 py-4 flex items-center justify-end gap-3 rounded-b-2xl">
                     <Button variant="outline" onClick={() => setIsOpen(false)} className="rounded-xl">
                         Cancelar
                     </Button>
                     <Button
                         onClick={handleSubmit}
                         disabled={isPending}
-                        className="bg-[#4C1D95] hover:bg-[#3B0764] gap-2 rounded-xl font-semibold shadow-lg shadow-slate-900/20"
+                        className="bg-purple-600 border border-purple-500/50 hover:bg-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.3)] gap-2 rounded-xl font-semibold shadow-[#4C1D95]/15"
                     >
                         {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
                         {isPending ? 'Guardando...' : 'Guardar Cambios'}
@@ -173,12 +173,12 @@ function FormField({ label, value, onChange, type = 'text' }: {
 }) {
     return (
         <div>
-            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1 block">{label}</label>
+            <label className="text-xs font-semibold text-white/50 uppercase tracking-wide mb-1 block">{label}</label>
             <input
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full px-3 py-2.5 text-sm bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900/30 focus:border-slate-500 transition-all"
+                className="w-full px-3 py-2.5 text-sm bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-white/90"
             />
         </div>
     )

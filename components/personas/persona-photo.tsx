@@ -48,10 +48,10 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
                 <img
                     src={photoUrl}
                     alt="Foto de persona"
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-white shadow-lg"
+                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-[#050505] shadow-[0_0_30px_rgba(0,0,0,0.5)]"
                 />
             ) : (
-                <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold ring-4 ring-white shadow-lg ${isVictima ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
+                <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold ring-4 ring-[#050505] shadow-[0_0_30px_rgba(0,0,0,0.5)] ${isVictima ? 'bg-purple-900/50 text-purple-300 border border-purple-500/20' : 'bg-red-900/50 text-red-300 border border-red-500/20'}`}>
                     {initials}
                 </div>
             )}
@@ -60,7 +60,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#4C1D95] hover:bg-[#3B0764] text-white rounded-full flex items-center justify-center shadow-lg transition-all hover:scale-110 disabled:opacity-50"
+                className="absolute -bottom-1 -right-1 w-8 h-8 bg-purple-600 border border-purple-500/50 hover:bg-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.3)] text-white rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50"
                 title="Subir foto"
             >
                 {isUploading ? (

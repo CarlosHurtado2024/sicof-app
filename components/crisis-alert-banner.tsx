@@ -38,7 +38,7 @@ export function CrisisAlertBanner({ userRole, userId }: CrisisAlertBannerProps) 
                     <Button
                         onClick={atender}
                         variant="secondary"
-                        className="flex-1 sm:flex-none font-bold text-red-700 bg-white hover:bg-red-50 border-0 shadow-lg"
+                        className="flex-1 sm:flex-none font-bold text-red-300 bg-white/[0.02] backdrop-blur-xl hover:bg-red-500/10 border border-red-500/20 border-0 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
                     >
                         🚨 Atender Emergencia
                     </Button>

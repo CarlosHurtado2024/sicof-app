@@ -174,10 +174,11 @@ html {
   z-index: 50;
   align-items: stretch;
   justify-content: space-around;
-  background: #3B0764; /* Purple 950 */
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 -4px 24px -4px rgba(0, 0, 0, 0.25),
-              0 -1px 6px -1px rgba(0, 0, 0, 0.15);
+  background: rgba(5, 5, 5, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.5);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   height: calc(72px + env(safe-area-inset-bottom, 0px));
 }
@@ -284,16 +285,18 @@ html {
 /* Overflow "More" popup */
 .mobile-bottom-nav-overflow {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + 12px);
   right: -8px;
   min-width: 200px;
-  background: #3B0764; /* Purple 950 */
-  border-radius: 16px;
-  box-shadow: 0 8px 40px -8px rgba(0, 0, 0, 0.4),
-              0 4px 12px -4px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 6px;
-  animation: bottomNavOverflowIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(10, 5, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 20px;
+  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.8),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 8px;
+  animation: bottomNavOverflowIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom right;
 }
 

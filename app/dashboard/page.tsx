@@ -61,31 +61,35 @@ export default async function DashboardPage() {
     const firstName = nombreUsuario.split(' ')[0]
 
     return (
-        <div className="flex flex-col gap-8 max-w-[1400px] mx-auto">
+        <div className="flex flex-col gap-8 max-w-[1400px] mx-auto z-10 relative">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2E1065] via-[#4C1D95] to-[#0F1A2E] p-5 sm:p-8 lg:p-10 text-white shadow-xl shadow-slate-900/20 animate-fade-in-up">
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-white/[0.05] to-white/[0.01] border border-white/[0.05] p-6 sm:p-10 text-white shadow-[0_0_80px_rgba(0,0,0,0.5)] backdrop-blur-2xl animate-fade-in-up">
                 {/* Grid pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px]" />
-                <div className="absolute top-0 right-0 w-80 h-80 bg-fuchsia-500/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
-                <div className="absolute bottom-0 left-0 w-60 h-60 bg-purple-500/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px] opacity-30" />
+                <div className="absolute top-0 right-0 w-80 h-80 bg-fuchsia-500/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
+                <div className="absolute bottom-0 left-0 w-60 h-60 bg-purple-500/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
                 <div className="relative z-10">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                         <div>
-                            <p className="text-slate-400 text-sm font-medium mb-1">
-                                {getGreeting()}, {firstName} 👋
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[10px] font-medium tracking-widest uppercase mb-4 text-purple-300">
+                                Estado: Conectado
+                            </div>
+                            <p className="text-white/40 text-sm font-light tracking-wide mb-1">
+                                {getGreeting()}, {firstName}
                             </p>
-                            <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
+                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-white/90">
                                 {getRolTitle(userRole)}
                             </h2>
-                            <p className="text-slate-400 mt-2 text-sm max-w-lg">
+                            <p className="text-white/40 mt-3 text-sm max-w-lg font-light leading-relaxed">
                                 {getRolDescription(userRole)}
                             </p>
                         </div>
                         <div className="flex items-center gap-3">
                             <Link href="/dashboard/recepcion/nuevo-caso">
-                                <Button className="bg-white text-[#2E1065] hover:bg-slate-100 rounded-xl px-5 py-2.5 font-bold text-sm transition-all hover:-translate-y-0.5 gap-2 shadow-lg shadow-black/20">
-                                    <PlusCircle className="h-4 w-4" />
-                                    Nuevo Caso
+                                <Button className="relative overflow-hidden group bg-white/5 text-white/90 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 rounded-xl px-5 py-2.5 font-medium text-sm transition-all hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] gap-2">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                                    <PlusCircle className="h-4 w-4 relative z-10 text-purple-400 group-hover:text-fuchsia-400" />
+                                    <span className="relative z-10">Nuevo Caso</span>
                                 </Button>
                             </Link>
                         </div>
@@ -131,9 +135,9 @@ export default async function DashboardPage() {
 
             {/* Role-specific modules */}
             <div>
-                <h3 className="text-lg font-bold text-slate-800 mb-5 flex items-center gap-2.5">
-                    <span className="w-1.5 h-6 bg-gradient-to-b from-[#4C1D95] to-[#2C4A7C] rounded-full" />
-                    Módulos Disponibles
+                <h3 className="text-sm tracking-widest font-medium text-white/50 uppercase mb-5 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.8)]" />
+                    Módulos Activos
                 </h3>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 stagger-children">
                     {(userRole === 'AUXILIAR' || userRole === 'ADMINISTRADOR') && <AuxiliarModules />}
@@ -151,16 +155,17 @@ function KPICard({ title, value, icon, gradient, bgLight, textColor }: {
     title: string; value: number; icon: React.ReactNode; gradient: string; bgLight: string; textColor: string
 }) {
     return (
-        <Card className="border border-slate-100/80 shadow-sm hover:shadow-lg transition-all duration-500 group rounded-2xl overflow-hidden card-hover bg-white">
-            <CardContent className="p-4 sm:p-5">
-                <div className="flex items-center justify-between mb-3">
-                    <div className={`bg-gradient-to-br ${gradient} text-white p-2.5 rounded-xl shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+        <Card className="bg-white/[0.02] backdrop-blur-md border border-white/[0.05] shadow-[0_0_40px_rgba(0,0,0,0.5)] hover:border-white/10 hover:bg-white/[0.04] transition-all duration-500 group rounded-[1.5rem] overflow-hidden relative">
+            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-5 blur-[50px] group-hover:opacity-10 transition-opacity duration-500`} />
+            <CardContent className="p-5 sm:p-6 relative z-10">
+                <div className="flex items-center justify-between mb-4">
+                    <div className={`bg-white/5 border border-white/5 text-purple-300 p-2.5 rounded-xl group-hover:scale-110 transition-transform duration-300`}>
                         {icon}
                     </div>
-                    <TrendingUp className="h-4 w-4 text-slate-200 group-hover:text-emerald-500 transition-colors duration-300" />
+                    <TrendingUp className="h-4 w-4 text-white/20 group-hover:text-purple-400 transition-colors duration-300" />
                 </div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-slate-800 tabular-nums tracking-tight">{value}</p>
-                <p className="text-xs text-slate-400 font-medium mt-0.5">{title}</p>
+                <p className="text-3xl sm:text-4xl font-light text-white tabular-nums tracking-tight">{value}</p>
+                <p className="text-xs text-white/40 font-medium mt-1 tracking-wide">{title}</p>
             </CardContent>
         </Card>
     )
@@ -342,35 +347,36 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <Card className="flex flex-col border border-slate-100/80 shadow-sm hover:shadow-lg hover:border-slate-200 transition-all duration-500 rounded-2xl overflow-hidden group card-hover bg-white relative">
-            {/* Left accent bar on hover */}
-            <div className={`absolute left-0 top-0 bottom-0 w-0.5 ${iconBg === 'bg-slate-100' ? 'bg-[#4C1D95]' : iconColor.replace('text-', 'bg-')} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
-            <div className="p-5 sm:p-6 flex-1">
-                <div className="flex items-start gap-3.5 mb-4">
-                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
+        <Card className="flex flex-col bg-white/[0.02] backdrop-blur-md border border-white/[0.05] shadow-[0_0_40px_rgba(0,0,0,0.5)] hover:border-purple-500/30 hover:bg-white/[0.04] transition-all duration-500 rounded-[1.5rem] overflow-hidden group relative">
+            {/* Top accent glow on hover */}
+            <div className="absolute top-0 left-[20%] right-[20%] h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <div className="p-6 flex-1 relative z-10">
+                <div className="flex items-start gap-4 mb-5">
+                    <div className={`bg-white/5 border border-white/5 text-white/70 p-3 rounded-2xl group-hover:scale-110 group-hover:text-purple-400 transition-all duration-300 flex-shrink-0 shadow-inner`}>
                         {icon}
                     </div>
-                    <div className="min-w-0">
-                        <h4 className="text-sm font-bold text-slate-800 leading-tight">{title}</h4>
-                        <p className="text-[11px] text-slate-400 font-medium mt-0.5">{subtitle}</p>
+                    <div className="min-w-0 pt-1">
+                        <h4 className="text-base font-medium text-white/90 leading-tight mb-1">{title}</h4>
+                        <p className="text-[10px] text-purple-300/60 font-medium tracking-widest uppercase">{subtitle}</p>
                     </div>
                 </div>
-                <p className="text-sm text-slate-500 leading-relaxed">{description}</p>
+                <p className="text-sm text-white/40 leading-relaxed font-light">{description}</p>
             </div>
-            <div className="px-5 sm:px-6 pb-5 pt-0 flex flex-col gap-2">
+            <div className="px-6 pb-6 pt-0 flex flex-col gap-2 relative z-10">
                 {actions.map((action, i) => (
                     <Button
                         key={i}
                         variant={action.variant}
-                        className={`w-full justify-between rounded-xl text-sm transition-all duration-300 ${action.variant === 'default'
-                            ? 'bg-[#4C1D95] hover:bg-[#3B0764] text-white shadow-sm shadow-slate-900/15'
-                            : 'border-slate-200 hover:border-[#4C1D95]/30 hover:text-[#4C1D95] hover:bg-slate-50'
+                        className={`w-full justify-between rounded-xl text-sm font-medium transition-all duration-300 ${action.variant === 'default'
+                            ? 'bg-purple-600/20 text-purple-200 hover:bg-purple-600/40 border border-purple-500/30'
+                            : 'bg-transparent text-white/60 hover:text-white hover:bg-white/10 border border-white/10'
                             }`}
                         asChild
                     >
                         <Link href={action.href}>
                             <span>{action.label}</span>
-                            <ArrowRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" />
+                            <ArrowRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </Button>
                 ))}

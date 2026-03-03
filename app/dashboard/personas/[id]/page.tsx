@@ -12,11 +12,11 @@ import PersonaEditForm from '@/components/personas/persona-edit-form'
 import { Button } from '@/components/ui/button'
 
 const RIESGO_CONFIG: Record<string, { bg: string; text: string; label: string }> = {
-    SIN_RIESGO: { bg: 'bg-slate-50', text: 'text-slate-600', label: 'Sin Riesgo' },
-    BAJO: { bg: 'bg-emerald-50', text: 'text-emerald-700', label: 'Bajo' },
-    MODERADO: { bg: 'bg-amber-50', text: 'text-amber-700', label: 'Moderado' },
-    ALTO: { bg: 'bg-orange-50', text: 'text-orange-700', label: 'Alto' },
-    CRITICO: { bg: 'bg-red-50', text: 'text-red-700', label: 'Crítico' },
+    SIN_RIESGO: { bg: 'bg-white/5', text: 'text-white/70', label: 'Sin Riesgo' },
+    BAJO: { bg: 'bg-emerald-500/10 border border-emerald-500/20', text: 'text-emerald-300', label: 'Bajo' },
+    MODERADO: { bg: 'bg-amber-500/10 border border-amber-500/20', text: 'text-amber-300', label: 'Moderado' },
+    ALTO: { bg: 'bg-orange-500/10 border border-orange-500/20', text: 'text-orange-300', label: 'Alto' },
+    CRITICO: { bg: 'bg-red-500/10 border border-red-500/20', text: 'text-red-300', label: 'Crítico' },
 }
 
 export default async function PersonaDetallePage({ params }: { params: Promise<{ id: string }> }) {
@@ -74,24 +74,24 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
     return (
         <div className="space-y-6 max-w-[1000px] mx-auto">
             {/* Breadcrumb */}
-            <div className="flex items-center space-x-2 text-slate-400 text-sm font-medium animate-fade-in-up">
-                <Link href="/dashboard" className="hover:text-slate-600 transition-colors">Inicio</Link>
+            <div className="flex items-center space-x-2 text-white/40 text-sm font-medium animate-fade-in-up">
+                <Link href="/dashboard" className="hover:text-white/70 transition-colors">Inicio</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <Link href="/dashboard/personas" className="hover:text-slate-600 transition-colors">Personas</Link>
+                <Link href="/dashboard/personas" className="hover:text-white/70 transition-colors">Personas</Link>
                 <ChevronRight className="h-3.5 w-3.5" />
-                <span className="text-[#4C1D95] truncate max-w-[200px]">{persona.nombres}</span>
+                <span className="text-purple-300 truncate max-w-[200px]">{persona.nombres}</span>
             </div>
 
             {/* Back button */}
             <Link href="/dashboard/personas">
-                <Button variant="ghost" size="sm" className="gap-1.5 text-slate-500 hover:text-slate-700 -ml-2">
+                <Button variant="ghost" size="sm" className="gap-1.5 text-white/50 hover:text-white/80 -ml-2">
                     <ArrowLeft size={14} />
                     Volver al listado
                 </Button>
             </Link>
 
             {/* Profile Header Card */}
-            <Card className="border-0 shadow-sm overflow-hidden rounded-2xl">
+            <Card className="border-0 shadow-[0_0_20px_rgba(0,0,0,0.3)] overflow-hidden rounded-2xl bg-white/[0.02] backdrop-blur-3xl">
                 <div className={`h-20 sm:h-28 relative ${isVictima ? 'bg-gradient-to-r from-purple-500 to-indigo-600' : 'bg-gradient-to-r from-red-500 to-rose-600'}`}>
                     <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] [background-size:24px_24px]" />
                 </div>
@@ -109,13 +109,13 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                     {/* Name + Type */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                         <div>
-                            <h1 className="text-xl sm:text-2xl font-bold text-slate-800">{persona.nombres}</h1>
+                            <h1 className="text-xl sm:text-2xl font-bold text-white/90">{persona.nombres}</h1>
                             <div className="flex items-center gap-2 mt-1">
-                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${isVictima ? 'bg-purple-50 text-purple-700' : 'bg-red-50 text-red-700'}`}>
+                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold ${isVictima ? 'bg-purple-500/10 border border-purple-500/20 text-purple-300' : 'bg-red-500/10 border border-red-500/20 text-red-300'}`}>
                                     {isVictima ? <User className="h-3 w-3" /> : <UserX className="h-3 w-3" />}
                                     {isVictima ? 'Víctima' : 'Agresor'}
                                 </span>
-                                <span className="text-sm text-slate-500">{tipoDocumento}: {persona.documento}</span>
+                                <span className="text-sm text-white/50">{tipoDocumento}: {persona.documento}</span>
                             </div>
                         </div>
                         <PersonaEditForm persona={persona} />
@@ -128,10 +128,10 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 {/* Main Info (2/3) */}
                 <div className="lg:col-span-2 space-y-6">
                     {/* Personal Data */}
-                    <Card className="border-0 shadow-sm rounded-2xl">
-                        <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
+                    <Card className="border-0 shadow-[0_0_20px_rgba(0,0,0,0.3)] rounded-2xl bg-white/[0.02] backdrop-blur-3xl">
+                        <CardHeader className="border-b border-white/10 bg-white/[0.03] backdrop-blur-md rounded-t-2xl">
                             <CardTitle className="text-base flex items-center gap-2.5">
-                                <div className="p-1.5 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] rounded-lg">
+                                <div className="p-1.5 bg-gradient-to-br from-purple-600/20 to-fuchsia-600/20 border border-white/10 rounded-lg">
                                     <FileText className="h-3.5 w-3.5 text-white" />
                                 </div>
                                 Datos Personales
@@ -154,29 +154,29 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                             </div>
 
                             {/* Special flags */}
-                            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-100">
+                            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-white/10">
                                 {persona.discapacidad && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-700">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white/10 text-white/80">
                                         ♿ Persona con discapacidad
                                     </span>
                                 )}
                                 {persona.es_victima_conflicto && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-700">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-amber-500/10 border border-amber-500/20 text-amber-300">
                                         🕊️ Víctima del conflicto armado
                                     </span>
                                 )}
                                 {persona.acceso_armas && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-red-50 text-red-700">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-red-500/10 border border-red-500/20 text-red-300">
                                         ⚠️ Acceso a armas
                                     </span>
                                 )}
                                 {persona.alias && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-100 text-slate-600">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-white/10 text-white/70">
                                         Alias: {persona.alias}
                                     </span>
                                 )}
                                 {parentescoVictima && (
-                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-orange-50 text-orange-700">
+                                    <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-orange-500/10 border border-orange-500/20 text-orange-300">
                                         Parentesco: {parentescoVictima}
                                     </span>
                                 )}
@@ -188,10 +188,10 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                 {/* Sidebar (1/3) — Expedientes */}
                 <div className="space-y-6">
                     {/* Expediente principal */}
-                    <Card className="border-0 shadow-sm rounded-2xl card-hover">
-                        <CardHeader className="border-b bg-slate-50/50 rounded-t-2xl">
+                    <Card className="border-0 shadow-[0_0_20px_rgba(0,0,0,0.3)] rounded-2xl card-hover bg-white/[0.02] backdrop-blur-3xl">
+                        <CardHeader className="border-b border-white/10 bg-white/[0.03] backdrop-blur-md rounded-t-2xl">
                             <CardTitle className="text-base flex items-center gap-2.5">
-                                <div className="p-1.5 bg-gradient-to-br from-[#4C1D95] to-[#2C4A7C] rounded-lg">
+                                <div className="p-1.5 bg-gradient-to-br from-purple-600/20 to-fuchsia-600/20 border border-white/10 rounded-lg">
                                     <FolderHeart className="h-3.5 w-3.5 text-white" />
                                 </div>
                                 Expediente Principal
@@ -200,30 +200,30 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                         <CardContent className="p-4">
                             {persona.expediente ? (
                                 <Link href={`/dashboard/casos/${persona.expediente.id}`} className="block">
-                                    <div className="p-3 bg-slate-50/50 rounded-lg border border-slate-200 hover:bg-slate-100 transition-colors">
+                                    <div className="p-3 bg-white/[0.03] backdrop-blur-md rounded-lg border border-white/10 hover:bg-white/10 transition-colors">
                                         <div className="flex items-center justify-between mb-2">
-                                            <span className="font-mono font-bold text-[#4C1D95] text-xs">{persona.expediente.radicado}</span>
+                                            <span className="font-mono font-bold text-purple-300 text-xs">{persona.expediente.radicado}</span>
                                             {persona.expediente.nivel_riesgo && (
                                                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.bg || ''} ${RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.text || ''}`}>
                                                     {RIESGO_CONFIG[persona.expediente.nivel_riesgo]?.label || persona.expediente.nivel_riesgo}
                                                 </span>
                                             )}
                                         </div>
-                                        <p className="text-xs text-slate-600">{persona.expediente.tipologia_violencia} — {persona.expediente.estado}</p>
-                                        <p className="text-[10px] text-slate-400 mt-1">
+                                        <p className="text-xs text-white/70">{persona.expediente.tipologia_violencia} — {persona.expediente.estado}</p>
+                                        <p className="text-[10px] text-white/40 mt-1">
                                             {new Date(persona.expediente.created_at).toLocaleDateString('es-CO')}
                                         </p>
                                     </div>
                                 </Link>
                             ) : (
-                                <p className="text-sm text-slate-400 text-center py-3">Sin expediente vinculado</p>
+                                <p className="text-sm text-white/40 text-center py-3">Sin expediente vinculado</p>
                             )}
                         </CardContent>
                     </Card>
 
                     {/* Otros expedientes */}
                     {otrosExpedientes.length > 0 && (
-                        <Card className="border-0 shadow-sm">
+                        <Card className="border-0 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
                             <CardHeader className="border-b bg-slate-50/50">
                                 <CardTitle className="text-base flex items-center gap-2">
                                     <FolderHeart className="h-4 w-4" />
@@ -233,12 +233,12 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
                             <CardContent className="p-4 space-y-2">
                                 {otrosExpedientes.map((exp: any) => (
                                     <Link key={exp.id} href={`/dashboard/casos/${exp.id}`} className="block">
-                                        <div className="p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
+                                        <div className="p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors">
                                             <div className="flex items-center justify-between">
-                                                <span className="font-mono font-bold text-[#4C1D95] text-xs">{exp.radicado}</span>
-                                                <span className="text-[10px] text-slate-400">{exp.estado}</span>
+                                                <span className="font-mono font-bold text-purple-300 text-xs">{exp.radicado}</span>
+                                                <span className="text-[10px] text-white/40">{exp.estado}</span>
                                             </div>
-                                            <p className="text-xs text-slate-500 mt-1">{exp.tipologia_violencia}</p>
+                                            <p className="text-xs text-white/50 mt-1">{exp.tipologia_violencia}</p>
                                         </div>
                                     </Link>
                                 ))}
@@ -253,11 +253,11 @@ export default async function PersonaDetallePage({ params }: { params: Promise<{
 
 function InfoField({ icon, label, value }: { icon: React.ReactNode; label: string; value: string | null | undefined }) {
     return (
-        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50/50 hover:bg-slate-50 transition-colors">
-            <div className="text-slate-400 mt-0.5 flex-shrink-0">{icon}</div>
+        <div className="flex items-start gap-2.5 p-3 rounded-xl bg-white/[0.03] backdrop-blur-md border border-white/5 hover:bg-white/10 transition-colors">
+            <div className="text-white/40 mt-0.5 flex-shrink-0">{icon}</div>
             <div>
-                <p className="text-slate-400 text-[11px] uppercase tracking-wide font-medium">{label}</p>
-                <p className="font-medium text-slate-700 text-sm">{value || '—'}</p>
+                <p className="text-white/40 text-[11px] uppercase tracking-wide font-medium">{label}</p>
+                <p className="font-medium text-white/80 text-sm">{value || '—'}</p>
             </div>
         </div>
     )
