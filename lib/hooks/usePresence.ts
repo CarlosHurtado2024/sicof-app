@@ -112,30 +112,7 @@ export function usePresence(currentUser: {
 
           if (isActive) {
             setOnlineUsers(presences)
-
-            // Merge online status with all users
-            setAllUsers(prev => 
-              prev.map(u => {
-                const onlineUser = presences.find(p => p.userId === u.userId)
-                if (onlineUser) {
-                  return { ...u, status: 'online' as const, lastSeen: new Date().toISOString() }
-                }
-                return u
-              })
-            )
           }
-        })
-        .on('presence', { event: 'join' }, ({ key, newPresences }) => {
-          // Refresh all users when someone joins
-          fetchAllUsers().then(users => {
-            if (isActive) setAllUsers(users)
-          })
-        })
-        .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
-          // Refresh all users when someone leaves
-          fetchAllUsers().then(users => {
-            if (isActive) setAllUsers(users)
-          })
         })
         .subscribe(async (status) => {
           if (status !== 'SUBSCRIBED') return

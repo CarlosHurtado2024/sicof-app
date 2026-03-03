@@ -195,7 +195,7 @@ export default function OnlineUsersPanel({
         if (rtUser) {
             return { ...u, ...rtUser, status: rtUser.status as 'online' | 'away' | 'offline' }
         }
-        return { ...u, status: onlineIds.has(u.userId) ? 'online' as const : u.status }
+        return { ...u, status: 'offline' as const }
     })
 
     const online = enrichedUsers.filter(u => u.status === 'online')
