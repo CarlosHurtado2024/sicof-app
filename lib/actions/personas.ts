@@ -61,34 +61,46 @@ export async function subirFotoPersona(personaId: string, formData: FormData) {
         throw new Error('La imagen no debe superar 5MB')
     }
 
-    const ext = file.name.split('.').pop() || 'jpg'
-    const filePath = `${personaId}.${ext}`
+    // Fetch persona data to build folder path
+    const { data: persona } = await supabase
+        .from('personas')
+        .select('tipo_documento, documento, datos_demograficos')
+        .eq('id', personaId)
+        .single()
 
-    // Upload to storage
+    if (!persona) throw new Error('Persona no encontrada')
+
+    const tipoDoc = persona.tipo_documento || 'CC'
+    const documento = persona.documento || personaId
+    const folderName = `${tipoDoc}_${documento}`
+
+    const ext = file.name.split('.').pop() || 'jpg'
+    const filePath = `personas/${folderName}/foto.${ext}`
+
+    // Upload to the 'documentos' bucket inside the persona folder
     const { error: uploadError } = await supabase.storage
-        .from('personas-fotos')
+        .from('documentos')
         .upload(filePath, file, { upsert: true })
 
     if (uploadError) {
         throw new Error(`Error subiendo foto: ${uploadError.message}`)
     }
 
-    // Get public URL
-    const { data: urlData } = supabase.storage
-        .from('personas-fotos')
-        .getPublicUrl(filePath)
+    // Get a signed URL (bucket is private) — valid for 1 year
+    const { data: signedUrlData, error: signedError } = await supabase.storage
+        .from('documentos')
+        .createSignedUrl(filePath, 60 * 60 * 24 * 365)
 
-    // Update persona record — store in datos_demograficos.foto_url
-    const { data: persona } = await supabase
-        .from('personas')
-        .select('datos_demograficos')
-        .eq('id', personaId)
-        .single()
+    if (signedError || !signedUrlData) {
+        throw new Error('Error generando URL de la foto')
+    }
 
-    const currentDemographics = persona?.datos_demograficos || {}
+    // Update persona record — store path in datos_demograficos for regenerating URLs
+    const currentDemographics = persona.datos_demograficos || {}
     const updatedDemographics = {
         ...(typeof currentDemographics === 'object' ? currentDemographics : {}),
-        foto_url: urlData.publicUrl
+        foto_url: signedUrlData.signedUrl,
+        foto_storage_path: filePath
     }
 
     const { error: updateError } = await supabase
@@ -101,5 +113,6 @@ export async function subirFotoPersona(personaId: string, formData: FormData) {
     }
 
     revalidatePath(`/dashboard/personas/${personaId}`)
-    return { success: true, url: urlData.publicUrl }
+    revalidatePath('/dashboard/personas')
+    return { success: true, url: signedUrlData.signedUrl }
 }

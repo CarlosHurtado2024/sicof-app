@@ -29,10 +29,12 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             formData.append('foto', file)
             const result = await subirFotoPersona(personaId, formData)
             if (result.success && result.url) {
-                setPhotoUrl(result.url + '?t=' + Date.now()) // Cache bust
+                setPhotoUrl(result.url)
             }
         } catch (err: any) {
-            setError(err.message || 'Error subiendo la foto')
+            const msg = err.message || 'Error subiendo la foto'
+            setError(msg)
+            setTimeout(() => setError(null), 4000)
         } finally {
             setIsUploading(false)
             if (fileInputRef.current) fileInputRef.current.value = ''
