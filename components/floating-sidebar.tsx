@@ -152,18 +152,18 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop Top Header Bar (≥640px) ─── */}
-            <header className="hidden sm:flex fixed top-0 left-[68px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
-                <div className="flex items-center gap-2 scale-90 origin-right">
+            <header className="hidden sm:flex fixed top-0 left-[60px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
+                <div className="flex items-center gap-2">
                     {rightSlot}
                 </div>
             </header>
 
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[60px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
                 {/* Logo */}
-                <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
-                    <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
-                        <SicofLogoIcon className="w-6 h-6" inverted={true} />
+                <Link href="/dashboard" className="flex-shrink-0 mt-3 mb-5">
+                    <div className="w-9 h-9 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
+                        <SicofLogoIcon className="w-5 h-5" inverted={true} />
                     </div>
                 </Link>
 
@@ -178,7 +178,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`group relative flex items-center justify-center w-11 h-11 rounded-lg transition-all duration-300 flex-shrink-0 ${isActive
+                                className={`group relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 flex-shrink-0 ${isActive
                                     ? 'bg-[#F28C73] text-white shadow-lg shadow-[#F28C73]/20'
                                     : 'text-[#333333]/40 hover:text-[#F28C73] hover:bg-white/50'
                                     }`}

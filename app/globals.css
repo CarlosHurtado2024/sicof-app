@@ -49,11 +49,29 @@
     border-color: hsl(var(--border));
   }
 
+  html {
+    font-size: 14px;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
+  }
+
+  /* Normalize font-weight in tables and forms */
+  table th {
+    font-weight: 600;
+  }
+
+  table td {
+    font-weight: 400;
+  }
+
+  input, select, textarea {
+    font-weight: 400;
   }
 
   /* Global selection */

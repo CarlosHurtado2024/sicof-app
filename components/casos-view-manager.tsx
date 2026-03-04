@@ -59,8 +59,8 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
             {/* Controls Bar */}
             <div className="flex flex-wrap justify-between gap-4 items-end mb-2">
                 <div className="flex flex-col gap-1">
-                    <h2 className="text-[#2B463C] tracking-tight text-xl font-black uppercase">Expedientes Digitales</h2>
-                    <p className="text-[#2B463C]/40 text-[9px] font-black uppercase tracking-[0.2em]">Gestión en vista isométrica</p>
+                    <h2 className="text-[#2B463C] tracking-tight text-lg font-bold uppercase">Expedientes Digitales</h2>
+                    <p className="text-[#2B463C]/40 text-[10px] font-medium uppercase tracking-[0.2em]">Gestión en vista isométrica</p>
                 </div>
 
                 <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                     </div>
 
                     <div className="hidden lg:flex gap-2">
-                        <button className="flex h-10 items-center justify-center gap-x-1.5 rounded-lg bg-white border border-[#2B463C]/10 px-4 shadow-sm hover:bg-gray-50 transition-all font-bold text-[9px] uppercase tracking-widest text-[#2B463C]">
+                        <button className="flex h-10 items-center justify-center gap-x-1.5 rounded-lg bg-white border border-[#2B463C]/10 px-4 shadow-sm hover:bg-gray-50 transition-all font-medium text-[10px] uppercase tracking-widest text-[#2B463C]">
                             <Calendar className="w-3.5 h-3.5 text-[#F28C73]" />
                             <span>Fecha: Todos</span>
                         </button>
@@ -99,7 +99,7 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                         return (
                             <Link key={exp.id} href={`/dashboard/casos/${exp.id}`}>
                                 <div className="group relative bg-white rounded-[1.5rem] p-4 shadow-[0_4px_20px_-5px_rgba(0,0,0,0.05)] hover:shadow-[0_10px_30px_-5px_rgba(0,0,0,0.1)] transition-all duration-500 border border-[#2B463C]/5 flex flex-col h-60 cursor-pointer hover:-translate-y-1">
-                                    <div className={`absolute top-4 right-4 z-10 flex items-center justify-center size-7 rounded-full ${config.badge} font-black text-[8px] shadow-sm tracking-tighter`}>
+                                    <div className={`absolute top-4 right-4 z-10 flex items-center justify-center size-7 rounded-full ${config.badge} font-bold text-[8px] shadow-sm tracking-tighter`}>
                                         {config.label}
                                     </div>
 
@@ -115,17 +115,17 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
 
                                         {/* Label Card */}
                                         <div className="bg-white px-3 py-1.5 rounded-xl shadow-[0_5px_15px_-5px_rgba(0,0,0,0.1)] border border-[#2B463C]/5 mt-1 max-w-[85%] text-center transform -rotate-1 group-hover:rotate-0 transition-all duration-500">
-                                            <p className="text-[#2B463C] text-[10px] font-black truncate uppercase tracking-tight">{victima?.nombres || 'Sin Nombre'}</p>
-                                            <p className="text-[#2B463C]/30 text-[8px] font-bold mt-0.5 tracking-widest">{exp.radicado}</p>
+                                            <p className="text-[#2B463C] text-[10px] font-semibold truncate uppercase tracking-tight">{victima?.nombres || 'Sin Nombre'}</p>
+                                            <p className="text-[#2B463C]/30 text-[8px] font-medium mt-0.5 tracking-widest">{exp.radicado}</p>
                                         </div>
                                     </div>
 
                                     <div className="mt-4 flex justify-between items-end px-1">
                                         <div className="space-y-0.5">
-                                            <p className="text-[8px] text-[#2B463C]/30 font-black uppercase tracking-widest">
+                                            <p className="text-[8px] text-[#2B463C]/30 font-medium uppercase tracking-widest">
                                                 Act: {new Date(exp.updated_at || exp.created_at).toLocaleDateString('es-CO', { day: '2-digit', month: 'short' })}
                                             </p>
-                                            <p className={`text-[9px] ${config.icon} font-black uppercase tracking-tighter truncate max-w-[100px]`}>
+                                            <p className={`text-[9px] ${config.icon} font-semibold uppercase tracking-tighter truncate max-w-[100px]`}>
                                                 {exp.tipologia_violencia || 'General'}
                                             </p>
                                         </div>
@@ -145,12 +145,12 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                             <table className="w-full text-[11px]">
                                 <thead>
                                     <tr className="bg-[#2B463C]/5 border-b border-[#2B463C]/5">
-                                        <th className="text-left px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Radicado</th>
-                                        <th className="text-left px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Víctima</th>
-                                        <th className="text-left px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Tipo</th>
-                                        <th className="text-left px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Estado</th>
-                                        <th className="text-left px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Riesgo</th>
-                                        <th className="text-right px-5 py-3.5 font-black text-[#2B463C]/40 text-[8px] uppercase tracking-[0.2em]">Ok</th>
+                                        <th className="text-left px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Radicado</th>
+                                        <th className="text-left px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Víctima</th>
+                                        <th className="text-left px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Tipo</th>
+                                        <th className="text-left px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Estado</th>
+                                        <th className="text-left px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Riesgo</th>
+                                        <th className="text-right px-5 py-3.5 font-semibold text-[#2B463C]/40 text-[9px] uppercase tracking-[0.2em]">Ok</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-[#2B463C]/5">
@@ -164,15 +164,15 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                                                 <td className="px-5 py-3">
                                                     <span className="font-mono font-bold text-[#2B463C] text-[9px] bg-white border border-[#2B463C]/5 px-1.5 py-0.5 rounded-md tracking-tight">{exp.radicado}</span>
                                                 </td>
-                                                <td className="px-5 py-3 font-black text-[#2B463C]">{victima?.nombres || '—'}</td>
+                                                <td className="px-5 py-3 font-semibold text-[#2B463C]">{victima?.nombres || '—'}</td>
                                                 <td className="px-5 py-3 text-[#2B463C]/60 italic">{exp.tipologia_violencia || '—'}</td>
                                                 <td className="px-5 py-3">
-                                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[7px] font-black uppercase tracking-widest ${faseConfig.bg} ${faseConfig.text}`}>
+                                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[8px] font-semibold uppercase tracking-widest ${faseConfig.bg} ${faseConfig.text}`}>
                                                         {FASES_INFO[faseKey]?.nombre || faseKey}
                                                     </span>
                                                 </td>
                                                 <td className="px-5 py-3">
-                                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[7px] font-black uppercase tracking-widest ${riesgoConfig.bg} ${riesgoConfig.text}`}>
+                                                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[8px] font-semibold uppercase tracking-widest ${riesgoConfig.bg} ${riesgoConfig.text}`}>
                                                         {riesgoConfig.label}
                                                     </span>
                                                 </td>

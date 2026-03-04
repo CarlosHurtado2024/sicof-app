@@ -43,7 +43,7 @@ export default async function DashboardLayout({
                 />
 
                 {/* Main Content — Offset left for sidebar and top for header on desktop/tablet */}
-                <main className="px-4 py-6 sm:pt-24 sm:pl-[84px] sm:pr-6 lg:pr-10 max-w-[1920px]">
+                <main className="px-4 py-6 sm:pt-16 sm:pl-[68px] sm:pr-6 lg:pr-10 max-w-[1920px]">
                     {children}
                 </main>
             </div>

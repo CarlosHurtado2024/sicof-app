@@ -108,15 +108,15 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             {/* Bell Button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl text-slate-400 hover:text-slate-900 border border-transparent hover:border-slate-200 hover:bg-white/50 transition-all"
+                className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-[#2B463C]/60 hover:text-[#2B463C] border border-transparent hover:border-[#2B463C]/10 hover:bg-white transition-all shadow-sm hover:shadow-md"
                 aria-label="Notificaciones"
             >
-                <Bell className="w-5 h-5" />
+                <Bell className="w-[18px] h-[18px]" strokeWidth={2.5} />
                 {/* Red dot for unread */}
                 {unreadCount > 0 && (
-                    <span className="absolute top-1 right-1 flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 flex items-center justify-center">
                         <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75" />
-                        <span className="relative inline-flex items-center justify-center h-4 w-4 rounded-full bg-red-500 text-[9px] font-bold text-white">
+                        <span className="relative inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#F28C73] text-[9px] font-black text-white border-2 border-white shadow-sm">
                             {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                     </span>

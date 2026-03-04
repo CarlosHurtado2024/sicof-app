@@ -70,7 +70,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
     return (
         <div className="max-w-[1600px] mx-auto pb-20 px-4 sm:px-8 animate-fade-in-up">
             {/* Breadcrumb */}
-            <div className="flex items-center space-x-2 text-[#2B463C]/30 text-[10px] mb-8 font-black uppercase tracking-[0.3em]">
+            <div className="flex items-center space-x-2 text-[#2B463C]/30 text-[10px] mb-8 font-semibold uppercase tracking-[0.3em]">
                 <Link href="/dashboard" className="hover:text-[#F28C73] transition-colors">Panel Control</Link>
                 <ChevronRight className="h-3 w-3" />
                 <span className="text-[#F28C73]">Expedientes Vigentes</span>
@@ -82,10 +82,10 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                         <FolderHeart className="h-6 w-6 text-[#F28C73]" />
                     </div>
                     <div>
-                        <h1 className="text-2xl md:text-3xl font-black text-[#2B463C] tracking-tight uppercase leading-none mb-2">
+                        <h1 className="text-xl md:text-2xl font-bold text-[#2B463C] tracking-tight uppercase leading-none mb-2">
                             Gestión Integral
                         </h1>
-                        <p className="text-[#2B463C]/40 text-[9px] font-black uppercase tracking-[0.2em]">
+                        <p className="text-[#2B463C]/40 text-[10px] font-medium uppercase tracking-[0.2em]">
                             Ruta de Atención Integral (Ley 1257) • {total} expedientes
                         </p>
                     </div>
@@ -96,7 +96,7 @@ export default async function CasosListPage({ searchParams }: PageProps) {
                         <ExpedientesSearch />
                     </div>
                     <Link href="/dashboard/recepcion">
-                        <Button className="bg-[#2B463C] text-white hover:bg-[#F28C73] h-11 px-6 rounded-xl font-black text-[9px] uppercase tracking-widest shadow-lg shadow-[#2B463C]/10 transition-all hover:scale-105 active:scale-95 group">
+                        <Button className="bg-[#2B463C] text-white hover:bg-[#F28C73] h-10 px-5 rounded-xl font-semibold text-[10px] uppercase tracking-widest shadow-lg shadow-[#2B463C]/10 transition-all hover:scale-105 active:scale-95 group">
                             <PlusCircle className="h-4 w-4 mr-2 group-hover:rotate-90 transition-transform" />
                             Nueva Radicación
                         </Button>

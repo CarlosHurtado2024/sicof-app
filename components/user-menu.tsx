@@ -34,8 +34,8 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
     }
 
     const buttonClasses = variant === 'sidebar'
-        ? "w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white text-[#2B463C] text-sm font-black cursor-pointer hover:bg-[#FDF4E3] transition-all border border-[#2B463C]/10 focus:outline-none flex items-center justify-center shadow-sm"
-        : "h-9 w-9 rounded-full bg-[#FDF4E3] flex items-center justify-center text-[#2B463C] font-black text-sm hover:bg-[#FBE8C6] transition-all cursor-pointer focus:outline-none border border-[#2B463C]/5"
+        ? "w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#F28C73] text-white text-[13px] font-black cursor-pointer hover:scale-105 transition-all focus:outline-none flex items-center justify-center shadow-lg shadow-[#F28C73]/20 border-2 border-white"
+        : "h-8 w-8 rounded-full bg-[#F28C73] flex items-center justify-center text-white font-black text-xs hover:bg-[#E07B62] transition-all cursor-pointer focus:outline-none border-2 border-white shadow-sm"
 
     return (
         <DropdownMenu>
