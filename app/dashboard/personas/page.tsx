@@ -20,7 +20,10 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
         .order('created_at', { ascending: false })
         .limit(200)
 
-    const personas = allPersonas || []
+    const personas = (allPersonas || []).map(p => ({
+        ...p,
+        expediente: Array.isArray(p.expediente) ? p.expediente[0] || null : (p.expediente || null)
+    })) as any
 
     return <PersonasViewManager personas={personas} searchQuery={searchQuery} />
 }
