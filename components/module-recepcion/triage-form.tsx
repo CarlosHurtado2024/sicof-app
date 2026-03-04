@@ -860,7 +860,7 @@ export function TriageForm() {
                                         <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs text-slate-700 whitespace-pre-wrap max-h-80 overflow-y-auto">
                                             {generarAutoRemision(competenciaResult, {
                                                 victima: data.victima.nombres,
-                                                tipologia: data.caso.tipology,
+                                                tipologia: data.caso.tipologia,
                                             })}
                                         </div>
                                     )}
