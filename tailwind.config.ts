@@ -71,7 +71,7 @@ const config = {
                 "komi-accent": "#F28C73",
             },
             fontFamily: {
-                "display": ["Inter", "var(--font-public-sans)", "sans-serif"],
+                "display": ["var(--font-inter)", "var(--font-public-sans)", "sans-serif"],
                 "serif": ["var(--font-playfair-display)", "serif"]
             },
             borderRadius: {

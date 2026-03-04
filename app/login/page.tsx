@@ -81,7 +81,7 @@ export default function LoginPage() {
 
                 <div className="w-full text-center mb-10">
                     <h2 className="text-2xl font-bold text-[#2B463C] mb-2 uppercase tracking-widest">Portal de Acceso</h2>
-                    <p className="text-[#2B463C]/40 text-[10px] font-bold uppercase tracking-[0.2em]">Tecnología Em somepática para Comisarías</p>
+                    <p className="text-[#2B463C]/40 text-[10px] font-bold uppercase tracking-[0.2em]">Tecnología Empática para Comisarías</p>
                 </div>
 
                 {/* Login Form */}
