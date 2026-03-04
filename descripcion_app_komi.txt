@@ -1,0 +1,37 @@
+# DESCRIPCIÓN GLOBAL DE LA APLICACIÓN: KOMI (Anteriormente SICOF)
+
+## 1. NOMBRE Y CONCEPTO
+*   **Nombre:** Komi - Familia y Bienestar.
+*   **Eslogan:** Gestión Integral para Comisarías de Familia.
+*   **Concepto:** Una plataforma SaaS premium diseñada para transformar la gestión de justicia familiar, eliminando el papel y optimizando la atención a víctimas de violencia intrafamiliar.
+
+## 2. ¿QUÉ ES Y PARA QUÉ SIRVE?
+Es un Sistema de Información y Gestión de Casos (Case Management System) especializado para las Comisarías de Familia en Colombia. Sirve para digitalizar todo el ciclo de vida de un proceso de protección, desde que una persona llega a pedir ayuda hasta que se cierra el caso de manera definitiva.
+
+Su objetivo principal es garantizar que el equipo interdisciplinario (abogados, psicólogos, trabajadores sociales) pueda actuar con rapidez y precisión para salvar vidas.
+
+## 3. MÓDULOS Y FLUJO DE TRABAJO
+La aplicación sigue una "Ruta de Atención Integral" dividida en 6 fases:
+1.  **Recepción y Triaje:** Registro rápido de ingresos mediante una "Minuta Digital" y un formulario de crisis para emergencias inmediatas.
+2.  **Valoración de Riesgo:** Herramienta técnica que evalúa el nivel de riesgo (Bajo, Moderado, Alto, Crítico) basándose en indicadores críticos.
+3.  **Apertura y Medidas:** Generación automatizada de Autos (documentos legales) y Medidas de Protección.
+4.  **Valoraciones Interdisciplinarias:** Espacio de trabajo para Psicología y Trabajo Social.
+5.  **Seguimiento:** Control de cumplimiento de las órdenes dictadas por el Comisario.
+6.  **Cierre y Archivo:** Finalización del proceso una vez garantizada la estabilidad de la familia.
+
+## 4. PERFILES DE USUARIO (ROLES)
+La interfaz debe adaptarse a diferentes necesidades:
+*   **Comisario/a:** Autoridad máxima, encargado de firmar y tomar decisiones legales.
+*   **Secretario/a:** Gestión documental y control de términos legales.
+*   **Psicología y Trabajo Social:** Enfoque en valoraciones humanas, entrevistas y reportes clínicos.
+*   **Auxiliar Administrativo/Vigilancia:** Control de ingresos y radicación inicial.
+
+## 5. CARACTERÍSTICAS TÉCNICAS CLAVE PARA EL DISEÑO (UX/UI)
+*   **Premium Light Theme:** Diseño limpio, claro y profesional que transmita calma en situaciones de estrés.
+*   **Dashboard en Tiempo Real:** Visualización de cuántos casos hay en curso y el estado de los términos.
+*   **Presencia de Equipo:** Panel lateral que permite ver quién está conectado en la oficina en tiempo real.
+*   **Alertas Críticas:** Notificaciones visuales inmediatas cuando un caso se marca como Riesgo Crítico.
+*   **Accesibilidad:** Diseño responsive para tablets y móviles (PWA) para que los funcionarios puedan trabajar en campo.
+
+## 6. VALOR DIFERENCIAL
+A diferencia de un sistema administrativo común, Komi está diseñado con "Diseño Centrado en la Intervención". Las interfaces no solo capturan datos, sino que guían al funcionario a través del protocolo legal, asegurando que no se omita ningún paso crítico para la protección de la víctima.

@@ -53,6 +53,16 @@ const config = {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
                 },
+                "background-light": "#FDFBF7",
+                "pastel-yellow": "#FDF4E3",
+                "pastel-blue": "#E6F0F9",
+                "pastel-green": "#E8F4EC",
+                "komi-primary": "#2B463C",
+                "komi-accent": "#F28482",
+            },
+            fontFamily: {
+                "display": ["var(--font-public-sans)", "sans-serif"],
+                "serif": ["var(--font-playfair-display)", "serif"]
             },
             borderRadius: {
                 lg: "var(--radius)",
