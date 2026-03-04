@@ -3,12 +3,13 @@
 import { useState } from 'react'
 import { MinutaForm } from '@/components/module-recepcion/minuta-form'
 import { CrisisForm } from '@/components/module-recepcion/crisis-form'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
-import { Users, Clock, AlertTriangle, FileText, Plus, Siren, Search, ChevronRight, MoreVertical } from 'lucide-react'
+import {
+    Users, Clock, AlertTriangle, FileText, Plus, Siren, Search,
+    ChevronRight, ArrowLeft, X, ClipboardList, UserCheck
+} from 'lucide-react'
 
 interface Minuta {
     id: string;
@@ -30,236 +31,223 @@ interface ReceptionDashboardProps {
     }
 }
 
+function getInitials(name: string): string {
+    return name?.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || '??'
+}
+
+const MOTIVO_STYLE: Record<string, { bg: string; text: string }> = {
+    DENUNCIA: { bg: 'bg-red-50 border border-red-100', text: 'text-red-600' },
+    AUDIENCIA: { bg: 'bg-blue-50 border border-blue-100', text: 'text-blue-600' },
+    CONSULTA: { bg: 'bg-amber-50 border border-amber-100', text: 'text-amber-600' },
+    SEGUIMIENTO: { bg: 'bg-emerald-50 border border-emerald-100', text: 'text-emerald-600' },
+}
+
 export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardProps) {
     const [isCrisisMode, setIsCrisisMode] = useState(false)
     const [minutas, setMinutas] = useState(initialMinutas)
     const [searchTerm, setSearchTerm] = useState('')
+    const [selectedMinutaId, setSelectedMinutaId] = useState<string | null>(null)
+    const [mobileShowForm, setMobileShowForm] = useState(false)
 
     const filteredMinutas = minutas.filter(m => !searchTerm ||
         m.nombre_visitante.toLowerCase().includes(searchTerm.toLowerCase()) ||
         m.documento_visitante.includes(searchTerm)
     )
 
+    const enAtencion = minutas.filter(m => !m.fecha_hora_salida).length
+    const totalHoy = minutas.length
+
+    const handleShowForm = () => {
+        setSelectedMinutaId(null)
+        setMobileShowForm(true)
+    }
+
+    const handleBackToList = () => {
+        setMobileShowForm(false)
+    }
+
     return (
-        <div className={`transition-all duration-500 ${isCrisisMode ? 'bg-red-50/50 p-4 sm:p-8 rounded-xl border border-red-200' : ''}`}>
-            {/* Header */}
-            <header className="flex flex-col gap-6 mb-12 animate-fade-in-up">
-                <div>
-                    <div className="flex items-center space-x-3 text-gray-400 text-[10px] mb-4 font-black uppercase tracking-[0.2em]">
-                        <span>Gestión</span>
-                        <ChevronRight className="h-3 w-3" />
-                        <span className="text-[#F28C73]">Recepción</span>
+        <div className="flex h-[calc(100vh-5rem)] bg-white rounded-xl sm:border border-[#2B463C]/5 shadow-sm overflow-hidden relative">
+            {/* ═══════ LEFT PANEL — Cola de Espera ═══════ */}
+            <div className={`w-full sm:w-[340px] flex-shrink-0 border-r border-[#2B463C]/5 flex flex-col bg-[#FAFAF8] ${mobileShowForm ? 'hidden sm:flex' : 'flex'}`}>
+                {/* Header */}
+                <div className="px-4 pt-4 pb-2">
+                    <div className="flex items-center justify-between mb-2">
+                        <h2 className="text-lg font-bold text-[#2B463C]">Recepción</h2>
+                        <button
+                            onClick={() => setIsCrisisMode(!isCrisisMode)}
+                            className={`text-[10px] font-semibold px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${isCrisisMode
+                                ? 'bg-red-500 text-white'
+                                : 'bg-red-50 text-red-500 border border-red-100 hover:bg-red-100'
+                                }`}
+                        >
+                            <Siren className={`w-3 h-3 ${isCrisisMode ? 'animate-pulse' : ''}`} />
+                            {isCrisisMode ? 'Emergencia' : 'Crisis'}
+                        </button>
                     </div>
-                    <h2 className={`text-3xl sm:text-5xl font-bold tracking-tight font-display transition-colors duration-500 ${isCrisisMode ? 'text-red-700' : 'text-gray-900'}`}>
-                        {isCrisisMode ? 'Atención de Emergencia' : 'Recepción y Radicación'}
-                    </h2>
-                    <p className="text-gray-500 mt-4 text-sm sm:text-base font-medium max-w-2xl leading-relaxed">
-                        {isCrisisMode ? 'Prioridad Crítica — Activación de Protocolo de Emergencia Ley 1257.' : 'Registro inicial de usuarios y gestión de la cola de atención del despacho.'}
-                    </p>
-                </div>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                    <div className="hidden sm:flex flex-col items-end pr-8 border-r border-gray-100">
-                        <span className="text-sm font-bold text-gray-900 uppercase tracking-tighter">
-                            {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
-                        </span>
-                        <span className="text-[10px] text-gray-400 font-black tracking-widest uppercase">
-                            {format(new Date(), 'hh:mm a')}
-                        </span>
-                    </div>
-                    {!isCrisisMode && (
-                        <Link href="/dashboard/recepcion/nuevo-caso" className="w-full sm:w-auto">
-                            <Button className="w-full sm:w-auto bg-[#F28C73] hover:bg-[#D96C53] text-white px-8 py-7 rounded-lg font-bold text-sm uppercase tracking-widest shadow-sm transition-all hover:scale-[1.02]">
-                                <Plus className="h-5 w-5 mr-2" />
-                                Radicar Caso
-                            </Button>
-                        </Link>
-                    )}
-                    <Button
-                        onClick={() => setIsCrisisMode(!isCrisisMode)}
-                        variant={isCrisisMode ? "default" : "outline"}
-                        className={`w-full sm:w-auto transition-all duration-300 px-8 py-7 rounded-lg font-bold text-sm uppercase tracking-widest ${isCrisisMode
-                            ? 'bg-red-600 hover:bg-red-700 text-white border-none'
-                            : 'border-2 border-red-100 text-red-600 hover:bg-red-50'
-                            }`}
-                    >
-                        <Siren className={`h-5 w-5 mr-3 ${isCrisisMode ? 'animate-pulse' : ''}`} />
-                        {isCrisisMode ? 'Finalizar Emergencia' : 'Activar Emergencia'}
-                    </Button>
-                </div>
-            </header>
 
-            {/* KPIs Grid - Retirado según la petición del usuario */}
-            {/* Main Content - Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10">
-                {/* Left Column: Form */}
-                <section className="lg:col-span-6">
-                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden flex flex-col shadow-sm">
-                        <div className="px-5 sm:px-8 py-5 border-b border-gray-100 bg-white">
-                            <h4 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-3">
-                                <div className={`p-2 rounded-lg ${isCrisisMode ? 'bg-red-50 text-red-600' : 'bg-[#F28C73]/10 text-[#F28C73]'}`}>
-                                    <FileText className="h-5 w-5" />
-                                </div>
-                                {isCrisisMode ? 'Registro de Emergencia' : 'Formulario de Minuta'}
-                            </h4>
+                    {/* KPI chips */}
+                    <div className="flex items-center gap-2 mb-3">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white border border-[#2B463C]/5 text-[11px]">
+                            <Users className="w-3 h-3 text-[#F28C73]" />
+                            <span className="font-semibold text-[#2B463C]">{totalHoy}</span>
+                            <span className="text-[#2B463C]/35">hoy</span>
                         </div>
-                        <div className="p-4 sm:p-8 flex-1">
-                            {isCrisisMode ? (
-                                <div className="animate-in zoom-in-95 duration-300">
-                                    <CrisisForm onClose={() => setIsCrisisMode(false)} />
-                                </div>
-                            ) : (
-                                <MinutaForm />
-                            )}
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-[11px]">
+                            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="font-semibold text-emerald-600">{enAtencion}</span>
+                            <span className="text-emerald-500/50">activos</span>
                         </div>
-                    </div>
-                </section>
-
-                {/* Right Column: Live Queue */}
-                <section className={`lg:col-span-6 transition-all duration-300 ${isCrisisMode ? 'opacity-30 pointer-events-none scale-95 origin-right' : ''}`}>
-                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden h-full flex flex-col shadow-sm">
-                        <div className="px-5 sm:px-8 py-5 border-b border-gray-100 bg-white flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                            <div>
-                                <h4 className="text-base sm:text-lg font-bold text-gray-900">Cola de Espera</h4>
-                                <p className="text-[10px] text-[#F28C73] font-black uppercase tracking-widest mt-1">Sincronización en Directo</p>
-                            </div>
-                            <div className="relative group">
-                                <input
-                                    className="pl-10 pr-4 py-3 text-sm bg-gray-50 border border-gray-100 rounded-lg focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20 w-full sm:w-64 transition-all"
-                                    placeholder="Nombre o documento..."
-                                    type="text"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                                <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-gray-300 group-focus-within:text-[#F28C73] transition-colors" />
-                            </div>
-                        </div>
-
-                        {/* Desktop Table — hidden on mobile */}
-                        <div className="hidden md:block overflow-x-auto flex-1">
-                            <table className="w-full text-left border-collapse">
-                                <thead className="bg-gray-50 sticky top-0">
-                                    <tr>
-                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Hora</th>
-                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Usuario</th>
-                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Motivo</th>
-                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100">
-                                    {filteredMinutas.length === 0 ? (
-                                        <tr>
-                                            <td colSpan={4} className="px-8 py-12 text-center text-slate-400 bg-transparent">
-                                                <p className="mb-2 text-3xl">📭</p>
-                                                No hay registros de ingreso hoy.
-                                            </td>
-                                        </tr>
-                                    ) : (
-                                        filteredMinutas.map((minuta) => (
-                                            <tr key={minuta.id} className="hover:bg-blue-50/50 transition-all duration-200 group">
-                                                <td className="px-8 py-4">
-                                                    <span className="font-mono text-sm text-gray-400 font-bold">
-                                                        {format(new Date(minuta.fecha_hora_ingreso), 'HH:mm')}
-                                                    </span>
-                                                </td>
-                                                <td className="px-8 py-4">
-                                                    <div className="flex items-center">
-                                                        <div className="w-10 h-10 rounded-lg bg-gray-50 text-gray-800 flex items-center justify-center font-bold text-xs mr-3 border border-gray-100">
-                                                            {minuta.nombre_visitante.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                                                        </div>
-                                                        <div className="min-w-0">
-                                                            <p className="text-sm font-bold text-gray-900 truncate">{minuta.nombre_visitante}</p>
-                                                            <p className="text-[10px] text-gray-400 font-mono mt-0.5 tracking-tighter">ID: {minuta.documento_visitante.slice(0, 4)}***{minuta.documento_visitante.slice(-3)}</p>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-8 py-4">
-                                                    <span className={`px-2 py-1 rounded-md text-[10px] font-black border uppercase tracking-widest ${minuta.motivo_visita === 'DENUNCIA'
-                                                        ? 'bg-red-50 text-red-700 border-red-100'
-                                                        : minuta.motivo_visita === 'AUDIENCIA'
-                                                            ? 'bg-blue-50 text-blue-700 border-blue-100'
-                                                            : 'bg-gray-50 text-gray-700 border-gray-100'
-                                                        }`}>
-                                                        {minuta.motivo_visita}
-                                                    </span>
-                                                </td>
-                                                <td className="px-8 py-4">
-                                                    {minuta.fecha_hora_salida ? (
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-                                                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">Egresado</span>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="flex items-center gap-2">
-                                                            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
-                                                            <span className="text-[10px] text-emerald-600 font-black uppercase tracking-tight">Atendiendo</span>
-                                                        </div>
-                                                    )}
-                                                </td>
-                                            </tr>
-                                        ))
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-
-                        {/* Mobile Card View — visible only on mobile */}
-                        <div className="md:hidden flex-1 overflow-y-auto">
-                            {filteredMinutas.length === 0 ? (
-                                <div className="px-4 py-12 text-center text-slate-400">
-                                    <p className="mb-2 text-3xl">📭</p>
-                                    No hay registros de ingreso hoy.
-                                </div>
-                            ) : (
-                                <div className="divide-y divide-slate-100">
-                                    {filteredMinutas.map((minuta) => (
-                                        <div key={minuta.id} className="p-4 hover:bg-slate-50 transition-colors">
-                                            <div className="flex items-center gap-3 mb-2">
-                                                <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs flex-shrink-0 border border-white shadow-sm">
-                                                    {minuta.nombre_visitante.split(' ').map(n => n[0]).join('').substring(0, 2)}
-                                                </div>
-                                                <div className="flex-1 min-w-0">
-                                                    <p className="text-sm font-bold text-slate-800 truncate">{minuta.nombre_visitante}</p>
-                                                    <p className="text-[11px] text-slate-400 font-mono">
-                                                        {format(new Date(minuta.fecha_hora_ingreso), 'HH:mm')} · ID: {minuta.documento_visitante.slice(0, 4)}***
-                                                    </p>
-                                                </div>
-                                                {minuta.fecha_hora_salida ? (
-                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-slate-400 uppercase">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-slate-400"></span>
-                                                        Listo
-                                                    </span>
-                                                ) : (
-                                                    <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-600 uppercase">
-                                                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                                                        Activo
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <div className="ml-12">
-                                                <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border uppercase tracking-wider ${minuta.motivo_visita === 'DENUNCIA'
-                                                    ? 'bg-rose-50 text-rose-600 border-rose-100'
-                                                    : minuta.motivo_visita === 'AUDIENCIA'
-                                                        ? 'bg-white/10 text-white/90 border-white/10'
-                                                        : 'bg-white/10 text-white/70 border-white/10'
-                                                    }`}>
-                                                    {minuta.motivo_visita}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-
-                        {minutas?.length > 0 && (
-                            <div className="p-6 border-t border-gray-100 text-center bg-gray-50/20">
-                                <button className="text-[10px] font-black text-gray-400 hover:text-[#F28C73] transition-colors uppercase tracking-[0.25em]">
-                                    Cargar Historial Completo
-                                </button>
+                        {kpis.crisisHoy > 0 && (
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-red-50 border border-red-100 text-[11px]">
+                                <AlertTriangle className="w-3 h-3 text-red-500" />
+                                <span className="font-semibold text-red-600">{kpis.crisisHoy}</span>
                             </div>
                         )}
                     </div>
-                </section>
+
+                    {/* Search */}
+                    <div className="relative mb-3">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2B463C]/25" />
+                        <input
+                            type="text"
+                            placeholder="Buscar visitante..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full pl-9 pr-3 py-2 text-sm bg-white border border-[#2B463C]/8 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#F28C73]/40 focus:border-[#F28C73]/40 placeholder:text-[#2B463C]/25"
+                        />
+                        {searchTerm && (
+                            <button onClick={() => setSearchTerm('')} className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 text-[#2B463C]/30 hover:text-[#2B463C]">
+                                <X className="w-3.5 h-3.5" />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* New Minuta button (mobile) */}
+                    <button
+                        onClick={handleShowForm}
+                        className="sm:hidden w-full flex items-center justify-center gap-2 py-2.5 bg-[#2B463C] text-white text-sm font-medium rounded-lg hover:bg-[#F28C73] transition-colors mb-2"
+                    >
+                        <Plus className="w-4 h-4" />
+                        Registrar Ingreso
+                    </button>
+                </div>
+
+                {/* Count + Date */}
+                <div className="px-4 py-2 text-[11px] text-[#2B463C]/30 font-medium border-b border-[#2B463C]/5 flex justify-between">
+                    <span>{filteredMinutas.length} registros</span>
+                    <span>{format(new Date(), "d MMM yyyy", { locale: es })}</span>
+                </div>
+
+                {/* Queue List */}
+                <div className="flex-1 overflow-y-auto">
+                    {filteredMinutas.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+                            <div className="w-12 h-12 rounded-full bg-[#F8F5EE] flex items-center justify-center mb-3">
+                                <ClipboardList className="w-5 h-5 text-[#2B463C]/15" />
+                            </div>
+                            <p className="text-sm text-[#2B463C]/50 font-medium">Sin registros</p>
+                            <p className="text-xs text-[#2B463C]/25 mt-1">No hay visitantes registrados hoy</p>
+                        </div>
+                    ) : (
+                        filteredMinutas.map((minuta) => {
+                            const initials = getInitials(minuta.nombre_visitante)
+                            const isActive = !minuta.fecha_hora_salida
+                            const motivoStyle = MOTIVO_STYLE[minuta.motivo_visita] || { bg: 'bg-slate-50 border border-slate-100', text: 'text-slate-500' }
+
+                            return (
+                                <div
+                                    key={minuta.id}
+                                    className="w-full flex items-center gap-3 px-4 py-3 text-left transition-all border-b border-[#2B463C]/3 hover:bg-white/80"
+                                >
+                                    {/* Avatar */}
+                                    <div className="relative flex-shrink-0">
+                                        <div className={`w-11 h-11 rounded-full flex items-center justify-center text-xs font-semibold ${isActive ? 'bg-emerald-50 text-emerald-600' : 'bg-slate-50 text-slate-400'}`}>
+                                            {initials}
+                                        </div>
+                                        {isActive && (
+                                            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#FAFAF8] animate-pulse" />
+                                        )}
+                                    </div>
+
+                                    {/* Info */}
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-center justify-between gap-2">
+                                            <p className="text-sm font-medium text-[#2B463C]/80 truncate">
+                                                {minuta.nombre_visitante}
+                                            </p>
+                                            <span className="text-[10px] text-[#2B463C]/25 font-mono flex-shrink-0">
+                                                {format(new Date(minuta.fecha_hora_ingreso), 'HH:mm')}
+                                            </span>
+                                        </div>
+                                        <div className="flex items-center gap-2 mt-0.5">
+                                            <span className={`text-[10px] px-1.5 py-0.5 rounded font-medium ${motivoStyle.bg} ${motivoStyle.text}`}>
+                                                {minuta.motivo_visita}
+                                            </span>
+                                            <span className="text-[10px] text-[#2B463C]/25">
+                                                {isActive ? '• En atención' : '• Egresado'}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    )}
+                </div>
+            </div>
+
+            {/* ═══════ RIGHT PANEL — Formulario de Minuta ═══════ */}
+            <div className={`flex-1 flex flex-col bg-white overflow-y-auto ${mobileShowForm ? 'flex' : 'hidden sm:flex'} ${mobileShowForm ? 'absolute inset-0 z-10 sm:relative sm:inset-auto sm:z-auto' : ''}`}>
+                {/* Form Header */}
+                <div className="border-b border-[#2B463C]/5 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between bg-[#FAFAF8]">
+                    {/* Mobile Back */}
+                    <button onClick={handleBackToList} className="sm:hidden flex items-center gap-1 text-[#2B463C]/60 hover:text-[#2B463C] mr-3 -ml-1 p-1">
+                        <ArrowLeft className="w-5 h-5" />
+                    </button>
+
+                    <div className="flex items-center gap-3 flex-1">
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${isCrisisMode ? 'bg-red-50' : 'bg-[#F8F5EE]'}`}>
+                            {isCrisisMode ? (
+                                <Siren className="w-5 h-5 sm:w-6 sm:h-6 text-red-500 animate-pulse" />
+                            ) : (
+                                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-[#F28C73]" />
+                            )}
+                        </div>
+                        <div>
+                            <h2 className={`text-base sm:text-lg font-bold ${isCrisisMode ? 'text-red-700' : 'text-[#2B463C]'}`}>
+                                {isCrisisMode ? 'Registro de Emergencia' : 'Formulario de Minuta'}
+                            </h2>
+                            <p className="text-xs text-[#2B463C]/35">
+                                {isCrisisMode ? 'Protocolo de Emergencia Ley 1257' : 'Registro de ingreso al despacho'}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                        <Link
+                            href="/dashboard/recepcion/nuevo-caso"
+                            className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-[#2B463C] text-white text-xs sm:text-sm font-medium rounded-lg hover:bg-[#F28C73] transition-colors shadow-sm"
+                        >
+                            <Plus className="w-4 h-4" />
+                            <span>Radicar Caso</span>
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Form Body */}
+                <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
+                    <div className="max-w-3xl mx-auto">
+                        {isCrisisMode ? (
+                            <div className="bg-red-50/50 rounded-xl p-5 border border-red-100">
+                                <CrisisForm onClose={() => setIsCrisisMode(false)} />
+                            </div>
+                        ) : (
+                            <div className="bg-[#FAFAF8] rounded-xl p-4 sm:p-6 border border-[#2B463C]/5">
+                                <MinutaForm />
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )
