@@ -42,62 +42,62 @@ interface TopNavBarProps {
 
 function getNavItems(rol: RolUsuario | undefined): NavItem[] {
     const common: NavItem[] = [
-        { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-4.5 w-4.5" /> },
-        { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-4.5 w-4.5" /> },
-        { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-4.5 w-4.5" /> },
+        { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
+        { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-5 w-5" /> },
+        { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-5 w-5" /> },
     ]
 
     switch (rol) {
         case 'AUXILIAR':
             return [
                 ...common,
-                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-4.5 w-4.5" /> },
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
-                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-4.5 w-4.5" /> },
-                { label: 'Admin', href: '/dashboard/administrativo', icon: <ClipboardList className="h-4.5 w-4.5" /> },
+                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-5 w-5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
+                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-5 w-5" /> },
+                { label: 'Admin', href: '/dashboard/administrativo', icon: <ClipboardList className="h-5 w-5" /> },
             ]
 
         case 'PSICOLOGO':
         case 'TRABAJADOR_SOCIAL':
             return [
                 ...common,
-                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-4.5 w-4.5" /> },
-                { label: 'Asignados', href: '/dashboard/casos-asignados', icon: <Eye className="h-4.5 w-4.5" /> },
-                { label: 'Informes', href: '/dashboard/informes', icon: <FileText className="h-4.5 w-4.5" /> },
+                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-5 w-5" /> },
+                { label: 'Asignados', href: '/dashboard/casos-asignados', icon: <Eye className="h-5 w-5" /> },
+                { label: 'Informes', href: '/dashboard/informes', icon: <FileText className="h-5 w-5" /> },
             ]
 
         case 'SECRETARIO':
         case 'ABOGADO':
             return [
                 ...common,
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
-                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-4.5 w-4.5" /> },
-                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-4.5 w-4.5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
+                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-5 w-5" /> },
+                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-5 w-5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
             ]
 
         case 'COMISARIO':
             return [
                 ...common,
-                { label: 'Firma', href: '/dashboard/firma', icon: <ShieldCheck className="h-4.5 w-4.5" /> },
-                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-4.5 w-4.5" /> },
-                { label: 'Control', href: '/dashboard/control', icon: <BarChart3 className="h-4.5 w-4.5" /> },
-                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-4.5 w-4.5" /> },
+                { label: 'Firma', href: '/dashboard/firma', icon: <ShieldCheck className="h-5 w-5" /> },
+                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-5 w-5" /> },
+                { label: 'Control', href: '/dashboard/control', icon: <BarChart3 className="h-5 w-5" /> },
+                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-5 w-5" /> },
             ]
 
         case 'ADMINISTRADOR':
             return [
                 ...common,
-                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-4.5 w-4.5" /> },
-                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-4.5 w-4.5" /> },
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
-                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-4.5 w-4.5" /> },
-                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-4.5 w-4.5" /> },
-                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-4.5 w-4.5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
-                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-4.5 w-4.5" /> },
-                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-4.5 w-4.5" /> },
+                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-5 w-5" /> },
+                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-5 w-5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
+                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-5 w-5" /> },
+                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-5 w-5" /> },
+                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-5 w-5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
+                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-5 w-5" /> },
+                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-5 w-5" /> },
             ]
 
         default:
@@ -152,49 +152,44 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop Top Header Bar (≥640px) ─── */}
-            <header className="hidden sm:flex fixed top-0 left-[60px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
+            <header className="hidden sm:flex fixed top-0 left-[220px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
                 <div className="flex items-center gap-2">
                     {rightSlot}
                 </div>
             </header>
 
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[60px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[220px] flex-col bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
                 {/* Logo */}
-                <Link href="/dashboard" className="flex-shrink-0 mt-3 mb-5">
-                    <div className="w-9 h-9 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
-                        <SicofLogoIcon className="w-5 h-5" inverted={true} />
+                <Link href="/dashboard" className="flex items-center gap-3 px-5 pt-5 pb-6">
+                    <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 flex-shrink-0">
+                        <SicofLogoIcon className="w-6 h-6" inverted={true} />
                     </div>
+                    <span className="text-[#2B463C] text-xl font-bold tracking-tight">Komi</span>
                 </Link>
 
-                {/* Divider */}
-                <div className="w-8 h-px bg-[#2B463C]/8 mb-3" />
-
                 {/* Nav Items */}
-                <nav className="flex-1 flex flex-col items-center gap-2 overflow-y-auto scrollbar-hide py-1 w-full px-3">
+                <nav className="flex-1 flex flex-col gap-1 overflow-y-auto scrollbar-hide px-3">
                     {navItems.map((item) => {
                         const isActive = isNavActive(pathname, item.href)
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`group relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 flex-shrink-0 ${isActive
-                                    ? 'bg-[#F28C73] text-white shadow-lg shadow-[#F28C73]/20'
-                                    : 'text-[#333333]/40 hover:text-[#F28C73] hover:bg-white/50'
+                                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 flex-shrink-0 ${isActive
+                                    ? 'bg-[#F28C73] text-white shadow-md shadow-[#F28C73]/15'
+                                    : 'text-[#2B463C]/50 hover:text-[#2B463C] hover:bg-white/50'
                                     }`}
                             >
                                 {item.icon}
-                                {/* Tooltip */}
-                                <span className="absolute left-full ml-4 px-3 py-2 bg-[#333333] text-white text-[10px] font-black tracking-widest uppercase rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
-                                    {item.label}
-                                </span>
+                                <span className="text-sm font-medium">{item.label}</span>
                             </Link>
                         )
                     })}
                 </nav>
 
                 {/* Logout Button */}
-                <div className="pb-4 mt-auto w-full px-3">
+                <div className="px-3 pb-5 mt-auto">
                     <button
                         onClick={() => {
                             const form = document.createElement('form')
@@ -203,10 +198,10 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                             document.body.appendChild(form)
                             form.submit()
                         }}
-                        className="flex items-center justify-center w-full h-10 rounded-lg text-[#333333]/40 hover:text-red-500 hover:bg-red-50 transition-all duration-300"
-                        title="Cerrar Sesión"
+                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-[#2B463C]/40 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
                     >
-                        <LogOut className="h-4.5 w-4.5" />
+                        <LogOut className="h-5 w-5" />
+                        <span className="text-sm font-medium">Cerrar Sesión</span>
                     </button>
                 </div>
             </aside>
