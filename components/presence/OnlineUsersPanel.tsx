@@ -22,7 +22,7 @@ const ROL_COLORS: Record<string, string> = {
     PSICOLOGO: 'bg-rose-100 text-rose-700 border-rose-200',
     TRABAJADOR_SOCIAL: 'bg-amber-100 text-amber-300 border-amber-200',
     ABOGADO: 'bg-emerald-100 text-emerald-300 border-emerald-200',
-    AUXILIAR: 'bg-purple-100 text-purple-300 border-purple-200',
+    AUXILIAR: 'bg-blue-100 text-blue-300 border-blue-200',
     PRACTICANTE: 'bg-teal-100 text-teal-700 border-teal-200',
     USUARIO_EXTERNO: 'bg-white/10 text-white/80 border-white/10',
     ADMINISTRADOR: 'bg-indigo-100 text-indigo-700 border-indigo-200',
@@ -86,7 +86,7 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
 
     return (
         <div
-            className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/[0.02] backdrop-blur-xl hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] ${isCurrentUser ? 'bg-purple-50/60 ring-1 ring-purple-100' : ''
+            className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/[0.02] backdrop-blur-xl hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] ${isCurrentUser ? 'bg-blue-50/60 ring-1 ring-blue-100' : ''
                 }`}
         >
             {/* Avatar */}
@@ -107,7 +107,7 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
                     <p className="truncate text-sm font-medium text-white/90">
                         {user.nombre}
                         {isCurrentUser && (
-                            <span className="ml-1 text-[10px] font-normal text-purple-500">(tú)</span>
+                            <span className="ml-1 text-[10px] font-normal text-blue-500">(tú)</span>
                         )}
                     </p>
                 </div>
@@ -210,7 +210,7 @@ export default function OnlineUsersPanel({
                     <Users className="h-4 w-4 text-white/90" />
                     <h3 className="text-sm font-bold text-white">Equipo</h3>
                 </div>
-                <p className="mt-0.5 text-[11px] text-purple-100">
+                <p className="mt-0.5 text-[11px] text-blue-100">
                     {online.length} de {enrichedUsers.length} conectados
                 </p>
             </div>

@@ -41,22 +41,22 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="font-[Inter,system-ui,sans-serif] min-h-[100svh] flex flex-col justify-center items-center antialiased bg-[#050505] selection:bg-purple-500/30 selection:text-white relative overflow-hidden">
+        <div className="font-[Inter,system-ui,sans-serif] min-h-[100svh] flex flex-col justify-center items-center antialiased bg-slate-50 selection:bg-blue-500/10 selection:text-blue-900 relative overflow-hidden">
 
             {/* Futuristic Background Elements */}
             <div className="absolute inset-0 z-0 pointer-events-none">
                 {/* Glowing Orbs */}
-                <div className="absolute top-[20%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-purple-600/10 blur-[140px] mix-blend-screen animate-pulse" style={{ animationDuration: '8s' }} />
-                <div className="absolute bottom-[20%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-fuchsia-600/10 blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
+                <div className="absolute top-[20%] left-[20%] w-[40vw] h-[40vw] rounded-full bg-blue-600/[0.03] blur-[140px] mix-blend-multiply animate-pulse" style={{ animationDuration: '8s' }} />
+                <div className="absolute bottom-[20%] right-[10%] w-[30vw] h-[30vw] rounded-full bg-blue-400/[0.03] blur-[120px] mix-blend-multiply animate-pulse" style={{ animationDuration: '12s', animationDelay: '2s' }} />
 
                 {/* Subtle Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)] opacity-30" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_20%,transparent_100%)] opacity-30" />
             </div>
 
             {/* Back Link */}
             <Link
                 href="/"
-                className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors font-medium z-20 group"
+                className="absolute top-8 left-8 inline-flex items-center gap-2 text-sm text-slate-400 hover:text-slate-900 transition-colors font-medium z-20 group"
             >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                 Regresar
@@ -69,21 +69,21 @@ export default function LoginPage() {
                         }`}
                 >
                     {/* Glassmorphism Card */}
-                    <div className="bg-white/[0.02] backdrop-blur-2xl border border-white/[0.05] p-8 sm:p-10 rounded-[2rem] shadow-[0_0_80px_rgba(0,0,0,0.8)] relative overflow-hidden group">
+                    <div className="bg-white/60 backdrop-blur-2xl border border-white p-8 sm:p-10 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] relative overflow-hidden group">
 
                         {/* Shimmer effect line */}
-                        <div className="absolute top-0 left-[-100%] w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent group-hover:left-[100%] transition-all duration-1000 ease-in-out" />
+                        <div className="absolute top-0 left-[-100%] w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent group-hover:left-[100%] transition-all duration-1000 ease-in-out" />
 
                         {/* Header */}
                         <div className="flex flex-col items-center text-center mb-10">
-                            <div className="w-14 h-14 bg-gradient-to-br from-purple-500/10 to-fuchsia-500/10 border border-white/10 rounded-2xl flex items-center justify-center mb-6 shadow-inner relative">
-                                <SicofLogoIcon className="w-8 h-8 opacity-90" inverted={true} />
-                                <div className="absolute inset-0 bg-purple-400/20 blur-xl rounded-full" />
+                            <div className="w-14 h-14 bg-white border border-slate-100 rounded-2xl flex items-center justify-center mb-6 shadow-sm relative">
+                                <SicofLogoIcon className="w-8 h-8 opacity-90" inverted={false} />
+                                <div className="absolute inset-0 bg-blue-400/5 blur-xl rounded-full" />
                             </div>
-                            <h1 className="text-2xl font-semibold tracking-tight text-white/90 mb-2">
+                            <h1 className="text-2xl font-semibold tracking-tight text-slate-900 mb-2">
                                 Acceso al Sistema
                             </h1>
-                            <p className="text-sm text-white/40 font-light tracking-wide">
+                            <p className="text-sm text-slate-400 font-light tracking-wide">
                                 Autenticación cifrada Komi
                             </p>
                         </div>
@@ -93,7 +93,7 @@ export default function LoginPage() {
                             {/* Email */}
                             <div className="space-y-1.5 relative group/input">
                                 <input
-                                    className="peer w-full bg-transparent border-b border-white/10 px-0 py-3 text-white placeholder-transparent focus:outline-none focus:border-purple-500 transition-colors text-sm font-light"
+                                    className="peer w-full bg-transparent border-b border-slate-200 px-0 py-3 text-slate-900 placeholder-transparent focus:outline-none focus:border-blue-600 transition-colors text-sm font-light"
                                     id="email"
                                     name="email"
                                     placeholder="Correo electrónico"
@@ -105,7 +105,7 @@ export default function LoginPage() {
                                 />
                                 <label
                                     htmlFor="email"
-                                    className="absolute left-0 -top-3.5 text-xs font-medium text-white/30 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-white/30 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-purple-400"
+                                    className="absolute left-0 -top-3.5 text-xs font-medium text-slate-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-blue-600"
                                 >
                                     ID de usuario
                                 </label>
@@ -114,7 +114,7 @@ export default function LoginPage() {
                             {/* Password */}
                             <div className="space-y-1.5 relative group/input">
                                 <input
-                                    className="peer w-full bg-transparent border-b border-white/10 px-0 py-3 pr-10 text-white placeholder-transparent focus:outline-none focus:border-purple-500 transition-colors text-sm font-light tracking-widest"
+                                    className="peer w-full bg-transparent border-b border-slate-200 px-0 py-3 pr-10 text-slate-900 placeholder-transparent focus:outline-none focus:border-blue-600 transition-colors text-sm font-light tracking-widest"
                                     id="password"
                                     name="password"
                                     placeholder="Contraseña"
@@ -126,13 +126,13 @@ export default function LoginPage() {
                                 />
                                 <label
                                     htmlFor="password"
-                                    className="absolute left-0 -top-3.5 text-xs font-medium text-white/30 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-white/30 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-purple-400 tracking-normal"
+                                    className="absolute left-0 -top-3.5 text-xs font-medium text-slate-400 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-xs peer-focus:text-blue-600 tracking-normal"
                                 >
                                     Clave de acceso
                                 </label>
                                 <button
                                     type="button"
-                                    className="absolute right-0 top-3 text-white/20 hover:text-white/60 transition-colors"
+                                    className="absolute right-0 top-3 text-slate-300 hover:text-slate-600 transition-colors"
                                     onClick={() => setShowPassword(!showPassword)}
                                     tabIndex={-1}
                                 >
@@ -151,42 +151,42 @@ export default function LoginPage() {
                             {/* Submit */}
                             <div className="pt-6">
                                 <button
-                                    className="relative w-full group/btn overflow-hidden rounded-xl bg-white/5 border border-white/10 transition-all hover:border-purple-500/50 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(168,85,247,0.2)] disabled:opacity-50 disabled:pointer-events-none"
+                                    className="relative w-full group/btn overflow-hidden rounded-xl bg-blue-900 border border-blue-950 transition-all shadow-lg hover:bg-blue-800 disabled:opacity-50 disabled:pointer-events-none"
                                     type="submit"
                                     disabled={loading}
                                 >
-                                    <div className="px-4 py-3.5 flex items-center justify-center gap-2 relative z-10 text-sm font-medium text-white/90">
+                                    <div className="px-4 py-3.5 flex items-center justify-center gap-2 relative z-10 text-sm font-medium text-white">
                                         {loading ? (
                                             <>
-                                                <Loader2 className="h-4 w-4 animate-spin text-purple-400" />
+                                                <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
                                                 Verificando
                                             </>
                                         ) : (
                                             <>
-                                                <Fingerprint className="w-4 h-4 text-purple-400 group-hover/btn:text-fuchsia-400 transition-colors" />
+                                                <Fingerprint className="w-4 h-4 text-blue-400 group-hover/btn:text-fuchsia-400 transition-colors" />
                                                 Autenticar
                                             </>
                                         )}
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
                                 </button>
                             </div>
                         </form>
 
                         {/* Footer links */}
-                        <div className="mt-8 pt-6 border-t border-white/5 flex flex-col items-center gap-4">
-                            <a href="#" className="text-xs text-white/30 hover:text-purple-400 transition-colors font-light">
+                        <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col items-center gap-4">
+                            <a href="#" className="text-xs text-slate-300 hover:text-blue-600 transition-colors font-light">
                                 ¿No puedes acceder a tu cuenta?
                             </a>
                         </div>
                     </div>
 
                     {/* Hardware Info Placeholder */}
-                    <div className="mt-8 text-center text-[10px] text-white/20 font-mono tracking-widest flex items-center justify-center gap-3 opacity-50">
+                    <div className="mt-8 text-center text-[10px] text-slate-300 font-mono tracking-widest flex items-center justify-center gap-3 opacity-50">
                         <span>SYS.v2.4.0</span>
-                        <span className="w-1 h-1 rounded-full bg-purple-500/50" />
+                        <span className="w-1 h-1 rounded-full bg-blue-400/50" />
                         <span>SECURE.CONN</span>
-                        <span className="w-1 h-1 rounded-full bg-purple-500/50" />
+                        <span className="w-1 h-1 rounded-full bg-blue-400/50" />
                         <span>AES-256</span>
                     </div>
                 </div>

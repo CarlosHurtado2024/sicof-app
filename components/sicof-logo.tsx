@@ -11,7 +11,7 @@ export function SicofLogoIcon({ className = "w-10 h-10", inverted = false }: Sic
     return (
         <div className={`relative ${className}`} style={{ filter: inverted ? 'brightness(0) invert(1)' : 'none' }}>
             <Image
-                src="/logo_komi.svg"
+                src="/logo_komi_azul.svg"
                 alt="Komi Logo"
                 fill
                 className="object-contain"
@@ -35,7 +35,7 @@ export function SicofLogo({
     showSubtitle = true,
 }: SicofLogoProps) {
     const textColor = inverted ? "text-white" : "text-slate-900"
-    const subtitleColor = inverted ? "text-white/30/60" : "text-purple-300"
+    const subtitleColor = inverted ? "text-white/30/60" : "text-blue-300"
 
     return (
         <div className={`flex items-center gap-2.5 ${className}`}>

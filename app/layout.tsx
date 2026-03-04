@@ -10,7 +10,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#4C1D95",
+  themeColor: "#042153",
 };
 
 export const metadata: Metadata = {
@@ -19,12 +19,12 @@ export const metadata: Metadata = {
   manifest: "/manifest.json?v=2",
   icons: {
     icon: [
-      { url: "/ico_komi.ico?v=2", type: "image/x-icon" },
-      { url: "/logo_komi.svg?v=2", type: "image/svg+xml" },
+      { url: "/ico_komi_azul.ico?v=2", type: "image/x-icon" },
+      { url: "/logo_komi_azul.svg?v=2", type: "image/svg+xml" },
       { url: "/icon-192.png?v=2", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png?v=2", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: "/ico_komi.ico?v=2",
+    shortcut: "/ico_komi_azul.ico?v=2",
     apple: "/icon-192.png?v=2",
   },
 };

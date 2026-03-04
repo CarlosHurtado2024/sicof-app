@@ -48,10 +48,10 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
                 <img
                     src={photoUrl}
                     alt="Foto de persona"
-                    className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover ring-4 ring-[#050505] shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+                    className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl object-cover ring-8 ring-white shadow-2xl shadow-slate-200/50"
                 />
             ) : (
-                <div className={`w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center text-xl sm:text-2xl font-bold ring-4 ring-[#050505] shadow-[0_0_30px_rgba(0,0,0,0.5)] ${isVictima ? 'bg-purple-900/50 text-purple-300 border border-purple-500/20' : 'bg-red-900/50 text-red-300 border border-red-500/20'}`}>
+                <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-2xl sm:text-3xl font-black ring-8 ring-white shadow-2xl shadow-slate-200/50 transition-all duration-500 scale-100 group-hover:scale-105 ${isVictima ? 'bg-blue-50 text-blue-300 border border-blue-100' : 'bg-red-50 text-red-300 border border-red-100'}`}>
                     {initials}
                 </div>
             )}
@@ -60,13 +60,13 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="absolute -bottom-1 -right-1 w-8 h-8 bg-purple-600 border border-purple-500/50 hover:bg-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.3)] text-white rounded-full flex items-center justify-center transition-all hover:scale-110 disabled:opacity-50"
+                className="absolute -bottom-2 -right-2 w-10 h-10 bg-white border border-slate-100 hover:bg-slate-50 shadow-xl shadow-slate-200/50 text-blue-600 rounded-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 disabled:opacity-50 z-10"
                 title="Subir foto"
             >
                 {isUploading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
-                    <Camera className="h-4 w-4" />
+                    <Camera className="h-5 w-5" />
                 )}
             </button>
 

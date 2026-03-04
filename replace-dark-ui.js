@@ -26,11 +26,11 @@ const replacements = [
     { from: /text-slate-300/g, to: 'text-white/30' },
 
     // Gradients & Themes specific
-    { from: /from-\[#4C1D95\] to-\[#2C4A7C\]/g, to: 'from-purple-600/20 to-fuchsia-600/20 border border-white/10' },
-    { from: /text-\[#4C1D95\]/g, to: 'text-purple-300' },
-    { from: /bg-\[#4C1D95\]/g, to: 'bg-purple-600 border border-purple-500/50 hover:bg-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.3)]' },
-    { from: /hover:bg-\[#3B0764\]/g, to: 'hover:bg-purple-500' },
-    { from: /hover:text-\[#3B0764\]/g, to: 'hover:text-white' },
+    { from: /from-\[#042153\] to-\[#2C4A7C\]/g, to: 'from-purple-600/20 to-fuchsia-600/20 border border-white/10' },
+    { from: /text-\[#042153\]/g, to: 'text-blue-300' },
+    { from: /bg-\[#042153\]/g, to: 'bg-blue-600 border border-blue-500/50 hover:bg-blue-500 shadow-[0_0_15px_rgba(147,51,234,0.3)]' },
+    { from: /hover:bg-\[#011848\]/g, to: 'hover:bg-blue-500' },
+    { from: /hover:text-\[#011848\]/g, to: 'hover:text-white' },
 
     // Colored Badges (Riesgo, Fases)
     { from: /bg-emerald-50(?=[\s"'])/g, to: 'bg-emerald-500/10 border border-emerald-500/20' },
@@ -41,8 +41,8 @@ const replacements = [
     { from: /text-orange-700/g, to: 'text-orange-300' },
     { from: /bg-red-50(?=[\s"'])/g, to: 'bg-red-500/10 border border-red-500/20' },
     { from: /text-red-700/g, to: 'text-red-300' },
-    { from: /bg-purple-50(?=[\s"'])/g, to: 'bg-purple-500/10 border border-purple-500/20' },
-    { from: /text-purple-700/g, to: 'text-purple-300' },
+    { from: /bg-blue-50(?=[\s"'])/g, to: 'bg-blue-500/10 border border-blue-500/20' },
+    { from: /text-blue-700/g, to: 'text-blue-300' },
 
     // Other subtle fixes (shadows)
     { from: /shadow-sm(?=[\s"'])/g, to: 'shadow-[0_0_20px_rgba(0,0,0,0.3)]' },

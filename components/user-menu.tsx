@@ -34,8 +34,8 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
     }
 
     const buttonClasses = variant === 'sidebar'
-        ? "w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/10 text-white text-xs font-bold cursor-pointer hover:bg-white/15 transition-all focus:outline-none flex items-center justify-center"
-        : "h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-semibold text-sm hover:bg-purple-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+        ? "w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-slate-100/80 text-slate-700 text-xs font-bold cursor-pointer hover:bg-slate-200 transition-all border border-slate-200 focus:outline-none flex items-center justify-center"
+        : "h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm hover:bg-blue-200 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 
     return (
         <DropdownMenu>
@@ -48,7 +48,7 @@ export default function UserMenu({ userName, userEmail, userInitial, variant = '
                 <DropdownMenuLabel>
                     <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">{userName}</p>
-                        <p className="text-xs leading-none text-white/50">{userEmail}</p>
+                        <p className="text-xs leading-none text-slate-500">{userEmail}</p>
                     </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />

@@ -23,7 +23,7 @@ export default async function ConfiguracionPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <User className="h-5 w-5 text-purple-600" />
+                            <User className="h-5 w-5 text-blue-600" />
                             Perfil de Usuario
                         </CardTitle>
                         <CardDescription>
@@ -49,7 +49,7 @@ export default async function ConfiguracionPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Bell className="h-5 w-5 text-purple-600" />
+                            <Bell className="h-5 w-5 text-blue-600" />
                             Notificaciones
                         </CardTitle>
                         <CardDescription>
@@ -64,7 +64,7 @@ export default async function ConfiguracionPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Shield className="h-5 w-5 text-purple-600" />
+                            <Shield className="h-5 w-5 text-blue-600" />
                             Seguridad
                         </CardTitle>
                         <CardDescription>
@@ -79,7 +79,7 @@ export default async function ConfiguracionPage() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="flex items-center gap-2">
-                            <Palette className="h-5 w-5 text-purple-600" />
+                            <Palette className="h-5 w-5 text-blue-600" />
                             Apariencia
                         </CardTitle>
                         <CardDescription>

@@ -8,11 +8,11 @@ export default async function ValoracionRiesgoPage({ params }: { params: Promise
     const userRole = profileData?.profile?.rol ?? ''
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-6 max-w-4xl mx-auto">
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-slate-900">Valoración de Riesgo</h1>
-                    <p className="text-white/50">Módulo 2: Instrumento de Referencia (Ley 1257 / Comisarías)</p>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tight">VALORACIÓN DE RIESGO</h1>
+                    <p className="text-slate-500 font-medium uppercase tracking-[0.1em] text-xs mt-1">Módulo 2: Instrumento de Referencia Legal (Ley 1257)</p>
                 </div>
             </div>
 

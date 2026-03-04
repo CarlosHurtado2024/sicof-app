@@ -8,8 +8,8 @@ import PersonasSearch from '@/components/personas-search'
 import { Suspense } from 'react'
 
 const TIPO_BADGE: Record<string, { bg: string; text: string; label: string }> = {
-    VICTIMA: { bg: 'bg-purple-500/10 border border-purple-500/20', text: 'text-purple-300', label: 'Víctima' },
-    AGRESOR: { bg: 'bg-red-500/10 border border-red-500/20', text: 'text-red-300', label: 'Agresor' },
+    VICTIMA: { bg: 'bg-blue-100 border border-blue-200', text: 'text-blue-700', label: 'Víctima' },
+    AGRESOR: { bg: 'bg-red-100 border border-red-200', text: 'text-red-700', label: 'Agresor' },
 }
 
 interface PageProps {
@@ -46,72 +46,74 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
         <div className="space-y-6 max-w-[1400px] mx-auto">
             {/* Breadcrumb + Header */}
             <div>
-                <div className="flex items-center space-x-2 text-white/40 text-sm mb-3 font-medium">
-                    <span>Inicio</span>
+                <div className="flex items-center space-x-2 text-slate-400 text-sm mb-3 font-medium">
+                    <Link href="/dashboard" className="hover:text-blue-600 transition-colors">Inicio</Link>
                     <ChevronRight className="h-3.5 w-3.5" />
-                    <span className="text-purple-300">Personas</span>
+                    <span className="text-blue-600 font-bold">Personas</span>
                 </div>
                 <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4">
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight text-white/90 flex items-center gap-3">
-                            <div className="p-2 bg-white/10 rounded-xl">
-                                <UserSearch className="h-5 w-5 text-purple-300" />
+                        <h1 className="text-3xl font-black tracking-tight text-slate-900 flex items-center gap-4">
+                            <div className="p-3 bg-blue-100 rounded-2xl shadow-sm">
+                                <UserSearch className="h-6 w-6 text-blue-700" />
                             </div>
                             Personas Registradas
                         </h1>
-                        <p className="text-white/50 text-sm mt-1 ml-12">Directorio de víctimas y agresores vinculados a expedientes</p>
+                        <p className="text-slate-500 text-sm mt-2 ml-1 font-medium italic">Directorio centralizado de intervinientes vinculados a procesos</p>
                     </div>
                 </div>
             </div>
 
             {/* Search + Stats */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <Suspense fallback={<div className="flex-1 max-w-md h-10 bg-white/10 rounded-xl animate-pulse" />}>
-                    <PersonasSearch />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                <Suspense fallback={<div className="flex-1 max-w-md h-12 bg-slate-100 rounded-xl animate-pulse" />}>
+                    <div className="flex-1 max-w-md">
+                        <PersonasSearch />
+                    </div>
                 </Suspense>
-                <div className="flex items-center gap-2 text-sm text-white/50 flex-shrink-0">
-                    <span className="font-bold text-white/90">{total}</span>
+                <div className="flex items-center gap-3 text-sm text-slate-500 font-bold px-4 py-2 bg-slate-50 rounded-xl border border-slate-100">
+                    <span className="text-blue-600">{total}</span>
                     {searchQuery ? (
-                        <span>resultados para "<span className="font-medium text-white/90">{searchQuery}</span>"</span>
+                        <span>coincidencias para "<span className="text-slate-900">{searchQuery}</span>"</span>
                     ) : (
-                        <span>personas registradas</span>
+                        <span>registros totales</span>
                     )}
                 </div>
             </div>
 
             {/* Table Card */}
-            <Card className="border border-white/10 shadow-[0_0_20px_rgba(0,0,0,0.3)] rounded-xl overflow-hidden bg-white/[0.02] backdrop-blur-3xl">
+            <Card className="border border-slate-200 shadow-xl shadow-slate-200/50 rounded-2xl overflow-hidden bg-white">
                 <CardContent className="p-0">
                     {/* Desktop Table */}
                     <div className="hidden md:block overflow-x-auto">
                         <table className="w-full text-sm">
                             <thead>
-                                <tr className="bg-white/[0.03] backdrop-blur-xl border-b border-white/10">
-                                    <th className="text-left px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Nombre</th>
-                                    <th className="text-left px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Documento</th>
-                                    <th className="text-left px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Tipo</th>
-                                    <th className="text-left px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Expediente</th>
-                                    <th className="text-left px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Teléfono</th>
-                                    <th className="text-right px-5 py-3.5 font-semibold text-white/50 text-xs uppercase tracking-wider">Acciones</th>
+                                <tr className="bg-slate-50 border-b border-slate-200">
+                                    <th className="text-left px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Interviniente</th>
+                                    <th className="text-left px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Identificación</th>
+                                    <th className="text-left px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Categoría</th>
+                                    <th className="text-left px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Expediente</th>
+                                    <th className="text-left px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Contacto</th>
+                                    <th className="text-right px-6 py-4 font-black text-slate-400 text-[10px] uppercase tracking-[0.2em]">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-white/5">
+                            <tbody className="divide-y divide-slate-100">
                                 {personas.length === 0 ? (
                                     <tr>
                                         <td colSpan={6} className="px-5 py-16 text-center">
                                             <div className="flex flex-col items-center">
-                                                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-3">
-                                                    {searchQuery ? <Search className="h-6 w-6 text-white/30" /> : <UserSearch className="h-6 w-6 text-white/30" />}
+                                                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mb-4 border border-slate-100 shadow-inner">
+                                                    {searchQuery ? <Search className="h-8 w-8 text-slate-300" /> : <UserSearch className="h-8 w-8 text-slate-300" />}
                                                 </div>
                                                 {searchQuery ? (
                                                     <>
-                                                        <p className="text-white/50 font-medium mb-1">No se encontraron personas</p>
-                                                        <p className="text-white/40 text-xs">Intenta con otro nombre o número de documento</p>
+                                                        <p className="text-slate-900 font-bold mb-1">Sin coincidencias</p>
+                                                        <p className="text-slate-400 text-xs font-medium">Pruebe con otros criterios de búsqueda</p>
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <p className="text-white/50 font-medium mb-1">No hay personas registradas</p>
-                                                        <p className="text-white/40 text-xs">Las personas vinculadas a casos aparecerán aquí</p>
+                                                        <p className="text-slate-900 font-bold mb-1">Base de datos vacía</p>
+                                                        <p className="text-slate-400 text-xs font-medium">Los intervinientes aparecerán al crear casos</p>
                                                     </>
                                                 )}
                                             </div>
@@ -123,47 +125,47 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                         const initials = p.nombres?.split(' ').map((n: string) => n[0]).join('').substring(0, 2).toUpperCase() || '??'
                                         const fotoUrl = p.datos_demograficos?.foto_url
                                         return (
-                                            <tr key={p.id} className="hover:bg-slate-100/30 transition-colors group">
-                                                <td className="px-5 py-4">
-                                                    <div className="flex items-center gap-3">
+                                            <tr key={p.id} className="hover:bg-slate-50 transition-all group">
+                                                <td className="px-6 py-5">
+                                                    <div className="flex items-center gap-4">
                                                         {fotoUrl ? (
-                                                            <img src={fotoUrl} alt="" className="w-8 h-8 rounded-full object-cover flex-shrink-0 ring-2 ring-slate-100" />
+                                                            <img src={fotoUrl} alt="" className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2 border-white shadow-sm" />
                                                         ) : (
-                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${p.tipo === 'VICTIMA' ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
+                                                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black flex-shrink-0 shadow-sm ${p.tipo === 'VICTIMA' ? 'bg-blue-100 text-blue-700' : 'bg-red-100 text-red-700'}`}>
                                                                 {initials}
                                                             </div>
                                                         )}
-                                                        <span className="font-semibold text-white/90 text-sm truncate">{p.nombres || '—'}</span>
+                                                        <span className="font-bold text-slate-800 text-sm group-hover:text-blue-700 transition-colors">{p.nombres || '—'}</span>
                                                     </div>
                                                 </td>
-                                                <td className="px-5 py-4">
-                                                    <span className="font-mono text-xs text-white/70">{p.documento || '—'}</span>
+                                                <td className="px-6 py-5">
+                                                    <span className="font-mono text-xs text-slate-600 font-semibold bg-slate-100 px-2 py-1 rounded-lg">{p.documento || '—'}</span>
                                                 </td>
-                                                <td className="px-5 py-4">
-                                                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold ${tipoConfig.bg} ${tipoConfig.text}`}>
+                                                <td className="px-6 py-5">
+                                                    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-wider shadow-sm ${tipoConfig.bg} ${tipoConfig.text}`}>
                                                         {p.tipo === 'VICTIMA' ? <User className="h-3 w-3" /> : <UserX className="h-3 w-3" />}
                                                         {tipoConfig.label}
                                                     </span>
                                                 </td>
-                                                <td className="px-5 py-4">
+                                                <td className="px-6 py-5">
                                                     {p.expediente ? (
                                                         <Link href={`/dashboard/casos/${p.expediente.id}`}>
-                                                            <span className="font-mono font-bold text-purple-300 text-xs bg-white/10 px-2.5 py-1 rounded-md hover:bg-white/10 transition-colors">
+                                                            <span className="font-mono font-black text-blue-700 text-xs bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-xl hover:bg-blue-100 transition-all shadow-sm">
                                                                 {p.expediente.radicado}
                                                             </span>
                                                         </Link>
                                                     ) : (
-                                                        <span className="text-xs text-white/40">—</span>
+                                                        <span className="text-[10px] text-slate-300 font-black uppercase tracking-widest">Sin Expediente</span>
                                                     )}
                                                 </td>
-                                                <td className="px-5 py-4">
-                                                    <span className="text-xs text-white/70">{p.telefono || '—'}</span>
+                                                <td className="px-6 py-5">
+                                                    <span className="text-xs text-slate-600 font-bold bg-slate-50 px-2 py-1 rounded-lg border border-slate-100">{p.telefono || '—'}</span>
                                                 </td>
-                                                <td className="px-5 py-4 text-right">
+                                                <td className="px-6 py-5 text-right">
                                                     <Link href={`/dashboard/personas/${p.id}`}>
-                                                        <Button variant="ghost" size="sm" className="gap-1.5 text-purple-300 hover:text-white hover:bg-white/10 rounded-lg font-semibold text-xs">
+                                                        <Button variant="ghost" size="sm" className="h-9 gap-2 px-4 text-blue-700 hover:text-white hover:bg-blue-900 rounded-xl font-bold text-[11px] uppercase tracking-wider transition-all">
                                                             <Eye size={14} />
-                                                            Ver
+                                                            Expediente
                                                         </Button>
                                                     </Link>
                                                 </td>
@@ -208,7 +210,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                                 {fotoUrl ? (
                                                     <img src={fotoUrl} alt="" className="w-9 h-9 rounded-full object-cover ring-2 ring-slate-100" />
                                                 ) : (
-                                                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold ${p.tipo === 'VICTIMA' ? 'bg-purple-100 text-purple-600' : 'bg-red-100 text-red-600'}`}>
+                                                    <div className={`w-9 h-9 rounded-full flex items-center justify-center text-[10px] font-bold ${p.tipo === 'VICTIMA' ? 'bg-blue-100 text-blue-600' : 'bg-red-100 text-red-600'}`}>
                                                         {initials}
                                                     </div>
                                                 )}
@@ -222,7 +224,7 @@ export default async function PersonasListPage({ searchParams }: PageProps) {
                                             </div>
                                             <div className="flex items-center gap-3 text-[11px] text-white/50 ml-12">
                                                 {p.expediente && (
-                                                    <span className="font-mono text-purple-300 font-bold">{p.expediente.radicado}</span>
+                                                    <span className="font-mono text-blue-300 font-bold">{p.expediente.radicado}</span>
                                                 )}
                                                 {p.telefono && (
                                                     <span className="flex items-center gap-1"><Phone className="h-3 w-3" />{p.telefono}</span>

@@ -71,10 +71,10 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
             <Button
                 onClick={() => setIsOpen(true)}
                 variant="outline"
-                className="gap-2 rounded-xl border-white/10 text-purple-300 hover:bg-white/10 hover:text-white"
+                className="gap-2 rounded-2xl border-slate-200 text-blue-600 hover:bg-blue-50 hover:border-blue-200 transition-all font-bold uppercase tracking-widest text-xs px-6"
             >
-                <Pencil size={14} />
-                Editar Datos
+                <Pencil size={12} />
+                Editar Perfil
             </Button>
         )
     }
@@ -82,62 +82,69 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
     return (
         <>
             {/* Overlay */}
-            <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+            <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md transition-all duration-300" onClick={() => setIsOpen(false)} />
 
             {/* Modal */}
-            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-lg z-50 max-h-[90vh] overflow-y-auto bg-white/[0.02] backdrop-blur-xl rounded-2xl shadow-2xl">
+            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-xl z-50 max-h-[90vh] overflow-y-auto bg-white rounded-[2rem] shadow-2xl animate-in fade-in zoom-in duration-300">
                 {/* Header */}
-                <div className="sticky top-0 bg-white/[0.02] backdrop-blur-xl border-b border-white/10 px-5 py-4 flex items-center justify-between rounded-t-2xl z-10">
-                    <h2 className="text-lg font-bold text-white/90">Editar Persona</h2>
-                    <button onClick={() => setIsOpen(false)} className="p-1.5 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/10 transition-colors">
-                        <X className="h-5 w-5" />
+                <div className="sticky top-0 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-8 py-6 flex items-center justify-between z-10">
+                    <div>
+                        <h2 className="text-xl font-black text-slate-900 tracking-tight uppercase">Editar Perfil</h2>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Actualice la información básica</p>
+                    </div>
+                    <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all">
+                        <X className="h-6 w-6" />
                     </button>
                 </div>
 
                 {/* Form */}
-                <div className="px-5 py-4 space-y-4">
-                    <FormField label="Nombres completos" value={form.nombres} onChange={(v) => handleChange('nombres', v)} />
-                    <FormField label="Documento" value={form.documento} onChange={(v) => handleChange('documento', v)} />
-
-                    <div className="grid grid-cols-2 gap-4">
-                        <FormField label="Teléfono" value={form.telefono} onChange={(v) => handleChange('telefono', v)} />
-                        <FormField label="Email" value={form.email} onChange={(v) => handleChange('email', v)} type="email" />
+                <div className="px-8 py-8 space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField label="Nombres completos" value={form.nombres} onChange={(v) => handleChange('nombres', v)} />
+                        <FormField label="Documento de Identidad" value={form.documento} onChange={(v) => handleChange('documento', v)} />
                     </div>
 
-                    <FormField label="Dirección" value={form.direccion_residencia} onChange={(v) => handleChange('direccion_residencia', v)} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField label="Teléfono / Celular" value={form.telefono} onChange={(v) => handleChange('telefono', v)} />
+                        <FormField label="Correo Electrónico" value={form.email} onChange={(v) => handleChange('email', v)} type="email" />
+                    </div>
 
-                    <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <label className="text-xs font-semibold text-white/50 uppercase tracking-wide mb-1 block">Zona</label>
+                    <FormField label="Dirección de Residencia" value={form.direccion_residencia} onChange={(v) => handleChange('direccion_residencia', v)} />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Zona de Ubicación</label>
                             <select
                                 value={form.zona}
                                 onChange={(e) => handleChange('zona', e.target.value)}
-                                className="w-full px-3 py-2.5 text-sm bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 text-white/90 [&>option]:bg-[#050505] [&>option]:text-white"
+                                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700"
                             >
                                 <option value="">Sin especificar</option>
                                 <option value="URBANA">Urbana</option>
                                 <option value="RURAL">Rural</option>
                             </select>
                         </div>
-                        <FormField label="Género" value={form.genero} onChange={(v) => handleChange('genero', v)} />
+                        <FormField label="Identidad de Género" value={form.genero} onChange={(v) => handleChange('genero', v)} />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <FormField label="Fecha de Nacimiento" value={form.fecha_nacimiento} onChange={(v) => handleChange('fecha_nacimiento', v)} type="date" />
                         <FormField label="Nivel Educativo" value={form.nivel_educativo} onChange={(v) => handleChange('nivel_educativo', v)} />
                     </div>
 
-                    <FormField label="Grupo Étnico" value={form.grupo_etnico} onChange={(v) => handleChange('grupo_etnico', v)} />
+                    <FormField label="Grupo Étnico / Otros" value={form.grupo_etnico} onChange={(v) => handleChange('grupo_etnico', v)} />
 
-                    <div className="flex items-center gap-3 py-1">
-                        <input
-                            type="checkbox"
-                            id="discapacidad"
-                            checked={form.discapacidad}
-                            onChange={(e) => handleChange('discapacidad', e.target.checked)}
-                            className="w-4 h-4 rounded border-white/10 text-purple-600 focus:ring-purple-500 bg-white/5"
-                        />
-                        <label htmlFor="discapacidad" className="text-sm text-white/80">Persona con discapacidad</label>
+                    <div className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-100 rounded-2xl transition-all hover:bg-slate-100 cursor-pointer">
+                        <div className="relative flex items-center justify-center">
+                            <input
+                                type="checkbox"
+                                id="discapacidad"
+                                checked={form.discapacidad}
+                                onChange={(e) => handleChange('discapacidad', e.target.checked)}
+                                className="w-6 h-6 rounded-lg border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer"
+                            />
+                        </div>
+                        <label htmlFor="discapacidad" className="text-sm font-bold text-slate-600 cursor-pointer select-none">Persona con discapacidad o capacidades reducidas</label>
                     </div>
 
                     {/* Error/Success */}
@@ -150,17 +157,17 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
                 </div>
 
                 {/* Footer */}
-                <div className="sticky bottom-0 bg-white/[0.02] backdrop-blur-xl border-t border-white/10 px-5 py-4 flex items-center justify-end gap-3 rounded-b-2xl">
-                    <Button variant="outline" onClick={() => setIsOpen(false)} className="rounded-xl">
+                <div className="sticky bottom-0 bg-slate-50/80 backdrop-blur-xl border-t border-slate-100 px-8 py-6 flex items-center justify-end gap-4 rounded-b-2xl">
+                    <Button variant="ghost" onClick={() => setIsOpen(false)} className="rounded-2xl px-6 font-bold text-slate-500 hover:bg-slate-200">
                         Cancelar
                     </Button>
                     <Button
                         onClick={handleSubmit}
                         disabled={isPending}
-                        className="bg-purple-600 border border-purple-500/50 hover:bg-purple-500 shadow-[0_0_15px_rgba(147,51,234,0.3)] gap-2 rounded-xl font-semibold shadow-[#4C1D95]/15"
+                        className="bg-blue-600 hover:bg-blue-700 text-white gap-3 px-8 py-6 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl shadow-blue-500/20 active:scale-95 transition-all"
                     >
-                        {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                        {isPending ? 'Guardando...' : 'Guardar Cambios'}
+                        {isPending ? <Loader2 className="h-5 w-5 animate-spin" /> : <Save className="h-5 w-5" />}
+                        {isPending ? 'Procesando...' : 'Guardar Cambios'}
                     </Button>
                 </div>
             </div>
@@ -172,13 +179,13 @@ function FormField({ label, value, onChange, type = 'text' }: {
     label: string; value: string; onChange: (v: string) => void; type?: string
 }) {
     return (
-        <div>
-            <label className="text-xs font-semibold text-white/50 uppercase tracking-wide mb-1 block">{label}</label>
+        <div className="space-y-2">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">{label}</label>
             <input
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full px-3 py-2.5 text-sm bg-white/[0.02] backdrop-blur-xl border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 transition-all text-white/90"
+                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700 placeholder:text-slate-300"
             />
         </div>
     )

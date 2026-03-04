@@ -11,64 +11,64 @@
 
   :root {
     --background: 0 0% 100%;
-    --foreground: 270 50% 10%;
+    --foreground: 217 91% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 270 50% 10%;
+    --card-foreground: 217 91% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 270 50% 10%;
+    --popover-foreground: 217 91% 10%;
 
-    --primary: 262 83% 58%; /* Vibrant Purple #7C3AED */
+    --primary: 217 91% 17%; /* Brand Blue #042153 */
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 262 83% 96%; /* Light Purple #F5F3FF */
-    --secondary-foreground: 270 50% 15%;
+    --secondary: 217 91% 96%;
+    --secondary-foreground: 217 91% 15%;
 
     --muted: 210 40% 96.1%;
-    --muted-foreground: 270 10% 45%;
+    --muted-foreground: 217 10% 45%;
 
-    --accent: 262 83% 96%;
-    --accent-foreground: 262 83% 58%;
+    --accent: 217 91% 96%;
+    --accent-foreground: 217 91% 17%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 270 20% 90%;
-    --input: 270 20% 90%;
-    --ring: 262 83% 58%;
+    --border: 217 20% 90%;
+    --input: 217 20% 90%;
+    --ring: 217 91% 17%;
 
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 270 50% 5%;
+    --background: 217 91% 5%;
     --foreground: 210 40% 98%;
 
-    --card: 270 40% 8%;
+    --card: 217 91% 8%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 270 40% 8%;
+    --popover: 217 91% 8%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 262 83% 65%;
+    --primary: 217 91% 50%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 270 30% 15%;
+    --secondary: 217 30% 15%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 270 30% 15%;
-    --muted-foreground: 270 10% 65%;
+    --muted: 217 30% 15%;
+    --muted-foreground: 217 10% 65%;
 
-    --accent: 270 30% 15%;
-    --accent-foreground: 262 83% 65%;
+    --accent: 217 30% 15%;
+    --accent-foreground: 217 91% 50%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 270 30% 15%;
-    --input: 270 30% 15%;
-    --ring: 262 83% 65%;
+    --border: 217 30% 15%;
+    --input: 217 30% 15%;
+    --ring: 217 91% 50%;
   }
 }
 
@@ -174,11 +174,11 @@ html {
   z-index: 50;
   align-items: stretch;
   justify-content: space-around;
-  background: rgba(5, 5, 5, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.1);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   height: calc(72px + env(safe-area-inset-bottom, 0px));
 }
@@ -198,7 +198,7 @@ html {
   flex: 1;
   gap: 4px;
   padding: 8px 2px 10px;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.45);
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
@@ -210,7 +210,7 @@ html {
 }
 
 .mobile-bottom-nav-item.active {
-  color: #ffffff;
+  color: #042153;
 }
 
 .mobile-bottom-nav-item:active {
@@ -233,9 +233,9 @@ html {
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(4, 33, 83, 0.08);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .mobile-bottom-nav-label {
@@ -249,12 +249,12 @@ html {
   max-width: 100%;
   text-align: center;
   transition: all 0.2s ease;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-label {
   font-weight: 700;
-  color: #ffffff;
+  color: #042153;
   letter-spacing: 0.04em;
 }
 
@@ -267,7 +267,7 @@ html {
   width: 16px;
   height: 3px;
   border-radius: 2px;
-  background: #ffffff;
+  background: #042153;
   animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -288,13 +288,13 @@ html {
   bottom: calc(100% + 12px);
   right: -8px;
   min-width: 200px;
-  background: rgba(10, 5, 15, 0.85);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 20px;
-  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.8),
-              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.1),
+              0 0 0 1px rgba(0, 0, 0, 0.05) inset;
+  border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 8px;
   animation: bottomNavOverflowIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom right;
@@ -319,7 +319,7 @@ html {
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
   text-decoration: none;
   transition: all 0.15s ease;
 }
@@ -329,14 +329,14 @@ html {
 }
 
 .mobile-bottom-nav-overflow-item.active {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: rgba(4, 33, 83, 0.05);
+  color: #042153;
   font-weight: 600;
 }
 
 .mobile-bottom-nav-overflow-item:not(.active):hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: #ffffff;
+  background: rgba(0, 0, 0, 0.04);
+  color: #000000;
 }
 
 .mobile-bottom-nav-overflow-icon {
@@ -346,13 +346,13 @@ html {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.03);
   flex-shrink: 0;
 }
 
 .mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background: rgba(4, 33, 83, 0.1);
+  color: #042153;
 }
 
 /* Add bottom spacing to main content on phones to prevent content from being hidden behind the bottom nav */

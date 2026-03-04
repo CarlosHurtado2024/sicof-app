@@ -46,35 +46,38 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
 
     if (success) {
         return (
-            <Card className="w-full border-2 border-emerald-300 shadow-[0_0_30px_rgba(0,0,0,0.5)] bg-gradient-to-br from-emerald-50 to-green-50">
-                <CardContent className="pt-8 pb-8 text-center space-y-4">
-                    <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
-                        <CheckCircle2 className="h-8 w-8 text-emerald-600" />
+            <Card className="w-full border-none shadow-2xl bg-white overflow-hidden">
+                <CardContent className="pt-10 pb-8 text-center space-y-6">
+                    <div className="mx-auto w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center border border-emerald-100 shadow-inner">
+                        <CheckCircle2 className="h-10 w-10 text-emerald-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-emerald-800">Caso de Emergencia Registrado</h3>
-                    <div className="bg-white/[0.02] backdrop-blur-xl rounded-lg p-4 border border-emerald-200 inline-block">
-                        <p className="text-sm text-white/50">Radicado de Emergencia</p>
-                        <p className="text-2xl font-mono font-bold text-emerald-300">{success.radicado}</p>
+                    <div>
+                        <h3 className="text-2xl font-black text-slate-800 tracking-tight">¡Emergencia Atendida!</h3>
+                        <p className="text-slate-500 mt-1 font-medium">El caso ha sido registrado en el sistema con éxito.</p>
                     </div>
-                    <div className="bg-red-500/10 border border-red-500/20 border border-red-100 rounded-lg p-3 my-2 animate-pulse">
-                        <p className="text-sm text-red-800 font-bold flex items-center justify-center gap-2">
-                            <Siren className="h-4 w-4" />
-                            ¡Alerta enviada al equipo psicosocial!
+                    <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 inline-block shadow-sm">
+                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Radicado de Emergencia</p>
+                        <p className="text-3xl font-black font-mono text-emerald-600 tracking-tight">{success.radicado}</p>
+                    </div>
+                    <div className="bg-red-50 border border-red-100 rounded-2xl p-4 my-2 shadow-sm">
+                        <p className="text-sm text-red-700 font-bold flex items-center justify-center gap-2">
+                            <Siren className="h-5 w-5 animate-pulse" />
+                            ¡Alerta de Equipo Activada!
                         </p>
-                        <p className="text-xs text-red-600 mt-1">
-                            Psicología y Trabajo Social han sido notificados.
+                        <p className="text-xs text-red-600 mt-1 font-medium">
+                            Psicología y Trabajo Social han sido notificados para intervención inmediata.
                         </p>
                     </div>
-                    <p className="text-sm text-white/70">
-                        Nivel de riesgo: <span className="font-bold text-red-600">CRÍTICO</span> — Término de 4 horas activado para medida provisional.
+                    <p className="text-sm text-slate-500 font-medium">
+                        Nivel de riesgo: <span className="font-black text-red-600">CRÍTICO</span> — Término de 4 horas activado para medidas.
                     </p>
-                    <div className="flex gap-3 justify-center pt-4">
-                        <Button onClick={onClose} variant="outline">Volver a Recepción</Button>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+                        <Button onClick={onClose} variant="ghost" className="text-slate-500 font-bold px-8 py-6">Volver a Recepción</Button>
                         <Button
                             onClick={() => window.location.href = `/dashboard/casos/${success.radicado}`}
-                            className="bg-emerald-600 hover:bg-emerald-700"
+                            className="bg-blue-900 hover:bg-slate-800 text-white font-bold px-8 py-6 rounded-xl shadow-lg"
                         >
-                            Ver Expediente
+                            Ver Expediente Detallado
                         </Button>
                     </div>
                 </CardContent>
@@ -83,17 +86,18 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
     }
 
     return (
-        <Card className="w-full border-2 border-red-300 shadow-xl animate-in slide-in-from-top-4 duration-500">
+        <Card className="w-full border-none shadow-2xl shadow-red-200/50 animate-in slide-in-from-top-4 duration-500 bg-white overflow-hidden">
             {/* Emergency Header */}
-            <CardHeader className="bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-t-lg">
-                <div className="flex items-center gap-3">
-                    <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <Siren className="h-6 w-6 text-white animate-pulse" />
+            {/* Emergency Header */}
+            <CardHeader className="bg-gradient-to-r from-red-600 to-rose-600 text-white py-6">
+                <div className="flex items-center gap-4">
+                    <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-md shadow-inner">
+                        <Siren className="h-8 w-8 text-white animate-pulse" />
                     </div>
                     <div>
-                        <CardTitle className="text-white text-lg">🚨 Atención en Crisis</CardTitle>
-                        <p className="text-red-100 text-sm mt-0.5">
-                            Primeros Auxilios Psicológicos — Solo datos esenciales
+                        <CardTitle className="text-white text-xl font-black tracking-tight">ATENCIÓN EN CRISIS</CardTitle>
+                        <p className="text-red-100 text-xs font-bold uppercase tracking-widest mt-0.5">
+                            Primeros Auxilios Psicológicos
                         </p>
                     </div>
                 </div>
@@ -101,46 +105,45 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
 
             <CardContent className="space-y-5 pt-6">
                 {/* Alert Banner */}
-                <div className="flex items-start gap-3 p-3 bg-amber-500/10 border border-amber-500/20 border border-amber-200 rounded-lg">
-                    <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                    <div className="text-sm text-amber-800">
-                        <p className="font-semibold">Priorizar la estabilización emocional</p>
-                        <p className="text-amber-300 mt-0.5">
-                            Registre solo la información vital. Los datos completos se podrán ingresar después.
-                            El sistema generará un radicado de emergencia con nivel de riesgo CRÍTICO.
+                <div className="flex items-start gap-4 p-4 bg-amber-50 border border-amber-100 rounded-2xl shadow-sm">
+                    <AlertTriangle className="h-6 w-6 text-amber-600 flex-shrink-0" />
+                    <div className="text-sm text-amber-900 leading-relaxed">
+                        <p className="font-black uppercase text-[10px] tracking-widest mb-1">Intervención Prioritaria</p>
+                        <p className="font-medium">
+                            Concéntrese en la estabilización emocional. Registre solo información vital ahora; podrá complementar el expediente más tarde.
                         </p>
                     </div>
                 </div>
 
                 {/* Quick Contact */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <a href="tel:155" className="flex items-center gap-2 p-2 bg-purple-500/10 border border-purple-500/20 border border-purple-200 rounded-lg text-sm text-purple-300 hover:bg-purple-100 transition-colors">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <a href="tel:155" className="flex items-center justify-center gap-2 p-3 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-700 font-bold hover:bg-blue-100 transition-all shadow-sm">
                         <Phone className="h-4 w-4" /> Línea 155
                     </a>
-                    <a href="tel:141" className="flex items-center gap-2 p-2 bg-white/10 border border-slate-300 rounded-lg text-sm text-white/80 hover:bg-white/10 transition-colors">
+                    <a href="tel:141" className="flex items-center justify-center gap-2 p-3 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 font-bold hover:bg-slate-50 transition-all shadow-sm">
                         <HeartPulse className="h-4 w-4" /> ICBF 141
                     </a>
-                    <a href="tel:123" className="flex items-center gap-2 p-2 bg-red-500/10 border border-red-500/20 border border-red-200 rounded-lg text-sm text-red-300 hover:bg-red-100 transition-colors">
+                    <a href="tel:123" className="flex items-center justify-center gap-2 p-3 bg-red-50 border border-red-100 rounded-xl text-sm text-red-700 font-bold hover:bg-red-100 transition-all shadow-sm">
                         <Siren className="h-4 w-4" /> Emergencias 123
                     </a>
                 </div>
 
                 {/* Essential Fields */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <Label className="text-red-300 font-semibold">Nombre de la Persona *</Label>
+                        <Label className="text-red-700 font-black uppercase text-[10px] tracking-widest">Nombre Completo *</Label>
                         <Input
                             value={formData.nombre_victima}
                             onChange={e => update('nombre_victima', e.target.value)}
-                            placeholder="Nombre de la persona en crisis"
-                            className="border-red-200 focus:border-red-400 focus:ring-red-300 bg-red-50/30"
+                            placeholder="Identidad de la persona"
+                            className="bg-red-50/30 border-red-100 focus:ring-4 focus:ring-red-50 text-slate-900 font-bold h-12"
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label>Documento (si se puede obtener)</Label>
+                        <Label className="text-slate-500 font-black uppercase text-[10px] tracking-widest">Documento de Identidad</Label>
                         <div className="flex gap-2">
                             <select
-                                className="border rounded-md px-2 py-2 text-sm bg-white/[0.02] backdrop-blur-xl border-white/10 w-20"
+                                className="border border-slate-200 rounded-xl px-3 h-12 text-sm bg-white font-bold w-24"
                                 value={formData.tipo_documento}
                                 onChange={e => update('tipo_documento', e.target.value)}
                             >
@@ -153,32 +156,32 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
                                 value={formData.documento_victima}
                                 onChange={e => update('documento_victima', e.target.value)}
                                 placeholder="Número"
-                                className="flex-1"
+                                className="flex-1 h-12 font-bold"
                             />
                         </div>
                     </div>
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="text-red-300 font-semibold">Tipo de Violencia *</Label>
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                    <Label className="text-red-700 font-black uppercase text-[10px] tracking-widest">Tipo de Violencia Detectada *</Label>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
                         {[
                             { value: 'FISICA', label: 'Física', emoji: '🤕' },
-                            { value: 'PSICOLOGICA', label: 'Psicológica', emoji: '😰' },
-                            { value: 'SEXUAL', label: 'Sexual', emoji: '⚠️' },
-                            { value: 'ECONOMICA', label: 'Económica', emoji: '💰' },
-                            { value: 'PATRIMONIAL', label: 'Patrimonial', emoji: '🏠' },
+                            { value: 'PSICOLOGICA', label: 'Psicología', emoji: '😰' },
+                            { value: 'SEXUAL', label: 'Sexual', emoji: '🚨' },
+                            { value: 'ECONOMICA', label: 'Economía', emoji: '💰' },
+                            { value: 'PATRIMONIAL', label: 'Bienes', emoji: '🏠' },
                         ].map(opt => (
                             <button
                                 key={opt.value}
                                 type="button"
                                 onClick={() => update('tipologia', opt.value)}
-                                className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-all duration-200 ${formData.tipologia === opt.value
-                                    ? 'bg-red-600 text-white border-red-600 shadow-md scale-105'
-                                    : 'bg-white/[0.02] backdrop-blur-xl text-white/70 border-white/10 hover:border-red-300 hover:bg-red-500/10 border border-red-500/20'
+                                className={`py-4 px-2 rounded-2xl border text-xs font-black uppercase tracking-tighter transition-all duration-300 shadow-sm ${formData.tipologia === opt.value
+                                    ? 'bg-red-600 text-white border-red-600 shadow-xl shadow-red-200 -translate-y-1'
+                                    : 'bg-white text-slate-500 border-slate-100 hover:border-red-200 hover:bg-red-50'
                                     }`}
                             >
-                                <span className="block text-base mb-0.5">{opt.emoji}</span>
+                                <span className="block text-2xl mb-1">{opt.emoji}</span>
                                 {opt.label}
                             </button>
                         ))}
@@ -186,65 +189,65 @@ export function CrisisForm({ onClose }: { onClose: () => void }) {
                 </div>
 
                 <div className="space-y-2">
-                    <Label className="text-red-300 font-semibold">¿Qué está pasando? *</Label>
+                    <Label className="text-red-700 font-black uppercase text-[10px] tracking-widest">Descripción Situacional *</Label>
                     <Textarea
                         value={formData.descripcion_breve}
                         onChange={e => update('descripcion_breve', e.target.value)}
-                        placeholder="Describa brevemente la situación de crisis..."
-                        className="min-h-[100px] border-red-200 focus:border-red-400 bg-red-50/30"
+                        placeholder="Relato rápido de los hechos..."
+                        className="min-h-[120px] bg-red-50/30 border-red-100 focus:ring-4 focus:ring-red-50 text-slate-900 font-medium text-base rounded-2xl p-4 shadow-sm"
                     />
                 </div>
 
                 <div className="space-y-2">
-                    <Label>Acciones Inmediatas Tomadas</Label>
+                    <Label className="text-slate-500 font-black uppercase text-[10px] tracking-widest">Primeros Auxilios Aplicados</Label>
                     <Textarea
                         value={formData.acciones_inmediatas}
                         onChange={e => update('acciones_inmediatas', e.target.value)}
-                        placeholder="Contención emocional, contacto con familiar, llamada a línea de emergencia..."
-                        className="min-h-[80px]"
+                        placeholder="Acciones de contención realizadas..."
+                        className="min-h-[100px] bg-white border-slate-200 focus:ring-4 focus:ring-blue-50 text-slate-800 rounded-2xl p-4 shadow-sm"
                     />
                 </div>
 
-                <div className="flex items-start gap-3 p-3 bg-white/5 border border-white/10 rounded-lg">
+                <div className="flex items-start gap-4 p-5 bg-slate-50 border border-slate-100 rounded-2xl shadow-inner">
                     <input
                         type="checkbox"
                         id="requiere_traslado"
                         checked={formData.requiere_traslado}
                         onChange={e => update('requiere_traslado', e.target.checked)}
-                        className="mt-1 h-4 w-4 rounded border-slate-300"
+                        className="mt-1 h-5 w-5 rounded-lg border-slate-300 text-red-600 focus:ring-red-500"
                     />
                     <div className="flex-1">
-                        <Label htmlFor="requiere_traslado" className="font-medium cursor-pointer">
-                            Requiere traslado a otra entidad
+                        <Label htmlFor="requiere_traslado" className="font-bold text-slate-700 cursor-pointer text-base">
+                            Requiere traslado urgente a otra entidad
                         </Label>
                         {formData.requiere_traslado && (
                             <Input
                                 value={formData.entidad_traslado}
                                 onChange={e => update('entidad_traslado', e.target.value)}
-                                placeholder="Hospital, ICBF, Fiscalía, Casa de Refugio..."
-                                className="mt-2"
+                                placeholder="Especifique: Hospital, ICBF, Fiscalía..."
+                                className="mt-3 bg-white h-11 border-slate-200"
                             />
                         )}
                     </div>
                 </div>
             </CardContent>
 
-            <CardFooter className="flex justify-between bg-red-50/50 px-6 py-4 rounded-b-lg">
-                <Button variant="outline" onClick={onClose} className="border-red-200 text-red-600 hover:bg-red-500/10 border border-red-500/20">
+            <CardFooter className="flex justify-between bg-slate-50/80 px-8 py-6 border-t border-slate-100">
+                <Button variant="ghost" onClick={onClose} className="text-slate-500 font-bold px-8 h-12 hover:bg-slate-100">
                     Cancelar
                 </Button>
                 <Button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="bg-red-600 hover:bg-red-700 shadow-[0_0_30px_rgba(0,0,0,0.5)] shadow-red-200 gap-2"
+                    className="bg-red-600 hover:bg-red-700 shadow-xl shadow-red-200 text-white font-bold h-12 px-8 rounded-xl gap-3 transition-all active:scale-95"
                 >
                     {loading ? (
                         <>
-                            <Loader2 className="h-4 w-4 animate-spin" /> Registrando...
+                            <Loader2 className="h-5 w-5 animate-spin" /> Registrando...
                         </>
                     ) : (
                         <>
-                            <Siren className="h-4 w-4" /> Registrar Caso de Emergencia
+                            <Siren className="h-5 w-5" /> Registrar Caso de Emergencia
                         </>
                     )}
                 </Button>

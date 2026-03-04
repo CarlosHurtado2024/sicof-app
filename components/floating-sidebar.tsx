@@ -152,16 +152,16 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[72px] flex-col items-center bg-[#050505]/60 border-r border-white/5 backdrop-blur-3xl safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[72px] flex-col items-center bg-white/80 border-r border-slate-200 backdrop-blur-3xl safe-top safe-bottom shadow-sm">
                 {/* Logo */}
                 <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
-                    <div className="w-11 h-11 rounded-2xl bg-white/10 hover:bg-white/15 flex items-center justify-center transition-all duration-200 group">
-                        <SicofLogoIcon className="w-7 h-7" inverted={true} />
+                    <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-slate-100 flex items-center justify-center transition-all duration-200 group">
+                        <SicofLogoIcon className="w-7 h-7" inverted={false} />
                     </div>
                 </Link>
 
                 {/* Divider */}
-                <div className="w-8 h-px bg-white/10 mb-3" />
+                <div className="w-8 h-px bg-slate-100 mb-3" />
 
                 {/* Nav Items */}
                 <nav className="flex-1 flex flex-col items-center gap-1 overflow-y-auto scrollbar-hide py-1 w-full px-2">
@@ -172,17 +172,17 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                                 key={item.href}
                                 href={item.href}
                                 className={`group relative flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 flex-shrink-0 ${isActive
-                                    ? 'bg-white/[0.08] text-purple-300 shadow-[0_0_20px_rgba(168,85,247,0.15)] border border-white/10'
-                                    : 'text-white/40 hover:text-white hover:bg-white/5 border border-transparent'
+                                    ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100'
+                                    : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50 border border-transparent'
                                     }`}
                             >
                                 {item.icon}
                                 {/* Active indicator bar */}
                                 {isActive && (
-                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[6px] w-[3px] h-6 bg-purple-400 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.8)]" />
+                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[6px] w-[3px] h-6 bg-blue-600 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
                                 )}
                                 {/* Tooltip */}
-                                <span className="absolute left-full ml-4 px-3 py-1.5 bg-[#050505]/90 border border-white/10 text-white/90 text-[11px] font-medium tracking-wide uppercase rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-2xl backdrop-blur-xl z-[60] pointer-events-none">
+                                <span className="absolute left-full ml-4 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-medium tracking-wide uppercase rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
                                     {item.label}
                                 </span>
                             </Link>
@@ -191,20 +191,20 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                 </nav>
 
                 {/* Bottom Section: Right Slot (Notifications, Presence, Avatar) */}
-                <div className="flex flex-col items-center gap-2 py-4 border-t border-white/10 mt-auto w-full px-2">
+                <div className="flex flex-col items-center gap-2 py-4 border-t border-slate-100 mt-auto w-full px-2">
                     {rightSlot}
                 </div>
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#050505]/80 backdrop-blur-2xl border-b border-white/5 safe-top">
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-200 safe-top">
                 <div className="flex items-center justify-between h-14 px-3">
                     {/* Logo */}
                     <Link href="/dashboard" className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
-                            <SicofLogoIcon className="w-6 h-6" inverted={true} />
+                        <div className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
+                            <SicofLogoIcon className="w-6 h-6" inverted={false} />
                         </div>
-                        <span className="text-white font-bold text-base tracking-tight">Komi</span>
+                        <span className="text-slate-900 font-bold text-base tracking-tight">Komi</span>
                     </Link>
 
                     {/* Right: Notifications + Team + Avatar */}
