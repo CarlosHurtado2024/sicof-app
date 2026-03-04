@@ -34,17 +34,17 @@ export function SicofLogo({
     inverted = false,
     showSubtitle = true,
 }: SicofLogoProps) {
-    const textColor = inverted ? "text-white" : "text-slate-900"
-    const subtitleColor = inverted ? "text-white/30/60" : "text-blue-300"
+    const textColor = inverted ? "text-white" : "text-[#2B463C]"
+    const subtitleColor = inverted ? "text-white/40" : "text-[#F28482]"
 
     return (
-        <div className={`flex items-center gap-2.5 ${className}`}>
+        <div className={`flex items-center gap-3 ${className}`}>
             <SicofLogoIcon className={iconClassName} inverted={inverted} />
             <div className="flex flex-col">
-                <span className={`font-bold text-lg tracking-tight leading-none ${textColor}`}>Komi</span>
+                <span className={`font-black text-xl tracking-tighter leading-none font-serif ${textColor}`}>Komi</span>
                 {showSubtitle && (
-                    <span className={`text-[10px] font-semibold tracking-[0.08em] uppercase ${subtitleColor}`}>
-                        Familia y Bienestar
+                    <span className={`text-[8px] font-black tracking-[0.2em] uppercase ${subtitleColor}`}>
+                        Justicia Humana
                     </span>
                 )}
             </div>

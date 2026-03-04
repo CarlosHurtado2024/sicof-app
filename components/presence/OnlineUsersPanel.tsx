@@ -17,15 +17,15 @@ const ROL_LABELS: Record<string, string> = {
 }
 
 const ROL_COLORS: Record<string, string> = {
-    COMISARIO: 'bg-white/10 text-white/80 border-slate-300',
-    SECRETARIO: 'bg-sky-100 text-sky-700 border-sky-200',
-    PSICOLOGO: 'bg-rose-100 text-rose-700 border-rose-200',
-    TRABAJADOR_SOCIAL: 'bg-amber-100 text-amber-300 border-amber-200',
-    ABOGADO: 'bg-emerald-100 text-emerald-300 border-emerald-200',
-    AUXILIAR: 'bg-blue-100 text-blue-300 border-blue-200',
-    PRACTICANTE: 'bg-teal-100 text-teal-700 border-teal-200',
-    USUARIO_EXTERNO: 'bg-white/10 text-white/80 border-white/10',
-    ADMINISTRADOR: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+    COMISARIO: 'bg-[#F28C73]/10 text-[#F28C73] border-[#F28C73]/20',
+    SECRETARIO: 'bg-blue-50 text-blue-700 border-blue-100',
+    PSICOLOGO: 'bg-rose-50 text-rose-700 border-rose-100',
+    TRABAJADOR_SOCIAL: 'bg-amber-50 text-amber-700 border-amber-100',
+    ABOGADO: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+    AUXILIAR: 'bg-slate-50 text-slate-700 border-slate-100',
+    PRACTICANTE: 'bg-teal-50 text-teal-700 border-teal-100',
+    USUARIO_EXTERNO: 'bg-gray-50 text-gray-700 border-gray-100',
+    ADMINISTRADOR: 'bg-indigo-50 text-indigo-700 border-indigo-100',
 }
 
 function getRelativeTime(dateString: string): string {
@@ -62,7 +62,7 @@ function StatusDot({ status }: { status: 'online' | 'away' | 'offline' }) {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
             )}
             <span
-                className={`relative inline-flex h-3 w-3 rounded-full shadow-md ${styles[status]}`}
+                className={`relative inline-flex h-3 w-3 rounded-full border-2 border-white dark:border-gray-900 shadow-sm ${styles[status]}`}
             />
         </span>
     )
@@ -79,14 +79,14 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
     const isCurrentUser = user.userId === currentUserId
 
     const avatarColors = {
-        online: 'bg-gradient-to-br from-emerald-400 to-teal-500 text-white ring-emerald-200',
-        away: 'bg-gradient-to-br from-amber-400 to-orange-500 text-white ring-amber-200',
-        offline: 'bg-gradient-to-br from-slate-200 to-slate-300 text-white/50 ring-slate-100',
+        online: 'bg-[#F28C73] text-white ring-emerald-100',
+        away: 'bg-amber-400 text-white ring-amber-100',
+        offline: 'bg-slate-200 text-slate-500 ring-slate-50',
     }
 
     return (
         <div
-            className={`group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/[0.02] backdrop-blur-xl hover:shadow-[0_0_20px_rgba(0,0,0,0.3)] ${isCurrentUser ? 'bg-blue-50/60 ring-1 ring-blue-100' : ''
+            className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-all duration-200 hover:bg-[#F2EBE1] border border-transparent hover:border-[#F28C73]/10 ${isCurrentUser ? 'bg-[#FDF4E3] border-[#F28C73]/20 shadow-sm' : ''
                 }`}
         >
             {/* Avatar */}
@@ -104,10 +104,10 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
             {/* Info */}
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5">
-                    <p className="truncate text-sm font-medium text-white/90">
+                    <p className="truncate text-sm font-bold text-gray-800">
                         {user.nombre}
                         {isCurrentUser && (
-                            <span className="ml-1 text-[10px] font-normal text-blue-500">(tú)</span>
+                            <span className="ml-1 text-[10px] uppercase font-black text-[#F28C73] tracking-wider">(tú)</span>
                         )}
                     </p>
                 </div>
@@ -119,7 +119,7 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
                         {ROL_LABELS[user.rol] || user.rol}
                     </span>
                     {user.status !== 'online' && user.lastSeen && (
-                        <span className="flex items-center gap-0.5 text-[10px] text-white/40">
+                        <span className="flex items-center gap-1 text-[10px] font-medium text-gray-400">
                             <Clock className="h-2.5 w-2.5" />
                             {getRelativeTime(user.lastSeen)}
                         </span>
@@ -151,15 +151,15 @@ function CollapsibleSection({
         <div className="mb-1">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/10"
+                className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all hover:bg-[#F2EBE1]"
             >
                 {isOpen ? (
-                    <ChevronDown className="h-3.5 w-3.5 text-white/40" />
+                    <ChevronDown className="h-4 w-4 text-gray-400" />
                 ) : (
-                    <ChevronRight className="h-3.5 w-3.5 text-white/40" />
+                    <ChevronRight className="h-4 w-4 text-gray-400" />
                 )}
                 {icon}
-                <span className="text-xs font-semibold uppercase tracking-wider text-white/50">
+                <span className="text-[10px] font-black uppercase tracking-[0.15em] text-gray-400">
                     {title}
                 </span>
                 <span
@@ -203,31 +203,33 @@ export default function OnlineUsersPanel({
     const offline = enrichedUsers.filter(u => u.status === 'offline')
 
     return (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col bg-[#F8F5EE]">
             {/* Header */}
-            <div className="border-b border-white/10 bg-gradient-to-r from-purple-600 to-slate-700 px-4 py-3">
-                <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-white/90" />
-                    <h3 className="text-sm font-bold text-white">Equipo</h3>
+            <div className="border-b border-gray-100 bg-[#F28C73] px-5 py-5">
+                <div className="flex items-center gap-3">
+                    <div className="p-1.5 bg-white/20 rounded-lg">
+                        <Users className="h-4 w-4 text-white" />
+                    </div>
+                    <h3 className="text-base font-bold text-white tracking-tight">Presencia del Equipo</h3>
                 </div>
-                <p className="mt-0.5 text-[11px] text-blue-100">
-                    {online.length} de {enrichedUsers.length} conectados
+                <p className="mt-1.5 text-[11px] font-medium text-white/80 uppercase tracking-wider">
+                    {online.length} activos de {enrichedUsers.length} total
                 </p>
             </div>
 
             {/* Summary bar */}
-            <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.03] backdrop-blur-xl px-4 py-2">
-                <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    <span className="text-[11px] font-medium text-white/70">{online.length}</span>
+            <div className="flex items-center gap-4 border-b border-gray-100 bg-white px-5 py-3">
+                <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
+                    <span className="text-[10px] font-black uppercase text-gray-400">{online.length}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-amber-400" />
-                    <span className="text-[11px] font-medium text-white/70">{away.length}</span>
+                <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.3)]" />
+                    <span className="text-[10px] font-black uppercase text-gray-400">{away.length}</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-slate-300" />
-                    <span className="text-[11px] font-medium text-white/70">{offline.length}</span>
+                <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-gray-200" />
+                    <span className="text-[10px] font-black uppercase text-gray-400">{offline.length}</span>
                 </div>
             </div>
 
@@ -236,10 +238,10 @@ export default function OnlineUsersPanel({
                 {/* Online */}
                 <CollapsibleSection
                     title="En línea"
-                    icon={<Wifi className="h-3.5 w-3.5 text-emerald-500" />}
+                    icon={<Wifi className="h-4 w-4 text-emerald-500" />}
                     count={online.length}
                     defaultOpen={true}
-                    accentColor="bg-emerald-100 text-emerald-300"
+                    accentColor="bg-emerald-50 text-emerald-600 border border-emerald-100"
                 >
                     {online.length === 0 ? (
                         <p className="px-3 py-2 text-xs text-white/40 italic">Nadie en línea</p>
@@ -253,10 +255,10 @@ export default function OnlineUsersPanel({
                 {/* Away */}
                 <CollapsibleSection
                     title="Ausente"
-                    icon={<Clock className="h-3.5 w-3.5 text-amber-500" />}
+                    icon={<Clock className="h-4 w-4 text-amber-500" />}
                     count={away.length}
                     defaultOpen={true}
-                    accentColor="bg-amber-100 text-amber-300"
+                    accentColor="bg-amber-50 text-amber-600 border border-amber-100"
                 >
                     {away.length === 0 ? (
                         <p className="px-3 py-2 text-xs text-white/40 italic">Nadie ausente</p>
@@ -270,10 +272,10 @@ export default function OnlineUsersPanel({
                 {/* Offline */}
                 <CollapsibleSection
                     title="Desconectado"
-                    icon={<WifiOff className="h-3.5 w-3.5 text-white/40" />}
+                    icon={<WifiOff className="h-4 w-4 text-gray-400" />}
                     count={offline.length}
                     defaultOpen={false}
-                    accentColor="bg-white/10 text-white/70"
+                    accentColor="bg-gray-100 text-gray-500"
                 >
                     {offline.length === 0 ? (
                         <p className="px-3 py-2 text-xs text-white/40 italic">Todos conectados</p>
@@ -286,9 +288,9 @@ export default function OnlineUsersPanel({
             </div>
 
             {/* Footer */}
-            <div className="border-t border-white/10 bg-white/[0.03] backdrop-blur-xl px-4 py-2">
-                <p className="text-center text-[10px] text-white/40">
-                    Actualización en tiempo real
+            <div className="border-t border-gray-100 bg-white px-5 py-3">
+                <p className="text-center text-[10px] font-black uppercase tracking-widest text-gray-300">
+                    Sincronización en tiempo real
                 </p>
             </div>
         </div>

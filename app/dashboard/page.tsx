@@ -37,18 +37,21 @@ async function getStats() {
         { count: casosEnTramite },
         { count: casosSeguimiento },
         { count: medidasVigentes },
+        { count: pendientesFirma },
     ] = await Promise.all([
         supabase.from('expedientes').select('*', { count: 'exact', head: true }),
         supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('estado', 'TRAMITE'),
         supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'SEGUIMIENTO'),
         supabase.from('medidas').select('*', { count: 'exact', head: true }).eq('estado', 'VIGENTE'),
+        supabase.from('autos').select('*', { count: 'exact', head: true }).eq('estado', 'PENDIENTE_FIRMA'),
     ])
 
     return {
         totalCasos: totalCasos || 0,
         casosEnTramite: casosEnTramite || 0,
         casosSeguimiento: casosSeguimiento || 0,
-        medidasVigentes: medidasVigentes || 0
+        medidasVigentes: medidasVigentes || 0,
+        pendientesFirma: pendientesFirma || 0
     }
 }
 
@@ -63,81 +66,66 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-8 max-w-[1400px] mx-auto z-10 relative">
             {/* Welcome Header */}
-            <div className="relative overflow-hidden rounded-[2rem] bg-white border border-slate-200 p-6 sm:p-10 text-slate-900 shadow-sm backdrop-blur-2xl animate-fade-in-up">
-                {/* Grid pattern */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] [background-size:40px_40px] opacity-30" />
-                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/[0.03] rounded-full -translate-y-1/2 translate-x-1/3 blur-[80px]" />
-                <div className="absolute bottom-0 left-0 w-60 h-60 bg-blue-400/[0.03] rounded-full translate-y-1/2 -translate-x-1/3 blur-[60px]" />
-                <div className="relative z-10">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                        <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[10px] font-medium tracking-widest uppercase mb-4 text-blue-600">
-                                Estado: Conectado
-                            </div>
-                            <p className="text-slate-400 text-sm font-light tracking-wide mb-1">
-                                {getGreeting()}, {firstName}
-                            </p>
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-900">
-                                {getRolTitle(userRole)}
-                            </h2>
-                            <p className="text-slate-500 mt-3 text-sm max-w-lg font-light leading-relaxed">
-                                {getRolDescription(userRole)}
-                            </p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <Link href="/dashboard/recepcion/nuevo-caso">
-                                <Button className="relative overflow-hidden group bg-blue-900 text-white border border-blue-950 hover:bg-blue-800 rounded-xl px-5 py-2.5 font-medium text-sm transition-all shadow-md gap-2">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                                    <PlusCircle className="h-4 w-4 relative z-10 text-white" />
-                                    <span className="relative z-10">Nuevo Caso</span>
-                                </Button>
-                            </Link>
-                        </div>
-                    </div>
+            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6 animate-fade-in-up">
+                <div>
+                    <h1 className="text-3xl font-bold mb-2 font-display text-gray-900 leading-tight tracking-tight">
+                        Bienvenida de nuevo, <span className="text-[#F28C73]">{firstName}</span>.
+                    </h1>
+                    <p className="text-gray-500 font-medium flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-danger inline-block animate-pulse shadow-[0_0_8px_rgba(229,91,91,0.4)]"></span>
+                        Hay 3 casos de riesgo crítico que requieren acción inmediata.
+                    </p>
+                </div>
+                <div className="flex items-center gap-4 w-full md:w-auto">
+                    <button className="flex-1 md:flex-none bg-danger text-white px-5 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors shadow-sm active:scale-95">
+                        Revisar Casos Críticos
+                    </button>
+                    <Link href="/dashboard/recepcion/nuevo-caso" className="hidden sm:block">
+                        <Button className="bg-[#F28C73] text-white hover:bg-[#D96C53] px-5 py-2.5 rounded-lg font-medium shadow-sm transition-all hover:scale-105">
+                            <PlusCircle className="mr-2 h-5 w-5" />
+                            Nuevo Caso
+                        </Button>
+                    </Link>
                 </div>
             </div>
 
             {/* KPI Cards */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4 stagger-children">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <KPICard
-                    title="Total Expedientes"
+                    title="Casos Activos"
                     value={stats.totalCasos}
-                    icon={<FolderHeart className="h-5 w-5" />}
-                    gradient="from-[#042153] to-[#2C4A7C]"
-                    bgLight="bg-slate-50"
-                    textColor="text-[#042153]"
+                    icon={<FolderHeart className="h-4 w-4" />}
+                    bgLight="bg-blue-50"
+                    textColor="text-blue-600"
                 />
                 <KPICard
-                    title="En Trámite"
+                    title="En Triaje"
                     value={stats.casosEnTramite}
-                    icon={<Timer className="h-5 w-5" />}
-                    gradient="from-amber-500 to-orange-500"
-                    bgLight="bg-amber-50"
-                    textColor="text-amber-600"
-                />
-                <KPICard
-                    title="En Seguimiento"
-                    value={stats.casosSeguimiento}
-                    icon={<Eye className="h-5 w-5" />}
-                    gradient="from-emerald-500 to-teal-500"
-                    bgLight="bg-emerald-50"
-                    textColor="text-emerald-600"
+                    icon={<Timer className="h-4 w-4" />}
+                    bgLight="bg-orange-50"
+                    textColor="text-orange-600"
                 />
                 <KPICard
                     title="Medidas Vigentes"
                     value={stats.medidasVigentes}
-                    icon={<ShieldCheck className="h-5 w-5" />}
-                    gradient="from-purple-500 to-fuchsia-500"
-                    bgLight="bg-blue-50"
-                    textColor="text-blue-600"
+                    icon={<ShieldCheck className="h-4 w-4" />}
+                    bgLight="bg-purple-50"
+                    textColor="text-purple-600"
+                />
+                <KPICard
+                    title="Seguimientos"
+                    value={stats.casosSeguimiento}
+                    icon={<Eye className="h-4 w-4" />}
+                    bgLight="bg-green-50"
+                    textColor="text-success"
                 />
             </div>
 
             {/* Role-specific modules */}
-            <div>
-                <h3 className="text-sm tracking-widest font-medium text-slate-400 uppercase mb-5 flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
-                    Módulos Activos
+            <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+                <h3 className="text-[10px] tracking-[0.3em] font-black text-gray-400 uppercase mb-8 flex items-center gap-3">
+                    <span className="w-8 h-px bg-gray-200" />
+                    Módulos Disponibles
                 </h3>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 stagger-children">
                     {(userRole === 'AUXILIAR' || userRole === 'ADMINISTRADOR') && <AuxiliarModules />}
@@ -151,22 +139,23 @@ export default async function DashboardPage() {
 }
 
 // === KPI Card ===
-function KPICard({ title, value, icon, gradient, bgLight, textColor }: {
-    title: string; value: number; icon: React.ReactNode; gradient: string; bgLight: string; textColor: string
+function KPICard({ title, value, icon, bgLight, textColor }: {
+    title: string; value: number; icon: React.ReactNode; bgLight: string; textColor: string
 }) {
     return (
-        <Card className="bg-white border border-slate-200 shadow-sm hover:border-blue-200 hover:bg-blue-50/10 transition-all duration-500 group rounded-[1.5rem] overflow-hidden relative">
-            <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-[0.03] blur-[50px] group-hover:opacity-[0.06] transition-opacity duration-500`} />
-            <CardContent className="p-5 sm:p-6 relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                    <div className={`bg-slate-50 border border-slate-100 ${textColor} p-2.5 rounded-xl group-hover:scale-110 group-hover:bg-white transition-all duration-300`}>
+        <Card className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all group overflow-hidden relative">
+            <CardContent className="p-0 relative z-10">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className={`p-2.5 ${bgLight} ${textColor} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
                         {icon}
                     </div>
-                    <TrendingUp className="h-4 w-4 text-slate-300 group-hover:text-blue-500 transition-colors duration-300" />
+                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400">{title}</span>
                 </div>
-                <p className={`text-3xl sm:text-4xl font-semibold ${textColor} tabular-nums tracking-tight`}>{value}</p>
-                <p className="text-xs text-slate-400 font-medium mt-1 tracking-wide uppercase">{title}</p>
+                <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-black text-gray-900 tracking-tighter tabular-nums">{value}</span>
+                </div>
             </CardContent>
+            <div className={`absolute -bottom-1 -right-1 w-12 h-12 ${bgLight} rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur-xl`} />
         </Card>
     )
 }
@@ -347,36 +336,33 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <Card className="flex flex-col bg-white border border-slate-200 shadow-sm hover:border-blue-500/30 hover:shadow-md transition-all duration-500 rounded-[1.5rem] overflow-hidden group relative">
-            {/* Top accent glow on hover */}
-            <div className="absolute top-0 left-[20%] right-[20%] h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            <div className="p-6 flex-1 relative z-10">
+        <Card className="flex flex-col bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-[#F28C73]/20 transition-all duration-300 rounded-xl overflow-hidden group">
+            <div className="p-6 flex-1">
                 <div className="flex items-start gap-4 mb-5">
-                    <div className={`bg-slate-50 border border-slate-100 ${iconColor} p-3 rounded-2xl group-hover:scale-110 group-hover:bg-white transition-all duration-300 flex-shrink-0 shadow-sm`}>
+                    <div className={`${iconBg} ${iconColor} p-3 rounded-lg shadow-sm group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                         {icon}
                     </div>
-                    <div className="min-w-0 pt-1">
-                        <h4 className="text-base font-semibold text-slate-900 leading-tight mb-1">{title}</h4>
-                        <p className="text-[10px] text-blue-600 font-semibold tracking-widest uppercase">{subtitle}</p>
+                    <div>
+                        <h4 className="text-lg font-bold text-gray-900 leading-tight mb-1">{title}</h4>
+                        <p className="text-[10px] text-[#F28C73] font-black tracking-widest uppercase">{subtitle}</p>
                     </div>
                 </div>
-                <p className="text-sm text-slate-500 leading-relaxed font-light">{description}</p>
+                <p className="text-sm text-gray-500 leading-relaxed font-medium">{description}</p>
             </div>
-            <div className="px-6 pb-6 pt-0 flex flex-col gap-2 relative z-10">
+            <div className="px-6 pb-6 pt-0 flex flex-col gap-2">
                 {actions.map((action, i) => (
                     <Button
                         key={i}
                         variant={action.variant}
-                        className={`w-full justify-between rounded-xl text-sm font-medium transition-all duration-300 ${action.variant === 'default'
-                            ? 'bg-blue-900 text-white hover:bg-blue-800 border border-blue-950'
-                            : 'bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200'
+                        className={`w-full justify-between rounded-lg text-xs font-bold uppercase tracking-wider transition-all h-11 ${action.variant === 'default'
+                            ? 'bg-[#F28C73] text-white hover:bg-[#D96C53] shadow-sm'
+                            : 'bg-white text-gray-600 hover:text-gray-900 hover:bg-gray-50 border border-gray-200'
                             }`}
                         asChild
                     >
                         <Link href={action.href}>
                             <span>{action.label}</span>
-                            <ArrowRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-transform" />
+                            <ChevronRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                         </Link>
                     </Button>
                 ))}

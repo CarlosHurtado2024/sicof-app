@@ -2,74 +2,46 @@
 
 @config "../tailwind.config.ts";
 
-/*
-  The default border color has moved to `theme-border` in v4 if using @theme, 
-  but with @config it should respect the config.
-*/
-
 @layer base {
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 217 91% 10%;
+    --background: 38 40% 95%;    /* #F8F5EE earthy cream */
+    --foreground: 0 0% 12%;      /* #1A1A1A */
 
     --card: 0 0% 100%;
-    --card-foreground: 217 91% 10%;
+    --card-foreground: 0 0% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 217 91% 10%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 217 91% 17%; /* Brand Blue #042153 */
-    --primary-foreground: 210 40% 98%;
+    --primary: 11 83% 70%;       /* #F28C73 - Komi Coral */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 91% 96%;
-    --secondary-foreground: 217 91% 15%;
+    --secondary: 40 40% 92%;     /* #F2EBE1 sidebar light */
+    --secondary-foreground: 0 0% 12%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 217 10% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 217 91% 96%;
-    --accent-foreground: 217 91% 17%;
+    --accent: 11 83% 70%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 74% 63%;    /* #E55B5B */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217 20% 90%;
-    --input: 217 20% 90%;
-    --ring: 217 91% 17%;
+    --border: 0 0% 90%;
+    --input: 0 0% 92%;
+    --ring: 11 83% 70%;
 
     --radius: 0.75rem;
   }
+}
 
-  .dark {
-    --background: 217 91% 5%;
-    --foreground: 210 40% 98%;
-
-    --card: 217 91% 8%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 217 91% 8%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 217 91% 50%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 217 30% 15%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217 30% 15%;
-    --muted-foreground: 217 10% 65%;
-
-    --accent: 217 30% 15%;
-    --accent-foreground: 217 91% 50%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217 30% 15%;
-    --input: 217 30% 15%;
-    --ring: 217 91% 50%;
-  }
+.dark {
+  --background: 0 0% 10%;
+  --foreground: 0 0% 95%;
+  --primary: 11 83% 70%;
+  --border: 0 0% 20%;
 }
 
 @layer base {
@@ -79,6 +51,15 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global selection */
+  ::selection {
+    background: rgba(242, 132, 130, 0.15);
+    color: #2B463C;
   }
 }
 
@@ -126,20 +107,20 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Card hover lift effect */
+/* Card hover lift effect - Alegria style (soft, playful) */
 .card-hover {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px -12px rgba(43, 70, 60, 0.1);
 }
 
 /* Fade in animation */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -147,22 +128,41 @@ html {
   }
 }
 .animate-fade-in-up {
-  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Stagger children animation */
 .stagger-children > * {
-  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: fadeInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
-.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
-.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
-.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
-.stagger-children > *:nth-child(9) { animation-delay: 480ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 70ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 140ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 210ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 280ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 350ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 420ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 490ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 560ms; }
+
+/* ─── Alegria Glassmorphism Card ─── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Alegria Button Interaction ─── */
+.btn-alegria {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+.btn-alegria:hover {
+  transform: translateY(-2px);
+}
+.btn-alegria:active {
+  transform: scale(0.97);
+}
 
 /* ─── Mobile Bottom Navigation Bar (phones only, < 640px) ─── */
 .mobile-bottom-nav {
@@ -174,11 +174,11 @@ html {
   z-index: 50;
   align-items: stretch;
   justify-content: space-around;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(253, 251, 247, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(43, 70, 60, 0.06);
+  box-shadow: 0 -10px 40px -10px rgba(43, 70, 60, 0.06);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   height: calc(72px + env(safe-area-inset-bottom, 0px));
 }
@@ -198,7 +198,7 @@ html {
   flex: 1;
   gap: 4px;
   padding: 8px 2px 10px;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(43, 70, 60, 0.4);
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
@@ -210,7 +210,7 @@ html {
 }
 
 .mobile-bottom-nav-item.active {
-  color: #042153;
+  color: #2B463C;
 }
 
 .mobile-bottom-nav-item:active {
@@ -233,14 +233,14 @@ html {
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
-  background: rgba(4, 33, 83, 0.08);
+  background: rgba(242, 132, 130, 0.12);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(242, 132, 130, 0.1);
 }
 
 .mobile-bottom-nav-label {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: 0.03em;
   white-space: nowrap;
@@ -249,12 +249,12 @@ html {
   max-width: 100%;
   text-align: center;
   transition: all 0.2s ease;
-  color: rgba(0, 0, 0, 0.45);
+  color: rgba(43, 70, 60, 0.4);
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-label {
   font-weight: 700;
-  color: #042153;
+  color: #2B463C;
   letter-spacing: 0.04em;
 }
 
@@ -267,7 +267,7 @@ html {
   width: 16px;
   height: 3px;
   border-radius: 2px;
-  background: #042153;
+  background: #F28482;
   animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -288,13 +288,13 @@ html {
   bottom: calc(100% + 12px);
   right: -8px;
   min-width: 200px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(253, 251, 247, 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 20px;
-  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.1),
-              0 0 0 1px rgba(0, 0, 0, 0.05) inset;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 50px -10px rgba(43, 70, 60, 0.12),
+              0 0 0 1px rgba(43, 70, 60, 0.04) inset;
+  border: 1px solid rgba(43, 70, 60, 0.06);
   padding: 8px;
   animation: bottomNavOverflowIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom right;
@@ -318,8 +318,8 @@ html {
   padding: 10px 14px;
   border-radius: 12px;
   font-size: 14px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+  color: rgba(43, 70, 60, 0.55);
   text-decoration: none;
   transition: all 0.15s ease;
 }
@@ -329,14 +329,14 @@ html {
 }
 
 .mobile-bottom-nav-overflow-item.active {
-  background: rgba(4, 33, 83, 0.05);
-  color: #042153;
-  font-weight: 600;
+  background: rgba(242, 132, 130, 0.08);
+  color: #2B463C;
+  font-weight: 700;
 }
 
 .mobile-bottom-nav-overflow-item:not(.active):hover {
-  background: rgba(0, 0, 0, 0.04);
-  color: #000000;
+  background: rgba(43, 70, 60, 0.04);
+  color: #2B463C;
 }
 
 .mobile-bottom-nav-overflow-icon {
@@ -346,16 +346,16 @@ html {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(0, 0, 0, 0.03);
+  background: rgba(43, 70, 60, 0.04);
   flex-shrink: 0;
 }
 
 .mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
-  background: rgba(4, 33, 83, 0.1);
-  color: #042153;
+  background: rgba(242, 132, 130, 0.12);
+  color: #2B463C;
 }
 
-/* Add bottom spacing to main content on phones to prevent content from being hidden behind the bottom nav */
+/* Add bottom spacing to main content on phones */
 @media (max-width: 639px) {
   main {
     padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;

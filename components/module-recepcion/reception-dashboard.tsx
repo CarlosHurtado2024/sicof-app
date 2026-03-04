@@ -41,34 +41,34 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
     )
 
     return (
-        <div className={`transition-colors duration-500 ${isCrisisMode ? 'bg-red-50/30 p-2 sm:p-4 rounded-xl' : ''}`}>
+        <div className={`transition-all duration-500 ${isCrisisMode ? 'bg-red-50/50 p-4 sm:p-8 rounded-xl border border-red-200' : ''}`}>
             {/* Header */}
-            <header className="flex flex-col gap-4 mb-8 sm:mb-12">
+            <header className="flex flex-col gap-6 mb-12 animate-fade-in-up">
                 <div>
-                    <div className="flex items-center space-x-2 text-slate-400 text-sm mb-2 font-medium">
-                        <span>Inicio</span>
-                        <ChevronRight className="h-3.5 w-3.5" />
-                        <span className="text-blue-600 font-semibold">Recepción</span>
+                    <div className="flex items-center space-x-3 text-gray-400 text-[10px] mb-4 font-black uppercase tracking-[0.2em]">
+                        <span>Gestión</span>
+                        <ChevronRight className="h-3 w-3" />
+                        <span className="text-[#F28C73]">Recepción</span>
                     </div>
-                    <h2 className={`text-2xl sm:text-3xl font-bold tracking-tight ${isCrisisMode ? 'text-red-700' : 'text-slate-900'}`}>
-                        {isCrisisMode ? '🚨 Atención de Emergencia' : 'Recepción y Radicación'}
+                    <h2 className={`text-3xl sm:text-5xl font-bold tracking-tight font-display transition-colors duration-500 ${isCrisisMode ? 'text-red-700' : 'text-gray-900'}`}>
+                        {isCrisisMode ? 'Atención de Emergencia' : 'Recepción y Radicación'}
                     </h2>
-                    <p className="text-slate-500 mt-2 text-sm sm:text-base">
-                        {isCrisisMode ? 'Prioridad Alta — Atención en Crisis y Primeros Auxilios Psicológicos' : 'Gestión de turnos y registro inicial de usuarios.'}
+                    <p className="text-gray-500 mt-4 text-sm sm:text-base font-medium max-w-2xl leading-relaxed">
+                        {isCrisisMode ? 'Prioridad Crítica — Activación de Protocolo de Emergencia Ley 1257.' : 'Registro inicial de usuarios y gestión de la cola de atención del despacho.'}
                     </p>
                 </div>
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                    <div className="hidden sm:flex flex-col items-end">
-                        <span className="text-sm font-bold text-slate-900">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                    <div className="hidden sm:flex flex-col items-end pr-8 border-r border-gray-100">
+                        <span className="text-sm font-bold text-gray-900 uppercase tracking-tighter">
                             {format(new Date(), "EEEE, d 'de' MMMM", { locale: es })}
                         </span>
-                        <span className="text-xs text-slate-400 font-mono tracking-widest uppercase">
+                        <span className="text-[10px] text-gray-400 font-black tracking-widest uppercase">
                             {format(new Date(), 'hh:mm a')}
                         </span>
                     </div>
                     {!isCrisisMode && (
                         <Link href="/dashboard/recepcion/nuevo-caso" className="w-full sm:w-auto">
-                            <Button className="w-full sm:w-auto bg-blue-900 hover:bg-slate-800 text-white px-6 sm:px-8 py-4 rounded-xl font-bold text-base flex items-center justify-center shadow-lg transition-all hover:-translate-y-0.5 active:scale-95">
+                            <Button className="w-full sm:w-auto bg-[#F28C73] hover:bg-[#D96C53] text-white px-8 py-7 rounded-lg font-bold text-sm uppercase tracking-widest shadow-sm transition-all hover:scale-[1.02]">
                                 <Plus className="h-5 w-5 mr-2" />
                                 Radicar Caso
                             </Button>
@@ -77,16 +77,13 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                     <Button
                         onClick={() => setIsCrisisMode(!isCrisisMode)}
                         variant={isCrisisMode ? "default" : "outline"}
-                        className={`w-full sm:w-auto transition-all duration-300 px-6 py-4 rounded-xl font-bold text-base ${isCrisisMode
-                            ? 'bg-slate-900 text-white border-transparent'
-                            : 'border-red-200 text-red-600 bg-white hover:bg-red-50'
+                        className={`w-full sm:w-auto transition-all duration-300 px-8 py-7 rounded-lg font-bold text-sm uppercase tracking-widest ${isCrisisMode
+                            ? 'bg-red-600 hover:bg-red-700 text-white border-none'
+                            : 'border-2 border-red-100 text-red-600 hover:bg-red-50'
                             }`}
                     >
-                        {isCrisisMode ? 'Salir del Modo Crisis' : (
-                            <>
-                                <Siren className="h-4 w-4 mr-2" /> SOS / Crisis
-                            </>
-                        )}
+                        <Siren className={`h-5 w-5 mr-3 ${isCrisisMode ? 'animate-pulse' : ''}`} />
+                        {isCrisisMode ? 'Finalizar Emergencia' : 'Activar Emergencia'}
                     </Button>
                 </div>
             </header>
@@ -96,11 +93,13 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10">
                 {/* Left Column: Form */}
                 <section className="lg:col-span-6">
-                    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col shadow-xl shadow-slate-200/50">
-                        <div className="px-5 sm:px-8 py-4 sm:py-6 border-b border-slate-100 bg-slate-50/50">
-                            <h4 className="text-base sm:text-lg font-bold text-slate-800 flex items-center">
-                                <FileText className="mr-3 text-blue-600 h-5 w-5 sm:h-6 sm:w-6" />
-                                {isCrisisMode ? 'Registro de Crisis' : 'Nueva Minuta'}
+                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden flex flex-col shadow-sm">
+                        <div className="px-5 sm:px-8 py-5 border-b border-gray-100 bg-white">
+                            <h4 className="text-base sm:text-lg font-bold text-gray-900 flex items-center gap-3">
+                                <div className={`p-2 rounded-lg ${isCrisisMode ? 'bg-red-50 text-red-600' : 'bg-[#F28C73]/10 text-[#F28C73]'}`}>
+                                    <FileText className="h-5 w-5" />
+                                </div>
+                                {isCrisisMode ? 'Registro de Emergencia' : 'Formulario de Minuta'}
                             </h4>
                         </div>
                         <div className="p-4 sm:p-8 flex-1">
@@ -116,34 +115,34 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                 </section>
 
                 {/* Right Column: Live Queue */}
-                <section className={`lg:col-span-6 ${isCrisisMode ? 'opacity-50 pointer-events-none filter grayscale' : ''}`}>
-                    <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden h-full flex flex-col shadow-xl shadow-slate-200/50">
-                        <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
+                <section className={`lg:col-span-6 transition-all duration-300 ${isCrisisMode ? 'opacity-30 pointer-events-none scale-95 origin-right' : ''}`}>
+                    <div className="bg-white rounded-xl border border-gray-100 overflow-hidden h-full flex flex-col shadow-sm">
+                        <div className="px-5 sm:px-8 py-5 border-b border-gray-100 bg-white flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                             <div>
-                                <h4 className="text-base sm:text-lg font-bold text-slate-800">Cola de Espera</h4>
-                                <p className="text-[10px] text-blue-600 font-bold uppercase tracking-[0.2em] mt-1">Actividad en Tiempo Real</p>
+                                <h4 className="text-base sm:text-lg font-bold text-gray-900">Cola de Espera</h4>
+                                <p className="text-[10px] text-[#F28C73] font-black uppercase tracking-widest mt-1">Sincronización en Directo</p>
                             </div>
-                            <div className="relative">
+                            <div className="relative group">
                                 <input
-                                    className="pl-10 pr-4 py-3 text-sm bg-white border border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-50 focus:border-blue-200 w-full sm:w-64 transition-all shadow-sm"
-                                    placeholder="Buscar registros..."
+                                    className="pl-10 pr-4 py-3 text-sm bg-gray-50 border border-gray-100 rounded-lg focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20 w-full sm:w-64 transition-all"
+                                    placeholder="Nombre o documento..."
                                     type="text"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
-                                <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+                                <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-gray-300 group-focus-within:text-[#F28C73] transition-colors" />
                             </div>
                         </div>
 
                         {/* Desktop Table — hidden on mobile */}
                         <div className="hidden md:block overflow-x-auto flex-1">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-slate-50/80 sticky top-0">
+                                <thead className="bg-gray-50 sticky top-0">
                                     <tr>
-                                        <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">Hora</th>
-                                        <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">Visitante</th>
-                                        <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">Motivo</th>
-                                        <th className="px-8 py-5 text-[11px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-100">Estado</th>
+                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Hora</th>
+                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Usuario</th>
+                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Motivo</th>
+                                        <th className="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -157,42 +156,42 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                                     ) : (
                                         filteredMinutas.map((minuta) => (
                                             <tr key={minuta.id} className="hover:bg-blue-50/50 transition-all duration-200 group">
-                                                <td className="px-6 py-5">
-                                                    <span className="font-mono text-sm text-slate-500 font-medium">
-                                                        {format(new Date(minuta.fecha_hora_ingreso), 'HH:mm:ss')}
+                                                <td className="px-8 py-4">
+                                                    <span className="font-mono text-sm text-gray-400 font-bold">
+                                                        {format(new Date(minuta.fecha_hora_ingreso), 'HH:mm')}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-5">
+                                                <td className="px-8 py-4">
                                                     <div className="flex items-center">
-                                                        <div className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs mr-3 border border-white shadow-sm">
+                                                        <div className="w-10 h-10 rounded-lg bg-gray-50 text-gray-800 flex items-center justify-center font-bold text-xs mr-3 border border-gray-100">
                                                             {minuta.nombre_visitante.split(' ').map(n => n[0]).join('').substring(0, 2)}
                                                         </div>
-                                                        <div>
-                                                            <p className="text-sm font-bold text-slate-800">{minuta.nombre_visitante}</p>
-                                                            <p className="text-xs text-slate-400 font-mono mt-0.5">ID: {minuta.documento_visitante.slice(0, 4)}***{minuta.documento_visitante.slice(-3)}</p>
+                                                        <div className="min-w-0">
+                                                            <p className="text-sm font-bold text-gray-900 truncate">{minuta.nombre_visitante}</p>
+                                                            <p className="text-[10px] text-gray-400 font-mono mt-0.5 tracking-tighter">ID: {minuta.documento_visitante.slice(0, 4)}***{minuta.documento_visitante.slice(-3)}</p>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-5">
-                                                    <span className={`px-3 py-1 rounded-full text-[11px] font-bold border uppercase tracking-wider ${minuta.motivo_visita === 'DENUNCIA'
-                                                        ? 'bg-rose-50 text-rose-700 border-rose-100'
+                                                <td className="px-8 py-4">
+                                                    <span className={`px-2 py-1 rounded-md text-[10px] font-black border uppercase tracking-widest ${minuta.motivo_visita === 'DENUNCIA'
+                                                        ? 'bg-red-50 text-red-700 border-red-100'
                                                         : minuta.motivo_visita === 'AUDIENCIA'
                                                             ? 'bg-blue-50 text-blue-700 border-blue-100'
-                                                            : 'bg-slate-50 text-slate-700 border-slate-100'
+                                                            : 'bg-gray-50 text-gray-700 border-gray-100'
                                                         }`}>
                                                         {minuta.motivo_visita}
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-5">
+                                                <td className="px-8 py-4">
                                                     {minuta.fecha_hora_salida ? (
-                                                        <div className="flex items-center">
-                                                            <span className="h-1.5 w-1.5 rounded-full bg-slate-400 mr-2.5" />
-                                                            <span className="text-sm text-slate-400 font-bold uppercase tracking-tight">Completado</span>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
+                                                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-tight">Egresado</span>
                                                         </div>
                                                     ) : (
-                                                        <div className="flex items-center">
-                                                            <span className="h-2 w-2 rounded-full bg-emerald-500 mr-2.5 animate-pulse" />
-                                                            <span className="text-sm text-emerald-700 font-bold uppercase tracking-tight">En Proceso</span>
+                                                        <div className="flex items-center gap-2">
+                                                            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+                                                            <span className="text-[10px] text-emerald-600 font-black uppercase tracking-tight">Atendiendo</span>
                                                         </div>
                                                     )}
                                                 </td>
@@ -253,9 +252,9 @@ export function ReceptionDashboard({ initialMinutas, kpis }: ReceptionDashboardP
                         </div>
 
                         {minutas?.length > 0 && (
-                            <div className="p-4 sm:p-6 border-t border-slate-100 text-center bg-slate-50/30">
-                                <button className="text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors uppercase tracking-[0.2em]">
-                                    Cargar más registros
+                            <div className="p-6 border-t border-gray-100 text-center bg-gray-50/20">
+                                <button className="text-[10px] font-black text-gray-400 hover:text-[#F28C73] transition-colors uppercase tracking-[0.25em]">
+                                    Cargar Historial Completo
                                 </button>
                             </div>
                         )}

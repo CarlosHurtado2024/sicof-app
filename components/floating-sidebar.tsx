@@ -152,37 +152,33 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[72px] flex-col items-center bg-white/80 border-r border-slate-200 backdrop-blur-3xl safe-top safe-bottom shadow-sm">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[84px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
                 {/* Logo */}
-                <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
-                    <div className="w-11 h-11 rounded-2xl bg-slate-50 border border-slate-100 hover:bg-slate-100 flex items-center justify-center transition-all duration-200 group">
-                        <SicofLogoIcon className="w-7 h-7" inverted={false} />
+                <Link href="/dashboard" className="flex-shrink-0 mt-6 mb-10">
+                    <div className="w-12 h-12 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
+                        <SicofLogoIcon className="w-8 h-8" inverted={true} />
                     </div>
                 </Link>
 
                 {/* Divider */}
-                <div className="w-8 h-px bg-slate-100 mb-3" />
+                <div className="w-8 h-px bg-[#2B463C]/8 mb-3" />
 
                 {/* Nav Items */}
-                <nav className="flex-1 flex flex-col items-center gap-1 overflow-y-auto scrollbar-hide py-1 w-full px-2">
+                <nav className="flex-1 flex flex-col items-center gap-2 overflow-y-auto scrollbar-hide py-1 w-full px-3">
                     {navItems.map((item) => {
                         const isActive = isNavActive(pathname, item.href)
                         return (
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`group relative flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-300 flex-shrink-0 ${isActive
-                                    ? 'bg-blue-50 text-blue-700 shadow-sm border border-blue-100'
-                                    : 'text-slate-400 hover:text-slate-900 hover:bg-slate-50 border border-transparent'
+                                className={`group relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 flex-shrink-0 ${isActive
+                                    ? 'bg-[#F28C73] text-white shadow-lg shadow-[#F28C73]/20'
+                                    : 'text-[#333333]/40 hover:text-[#F28C73] hover:bg-white/50'
                                     }`}
                             >
                                 {item.icon}
-                                {/* Active indicator bar */}
-                                {isActive && (
-                                    <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[6px] w-[3px] h-6 bg-blue-600 rounded-full shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
-                                )}
                                 {/* Tooltip */}
-                                <span className="absolute left-full ml-4 px-3 py-1.5 bg-slate-900 text-white text-[11px] font-medium tracking-wide uppercase rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
+                                <span className="absolute left-full ml-4 px-3 py-2 bg-[#333333] text-white text-[10px] font-black tracking-widest uppercase rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 whitespace-nowrap shadow-xl z-[60] pointer-events-none">
                                     {item.label}
                                 </span>
                             </Link>
@@ -191,20 +187,20 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                 </nav>
 
                 {/* Bottom Section: Right Slot (Notifications, Presence, Avatar) */}
-                <div className="flex flex-col items-center gap-2 py-4 border-t border-slate-100 mt-auto w-full px-2">
+                <div className="flex flex-col items-center gap-2 py-4 border-t border-[#2B463C]/5 mt-auto w-full px-2">
                     {rightSlot}
                 </div>
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-2xl border-b border-slate-200 safe-top">
-                <div className="flex items-center justify-between h-14 px-3">
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#F2EBE1]/95 backdrop-blur-xl border-b border-gray-200 safe-top">
+                <div className="flex items-center justify-between h-16 px-4">
                     {/* Logo */}
-                    <Link href="/dashboard" className="flex items-center gap-2">
-                        <div className="w-9 h-9 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
-                            <SicofLogoIcon className="w-6 h-6" inverted={false} />
+                    <Link href="/dashboard" className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-sm">
+                            <SicofLogoIcon className="w-7 h-7" inverted={true} />
                         </div>
-                        <span className="text-slate-900 font-bold text-base tracking-tight">Komi</span>
+                        <span className="text-gray-900 font-black text-xl tracking-tighter">Komi</span>
                     </Link>
 
                     {/* Right: Notifications + Team + Avatar */}
