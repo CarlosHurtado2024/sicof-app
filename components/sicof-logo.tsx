@@ -11,7 +11,7 @@ export function SicofLogoIcon({ className = "w-10 h-10", inverted = false }: Sic
     return (
         <div className={`relative ${className}`} style={{ filter: inverted ? 'brightness(0) invert(1)' : 'none' }}>
             <Image
-                src="/logo_komi_azul.svg"
+                src="/svg_komi.svg"
                 alt="Komi Logo"
                 fill
                 className="object-contain"

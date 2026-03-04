@@ -25,22 +25,19 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: "cover",
-  themeColor: "#042153",
+  themeColor: "#2B463C",
 };
 
 export const metadata: Metadata = {
   title: "Komi — Familia y Bienestar",
   description: "Gestión para Comisarías de Familia - Ley 2126",
-  manifest: "/manifest.json?v=2",
+  manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/ico_komi_azul.ico?v=2", type: "image/x-icon" },
-      { url: "/logo_komi_azul.svg?v=2", type: "image/svg+xml" },
-      { url: "/icon-192.png?v=2", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png?v=2", sizes: "512x512", type: "image/png" },
+      { url: "/komi_logo.ico", type: "image/x-icon" },
     ],
-    shortcut: "/ico_komi_azul.ico?v=2",
-    apple: "/icon-192.png?v=2",
+    shortcut: "/komi_logo.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 
