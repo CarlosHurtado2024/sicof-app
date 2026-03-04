@@ -42,62 +42,62 @@ interface TopNavBarProps {
 
 function getNavItems(rol: RolUsuario | undefined): NavItem[] {
     const common: NavItem[] = [
-        { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
-        { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-5 w-5" /> },
-        { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-5 w-5" /> },
+        { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-4.5 w-4.5" /> },
+        { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-4.5 w-4.5" /> },
+        { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-4.5 w-4.5" /> },
     ]
 
     switch (rol) {
         case 'AUXILIAR':
             return [
                 ...common,
-                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-5 w-5" /> },
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
-                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-5 w-5" /> },
-                { label: 'Admin', href: '/dashboard/administrativo', icon: <ClipboardList className="h-5 w-5" /> },
+                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-4.5 w-4.5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
+                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-4.5 w-4.5" /> },
+                { label: 'Admin', href: '/dashboard/administrativo', icon: <ClipboardList className="h-4.5 w-4.5" /> },
             ]
 
         case 'PSICOLOGO':
         case 'TRABAJADOR_SOCIAL':
             return [
                 ...common,
-                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-5 w-5" /> },
-                { label: 'Asignados', href: '/dashboard/casos-asignados', icon: <Eye className="h-5 w-5" /> },
-                { label: 'Informes', href: '/dashboard/informes', icon: <FileText className="h-5 w-5" /> },
+                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-4.5 w-4.5" /> },
+                { label: 'Asignados', href: '/dashboard/casos-asignados', icon: <Eye className="h-4.5 w-4.5" /> },
+                { label: 'Informes', href: '/dashboard/informes', icon: <FileText className="h-4.5 w-4.5" /> },
             ]
 
         case 'SECRETARIO':
         case 'ABOGADO':
             return [
                 ...common,
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
-                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-5 w-5" /> },
-                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-5 w-5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
+                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-4.5 w-4.5" /> },
+                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-4.5 w-4.5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
             ]
 
         case 'COMISARIO':
             return [
                 ...common,
-                { label: 'Firma', href: '/dashboard/firma', icon: <ShieldCheck className="h-5 w-5" /> },
-                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-5 w-5" /> },
-                { label: 'Control', href: '/dashboard/control', icon: <BarChart3 className="h-5 w-5" /> },
-                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-5 w-5" /> },
+                { label: 'Firma', href: '/dashboard/firma', icon: <ShieldCheck className="h-4.5 w-4.5" /> },
+                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-4.5 w-4.5" /> },
+                { label: 'Control', href: '/dashboard/control', icon: <BarChart3 className="h-4.5 w-4.5" /> },
+                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-4.5 w-4.5" /> },
             ]
 
         case 'ADMINISTRADOR':
             return [
                 ...common,
-                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-5 w-5" /> },
-                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-5 w-5" /> },
-                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-5 w-5" /> },
-                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-5 w-5" /> },
-                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-5 w-5" /> },
-                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-5 w-5" /> },
-                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-5 w-5" /> },
-                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-5 w-5" /> },
-                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-5 w-5" /> },
+                { label: 'Recepción', href: '/dashboard/recepcion', icon: <Users className="h-4.5 w-4.5" /> },
+                { label: 'Valoraciones', href: '/dashboard/valoraciones', icon: <HeartPulse className="h-4.5 w-4.5" /> },
+                { label: 'Documentos', href: '/dashboard/gestion-documental', icon: <Archive className="h-4.5 w-4.5" /> },
+                { label: 'Autos', href: '/dashboard/autos', icon: <Stamp className="h-4.5 w-4.5" /> },
+                { label: 'Términos', href: '/dashboard/terminos', icon: <Timer className="h-4.5 w-4.5" /> },
+                { label: 'Audiencias', href: '/dashboard/audiencias', icon: <Scale className="h-4.5 w-4.5" /> },
+                { label: 'Notificaciones', href: '/dashboard/notificaciones', icon: <Megaphone className="h-4.5 w-4.5" /> },
+                { label: 'Agenda', href: '/dashboard/agenda', icon: <Calendar className="h-4.5 w-4.5" /> },
+                { label: 'Estadísticas', href: '/dashboard/estadisticas', icon: <BarChart3 className="h-4.5 w-4.5" /> },
             ]
 
         default:
@@ -151,12 +151,19 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
 
     return (
         <>
+            {/* ─── Desktop Top Header Bar (≥640px) ─── */}
+            <header className="hidden sm:flex fixed top-0 left-[68px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
+                <div className="flex items-center gap-2 scale-90 origin-right">
+                    {rightSlot}
+                </div>
+            </header>
+
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[84px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[68px] flex-col items-center bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
                 {/* Logo */}
-                <Link href="/dashboard" className="flex-shrink-0 mt-6 mb-10">
-                    <div className="w-12 h-12 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
-                        <SicofLogoIcon className="w-8 h-8" inverted={true} />
+                <Link href="/dashboard" className="flex-shrink-0 mt-4 mb-6">
+                    <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 hover:scale-105 transition-all duration-300">
+                        <SicofLogoIcon className="w-6 h-6" inverted={true} />
                     </div>
                 </Link>
 
@@ -171,7 +178,7 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                             <Link
                                 key={item.href}
                                 href={item.href}
-                                className={`group relative flex items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 flex-shrink-0 ${isActive
+                                className={`group relative flex items-center justify-center w-11 h-11 rounded-lg transition-all duration-300 flex-shrink-0 ${isActive
                                     ? 'bg-[#F28C73] text-white shadow-lg shadow-[#F28C73]/20'
                                     : 'text-[#333333]/40 hover:text-[#F28C73] hover:bg-white/50'
                                     }`}
@@ -186,9 +193,21 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                     })}
                 </nav>
 
-                {/* Bottom Section: Right Slot (Notifications, Presence, Avatar) */}
-                <div className="flex flex-col items-center gap-2 py-4 border-t border-[#2B463C]/5 mt-auto w-full px-2">
-                    {rightSlot}
+                {/* Logout Button */}
+                <div className="pb-4 mt-auto w-full px-3">
+                    <button
+                        onClick={() => {
+                            const form = document.createElement('form')
+                            form.method = 'POST'
+                            form.action = '/auth/signout'
+                            document.body.appendChild(form)
+                            form.submit()
+                        }}
+                        className="flex items-center justify-center w-full h-10 rounded-lg text-[#333333]/40 hover:text-red-500 hover:bg-red-50 transition-all duration-300"
+                        title="Cerrar Sesión"
+                    >
+                        <LogOut className="h-4.5 w-4.5" />
+                    </button>
                 </div>
             </aside>
 

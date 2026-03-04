@@ -61,25 +61,25 @@ export default function Home() {
               <span className="text-[10px] font-black text-[#2B463C] uppercase tracking-[0.4em]">Evolución Procesal 2026</span>
             </div>
 
-            <div className="flex flex-col gap-6">
-              <h1 className="text-[#2B463C] text-6xl md:text-8xl lg:text-[10rem] font-black leading-[0.85] tracking-tighter uppercase">
+            <div className="flex flex-col gap-8">
+              <h1 className="text-[#2B463C] text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tighter uppercase">
                 Justicia <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F28C73] via-[#2B463C] to-[#2B463C]">Inteligente</span>
               </h1>
-              <p className="text-[#2B463C]/40 text-xl md:text-3xl font-medium leading-relaxed max-w-4xl mx-auto">
+              <p className="text-[#2B463C]/40 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
                 Simplificamos la burocracia en las Comisarías de Familia para que el equipo se enfoque en el bienestar de las personas.
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-6 pt-4">
+            <div className="flex flex-wrap justify-center gap-4 pt-2">
               <Link
                 href="/login"
-                className="flex items-center justify-center rounded-[2rem] h-20 px-14 bg-[#2B463C] hover:bg-[#F28C73] text-white text-xs font-black uppercase tracking-[0.3em] transition-all shadow-2xl shadow-[#2B463C]/20 hover:-translate-y-1 active:scale-95 group"
+                className="flex items-center justify-center rounded-2xl h-14 px-10 bg-[#2B463C] hover:bg-[#F28C73] text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all shadow-xl shadow-[#2B463C]/10 hover:-translate-y-1 active:scale-95 group"
               >
                 Comenzar Ahora
-                <ArrowLeft className="w-5 h-5 ml-4 rotate-180 group-hover:translate-x-1 transition-transform" />
+                <ArrowLeft className="w-4 h-4 ml-3 rotate-180 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <button className="flex items-center justify-center rounded-[2rem] h-20 px-10 bg-white/40 backdrop-blur-xl border border-white/80 text-[#2B463C] text-xs font-black uppercase tracking-[0.3em] hover:bg-white/80 transition-all active:scale-95 shadow-lg">
+              <button className="flex items-center justify-center rounded-2xl h-14 px-8 bg-white/40 backdrop-blur-xl border border-white/80 text-[#2B463C] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/80 transition-all active:scale-95 shadow-md">
                 Ver Casos de Éxito
               </button>
             </div>
