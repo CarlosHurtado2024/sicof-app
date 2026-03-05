@@ -214,10 +214,7 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <div className="rounded-xl overflow-hidden group transition-all" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,122,89,0.2)')}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
-        >
+        <div className="rounded-xl overflow-hidden group transition-all glass-card hover:border-[#ff7a59]/20">
             <div className="p-5">
                 <div className="flex items-start gap-3 mb-3">
                     <div className={`${iconBg} ${iconColor} p-2.5 rounded-lg flex-shrink-0`} style={{ background: 'rgba(255,122,89,0.08)' }}>
