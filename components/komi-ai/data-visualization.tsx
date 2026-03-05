@@ -136,7 +136,7 @@ function BarChartView({ data }: { data: Record<string, unknown>[] }) {
                             fontSize: '11px',
                             boxShadow: '0 4px 12px #0001',
                         }}
-                        formatter={(value: number) => [value.toLocaleString('es-CO'), formatLabel(valueKey)]}
+                        formatter={(value: unknown) => [Number(value).toLocaleString('es-CO'), formatLabel(valueKey)]}
                         labelFormatter={(label) => formatLabel(String(label))}
                     />
                     <Bar dataKey="value" radius={[6, 6, 0, 0]} maxBarSize={50}>
@@ -180,8 +180,8 @@ function PieChartView({ data }: { data: Record<string, unknown>[] }) {
                             borderRadius: '8px',
                             fontSize: '11px',
                         }}
-                        formatter={(value: number) => [
-                            `${value.toLocaleString('es-CO')} (${((value / total) * 100).toFixed(1)}%)`,
+                        formatter={(value: unknown) => [
+                            `${Number(value).toLocaleString('es-CO')} (${((Number(value) / total) * 100).toFixed(1)}%)`,
                             '',
                         ]}
                     />
@@ -230,8 +230,8 @@ export default function DataVisualization({ data, question }: DataVisualizationP
                         key={opt.mode}
                         onClick={() => setView(opt.mode)}
                         className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-semibold transition-all ${view === opt.mode
-                                ? 'bg-[#2B463C] text-white shadow-sm'
-                                : 'bg-[#2B463C]/5 text-[#2B463C]/50 hover:bg-[#2B463C]/10 hover:text-[#2B463C]/70'
+                            ? 'bg-[#2B463C] text-white shadow-sm'
+                            : 'bg-[#2B463C]/5 text-[#2B463C]/50 hover:bg-[#2B463C]/10 hover:text-[#2B463C]/70'
                             }`}
                     >
                         {opt.icon}
