@@ -2,220 +2,217 @@
 
 import Link from "next/link"
 import { SicofLogoIcon } from "@/components/sicof-logo"
-import { ArrowLeft } from "lucide-react"
+import { ArrowRight, FolderOpen, Users, BarChart3 } from "lucide-react"
 
 export default function Home() {
   return (
-    <div className="bg-[#FDFBF7] text-[#2B463C] font-display antialiased relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden selection:bg-[#F28C73]/20">
-      {/* Immersive Background Blur Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] right-[-10%] w-[60vw] h-[60vw] rounded-full bg-[#F28C73]/10 blur-[150px] animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-[#2B463C]/5 blur-[120px] animate-pulse" style={{ animationDuration: '12s' }} />
-        <div className="absolute top-[40%] left-[10%] w-[30vw] h-[30vw] rounded-full bg-[#F28C73]/5 blur-[100px] opacity-60" />
-      </div>
+    <div className="min-h-screen relative overflow-x-hidden flex flex-col" style={{ fontFamily: "'Inter', sans-serif" }}>
+      {/* ─── Blob Background ─── */}
+      <div className="fixed inset-0 z-0" style={{
+        backgroundColor: '#111821',
+        backgroundImage: `
+                    radial-gradient(circle at 15% 50%, rgba(255, 127, 80, 0.15), transparent 25%),
+                    radial-gradient(circle at 85% 30%, rgba(152, 255, 152, 0.1), transparent 25%),
+                    radial-gradient(circle at 50% 80%, rgba(255, 253, 208, 0.1), transparent 25%)
+                `,
+      }} />
 
-      {/* Navigation - Ultra-Modern Glassmorphism */}
-      <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-6xl">
-        <header className="flex items-center justify-between px-8 py-5 bg-white/40 backdrop-blur-2xl border border-white/60 rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(43,70,60,0.12)]">
-          <div className="flex items-center gap-4 group cursor-pointer">
-            <div className="relative p-2.5 bg-[#2B463C] rounded-2xl group-hover:bg-[#F28C73] transition-all duration-500 shadow-lg shadow-[#2B463C]/20">
-              <SicofLogoIcon className="w-6 h-6 invert" />
-              <div className="absolute inset-0 bg-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
+      <div className="flex h-full grow flex-col relative z-10">
+        {/* ─── Navigation ─── */}
+        <header className="fixed top-0 w-full z-50" style={{
+          background: 'rgba(17, 24, 33, 0.6)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          borderTop: 'none',
+        }}>
+          <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 py-4">
+            <div className="flex items-center gap-3" style={{ color: '#ff7f50' }}>
+              <SicofLogoIcon className="w-7 h-7 invert" />
+              <h2 className="text-xl font-bold tracking-tight text-white">Komi</h2>
             </div>
-            <div className="flex flex-col">
-              <h2 className="text-2xl font-serif font-black text-[#2B463C] tracking-tighter leading-none">Komi</h2>
-              <span className="text-[8px] font-black tracking-[0.4em] uppercase text-[#F28C73]">Justicia Humana</span>
-            </div>
-          </div>
-
-          <nav className="hidden lg:flex items-center gap-12">
-            {['Impacto', 'Soluciones', 'Seguridad', 'Nosotros'].map((item) => (
-              <Link key={item} href="#" className="text-[10px] font-black uppercase tracking-[0.3em] text-[#2B463C]/50 hover:text-[#2B463C] transition-all relative group">
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#F28C73] transition-all group-hover:w-full" />
+            <div className="hidden md:flex flex-1 justify-end items-center gap-8">
+              <nav className="flex items-center gap-8">
+                {['Features', 'About', 'Contact'].map((item) => (
+                  <a key={item} className="text-sm font-medium transition-colors" href="#"
+                    style={{ color: 'rgba(255,255,255,0.6)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = '#ff7f50')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </nav>
+              <Link href="/login"
+                className="text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all"
+                style={{ background: '#ff7f50', boxShadow: '0 4px 20px rgba(255, 127, 80, 0.3)' }}
+              >
+                Get Started
               </Link>
-            ))}
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/login"
-              className="flex items-center justify-center rounded-2xl h-12 px-8 bg-[#2B463C] hover:bg-[#F28C73] transition-all text-white text-[10px] font-black uppercase tracking-[0.25em] shadow-xl shadow-[#2B463C]/10 active:scale-95 group"
-            >
-              Acceder al Portal
-              <ArrowLeft className="w-4 h-4 ml-3 rotate-180 group-hover:translate-x-1 transition-transform" />
+            </div>
+            {/* Mobile CTA */}
+            <Link href="/login" className="md:hidden text-white px-5 py-2 rounded-full text-sm font-bold"
+              style={{ background: '#ff7f50' }}>
+              Acceder
             </Link>
           </div>
         </header>
-      </div>
 
-      <main className="flex-1 w-full relative z-10">
-        {/* Hero Section - The Masterpiece */}
-        <section className="relative px-6 md:px-16 pt-32 lg:pt-56 pb-24 overflow-hidden">
-          <div className="max-w-6xl mx-auto flex flex-col items-center text-center animate-fade-in-up gap-12">
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/50 backdrop-blur-md border border-white w-fit shadow-sm">
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F28C73] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#F28C73]"></span>
-              </span>
-              <span className="text-[10px] font-black text-[#2B463C] uppercase tracking-[0.4em]">Evolución Procesal 2026</span>
-            </div>
-
-            <div className="flex flex-col gap-8">
-              <h1 className="text-[#2B463C] text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tighter uppercase">
-                Justicia <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F28C73] via-[#2B463C] to-[#2B463C]">Inteligente</span>
-              </h1>
-              <p className="text-[#2B463C]/40 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
-                Simplificamos la burocracia en las Comisarías de Familia para que el equipo se enfoque en el bienestar de las personas.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 pt-2">
-              <Link
-                href="/login"
-                className="flex items-center justify-center rounded-2xl h-14 px-10 bg-[#2B463C] hover:bg-[#F28C73] text-white text-[10px] font-black uppercase tracking-[0.2em] transition-all shadow-xl shadow-[#2B463C]/10 hover:-translate-y-1 active:scale-95 group"
-              >
-                Comenzar Ahora
-                <ArrowLeft className="w-4 h-4 ml-3 rotate-180 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <button className="flex items-center justify-center rounded-2xl h-14 px-8 bg-white/40 backdrop-blur-xl border border-white/80 text-[#2B463C] text-[10px] font-black uppercase tracking-[0.2em] hover:bg-white/80 transition-all active:scale-95 shadow-md">
-                Ver Casos de Éxito
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* Stats Section - High End Minimalism */}
-        <section className="px-6 md:px-16 py-24 lg:py-48 bg-white/5 relative">
-          <div className="max-w-[1600px] mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-px lg:bg-[#2B463C]/10 rounded-[4rem] overflow-hidden border border-[#2B463C]/10 backdrop-blur-sm">
-              {[
-                { label: 'Eficiencia Jurídica', val: '+92%', sub: 'Reducción de tiempos procesales' },
-                { label: 'Impacto Social', val: '24/7', sub: 'Atención y monitoreo continuo' },
-                { label: 'Precisión de Datos', val: '100%', sub: 'Digitalización blindada' }
-              ].map((stat, i) => (
-                <div key={i} className="bg-white/10 md:px-20 py-24 flex flex-col gap-5 group transition-all hover:bg-white/40 items-center md:items-start">
-                  <span className="text-[10px] font-black text-[#F28C73] uppercase tracking-[0.5em] group-hover:translate-x-3 transition-transform">{stat.label}</span>
-                  <span className="text-8xl lg:text-9xl font-black text-[#2B463C] tracking-tighter leading-none">{stat.val}</span>
-                  <p className="text-[#2B463C]/40 text-sm font-bold uppercase tracking-widest">{stat.sub}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Features - Professional Excellence */}
-        <section className="px-6 md:px-16 py-32 lg:py-56 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto text-center flex flex-col items-center gap-24">
-            <div className="flex flex-col gap-8 max-w-4xl">
-              <span className="text-[10px] font-black text-[#F28C73] uppercase tracking-[0.6em] animate-pulse">Infraestructura de Clase Mundial</span>
-              <h2 className="text-[#2B463C] text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9]">
-                Diseñado para líderes de justicia.
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full">
-              {[
-                { title: 'Motor de Decisiones', desc: 'Analítica en tiempo real para evaluar riesgos psicosociales.', icon: 'analytics' },
-                { title: 'Cifrado Soberano', desc: 'Protocolos de seguridad grado militar para datos sensibles.', icon: 'lock' },
-                { title: 'Nube Descentralizada', desc: 'Acceso total sin depender de infraestructuras locales fallidas.', icon: 'cloud_done' },
-                { title: 'Gestión Humana', desc: 'Interfaz diseñada para reducir la fatiga en el equipo jurídico.', icon: 'auto_awesome' }
-              ].map((feat, i) => (
-                <div key={i} className="group p-14 rounded-[3.5rem] bg-white/40 backdrop-blur-2xl border border-white/80 hover:bg-[#2B463C] transition-all duration-700 shadow-2xl shadow-black/5 hover:shadow-[#2B463C]/30 flex flex-col items-center text-center">
-                  <div className="w-20 h-20 rounded-3xl bg-[#F28C73]/10 flex items-center justify-center mb-12 group-hover:bg-white/20 group-hover:scale-110 transition-all duration-500">
-                    <span className="material-symbols-outlined text-[#F28C73] group-hover:text-white text-5xl font-light">{feat.icon}</span>
-                  </div>
-                  <h3 className="text-2xl font-black group-hover:text-white mb-6 uppercase tracking-tighter transition-colors">{feat.title}</h3>
-                  <p className="text-[12px] font-bold uppercase tracking-[0.2em] leading-relaxed text-[#2B463C]/40 group-hover:text-white/60 transition-colors">{feat.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Closing - CTA */}
-        <section className="px-6 md:px-16 py-32 lg:pt-0 lg:pb-56">
-          <div className="max-w-6xl mx-auto rounded-[4rem] bg-[#2B463C] p-12 lg:p-32 text-center flex flex-col items-center gap-12 relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(43,70,60,0.4)]">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-[#F28C73]/10 blur-[100px] rounded-full translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 blur-[80px] rounded-full -translate-x-1/2 translate-y-1/2" />
-
-            <h2 className="text-white text-4xl md:text-7xl font-black uppercase tracking-tighter leading-tight relative z-10">
-              ¿Listo para transformar <br className="hidden md:block" /> la justicia en su municipio?
-            </h2>
-            <Link
-              href="/login"
-              className="relative z-10 flex items-center justify-center rounded-[2rem] h-20 px-16 bg-[#F28C73] hover:bg-white text-[#2B463C] text-xs font-black uppercase tracking-[0.4em] transition-all active:scale-95 shadow-2xl"
+        <main className="flex-1 mt-24 px-6 pb-20 max-w-[1200px] mx-auto w-full flex flex-col items-center justify-center">
+          {/* ─── Hero Section ─── */}
+          <section className="w-full flex justify-center py-12 md:py-20">
+            <div className="rounded-2xl md:rounded-[2.5rem] p-8 md:p-16 w-full max-w-[960px] flex flex-col items-center text-center relative overflow-hidden"
+              style={{
+                background: 'rgba(17, 24, 33, 0.6)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.05)',
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
+              }}
             >
-              Solicitar Acceso al Portal
-            </Link>
-          </div>
-        </section>
-      </main>
+              {/* Decorative glow */}
+              <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+                style={{ background: 'rgba(255, 127, 80, 0.2)' }} />
 
-      {/* Premium Footer */}
-      <footer className="px-6 md:px-16 py-20 border-t border-[#2B463C]/10 relative z-10 bg-white/20 backdrop-blur-md">
-        <div className="max-w-[1600px] mx-auto flex flex-col gap-20">
-          <div className="flex flex-col md:flex-row justify-between items-start gap-16">
-            <div className="flex flex-col gap-8 max-w-sm">
-              <div className="flex items-center gap-4 group">
-                <SicofLogoIcon className="w-8 h-8 opacity-100 group-hover:rotate-12 transition-transform duration-500" />
-                <div className="flex flex-col">
-                  <span className="text-2xl font-serif font-black uppercase tracking-tighter">Komi</span>
-                  <span className="text-[9px] font-bold text-[#2B463C]/40 uppercase tracking-[0.5em]">Systems of Justice</span>
+              <div className="relative z-10 flex flex-col items-center gap-6 max-w-3xl">
+                <span className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-2"
+                  style={{
+                    border: '1px solid rgba(255, 127, 80, 0.3)',
+                    background: 'rgba(255, 127, 80, 0.1)',
+                    color: '#ff7f50',
+                  }}
+                >
+                  Software de Gestión Familiar
+                </span>
+
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white"
+                  style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                  Justicia Familiar <span className="italic" style={{ color: '#ff7f50' }}>Digital</span> y Humana
+                </h1>
+
+                <p className="text-lg md:text-xl font-light mt-4 max-w-2xl" style={{ color: 'rgba(203, 213, 225, 1)' }}>
+                  Modern family &amp; welfare management SaaS for family police stations. Transforma la atención y optimiza los procesos con tecnología centrada en las personas.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <Link href="/login"
+                    className="text-white px-8 py-4 rounded-full text-base font-bold transition-all flex items-center gap-2 hover:opacity-90"
+                    style={{ background: '#ff7f50', boxShadow: '0 8px 24px rgba(255, 127, 80, 0.2)' }}
+                  >
+                    Comenzar ahora
+                    <ArrowRight size={18} />
+                  </Link>
+                  <button
+                    className="px-8 py-4 rounded-full text-base font-bold transition-all flex items-center gap-2 text-white"
+                    style={{
+                      background: 'rgba(17, 24, 33, 0.6)',
+                      backdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255, 255, 255, 0.05)',
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.05)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(17, 24, 33, 0.6)')}
+                  >
+                    Ver Demo
+                    <span className="text-lg">▶</span>
+                  </button>
                 </div>
               </div>
-              <p className="text-[11px] font-bold text-[#2B463C]/40 uppercase tracking-widest leading-loose">
-                Komi es una plataforma de tecnología legal diseñada específicamente para las Comisarías de Familia en Colombia, optimizando procesos bajo la normativa Ley 2126 de 2021.
+            </div>
+          </section>
+
+          {/* ─── Features Section ─── */}
+          <section className="w-full py-16 flex flex-col items-center gap-12">
+            <div className="text-center max-w-2xl mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white"
+                style={{ fontFamily: "'Playfair Display', 'Georgia', serif" }}>
+                Características principales
+              </h2>
+              <p style={{ color: 'rgba(148, 163, 184, 1)' }}>
+                Todo lo que necesitas para una gestión eficiente, segura y empática.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-16 lg:gap-32">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
               {[
-                { title: 'Producto', links: ['Impacto', 'Soluciones', 'Seguridad'] },
-                { title: 'Regulatorio', links: ['Privacidad', 'Términos', 'Ley 2126'] },
-                { title: 'Soporte', links: ['Documentación', 'Módulo API', 'Contacto'] }
-              ].map((group, i) => (
-                <div key={i} className="flex flex-col gap-8">
-                  <span className="text-[10px] font-black text-[#2B463C] uppercase tracking-[0.4em]">{group.title}</span>
-                  <div className="flex flex-col gap-4">
-                    {group.links.map((link) => (
-                      <Link key={link} href="#" className="text-[10px] font-bold text-[#2B463C]/40 hover:text-[#F28C73] transition-colors uppercase tracking-[0.2em]">{link}</Link>
-                    ))}
+                {
+                  icon: <FolderOpen className="w-7 h-7" />,
+                  iconColor: '#ff7f50',
+                  iconBg: 'rgba(255, 127, 80, 0.2)',
+                  title: 'Gestión de Casos',
+                  desc: 'Administra expedientes de manera segura y digital. Acceso rápido a historiales y documentos importantes en cualquier momento.',
+                },
+                {
+                  icon: <Users className="w-7 h-7" />,
+                  iconColor: '#10b981',
+                  iconBg: 'rgba(16, 185, 129, 0.2)',
+                  title: 'Seguimiento Familiar',
+                  desc: 'Mantén un registro detallado de las interacciones, mediaciones y acuerdos. Crea cronogramas visuales de la evolución familiar.',
+                },
+                {
+                  icon: <BarChart3 className="w-7 h-7" />,
+                  iconColor: '#f59e0b',
+                  iconBg: 'rgba(245, 158, 11, 0.2)',
+                  title: 'Reportes Avanzados',
+                  desc: 'Genera informes estadísticos y analíticos con un clic. Visualiza tendencias y métricas clave para mejorar la toma de decisiones.',
+                },
+              ].map((feat, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl p-8 flex flex-col gap-4 hover:-translate-y-2 transition-transform duration-300"
+                  style={{
+                    background: 'rgba(17, 24, 33, 0.6)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.3)',
+                  }}
+                >
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-2"
+                    style={{ background: feat.iconBg, color: feat.iconColor }}>
+                    {feat.icon}
                   </div>
+                  <h3 className="text-xl font-bold text-white">{feat.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(148, 163, 184, 1)' }}>
+                    {feat.desc}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+        </main>
 
-          <div className="flex flex-col md:flex-row justify-between items-center pt-16 border-t border-[#2B463C]/5 gap-8">
-            <span className="text-[9px] font-black text-[#2B463C]/20 uppercase tracking-[0.6em]">© 2026 KOMI PROJECT • BOGOTÁ, COLOMBIA • ALL RIGHTS RESERVED</span>
-            <div className="flex gap-10">
-              {['LinkedIn', 'Twitter', 'GitHub'].map(social => (
-                <Link key={social} href="#" className="text-[9px] font-black text-[#2B463C]/20 hover:text-[#2B463C] transition-colors uppercase tracking-[0.3em]">{social}</Link>
+        {/* ─── Footer ─── */}
+        <footer className="w-full py-8 mt-auto" style={{
+          background: 'rgba(17, 24, 33, 0.6)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.05)',
+          borderBottom: 'none',
+          borderLeft: 'none',
+          borderRight: 'none',
+        }}>
+          <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2" style={{ color: '#ff7f50' }}>
+              <SicofLogoIcon className="w-5 h-5 invert" />
+              <span className="font-bold text-white">Komi</span>
+            </div>
+            <div className="flex gap-6">
+              {['Privacidad', 'Términos', 'Soporte'].map((link) => (
+                <a key={link} className="text-sm transition-colors" href="#"
+                  style={{ color: 'rgba(148, 163, 184, 0.6)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = '#ff7f50')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(148, 163, 184, 0.6)')}
+                >
+                  {link}
+                </a>
               ))}
             </div>
+            <p className="text-sm" style={{ color: 'rgba(148, 163, 184, 0.4)' }}>
+              © 2026 Komi. Todos los derechos reservados.
+            </p>
           </div>
-        </div>
-      </footer>
-
-      {/* Custom Animations & Interactions */}
-      <style jsx global>{`
-                @keyframes float {
-                    0%, 100% { transform: translateY(0px) rotate(0deg); }
-                    50% { transform: translateY(-30px) rotate(1deg); }
-                }
-                .animate-float {
-                    animation: float 8s ease-in-out infinite;
-                }
-                .animate-fade-in-up {
-                    animation: fadeInUp 1s ease-out forwards;
-                }
-                @keyframes fadeInUp {
-                    from { opacity: 0; transform: translateY(40px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-            `}</style>
+        </footer>
+      </div>
     </div>
   )
 }
