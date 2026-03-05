@@ -25,7 +25,8 @@ import {
     LogOut,
     Menu,
     X,
-    MoreHorizontal
+    MoreHorizontal,
+    BotMessageSquare
 } from 'lucide-react'
 import type { RolUsuario } from '@/types/db'
 
@@ -45,6 +46,7 @@ function getNavItems(rol: RolUsuario | undefined): NavItem[] {
         { label: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="h-5 w-5" /> },
         { label: 'Expedientes', href: '/dashboard/casos', icon: <FolderHeart className="h-5 w-5" /> },
         { label: 'Personas', href: '/dashboard/personas', icon: <UserSearch className="h-5 w-5" /> },
+        { label: 'Komi AI', href: '/dashboard/komi-ai', icon: <BotMessageSquare className="h-5 w-5" /> },
     ]
 
     switch (rol) {

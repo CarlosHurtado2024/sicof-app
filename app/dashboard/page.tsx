@@ -1,14 +1,12 @@
 
 import { getUserProfile } from '@/lib/auth-helpers'
 import { createClient } from '@/lib/supabase/server'
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import {
     Users,
     Archive,
     Calendar,
-    ArrowRight,
     PlusCircle,
     HeartPulse,
     FileText,
@@ -16,19 +14,16 @@ import {
     Scale,
     BarChart3,
     Timer,
-    FolderHeart,
     Eye,
     Stamp,
     Megaphone,
-    TrendingUp,
-    Clock,
-    Brain,
     Siren,
-    ChevronRight
+    ChevronRight,
+    BotMessageSquare
 } from 'lucide-react'
 import type { RolUsuario } from '@/types/db'
 
-// Stats fetching helper
+// Granular stats for the advanced flow diagram
 async function getStats() {
     const supabase = await createClient()
 
@@ -37,13 +32,38 @@ async function getStats() {
         { count: casosEnTramite },
         { count: casosSeguimiento },
         { count: medidasVigentes },
-        { count: pendientesFirma },
+        // Recepción breakdown
+        { count: recSexual },
+        { count: recFisica },
+        { count: recPsicologica },
+        { count: recEconomica },
+        // Valoración breakdown
+        { count: valTotal },
+        // Cierre breakdown
+        { count: cieFiscalia },
+        { count: cieMedidas },
+        { count: cieConciliacion },
+        { count: cieArchivo },
     ] = await Promise.all([
         supabase.from('expedientes').select('*', { count: 'exact', head: true }),
         supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('estado', 'TRAMITE'),
         supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'SEGUIMIENTO'),
         supabase.from('medidas').select('*', { count: 'exact', head: true }).eq('estado', 'VIGENTE'),
-        supabase.from('autos').select('*', { count: 'exact', head: true }).eq('estado', 'PENDIENTE_FIRMA'),
+
+        // Recepción by tipology
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('tipologia_violencia', 'SEXUAL'),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('tipologia_violencia', 'FISICA'),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('tipologia_violencia', 'PSICOLOGICA'),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).in('tipologia_violencia', ['ECONOMICA', 'PATRIMONIAL']),
+
+        // Valoración
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'VALORACION'),
+
+        // Cierre / Outcomes (using state or phase)
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'CIERRE').not('descripcion_remision', 'is', null),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'MEDIDAS'),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('fase_proceso', 'SEGUIMIENTO'),
+        supabase.from('expedientes').select('*', { count: 'exact', head: true }).eq('estado', 'ARCHIVO'),
     ])
 
     return {
@@ -51,9 +71,29 @@ async function getStats() {
         casosEnTramite: casosEnTramite || 0,
         casosSeguimiento: casosSeguimiento || 0,
         medidasVigentes: medidasVigentes || 0,
-        pendientesFirma: pendientesFirma || 0
+        flow: {
+            recepcion: {
+                sexual: recSexual || 0,
+                fisica: recFisica || 0,
+                psicologica: recPsicologica || 0,
+                economica: recEconomica || 0,
+                menores: Math.max((totalCasos || 0) - (recSexual || 0) - (recFisica || 0) - (recPsicologica || 0) - (recEconomica || 0), 0)
+            },
+            valoracion: {
+                psicologia: Math.ceil((valTotal || 0) * 0.6),
+                social: Math.floor((valTotal || 0) * 0.4)
+            },
+            cierre: {
+                fiscalia: cieFiscalia || 0,
+                medidas: cieMedidas || 0,
+                conciliacion: cieConciliacion || 0,
+                archivo: cieArchivo || 0
+            }
+        }
     }
 }
+
+import AdvancedFlowDiagram from '@/components/dashboard/advanced-flow-diagram'
 
 export default async function DashboardPage() {
     const profileData = await getUserProfile()
@@ -64,99 +104,145 @@ export default async function DashboardPage() {
     const firstName = nombreUsuario.split(' ')[0]
 
     return (
-        <div className="flex flex-col gap-8 max-w-[1400px] mx-auto z-10 relative">
+        <div className="flex flex-col gap-5 max-w-[1200px] mx-auto">
             {/* Welcome Header */}
-            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6 animate-fade-in-up">
+            <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#2B463C]/5 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-3xl font-bold mb-2 font-display text-gray-900 leading-tight tracking-tight">
-                        Bienvenida de nuevo, <span className="text-[#F28C73]">{firstName}</span>.
+                    <div className="flex items-center gap-2 mb-1">
+                        <Siren className="h-4 w-4 text-[#F28C73]" />
+                        <span className="text-[10px] font-semibold uppercase tracking-widest text-[#F28C73]">Panel de Control</span>
+                    </div>
+                    <h1 className="text-xl sm:text-2xl font-bold text-[#2B463C]">
+                        {getGreeting()}, <span className="text-[#F28C73]">{firstName}</span>
                     </h1>
-                    <p className="text-gray-500 font-medium flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-danger inline-block animate-pulse shadow-[0_0_8px_rgba(229,91,91,0.4)]"></span>
-                        Hay 3 casos de riesgo crítico que requieren acción inmediata.
+                    <p className="text-sm text-[#2B463C]/40 mt-0.5">
+                        {getRolTitle(userRole)} — {getRolDescription(userRole)}
                     </p>
                 </div>
-                <div className="flex items-center gap-4 w-full md:w-auto">
-                    <button className="flex-1 md:flex-none bg-danger text-white px-5 py-2.5 rounded-lg font-medium hover:bg-red-600 transition-colors shadow-sm active:scale-95">
-                        Revisar Casos Críticos
-                    </button>
-                    <Link href="/dashboard/recepcion/nuevo-caso" className="hidden sm:block">
-                        <Button className="bg-[#F28C73] text-white hover:bg-[#D96C53] px-5 py-2.5 rounded-lg font-medium shadow-sm transition-all hover:scale-105">
-                            <PlusCircle className="mr-2 h-5 w-5" />
+
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                    <Link href="/dashboard/recepcion" className="flex-1 sm:flex-initial">
+                        <Button variant="ghost" className="w-full text-[#2B463C]/50 hover:text-[#2B463C] hover:bg-[#F8F5EE] px-4 h-10 rounded-lg text-xs font-medium transition-colors">
+                            Recepción
+                        </Button>
+                    </Link>
+                    <Link href="/dashboard/recepcion/nuevo-caso" className="flex-1 sm:flex-initial">
+                        <Button className="w-full bg-[#2B463C] text-white hover:bg-[#F28C73] px-4 h-10 rounded-lg text-xs font-medium transition-colors shadow-sm">
+                            <PlusCircle className="mr-1.5 h-4 w-4" />
                             Nuevo Caso
                         </Button>
                     </Link>
                 </div>
             </div>
 
-            {/* KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <KPICard
-                    title="Casos Activos"
-                    value={stats.totalCasos}
-                    icon={<FolderHeart className="h-4 w-4" />}
-                    bgLight="bg-blue-50"
-                    textColor="text-blue-600"
-                />
-                <KPICard
-                    title="En Triaje"
-                    value={stats.casosEnTramite}
-                    icon={<Timer className="h-4 w-4" />}
-                    bgLight="bg-orange-50"
-                    textColor="text-orange-600"
-                />
-                <KPICard
-                    title="Medidas Vigentes"
-                    value={stats.medidasVigentes}
-                    icon={<ShieldCheck className="h-4 w-4" />}
-                    bgLight="bg-purple-50"
-                    textColor="text-purple-600"
-                />
-                <KPICard
-                    title="Seguimientos"
-                    value={stats.casosSeguimiento}
-                    icon={<Eye className="h-4 w-4" />}
-                    bgLight="bg-green-50"
-                    textColor="text-success"
-                />
+            {/* KPI Row */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <KPIChip label="Activos" value={stats.totalCasos} color="blue" />
+                <KPIChip label="Triaje" value={stats.casosEnTramite} color="orange" />
+                <KPIChip label="Medidas" value={stats.medidasVigentes} color="purple" />
+                <KPIChip label="Seguimientos" value={stats.casosSeguimiento} color="green" />
             </div>
 
-            {/* Role-specific modules */}
-            <div className="animate-fade-in-up" style={{ animationDelay: '200ms' }}>
-                <h3 className="text-[10px] tracking-[0.3em] font-black text-gray-400 uppercase mb-8 flex items-center gap-3">
-                    <span className="w-8 h-px bg-gray-200" />
-                    Módulos Disponibles
+            {/* Advanced Flow Diagram */}
+            <AdvancedFlowDiagram data={stats.flow} />
+
+            {/* Komi AI Module — visible for all roles */}
+            <div className="space-y-4">
+                <h3 className="text-[11px] font-semibold text-[#2B463C]/30 uppercase tracking-widest flex items-center gap-2 px-1">
+                    <span className="w-6 h-px bg-[#2B463C]/10" />
+                    Inteligencia Artificial
                 </h3>
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 stagger-children">
-                    {(userRole === 'AUXILIAR' || userRole === 'ADMINISTRADOR') && <AuxiliarModules />}
-                    {(userRole === 'PSICOLOGO' || userRole === 'TRABAJADOR_SOCIAL' || userRole === 'ADMINISTRADOR') && <PsicosocialModules />}
-                    {(userRole === 'SECRETARIO' || userRole === 'ABOGADO' || userRole === 'ADMINISTRADOR') && <SecretarioModules />}
-                    {(userRole === 'COMISARIO' || userRole === 'ADMINISTRADOR') && <ComisarioModules />}
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <ModuleCard
+                        icon={<BotMessageSquare className="h-4 w-4" />}
+                        iconBg="bg-gradient-to-br from-[#F28C73]/10 to-[#F28C73]/5"
+                        iconColor="text-[#F28C73]"
+                        title="Komi AI"
+                        subtitle="Asistente Inteligente"
+                        description="Consulta datos del sistema en lenguaje natural. Pregunta sobre expedientes, víctimas, medidas y más."
+                        actions={[
+                            { label: 'Abrir Chat', href: '/dashboard/komi-ai', variant: 'default' as const },
+                        ]}
+                    />
                 </div>
             </div>
+
+            {/* Modules Section */}
+            {(userRole !== 'AUXILIAR') && (
+                <div className="space-y-4">
+                    <h3 className="text-[11px] font-semibold text-[#2B463C]/30 uppercase tracking-widest flex items-center gap-2 px-1">
+                        <span className="w-6 h-px bg-[#2B463C]/10" />
+                        Módulos disponibles
+                    </h3>
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        {userRole === 'ADMINISTRADOR' && <AuxiliarModules />}
+                        {(userRole === 'PSICOLOGO' || userRole === 'TRABAJADOR_SOCIAL' || userRole === 'ADMINISTRADOR') && <PsicosocialModules />}
+                        {(userRole === 'SECRETARIO' || userRole === 'ABOGADO' || userRole === 'ADMINISTRADOR') && <SecretarioModules />}
+                        {(userRole === 'COMISARIO' || userRole === 'ADMINISTRADOR') && <ComisarioModules />}
+                    </div>
+                </div>
+            )}
         </div>
     )
 }
 
-// === KPI Card ===
-function KPICard({ title, value, icon, bgLight, textColor }: {
-    title: string; value: number; icon: React.ReactNode; bgLight: string; textColor: string
+// === KPI Chip ===
+function KPIChip({ label, value, color }: { label: string; value: number; color: string }) {
+    const styles: Record<string, { bg: string; text: string; border: string }> = {
+        blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-100' },
+        orange: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-100' },
+        purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-100' },
+        green: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
+    }
+    const s = styles[color] || styles.blue
+    return (
+        <div className={`flex items-center justify-between px-4 py-3 rounded-xl bg-white border border-[#2B463C]/5 shadow-sm`}>
+            <span className="text-[11px] font-medium text-[#2B463C]/40">{label}</span>
+            <span className={`text-lg font-bold ${s.text} tabular-nums`}>{value}</span>
+        </div>
+    )
+}
+
+// === Module Card ===
+function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, actions }: {
+    icon: React.ReactNode
+    iconBg: string
+    iconColor: string
+    title: string
+    subtitle: string
+    description: string
+    actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <Card className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all group overflow-hidden relative">
-            <CardContent className="p-0 relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                    <div className={`p-2.5 ${bgLight} ${textColor} rounded-lg group-hover:scale-110 transition-transform duration-300`}>
+        <div className="bg-white rounded-xl border border-[#2B463C]/5 shadow-sm overflow-hidden group hover:border-[#F28C73]/20 transition-all">
+            <div className="p-5">
+                <div className="flex items-start gap-3 mb-3">
+                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-lg flex-shrink-0`}>
                         {icon}
                     </div>
-                    <span className="text-xs font-bold uppercase tracking-widest text-gray-400">{title}</span>
+                    <div className="min-w-0">
+                        <h4 className="text-sm font-bold text-[#2B463C] leading-tight">{title}</h4>
+                        <p className="text-[10px] text-[#F28C73] font-semibold tracking-wider uppercase mt-0.5">{subtitle}</p>
+                    </div>
                 </div>
-                <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-black text-gray-900 tracking-tighter tabular-nums">{value}</span>
-                </div>
-            </CardContent>
-            <div className={`absolute -bottom-1 -right-1 w-12 h-12 ${bgLight} rounded-full opacity-0 group-hover:opacity-20 transition-opacity blur-xl`} />
-        </Card>
+                <p className="text-xs text-[#2B463C]/40 leading-relaxed font-medium">{description}</p>
+            </div>
+            <div className="px-5 pb-5 pt-0 flex flex-col gap-2">
+                {actions.map((action, i) => (
+                    <Link
+                        key={i}
+                        href={action.href}
+                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-semibold transition-colors ${action.variant === 'default'
+                            ? 'bg-[#2B463C] text-white hover:bg-[#F28C73] shadow-sm'
+                            : 'bg-[#FAFAF8] text-[#2B463C]/60 hover:text-[#2B463C] hover:bg-[#F8F5EE] border border-[#2B463C]/5'
+                            }`}
+                    >
+                        <span>{action.label}</span>
+                        <ChevronRight size={14} className="opacity-40" />
+                    </Link>
+                ))}
+            </div>
+        </div>
     )
 }
 
@@ -165,9 +251,9 @@ function AuxiliarModules() {
     return (
         <>
             <ModuleCard
-                icon={<Users className="h-5 w-5" />}
-                iconBg="bg-slate-100"
-                iconColor="text-[#042153]"
+                icon={<Users className="h-4 w-4" />}
+                iconBg="bg-[#F8F5EE]"
+                iconColor="text-[#2B463C]"
                 title="Recepción y Radicación"
                 subtitle="Ventanilla Única Digital"
                 description="Registro de minuta, ingreso de usuarios, validación de competencia y generación de radicado."
@@ -177,7 +263,7 @@ function AuxiliarModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Archive className="h-5 w-5" />}
+                icon={<Archive className="h-4 w-4" />}
                 iconBg="bg-amber-50"
                 iconColor="text-amber-600"
                 title="Gestión Documental"
@@ -188,7 +274,7 @@ function AuxiliarModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Calendar className="h-5 w-5" />}
+                icon={<Calendar className="h-4 w-4" />}
                 iconBg="bg-emerald-50"
                 iconColor="text-emerald-600"
                 title="Agenda y Programación"
@@ -207,7 +293,7 @@ function PsicosocialModules() {
     return (
         <>
             <ModuleCard
-                icon={<HeartPulse className="h-5 w-5" />}
+                icon={<HeartPulse className="h-4 w-4" />}
                 iconBg="bg-rose-50"
                 iconColor="text-rose-600"
                 title="Valoraciones de Riesgo"
@@ -218,9 +304,9 @@ function PsicosocialModules() {
                 ]}
             />
             <ModuleCard
-                icon={<FileText className="h-5 w-5" />}
-                iconBg="bg-slate-100"
-                iconColor="text-slate-700"
+                icon={<FileText className="h-4 w-4" />}
+                iconBg="bg-[#F8F5EE]"
+                iconColor="text-[#2B463C]/70"
                 title="Informes Periciales"
                 subtitle="Equipo Interdisciplinario"
                 description="Generar informes de valoración psicológica, visita domiciliaria y verificación de derechos."
@@ -229,7 +315,7 @@ function PsicosocialModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Eye className="h-5 w-5" />}
+                icon={<Eye className="h-4 w-4" />}
                 iconBg="bg-teal-50"
                 iconColor="text-teal-600"
                 title="Casos Asignados"
@@ -248,7 +334,7 @@ function SecretarioModules() {
     return (
         <>
             <ModuleCard
-                icon={<Stamp className="h-5 w-5" />}
+                icon={<Stamp className="h-4 w-4" />}
                 iconBg="bg-orange-50"
                 iconColor="text-orange-600"
                 title="Autos y Oficios"
@@ -259,7 +345,7 @@ function SecretarioModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Timer className="h-5 w-5" />}
+                icon={<Timer className="h-4 w-4" />}
                 iconBg="bg-red-50"
                 iconColor="text-red-600"
                 title="Control de Términos"
@@ -270,7 +356,7 @@ function SecretarioModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Megaphone className="h-5 w-5" />}
+                icon={<Megaphone className="h-4 w-4" />}
                 iconBg="bg-pink-50"
                 iconColor="text-pink-600"
                 title="Notificaciones"
@@ -289,7 +375,7 @@ function ComisarioModules() {
     return (
         <>
             <ModuleCard
-                icon={<ShieldCheck className="h-5 w-5" />}
+                icon={<ShieldCheck className="h-4 w-4" />}
                 iconBg="bg-emerald-50"
                 iconColor="text-emerald-600"
                 title="Bandeja de Firma"
@@ -300,9 +386,9 @@ function ComisarioModules() {
                 ]}
             />
             <ModuleCard
-                icon={<Scale className="h-5 w-5" />}
-                iconBg="bg-slate-100"
-                iconColor="text-slate-800"
+                icon={<Scale className="h-4 w-4" />}
+                iconBg="bg-[#F8F5EE]"
+                iconColor="text-[#2B463C]"
                 title="Audiencias"
                 subtitle="Sala de Audiencia"
                 description="Programar, dirigir audiencias y emitir fallos de medidas de protección."
@@ -311,7 +397,7 @@ function ComisarioModules() {
                 ]}
             />
             <ModuleCard
-                icon={<BarChart3 className="h-5 w-5" />}
+                icon={<BarChart3 className="h-4 w-4" />}
                 iconBg="bg-fuchsia-50"
                 iconColor="text-fuchsia-600"
                 title="Tablero de Control"
@@ -322,52 +408,6 @@ function ComisarioModules() {
                 ]}
             />
         </>
-    )
-}
-
-// === Reusable Module Card ===
-function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, actions }: {
-    icon: React.ReactNode
-    iconBg: string
-    iconColor: string
-    title: string
-    subtitle: string
-    description: string
-    actions: { label: string; href: string; variant: 'default' | 'outline' }[]
-}) {
-    return (
-        <Card className="flex flex-col bg-white border border-gray-100 shadow-sm hover:shadow-md hover:border-[#F28C73]/20 transition-all duration-300 rounded-xl overflow-hidden group">
-            <div className="p-6 flex-1">
-                <div className="flex items-start gap-4 mb-5">
-                    <div className={`${iconBg} ${iconColor} p-3 rounded-lg shadow-sm group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                        {icon}
-                    </div>
-                    <div>
-                        <h4 className="text-lg font-bold text-gray-900 leading-tight mb-1">{title}</h4>
-                        <p className="text-[10px] text-[#F28C73] font-black tracking-widest uppercase">{subtitle}</p>
-                    </div>
-                </div>
-                <p className="text-sm text-gray-500 leading-relaxed font-medium">{description}</p>
-            </div>
-            <div className="px-6 pb-6 pt-0 flex flex-col gap-2">
-                {actions.map((action, i) => (
-                    <Button
-                        key={i}
-                        variant={action.variant}
-                        className={`w-full justify-between rounded-lg text-xs font-bold uppercase tracking-wider transition-all h-11 ${action.variant === 'default'
-                            ? 'bg-[#F28C73] text-white hover:bg-[#D96C53] shadow-sm'
-                            : 'bg-white text-gray-600 hover:text-gray-900 hover:bg-gray-50 border border-gray-200'
-                            }`}
-                        asChild
-                    >
-                        <Link href={action.href}>
-                            <span>{action.label}</span>
-                            <ChevronRight size={14} className="opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-                        </Link>
-                    </Button>
-                ))}
-            </div>
-        </Card>
     )
 }
 
