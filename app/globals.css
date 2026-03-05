@@ -5,48 +5,53 @@
 @layer base {
 
   :root {
-    --background: 38 40% 95%;    /* #F8F5EE earthy cream */
-    --foreground: 0 0% 12%;      /* #1A1A1A */
+    --background: 216 28% 7%;     /* #0f1720 dark */
+    --foreground: 210 20% 90%;    /* light text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 12%;
+    --card: 216 28% 10%;
+    --card-foreground: 210 20% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 12%;
+    --popover: 216 28% 10%;
+    --popover-foreground: 210 20% 90%;
 
-    --primary: 11 83% 70%;       /* #F28C73 - Komi Coral */
+    --primary: 14 100% 67%;       /* #ff7a59 Coral */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 40% 92%;     /* #F2EBE1 sidebar light */
-    --secondary-foreground: 0 0% 12%;
+    --secondary: 216 28% 12%;
+    --secondary-foreground: 210 20% 80%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 40%;
+    --muted: 216 20% 15%;
+    --muted-foreground: 210 10% 55%;
 
-    --accent: 11 83% 70%;
+    --accent: 14 100% 67%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 74% 63%;    /* #E55B5B */
+    --destructive: 0 74% 63%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 92%;
-    --ring: 11 83% 70%;
+    --border: 210 10% 15%;
+    --input: 216 20% 12%;
+    --ring: 14 100% 67%;
 
     --radius: 0.75rem;
-  }
-}
 
-.dark {
-  --background: 0 0% 10%;
-  --foreground: 0 0% 95%;
-  --primary: 11 83% 70%;
-  --border: 0 0% 20%;
+    /* Dark glassmorphism tokens */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-bg-hover: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-hover: rgba(255, 255, 255, 0.12);
+    --text-primary: rgba(255, 255, 255, 0.9);
+    --text-secondary: rgba(255, 255, 255, 0.55);
+    --text-muted: rgba(255, 255, 255, 0.3);
+    --coral: #ff7a59;
+    --dark-bg: #0a1118;
+    --dark-surface: #111821;
+  }
 }
 
 @layer base {
   * {
-    border-color: hsl(var(--border));
+    border-color: var(--glass-border);
   }
 
   html {
@@ -54,14 +59,14 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--dark-bg);
+    color: var(--text-primary);
     font-feature-settings: "rlig" 1, "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-weight: 400;
   }
 
-  /* Normalize font-weight in tables and forms */
   table th {
     font-weight: 600;
   }
@@ -72,12 +77,36 @@
 
   input, select, textarea {
     font-weight: 400;
+    color: var(--text-primary);
   }
 
   /* Global selection */
   ::selection {
-    background: rgba(242, 132, 130, 0.15);
-    color: #2B463C;
+    background: rgba(255, 122, 89, 0.25);
+    color: white;
+  }
+
+  /* Force dark inputs across the app */
+  input, select, textarea {
+    background: var(--glass-bg) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: var(--text-primary) !important;
+    border-radius: 0.75rem;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: var(--text-muted) !important;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(255, 122, 89, 0.4) !important;
+    border-color: transparent !important;
+  }
+
+  /* Labels */
+  label {
+    color: var(--text-secondary);
   }
 }
 
@@ -91,31 +120,17 @@
   display: none;
 }
 
-/* PWA safe area insets for notch devices */
+/* PWA safe area insets */
 @supports (padding: env(safe-area-inset-top)) {
-  .safe-top {
-    padding-top: env(safe-area-inset-top);
-  }
-
-  .safe-bottom {
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-
-  .safe-left {
-    padding-left: env(safe-area-inset-left);
-  }
-
-  .safe-right {
-    padding-right: env(safe-area-inset-right);
-  }
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .safe-left { padding-left: env(safe-area-inset-left); }
+  .safe-right { padding-right: env(safe-area-inset-right); }
 }
 
 /* Better tap targets on mobile */
 @layer base {
-
-  button,
-  a,
-  [role="button"] {
+  button, a, [role="button"] {
     touch-action: manipulation;
   }
 }
@@ -125,25 +140,19 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Card hover lift effect - Alegria style (soft, playful) */
+/* Card hover lift effect */
 .card-hover {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 16px 48px -12px rgba(43, 70, 60, 0.1);
+  box-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.3);
 }
 
 /* Fade in animation */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-in-up {
   animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
@@ -163,15 +172,20 @@ html {
 .stagger-children > *:nth-child(8) { animation-delay: 490ms; }
 .stagger-children > *:nth-child(9) { animation-delay: 560ms; }
 
-/* ─── Alegria Glassmorphism Card ─── */
+/* ─── Dark Glassmorphism Card ─── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* ─── Alegria Button Interaction ─── */
+.glass-card:hover {
+  border-color: var(--glass-border-hover);
+}
+
+/* ─── Button Interaction ─── */
 .btn-alegria {
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
 }
@@ -192,11 +206,11 @@ html {
   z-index: 50;
   align-items: stretch;
   justify-content: space-around;
-  background: rgba(253, 251, 247, 0.92);
+  background: rgba(10, 17, 24, 0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(43, 70, 60, 0.06);
-  box-shadow: 0 -10px 40px -10px rgba(43, 70, 60, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 -10px 40px -10px rgba(0, 0, 0, 0.3);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   height: calc(72px + env(safe-area-inset-bottom, 0px));
 }
@@ -216,7 +230,7 @@ html {
   flex: 1;
   gap: 4px;
   padding: 8px 2px 10px;
-  color: rgba(43, 70, 60, 0.4);
+  color: rgba(255, 255, 255, 0.35);
   text-decoration: none;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
@@ -228,7 +242,7 @@ html {
 }
 
 .mobile-bottom-nav-item.active {
-  color: #2B463C;
+  color: white;
 }
 
 .mobile-bottom-nav-item:active {
@@ -251,9 +265,9 @@ html {
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-icon {
-  background: rgba(242, 132, 130, 0.12);
+  background: rgba(255, 122, 89, 0.15);
   transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(242, 132, 130, 0.1);
+  box-shadow: 0 2px 8px rgba(255, 122, 89, 0.15);
 }
 
 .mobile-bottom-nav-label {
@@ -267,12 +281,12 @@ html {
   max-width: 100%;
   text-align: center;
   transition: all 0.2s ease;
-  color: rgba(43, 70, 60, 0.4);
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .mobile-bottom-nav-item.active .mobile-bottom-nav-label {
   font-weight: 700;
-  color: #2B463C;
+  color: white;
   letter-spacing: 0.04em;
 }
 
@@ -285,19 +299,13 @@ html {
   width: 16px;
   height: 3px;
   border-radius: 2px;
-  background: #F28482;
+  background: #ff7a59;
   animation: bottomNavIndicatorIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes bottomNavIndicatorIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) scale(0);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
+  from { opacity: 0; transform: translateX(-50%) scale(0); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
 }
 
 /* Overflow "More" popup */
@@ -306,27 +314,21 @@ html {
   bottom: calc(100% + 12px);
   right: -8px;
   min-width: 200px;
-  background: rgba(253, 251, 247, 0.96);
+  background: rgba(17, 24, 33, 0.96);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 20px;
-  box-shadow: 0 10px 50px -10px rgba(43, 70, 60, 0.12),
-              0 0 0 1px rgba(43, 70, 60, 0.04) inset;
-  border: 1px solid rgba(43, 70, 60, 0.06);
+  box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 8px;
   animation: bottomNavOverflowIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: bottom right;
 }
 
 @keyframes bottomNavOverflowIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(8px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .mobile-bottom-nav-overflow-item {
@@ -337,7 +339,7 @@ html {
   border-radius: 12px;
   font-size: 14px;
   font-weight: 600;
-  color: rgba(43, 70, 60, 0.55);
+  color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
   transition: all 0.15s ease;
 }
@@ -347,14 +349,14 @@ html {
 }
 
 .mobile-bottom-nav-overflow-item.active {
-  background: rgba(242, 132, 130, 0.08);
-  color: #2B463C;
+  background: rgba(255, 122, 89, 0.12);
+  color: white;
   font-weight: 700;
 }
 
 .mobile-bottom-nav-overflow-item:not(.active):hover {
-  background: rgba(43, 70, 60, 0.04);
-  color: #2B463C;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .mobile-bottom-nav-overflow-icon {
@@ -364,13 +366,13 @@ html {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(43, 70, 60, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   flex-shrink: 0;
 }
 
 .mobile-bottom-nav-overflow-item.active .mobile-bottom-nav-overflow-icon {
-  background: rgba(242, 132, 130, 0.12);
-  color: #2B463C;
+  background: rgba(255, 122, 89, 0.15);
+  color: white;
 }
 
 /* Add bottom spacing to main content on phones */

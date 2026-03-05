@@ -106,28 +106,28 @@ export default async function DashboardPage() {
     return (
         <div className="flex flex-col gap-5 max-w-[1200px] mx-auto">
             {/* Welcome Header */}
-            <div className="bg-white rounded-xl p-5 sm:p-6 border border-[#2B463C]/5 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <Siren className="h-4 w-4 text-[#F28C73]" />
-                        <span className="text-[10px] font-semibold uppercase tracking-widest text-[#F28C73]">Panel de Control</span>
+                        <Siren className="h-4 w-4" style={{ color: '#ff7a59' }} />
+                        <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#ff7a59' }}>Panel de Control</span>
                     </div>
-                    <h1 className="text-xl sm:text-2xl font-bold text-[#2B463C]">
-                        {getGreeting()}, <span className="text-[#F28C73]">{firstName}</span>
+                    <h1 className="text-xl sm:text-2xl font-bold text-white">
+                        {getGreeting()}, <span style={{ color: '#ff7a59' }}>{firstName}</span>
                     </h1>
-                    <p className="text-sm text-[#2B463C]/40 mt-0.5">
+                    <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>
                         {getRolTitle(userRole)} — {getRolDescription(userRole)}
                     </p>
                 </div>
 
                 <div className="flex items-center gap-2 w-full sm:w-auto">
                     <Link href="/dashboard/recepcion" className="flex-1 sm:flex-initial">
-                        <Button variant="ghost" className="w-full text-[#2B463C]/50 hover:text-[#2B463C] hover:bg-[#F8F5EE] px-4 h-10 rounded-lg text-xs font-medium transition-colors">
+                        <Button variant="ghost" className="w-full px-4 h-10 rounded-lg text-xs font-medium transition-colors" style={{ color: 'rgba(255,255,255,0.45)' }}>
                             Recepción
                         </Button>
                     </Link>
                     <Link href="/dashboard/recepcion/nuevo-caso" className="flex-1 sm:flex-initial">
-                        <Button className="w-full bg-[#2B463C] text-white hover:bg-[#F28C73] px-4 h-10 rounded-lg text-xs font-medium transition-colors shadow-sm">
+                        <Button className="w-full px-4 h-10 rounded-lg text-xs font-medium transition-colors shadow-sm text-white" style={{ background: '#ff7a59', boxShadow: '0 4px 14px rgba(255,122,89,0.25)' }}>
                             <PlusCircle className="mr-1.5 h-4 w-4" />
                             Nuevo Caso
                         </Button>
@@ -170,8 +170,8 @@ export default async function DashboardPage() {
             {/* Modules Section */}
             {(userRole !== 'AUXILIAR') && (
                 <div className="space-y-4">
-                    <h3 className="text-[11px] font-semibold text-[#2B463C]/30 uppercase tracking-widest flex items-center gap-2 px-1">
-                        <span className="w-6 h-px bg-[#2B463C]/10" />
+                    <h3 className="text-[11px] font-semibold uppercase tracking-widest flex items-center gap-2 px-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                        <span className="w-6 h-px" style={{ background: 'rgba(255,255,255,0.1)' }} />
                         Módulos disponibles
                     </h3>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -188,17 +188,17 @@ export default async function DashboardPage() {
 
 // === KPI Chip ===
 function KPIChip({ label, value, color }: { label: string; value: number; color: string }) {
-    const styles: Record<string, { bg: string; text: string; border: string }> = {
-        blue: { bg: 'bg-blue-50', text: 'text-blue-600', border: 'border-blue-100' },
-        orange: { bg: 'bg-orange-50', text: 'text-orange-600', border: 'border-orange-100' },
-        purple: { bg: 'bg-purple-50', text: 'text-purple-600', border: 'border-purple-100' },
-        green: { bg: 'bg-emerald-50', text: 'text-emerald-600', border: 'border-emerald-100' },
+    const accentColors: Record<string, string> = {
+        blue: '#60a5fa',
+        orange: '#fb923c',
+        purple: '#a78bfa',
+        green: '#34d399',
     }
-    const s = styles[color] || styles.blue
+    const accent = accentColors[color] || accentColors.blue
     return (
-        <div className={`flex items-center justify-between px-4 py-3 rounded-xl bg-white border border-[#2B463C]/5 shadow-sm`}>
-            <span className="text-[11px] font-medium text-[#2B463C]/40">{label}</span>
-            <span className={`text-lg font-bold ${s.text} tabular-nums`}>{value}</span>
+        <div className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <span className="text-[11px] font-medium" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</span>
+            <span className="text-lg font-bold tabular-nums" style={{ color: accent }}>{value}</span>
         </div>
     )
 }
@@ -214,18 +214,21 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
     actions: { label: string; href: string; variant: 'default' | 'outline' }[]
 }) {
     return (
-        <div className="bg-white rounded-xl border border-[#2B463C]/5 shadow-sm overflow-hidden group hover:border-[#F28C73]/20 transition-all">
+        <div className="rounded-xl overflow-hidden group transition-all" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(255,122,89,0.2)')}
+            onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
+        >
             <div className="p-5">
                 <div className="flex items-start gap-3 mb-3">
-                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-lg flex-shrink-0`}>
+                    <div className={`${iconBg} ${iconColor} p-2.5 rounded-lg flex-shrink-0`} style={{ background: 'rgba(255,122,89,0.08)' }}>
                         {icon}
                     </div>
                     <div className="min-w-0">
-                        <h4 className="text-sm font-bold text-[#2B463C] leading-tight">{title}</h4>
-                        <p className="text-[10px] text-[#F28C73] font-semibold tracking-wider uppercase mt-0.5">{subtitle}</p>
+                        <h4 className="text-sm font-bold text-white leading-tight">{title}</h4>
+                        <p className="text-[10px] font-semibold tracking-wider uppercase mt-0.5" style={{ color: '#ff7a59' }}>{subtitle}</p>
                     </div>
                 </div>
-                <p className="text-xs text-[#2B463C]/40 leading-relaxed font-medium">{description}</p>
+                <p className="text-xs leading-relaxed font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>{description}</p>
             </div>
             <div className="px-5 pb-5 pt-0 flex flex-col gap-2">
                 {actions.map((action, i) => (
@@ -233,9 +236,13 @@ function ModuleCard({ icon, iconBg, iconColor, title, subtitle, description, act
                         key={i}
                         href={action.href}
                         className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-semibold transition-colors ${action.variant === 'default'
-                            ? 'bg-[#2B463C] text-white hover:bg-[#F28C73] shadow-sm'
-                            : 'bg-[#FAFAF8] text-[#2B463C]/60 hover:text-[#2B463C] hover:bg-[#F8F5EE] border border-[#2B463C]/5'
+                            ? 'text-white shadow-sm'
+                            : ''
                             }`}
+                        style={action.variant === 'default'
+                            ? { background: '#ff7a59', boxShadow: '0 4px 14px rgba(255,122,89,0.2)' }
+                            : { background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.08)' }
+                        }
                     >
                         <span>{action.label}</span>
                         <ChevronRight size={14} className="opacity-40" />

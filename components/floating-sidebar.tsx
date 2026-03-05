@@ -154,20 +154,20 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
     return (
         <>
             {/* ─── Desktop Top Header Bar (≥640px) ─── */}
-            <header className="hidden sm:flex fixed top-0 left-[220px] right-0 h-12 bg-white/60 backdrop-blur-md border-b border-[#2B463C]/5 z-40 items-center justify-end px-6">
+            <header className="hidden sm:flex fixed top-0 left-[220px] right-0 h-12 z-40 items-center justify-end px-6" style={{ background: 'rgba(10, 17, 24, 0.7)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <div className="flex items-center gap-2">
                     {rightSlot}
                 </div>
             </header>
 
             {/* ─── Desktop/Tablet Left Sidebar (≥640px) ─── */}
-            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[220px] flex-col bg-[#F2EBE1] border-r border-[#2B463C]/5 safe-top safe-bottom">
+            <aside className="hidden sm:flex fixed top-0 left-0 bottom-0 z-50 w-[220px] flex-col safe-top safe-bottom" style={{ background: 'rgba(17, 24, 33, 0.8)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
                 {/* Logo */}
                 <Link href="/dashboard" className="flex items-center gap-3 px-5 pt-5 pb-6">
-                    <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20 flex-shrink-0">
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0" style={{ background: '#ff7a59', boxShadow: '0 4px 14px rgba(255,122,89,0.25)' }}>
                         <SicofLogoIcon className="w-6 h-6" inverted={true} />
                     </div>
-                    <span className="text-[#2B463C] text-xl font-bold tracking-tight">Komi</span>
+                    <span className="text-white text-xl font-bold tracking-tight">Komi</span>
                 </Link>
 
                 {/* Nav Items */}
@@ -179,9 +179,10 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 flex-shrink-0 ${isActive
-                                    ? 'bg-[#F28C73] text-white shadow-md shadow-[#F28C73]/15'
-                                    : 'text-[#2B463C]/50 hover:text-[#2B463C] hover:bg-white/50'
+                                    ? 'text-white shadow-md'
+                                    : 'hover:bg-white/5'
                                     }`}
+                                style={isActive ? { background: '#ff7a59', boxShadow: '0 4px 14px rgba(255,122,89,0.2)' } : { color: 'rgba(255,255,255,0.45)' }}
                             >
                                 {item.icon}
                                 <span className="text-sm font-medium">{item.label}</span>
@@ -200,7 +201,10 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
                             document.body.appendChild(form)
                             form.submit()
                         }}
-                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-[#2B463C]/40 hover:text-red-500 hover:bg-red-50 transition-all duration-200"
+                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all duration-200"
+                        style={{ color: 'rgba(255,255,255,0.3)' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(248,113,113,0.1)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'transparent' }}
                     >
                         <LogOut className="h-5 w-5" />
                         <span className="text-sm font-medium">Cerrar Sesión</span>
@@ -209,14 +213,14 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 bg-[#F2EBE1]/95 backdrop-blur-xl border-b border-gray-200 safe-top">
+            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 safe-top" style={{ background: 'rgba(10, 17, 24, 0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <div className="flex items-center justify-between h-16 px-4">
                     {/* Logo */}
                     <Link href="/dashboard" className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#F28C73] rounded-xl flex items-center justify-center text-white shadow-sm">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm" style={{ background: '#ff7a59' }}>
                             <SicofLogoIcon className="w-7 h-7" inverted={true} />
                         </div>
-                        <span className="text-gray-900 font-black text-xl tracking-tighter">Komi</span>
+                        <span className="text-white font-black text-xl tracking-tighter">Komi</span>
                     </Link>
 
                     {/* Right: Notifications + Team + Avatar */}

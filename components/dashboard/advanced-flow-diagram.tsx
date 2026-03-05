@@ -30,18 +30,18 @@ interface FlowData {
 
 export default function AdvancedFlowDiagram({ data }: { data: FlowData }) {
     return (
-        <div className="w-full bg-white rounded-xl border border-[#2B463C]/5 shadow-sm overflow-hidden">
+        <div className="w-full rounded-xl overflow-hidden" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 pt-5 pb-4 border-b border-[#2B463C]/5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-5 pt-5 pb-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                 <div>
                     <div className="flex items-center gap-2 mb-1">
-                        <TrendingUp className="h-4 w-4 text-[#F28C73]" />
-                        <span className="text-[10px] font-semibold uppercase tracking-widest text-[#F28C73]">Análisis Operativo</span>
+                        <TrendingUp className="h-4 w-4" style={{ color: '#ff7a59' }} />
+                        <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: '#ff7a59' }}>Análisis Operativo</span>
                     </div>
-                    <h3 className="text-base font-bold text-[#2B463C]">
+                    <h3 className="text-base font-bold text-white">
                         Flujo Procesal de Casos
                     </h3>
-                    <p className="text-xs text-[#2B463C]/35 font-medium mt-0.5">Distribución de expedientes por fase del proceso.</p>
+                    <p className="text-xs font-medium mt-0.5" style={{ color: 'rgba(255,255,255,0.3)' }}>Distribución de expedientes por fase del proceso.</p>
                 </div>
 
                 <div className="flex flex-wrap gap-3">
@@ -84,7 +84,7 @@ export default function AdvancedFlowDiagram({ data }: { data: FlowData }) {
                             </defs>
                         </svg>
                         {/* Bottleneck indicator */}
-                        <div className="absolute top-[36%] left-1/2 -translate-x-1/2 p-1.5 bg-white rounded-lg shadow-sm border border-red-100 animate-bounce">
+                        <div className="absolute top-[36%] left-1/2 -translate-x-1/2 p-1.5 rounded-lg shadow-sm animate-bounce" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(239,68,68,0.2)' }}>
                             <Clock size={14} className="text-red-400" />
                         </div>
                     </div>
@@ -122,12 +122,12 @@ export default function AdvancedFlowDiagram({ data }: { data: FlowData }) {
             </div>
 
             {/* Info Footer */}
-            <div className="mx-5 mb-5 flex items-center gap-3 bg-[#FAFAF8] p-4 rounded-lg border border-[#2B463C]/5">
-                <div className="p-2 bg-white rounded-lg text-[#F28C73] border border-[#2B463C]/5 flex-shrink-0">
+            <div className="mx-5 mb-5 flex items-center gap-3 p-4 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div className="p-2 rounded-lg flex-shrink-0" style={{ background: 'rgba(255,122,89,0.1)', color: '#ff7a59' }}>
                     <Info size={16} />
                 </div>
-                <p className="text-xs text-[#2B463C]/40 font-medium leading-relaxed">
-                    El grosor de las líneas representa el volumen de casos. Los nodos en <span className="text-[#F28C73] font-semibold">coral</span> indican procesos que exceden el tiempo máximo legal (&gt; 48h).
+                <p className="text-xs font-medium leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    El grosor de las líneas representa el volumen de casos. Los nodos en <span className="font-semibold" style={{ color: '#ff7a59' }}>coral</span> indican procesos que exceden el tiempo máximo legal (&gt; 48h).
                 </p>
             </div>
         </div>
@@ -135,43 +135,47 @@ export default function AdvancedFlowDiagram({ data }: { data: FlowData }) {
 }
 
 function StageTitle({ label }: { label: string }) {
-    return <h4 className="text-[10px] font-semibold text-[#2B463C]/30 uppercase tracking-widest text-center mb-4">{label}</h4>
+    return <h4 className="text-[10px] font-semibold uppercase tracking-widest text-center mb-4" style={{ color: 'rgba(255,255,255,0.3)' }}>{label}</h4>
 }
 
 function FlowBlock({ count, label, isCritical = false, dot }: { count: number; label: string; isCritical?: boolean; dot: string }) {
     return (
-        <div className={`w-40 px-4 py-3 rounded-xl flex flex-col items-center justify-center relative transition-all hover:shadow-md bg-white border ${isCritical ? 'border-red-200 bg-red-50/40' : 'border-[#2B463C]/5'}`}>
-            <span className={`text-xl font-bold ${isCritical ? 'text-red-600' : 'text-[#2B463C]'}`}>{count}</span>
-            <span className={`text-[10px] font-medium text-center mt-0.5 leading-tight ${isCritical ? 'text-red-500' : 'text-[#2B463C]/40'}`}>{label}</span>
-            <div className={`absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm ${dot}`} />
+        <div className={`w-40 px-4 py-3 rounded-xl flex flex-col items-center justify-center relative transition-all hover:shadow-md ${isCritical ? 'border-red-500/30' : ''}`}
+            style={{ background: isCritical ? 'rgba(239,68,68,0.08)' : 'rgba(255,255,255,0.04)', border: `1px solid ${isCritical ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.08)'}` }}>
+            <span className={`text-xl font-bold ${isCritical ? 'text-red-400' : 'text-white'}`}>{count}</span>
+            <span className={`text-[10px] font-medium text-center mt-0.5 leading-tight`} style={{ color: isCritical ? 'rgba(248,113,113,0.8)' : 'rgba(255,255,255,0.4)' }}>{label}</span>
+            <div className={`absolute -right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full shadow-sm ${dot}`} style={{ border: '2px solid #111821' }} />
         </div>
     )
 }
 
 function BigBlock({ count, label, sub, status, isCritical = false }: { count: number; label: string; sub: string; status?: string; isCritical?: boolean }) {
     return (
-        <div className={`w-42 px-4 py-8 rounded-xl flex flex-col items-center justify-center relative transition-all bg-white border ${isCritical ? 'border-red-200' : 'border-[#2B463C]/5'}`}>
+        <div className="w-42 px-4 py-8 rounded-xl flex flex-col items-center justify-center relative transition-all"
+            style={{ background: isCritical ? 'rgba(239,68,68,0.06)' : 'rgba(255,255,255,0.04)', border: `1px solid ${isCritical ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.08)'}` }}>
             {status && (
-                <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 border rounded-md text-[9px] font-semibold uppercase tracking-wider shadow-sm bg-white ${isCritical ? 'text-red-500 border-red-200' : 'text-[#2B463C]/40 border-[#2B463C]/10'}`}>
+                <span className={`absolute -top-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-md text-[9px] font-semibold uppercase tracking-wider shadow-sm`}
+                    style={{ background: '#111821', border: `1px solid ${isCritical ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.1)'}`, color: isCritical ? '#f87171' : 'rgba(255,255,255,0.4)' }}>
                     {status}
                 </span>
             )}
-            <div className={`absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm ${isCritical ? 'bg-red-300' : 'bg-[#2B463C]/15'}`} />
-            <span className={`text-2xl font-bold ${isCritical ? 'text-red-600' : 'text-[#2B463C]'}`}>{count}</span>
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-[#2B463C]/60 mt-1">{label}</span>
-            <div className="mt-2 text-[10px] font-medium text-[#2B463C]/30 bg-[#FAFAF8] px-2.5 py-1 rounded-md border border-[#2B463C]/5">{sub}</div>
-            <div className={`absolute -right-1.5 top-1/3 w-3 h-3 rounded-full border-2 border-white shadow-sm ${isCritical ? 'bg-red-400' : 'bg-emerald-300'}`} />
-            <div className={`absolute -right-1.5 top-2/3 w-3 h-3 rounded-full border-2 border-white shadow-sm ${isCritical ? 'bg-amber-300' : 'bg-emerald-200'}`} />
+            <div className={`absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full shadow-sm ${isCritical ? 'bg-red-300' : 'bg-white/15'}`} style={{ border: '2px solid #111821' }} />
+            <span className={`text-2xl font-bold ${isCritical ? 'text-red-400' : 'text-white'}`}>{count}</span>
+            <span className="text-[11px] font-semibold uppercase tracking-wider mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>{label}</span>
+            <div className="mt-2 text-[10px] font-medium px-2.5 py-1 rounded-md" style={{ color: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}>{sub}</div>
+            <div className={`absolute -right-1.5 top-1/3 w-3 h-3 rounded-full shadow-sm ${isCritical ? 'bg-red-400' : 'bg-emerald-300'}`} style={{ border: '2px solid #111821' }} />
+            <div className={`absolute -right-1.5 top-2/3 w-3 h-3 rounded-full shadow-sm ${isCritical ? 'bg-amber-300' : 'bg-emerald-200'}`} style={{ border: '2px solid #111821' }} />
         </div>
     )
 }
 
 function FinalBlock({ count, label, dot }: { count: number; label: string; dot: string }) {
     return (
-        <div className="w-44 px-4 py-4 bg-white border border-[#2B463C]/5 rounded-xl flex flex-col items-center justify-center relative transition-all hover:shadow-md">
-            <div className={`absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-white shadow-sm ${dot}`} />
-            <span className="text-xl font-bold text-[#2B463C]">{count}</span>
-            <span className="text-[10px] font-medium text-[#2B463C]/40 text-center mt-0.5">{label}</span>
+        <div className="w-44 px-4 py-4 rounded-xl flex flex-col items-center justify-center relative transition-all hover:shadow-md"
+            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className={`absolute -left-1.5 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full shadow-sm ${dot}`} style={{ border: '2px solid #111821' }} />
+            <span className="text-xl font-bold text-white">{count}</span>
+            <span className="text-[10px] font-medium text-center mt-0.5" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</span>
         </div>
     )
 }
@@ -180,7 +184,7 @@ function LegendItem({ color, label }: { color: string; label: string }) {
     return (
         <div className="flex items-center gap-1.5">
             <div className={`w-2 h-2 rounded-full ${color}`} />
-            <span className="text-[10px] font-medium text-[#2B463C]/35">{label}</span>
+            <span className="text-[10px] font-medium" style={{ color: 'rgba(255,255,255,0.35)' }}>{label}</span>
         </div>
     )
 }
