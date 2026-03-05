@@ -2,6 +2,9 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import dynamic from 'next/dynamic'
+
+const DataVisualization = dynamic(() => import('./data-visualization'), { ssr: false })
 import {
     BotMessageSquare,
     Send,
@@ -22,15 +25,16 @@ interface Message {
     role: 'user' | 'assistant'
     content: string
     sql?: string | null
+    data?: Record<string, unknown>[] | null
     timestamp: Date
     isLoading?: boolean
 }
 
 const SUGGESTIONS = [
-    { icon: <BarChart3 className="h-3.5 w-3.5" />, label: "¿Cuántos expedientes activos hay?", color: "text-blue-500" },
-    { icon: <ShieldAlert className="h-3.5 w-3.5" />, label: "¿Cuántos casos de riesgo ALTO o CRITICO hay?", color: "text-red-500" },
+    { icon: <BarChart3 className="h-3.5 w-3.5" />, label: "¿Cuántos expedientes hay por cada estado?", color: "text-blue-500" },
+    { icon: <ShieldAlert className="h-3.5 w-3.5" />, label: "¿Cuántos casos hay por nivel de riesgo?", color: "text-red-500" },
     { icon: <Users className="h-3.5 w-3.5" />, label: "¿Cuántas víctimas se han registrado?", color: "text-purple-500" },
-    { icon: <FileText className="h-3.5 w-3.5" />, label: "¿Cuántos casos de violencia psicológica hay?", color: "text-amber-500" },
+    { icon: <FileText className="h-3.5 w-3.5" />, label: "Distribución de casos por tipología de violencia", color: "text-amber-500" },
 ]
 
 export default function KomiAIChat() {
@@ -111,6 +115,7 @@ export default function KomiAIChat() {
                 role: 'assistant',
                 content: data.answer || 'No pude procesar tu consulta.',
                 sql: data.sql,
+                data: Array.isArray(data.data) && data.data.length > 0 ? data.data : null,
                 timestamp: new Date(),
             }
 
@@ -221,6 +226,12 @@ export default function KomiAIChat() {
                                                 <div className="whitespace-pre-wrap">{msg.content}</div>
                                             )}
                                         </div>
+
+                                        {/* Data visualization */}
+                                        {msg.role === 'assistant' && msg.data && msg.data.length > 0 && !msg.isLoading && (
+                                            <DataVisualization data={msg.data} question={msg.content} />
+                                        )}
+
 
                                         {/* SQL toggle */}
                                         {msg.role === 'assistant' && msg.sql && !msg.isLoading && (
