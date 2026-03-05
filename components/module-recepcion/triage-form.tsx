@@ -127,7 +127,7 @@ function StyledSelect({ value, onChange, options, placeholder, required = false,
             value={value}
             onChange={e => onChange(e.target.value)}
             required={required}
-            className={`flex h-10 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 ${className}`}
+            className={`flex h-10 w-full rounded-lg border border-slate-200 bg-white/[0.03] px-3 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-slate-900 ${className}`}
         >
             {placeholder && <option value="" disabled>{placeholder}</option>}
             {options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
@@ -254,7 +254,7 @@ export function TriageForm() {
         <div className="w-full max-w-5xl mx-auto space-y-6">
 
             {/* STEPPER */}
-            <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-4">
+            <div className="bg-white/[0.03] border border-slate-200 rounded-xl shadow-sm p-4">
                 <div className="flex items-center justify-between">
                     {STEPS.map((s, i) => {
                         const Icon = s.icon;
@@ -266,15 +266,15 @@ export function TriageForm() {
                                 <div className="flex items-center gap-3">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isDone ? 'bg-emerald-600 text-white shadow-md' :
                                         isActive ? 'bg-blue-900 text-white shadow-md scale-110' :
-                                            'bg-slate-100 text-slate-400'
+                                            'bg-slate-100 text-white/40'
                                         }`}>
                                         {isDone ? <CheckCircle2 className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
                                     </div>
                                     <div className="hidden md:block">
-                                        <p className={`text-sm font-semibold ${isActive ? 'text-blue-600' : isDone ? 'text-emerald-600' : 'text-slate-400'}`}>
+                                        <p className={`text-sm font-semibold ${isActive ? 'text-blue-400' : isDone ? 'text-emerald-400' : 'text-white/40'}`}>
                                             {s.label}
                                         </p>
-                                        <p className="text-xs text-slate-400">{s.description}</p>
+                                        <p className="text-xs text-white/40">{s.description}</p>
                                     </div>
                                 </div>
                                 {i < STEPS.length - 1 && (
@@ -289,9 +289,9 @@ export function TriageForm() {
 
             {/* NNA ALERT BANNER */}
             {esNNA && (
-                <div className="flex items-center gap-3 p-4 bg-amber-50 border border-amber-200 rounded-xl shadow-sm animate-in slide-in-from-top-2 duration-300">
+                <div className="flex items-center gap-3 p-4 bg-amber-500/10 border border-amber-200 rounded-xl shadow-sm animate-in slide-in-from-top-2 duration-300">
                     <div className="p-2 bg-amber-100 rounded-lg">
-                        <Baby className="h-5 w-5 text-amber-600" />
+                        <Baby className="h-5 w-5 text-amber-400" />
                     </div>
                     <div>
                         <p className="text-sm font-bold text-amber-900">
@@ -305,13 +305,13 @@ export function TriageForm() {
             )}
 
             {/* MAIN CARD */}
-            <Card className="bg-white border border-slate-200 shadow-md overflow-hidden text-slate-700">
-                <CardHeader className="bg-slate-50/50 border-b border-slate-100">
+            <Card className="bg-white/[0.03] border border-slate-200 shadow-md overflow-hidden text-slate-700">
+                <CardHeader className="bg-white/5/50 border-b border-white/10">
                     <CardTitle className="flex items-center gap-2 text-lg text-slate-900">
-                        {step === 1 && <><User className="h-5 w-5 text-blue-600" /> Datos de la Víctima</>}
+                        {step === 1 && <><User className="h-5 w-5 text-blue-400" /> Datos de la Víctima</>}
                         {step === 2 && <><ShieldAlert className="h-5 w-5 text-orange-600" /> Datos del Agresor</>}
                         {step === 3 && <><Scale className="h-5 w-5 text-slate-700" /> Hechos y Competencia Legal</>}
-                        {step === 4 && <><Gavel className="h-5 w-5 text-emerald-600" /> Confirmación y Radicación</>}
+                        {step === 4 && <><Gavel className="h-5 w-5 text-emerald-400" /> Confirmación y Radicación</>}
                     </CardTitle>
                     <CardDescription className="text-slate-500">
                         {step === 1 && 'Caracterización sociodemográfica de la parte accionante (enfoque diferencial obligatorio)'}
@@ -328,7 +328,7 @@ export function TriageForm() {
                         <div className="space-y-6">
                             {/* Identification */}
                             <div>
-                                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-blue-600" /> Identificación
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -363,7 +363,7 @@ export function TriageForm() {
                                         <Label className="text-sm font-medium">Fecha de Nacimiento *</Label>
                                         <Input type="date" value={data.victima.fecha_nacimiento} onChange={e => updateField('victima', 'fecha_nacimiento', e.target.value)} />
                                         {data.victima.fecha_nacimiento && (
-                                            <div className={`flex items-center gap-1.5 mt-1 ${esNNA ? 'text-amber-600' : 'text-slate-400'}`}>
+                                            <div className={`flex items-center gap-1.5 mt-1 ${esNNA ? 'text-amber-400' : 'text-white/40'}`}>
                                                 {esNNA ? <Baby className="h-3.5 w-3.5" /> : <User className="h-3.5 w-3.5" />}
                                                 <span className="text-xs font-semibold">
                                                     {edadVictima} años {esNNA ? '— NNA' : '— Adulto'}
@@ -376,7 +376,7 @@ export function TriageForm() {
 
                             {/* Demographics */}
                             <div>
-                                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-slate-400" /> Datos Sociodemográficos
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -431,7 +431,7 @@ export function TriageForm() {
                                             ]}
                                         />
                                         {data.victima.grupo_etnico && data.victima.grupo_etnico !== 'NINGUNO' && (
-                                            <p className="text-xs text-amber-600 flex items-center gap-1 mt-1">
+                                            <p className="text-xs text-amber-400 flex items-center gap-1 mt-1">
                                                 <AlertTriangle className="h-3 w-3" /> Se activará ruta diferencial étnica
                                             </p>
                                         )}
@@ -441,7 +441,7 @@ export function TriageForm() {
                                         <div className="flex items-center gap-3 pt-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" checked={data.victima.discapacidad} onChange={e => updateField('victima', 'discapacidad', e.target.checked)}
-                                                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                                                    className="h-4 w-4 rounded border-slate-300 text-blue-400 focus:ring-blue-500" />
                                                 <span className="text-sm font-medium">Sí</span>
                                             </label>
                                         </div>
@@ -455,7 +455,7 @@ export function TriageForm() {
                                         <div className="flex items-center gap-3 pt-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" checked={data.victima.es_victima_conflicto} onChange={e => updateField('victima', 'es_victima_conflicto', e.target.checked)}
-                                                    className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                                                    className="h-4 w-4 rounded border-slate-300 text-blue-400 focus:ring-blue-500" />
                                                 <span className="text-sm font-medium">Sí, registrada en RUV</span>
                                             </label>
                                         </div>
@@ -465,7 +465,7 @@ export function TriageForm() {
 
                             {/* Contact & Location */}
                             <div>
-                                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-teal-500" /> Contacto y Ubicación
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -518,7 +518,7 @@ export function TriageForm() {
                     {step === 2 && (
                         <div className="space-y-6">
                             <div>
-                                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-orange-500" /> Identificación del Agresor
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -583,7 +583,7 @@ export function TriageForm() {
 
                             {/* Contact & Additional */}
                             <div>
-                                <h3 className="text-[11px] font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <h3 className="text-[11px] font-bold text-white/40 uppercase tracking-widest mb-4 flex items-center gap-2">
                                     <div className="w-1.5 h-1.5 rounded-full bg-slate-300" /> Datos Adicionales
                                 </h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -604,12 +604,12 @@ export function TriageForm() {
                                         <div className="flex items-center gap-3 pt-2">
                                             <label className="flex items-center gap-2 cursor-pointer">
                                                 <input type="checkbox" checked={data.agresor.acceso_armas} onChange={e => updateField('agresor', 'acceso_armas', e.target.checked)}
-                                                    className="h-4 w-4 rounded border-slate-300 text-red-600 focus:ring-red-500" />
+                                                    className="h-4 w-4 rounded border-slate-300 text-red-400 focus:ring-red-500" />
                                                 <span className="text-sm font-medium">Sí, tiene acceso a armas</span>
                                             </label>
                                         </div>
                                         {data.agresor.acceso_armas && (
-                                            <p className="text-xs text-red-600 flex items-center gap-1 mt-1">
+                                            <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
                                                 <AlertTriangle className="h-3 w-3" /> Factor de riesgo alto — Se notificará al valorar riesgo
                                             </p>
                                         )}
@@ -645,10 +645,10 @@ export function TriageForm() {
 
                             {/* Sexual Violence + NNA Alert */}
                             {esSexual && esNNA && !data.caso.hay_nna_victima_sexual_en_familia && (
-                                <div className="p-4 bg-red-50 border border-red-100 rounded-xl animate-in slide-in-from-top-2 duration-300">
+                                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl animate-in slide-in-from-top-2 duration-300">
                                     <div className="flex items-start gap-3">
                                         <div className="p-2 bg-red-100 rounded-lg flex-shrink-0">
-                                            <ShieldAlert className="h-5 w-5 text-red-600 animate-pulse" />
+                                            <ShieldAlert className="h-5 w-5 text-red-400 animate-pulse" />
                                         </div>
                                         <div>
                                             <p className="text-sm font-bold text-red-800">🚨 VIOLENCIA SEXUAL CONTRA NNA — NO COMPETENCIA</p>
@@ -669,33 +669,33 @@ export function TriageForm() {
                                     placeholder="Describa tiempo, modo y lugar de la agresión. Sea lo más detallado posible..."
                                     className="min-h-[150px]"
                                 />
-                                <p className="text-xs text-slate-400 font-medium">{data.caso.hechos_relato.length}/20 caracteres mínimos</p>
+                                <p className="text-xs text-white/40 font-medium">{data.caso.hechos_relato.length}/20 caracteres mínimos</p>
                             </div>
 
-                            <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl space-y-4">
+                            <div className="p-5 bg-white/5 border border-white/10 rounded-2xl space-y-4">
                                 <h4 className="text-sm font-bold text-blue-900 flex items-center gap-2">
                                     <Scale className="h-4 w-4" /> Verificación de Competencia (Art. 5, Ley 2126/2021)
                                 </h4>
                                 <div className="space-y-2.5">
-                                    <label className="flex items-start gap-3 p-3 bg-white rounded-xl border border-slate-100 cursor-pointer hover:bg-white hover:border-slate-200 transition-colors shadow-sm">
+                                    <label className="flex items-start gap-3 p-3 bg-white/[0.03] rounded-xl border border-white/10 cursor-pointer hover:bg-white/[0.03] hover:border-slate-200 transition-colors shadow-sm">
                                         <input type="checkbox" checked={data.caso.ambito === 'FAMILIAR'} onChange={e => updateField('caso', 'ambito', e.target.checked ? 'FAMILIAR' : 'NO_FAMILIAR')}
-                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-600 focus:ring-blue-500" />
+                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-400 focus:ring-blue-500" />
                                         <div>
                                             <span className="text-sm font-semibold text-slate-800">¿Es violencia en contexto familiar?</span>
                                             <p className="text-xs text-slate-500">El agresor es miembro del núcleo familiar o persona con quien se tiene/tuvo relación sentimental</p>
                                         </div>
                                     </label>
-                                    <label className="flex items-start gap-3 p-3 bg-white rounded-xl border border-slate-100 cursor-pointer hover:bg-white hover:border-slate-200 transition-colors shadow-sm">
+                                    <label className="flex items-start gap-3 p-3 bg-white/[0.03] rounded-xl border border-white/10 cursor-pointer hover:bg-white/[0.03] hover:border-slate-200 transition-colors shadow-sm">
                                         <input type="checkbox" checked={data.caso.hechos_lugar_municipio} onChange={e => updateField('caso', 'hechos_lugar_municipio', e.target.checked)}
-                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-600 focus:ring-blue-500" />
+                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-400 focus:ring-blue-500" />
                                         <div>
                                             <span className="text-sm font-semibold text-slate-800">¿Los hechos ocurrieron en este municipio?</span>
                                             <p className="text-xs text-slate-500">Competencia territorial según Art. 8</p>
                                         </div>
                                     </label>
-                                    <label className="flex items-start gap-3 p-3 bg-white rounded-xl border border-slate-100 cursor-pointer hover:bg-white hover:border-slate-200 transition-colors shadow-sm">
+                                    <label className="flex items-start gap-3 p-3 bg-white/[0.03] rounded-xl border border-white/10 cursor-pointer hover:bg-white/[0.03] hover:border-slate-200 transition-colors shadow-sm">
                                         <input type="checkbox" checked={data.caso.victima_domicilio_municipio} onChange={e => updateField('caso', 'victima_domicilio_municipio', e.target.checked)}
-                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-600 focus:ring-blue-500" />
+                                            className="h-4 w-4 mt-0.5 rounded border-slate-200 text-blue-400 focus:ring-blue-500" />
                                         <div>
                                             <span className="text-sm font-semibold text-slate-800">¿La víctima tiene domicilio en este municipio?</span>
                                             <p className="text-xs text-slate-500">Competencia territorial alternativa</p>
@@ -704,10 +704,10 @@ export function TriageForm() {
 
                                     {/* Concurrencia checkbox — only show when relevant */}
                                     {(esNNA && esSexual) || (!esNNA && data.caso.ambito === 'FAMILIAR') ? (
-                                        <label className="flex items-start gap-3 p-2.5 bg-amber-50 border border-amber-100 rounded-lg cursor-pointer hover:bg-amber-100/50 transition-colors">
+                                        <label className="flex items-start gap-3 p-2.5 bg-amber-500/10 border border-amber-500/20 rounded-lg cursor-pointer hover:bg-amber-100/50 transition-colors">
                                             <input type="checkbox" checked={data.caso.hay_nna_victima_sexual_en_familia}
                                                 onChange={e => updateField('caso', 'hay_nna_victima_sexual_en_familia', e.target.checked)}
-                                                className="h-4 w-4 mt-0.5 rounded border-amber-400 text-amber-600 focus:ring-amber-500" />
+                                                className="h-4 w-4 mt-0.5 rounded border-amber-400 text-amber-400 focus:ring-amber-500" />
                                             <div>
                                                 <span className="text-sm font-semibold text-amber-900">¿Hay un NNA víctima de violencia sexual en la misma familia?</span>
                                                 <p className="text-xs text-amber-700">Regla de Concurrencia — Si aplica, el Comisario asume todo el caso (unidad procesal)</p>
@@ -720,18 +720,18 @@ export function TriageForm() {
                             {/* Real-time Competence Result */}
                             {competenciaResult && (
                                 <div className={`p-4 rounded-xl border-2 transition-all duration-300 ${competenciaResult.es_competente
-                                    ? 'bg-emerald-50 border-emerald-200'
+                                    ? 'bg-emerald-500/10 border-emerald-200'
                                     : competenciaResult.competencia_subsidiaria
-                                        ? 'bg-amber-50 border-amber-200'
-                                        : 'bg-red-50 border-red-200'
+                                        ? 'bg-amber-500/10 border-amber-200'
+                                        : 'bg-red-500/10 border-red-200'
                                     }`}>
                                     <div className="flex items-start gap-3">
                                         <div className={`p-2 rounded-lg ${competenciaResult.es_competente ? 'bg-emerald-100' :
                                             competenciaResult.competencia_subsidiaria ? 'bg-amber-100' : 'bg-red-100'
                                             }`}>
                                             {competenciaResult.es_competente ?
-                                                <Shield className="h-5 w-5 text-emerald-600" /> :
-                                                <ShieldAlert className="h-5 w-5 text-red-600" />
+                                                <Shield className="h-5 w-5 text-emerald-400" /> :
+                                                <ShieldAlert className="h-5 w-5 text-red-400" />
                                             }
                                         </div>
                                         <div className="flex-1">
@@ -743,10 +743,10 @@ export function TriageForm() {
                                                         '⛔ NO ES COMPETENCIA'}
                                             </p>
                                             <p className="text-xs text-slate-600 mt-1 font-medium">{competenciaResult.mensaje}</p>
-                                            <p className="text-[10px] text-slate-400 mt-1 font-mono">{competenciaResult.fundamento_legal}</p>
+                                            <p className="text-[10px] text-white/40 mt-1 font-mono">{competenciaResult.fundamento_legal}</p>
                                             {competenciaResult.entidad_remision && (
                                                 <p className="text-xs font-bold text-slate-800 mt-2">
-                                                    Remitir a: <span className="text-red-600">{competenciaResult.entidad_remision}</span>
+                                                    Remitir a: <span className="text-red-400">{competenciaResult.entidad_remision}</span>
                                                 </p>
                                             )}
                                         </div>
@@ -769,9 +769,9 @@ export function TriageForm() {
                     {step === 4 && competenciaResult && (
                         <div className="space-y-6">
                             {/* Competence Result Banner */}
-                            <div className={`p-5 rounded-xl border-2 ${competenciaResult.es_competente ? 'bg-emerald-50 border-emerald-200 shadow-sm' :
-                                competenciaResult.competencia_subsidiaria ? 'bg-amber-50 border-amber-200 shadow-sm' :
-                                    'bg-red-50 border-red-200 shadow-sm'
+                            <div className={`p-5 rounded-xl border-2 ${competenciaResult.es_competente ? 'bg-emerald-500/10 border-emerald-200 shadow-sm' :
+                                competenciaResult.competencia_subsidiaria ? 'bg-amber-500/10 border-amber-200 shadow-sm' :
+                                    'bg-red-500/10 border-red-200 shadow-sm'
                                 }`}>
                                 <h3 className={`text-lg font-bold flex items-center gap-2 ${competenciaResult.es_competente ? 'text-emerald-900' : 'text-red-900'
                                     }`}>
@@ -782,11 +782,11 @@ export function TriageForm() {
                                     )}
                                 </h3>
                                 <p className="mt-2 text-sm text-slate-700 font-medium">{competenciaResult.mensaje}</p>
-                                <p className="mt-1 text-xs text-slate-400 font-mono italic">{competenciaResult.fundamento_legal}</p>
+                                <p className="mt-1 text-xs text-white/40 font-mono italic">{competenciaResult.fundamento_legal}</p>
                                 {competenciaResult.entidad_remision && (
-                                    <div className="mt-4 p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                                    <div className="mt-4 p-4 bg-white/[0.03] border border-slate-200 rounded-lg shadow-sm">
                                         <p className="text-sm font-bold text-slate-800 flex items-center gap-2">
-                                            <ArrowRight className="h-4 w-4 text-red-500" /> Remitir a: <span className="text-red-700 font-black">{competenciaResult.entidad_remision}</span>
+                                            <ArrowRight className="h-4 w-4 text-red-400" /> Remitir a: <span className="text-red-700 font-black">{competenciaResult.entidad_remision}</span>
                                         </p>
                                     </div>
                                 )}
@@ -794,20 +794,20 @@ export function TriageForm() {
 
                             {/* Case Summary */}
                             {competenciaResult.es_competente && (
-                                <div className="bg-slate-50 border border-slate-200 rounded-xl divide-y divide-slate-200 overflow-hidden">
+                                <div className="bg-white/5 border border-slate-200 rounded-xl divide-y divide-slate-200 overflow-hidden">
                                     <div className="p-4 bg-white/50">
                                         <h4 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
-                                            <FileText className="h-4 w-4 text-blue-600" /> Resumen del Caso
+                                            <FileText className="h-4 w-4 text-blue-400" /> Resumen del Caso
                                         </h4>
                                         <div className="grid grid-cols-2 gap-4 text-sm">
                                             <div>
-                                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Víctima</span>
+                                                <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Víctima</span>
                                                 <p className="font-bold text-slate-900 text-base">{data.victima.nombres}</p>
                                                 <p className="text-xs text-slate-500 font-medium">{data.victima.tipo_documento} {data.victima.documento}</p>
                                                 <p className="text-xs text-slate-500 font-medium">{edadVictima} años — {esNNA ? 'NNA' : 'Adulto'}</p>
                                             </div>
                                             <div>
-                                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Agresor</span>
+                                                <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Agresor</span>
                                                 <p className="font-bold text-slate-900 text-base">{data.agresor.nombres}</p>
                                                 <p className="text-xs text-slate-500 font-medium">Parentesco: {PARENTESCOS.find(p => p.value === data.agresor.parentesco)?.label}</p>
                                             </div>
@@ -816,25 +816,25 @@ export function TriageForm() {
                                     <div className="p-4">
                                         <div className="grid grid-cols-3 gap-3 text-sm">
                                             <div>
-                                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Tipología</span>
+                                                <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Tipología</span>
                                                 <p className="font-bold text-slate-900">{data.caso.tipologia}</p>
                                             </div>
                                             <div>
-                                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Ámbito</span>
+                                                <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Ámbito</span>
                                                 <p className="font-bold text-slate-900">{data.caso.ambito === 'FAMILIAR' ? 'Familiar' : 'No Familiar'}</p>
                                             </div>
                                             <div>
-                                                <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Regla</span>
+                                                <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Regla</span>
                                                 <p className="font-bold text-slate-900">{competenciaResult.regla_aplicada}</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="p-4 bg-white/30">
-                                        <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Relato de Hechos</span>
+                                        <span className="text-white/40 text-[10px] uppercase font-bold tracking-wider">Relato de Hechos</span>
                                         <p className="text-sm text-slate-600 mt-2 line-clamp-3 italic">"{data.caso.hechos_relato}"</p>
                                     </div>
                                     {data.victima.grupo_etnico && data.victima.grupo_etnico !== 'NINGUNO' && (
-                                        <div className="p-4 bg-amber-50 border-t border-amber-100">
+                                        <div className="p-4 bg-amber-500/10 border-t border-amber-500/20">
                                             <p className="text-xs font-bold text-amber-800 flex items-center gap-1">
                                                 <AlertTriangle className="h-3.5 w-3.5" />
                                                 Enfoque diferencial activo: {data.victima.grupo_etnico}
@@ -851,13 +851,13 @@ export function TriageForm() {
                                         type="button"
                                         variant="outline"
                                         onClick={() => setShowAutoRemision(!showAutoRemision)}
-                                        className="w-full border-red-200 text-red-600 hover:bg-red-50"
+                                        className="w-full border-red-200 text-red-400 hover:bg-red-500/10"
                                     >
                                         <FileText className="h-4 w-4 mr-2" />
                                         {showAutoRemision ? 'Ocultar' : 'Ver'} Auto de Remisión Generado
                                     </Button>
                                     {showAutoRemision && (
-                                        <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg font-mono text-xs text-slate-700 whitespace-pre-wrap max-h-80 overflow-y-auto">
+                                        <div className="p-4 bg-white/5 border border-slate-200 rounded-lg font-mono text-xs text-slate-700 whitespace-pre-wrap max-h-80 overflow-y-auto">
                                             {generarAutoRemision(competenciaResult, {
                                                 victima: data.victima.nombres,
                                                 tipologia: data.caso.tipologia,
@@ -869,7 +869,7 @@ export function TriageForm() {
 
                             {/* Medida Provisional Urgente (when competence is subsidiary or allows it) */}
                             {!competenciaResult.es_competente && competenciaResult.permite_medida_provisional && (
-                                <div className="p-4 bg-amber-50 border border-amber-100 rounded-xl">
+                                <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl">
                                     <h4 className="text-sm font-bold text-amber-900 flex items-center gap-2">
                                         <Gavel className="h-4 w-4" /> Medida Provisional Urgente
                                     </h4>
@@ -890,7 +890,7 @@ export function TriageForm() {
 
                             {/* Alertas */}
                             {competenciaResult.alertas.length > 0 && (
-                                <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
+                                <div className="p-4 bg-white/5 border border-white/10 rounded-xl space-y-2">
                                     <h4 className="text-sm font-bold text-slate-800">📌 Alertas del Sistema</h4>
                                     {competenciaResult.alertas.map((a, i) => (
                                         <p key={i} className="text-xs text-slate-600 font-medium flex items-start gap-2">
@@ -904,7 +904,7 @@ export function TriageForm() {
                 </CardContent>
 
                 {/* FOOTER WITH NAVIGATION */}
-                <CardFooter className="flex justify-between bg-slate-50/50 px-6 py-4 border-t border-slate-100">
+                <CardFooter className="flex justify-between bg-white/5/50 px-6 py-4 border-t border-white/10">
                     {step > 1 ? (
                         <Button variant="outline" onClick={handleBack} className="gap-2">
                             <ChevronLeft className="h-4 w-4" /> Atrás
@@ -954,7 +954,7 @@ export function TriageForm() {
                     />
 
                     {/* Modal Card */}
-                    <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
+                    <div className="relative w-full max-w-md bg-white/[0.03] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 slide-in-from-bottom-4 duration-300">
                         {/* Top accent */}
                         <div className={`h-1.5 w-full ${modalState.type === 'success'
                             ? 'bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500'
@@ -964,13 +964,13 @@ export function TriageForm() {
                         <div className="px-8 pt-8 pb-6 text-center">
                             {/* Icon */}
                             <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-5 ${modalState.type === 'success'
-                                ? 'bg-emerald-50 border border-emerald-100'
-                                : 'bg-red-50 border border-red-100'
+                                ? 'bg-emerald-500/10 border border-emerald-500/20'
+                                : 'bg-red-500/10 border border-red-500/20'
                                 }`}>
                                 {modalState.type === 'success' ? (
-                                    <CheckCircle2 className="h-8 w-8 text-emerald-600" />
+                                    <CheckCircle2 className="h-8 w-8 text-emerald-400" />
                                 ) : (
-                                    <AlertTriangle className="h-8 w-8 text-red-600" />
+                                    <AlertTriangle className="h-8 w-8 text-red-400" />
                                 )}
                             </div>
 
@@ -990,27 +990,27 @@ export function TriageForm() {
                                     </p>
 
                                     {/* Radicado Number */}
-                                    <div className="bg-emerald-50 border border-emerald-100 rounded-xl px-6 py-4 mb-5 shadow-sm">
+                                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-6 py-4 mb-5 shadow-sm">
                                         <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-widest mb-1">
                                             Número de Radicado
                                         </p>
-                                        <p className="text-2xl font-black font-mono text-emerald-600 tracking-wider">
+                                        <p className="text-2xl font-black font-mono text-emerald-400 tracking-wider">
                                             {modalState.radicado}
                                         </p>
                                     </div>
 
                                     {/* Case summary mini */}
-                                    <div className="bg-slate-50 rounded-xl p-4 mb-6 text-left space-y-3 border border-slate-100">
+                                    <div className="bg-white/5 rounded-xl p-4 mb-6 text-left space-y-3 border border-white/10">
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold text-[10px] uppercase">Víctima</span>
+                                            <span className="text-white/40 font-bold text-[10px] uppercase">Víctima</span>
                                             <span className="font-bold text-slate-800">{data.victima.nombres}</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold text-[10px] uppercase">Tipología</span>
+                                            <span className="text-white/40 font-bold text-[10px] uppercase">Tipología</span>
                                             <span className="font-bold text-slate-800">{data.caso.tipologia}</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold text-[10px] uppercase">Ámbito</span>
+                                            <span className="text-white/40 font-bold text-[10px] uppercase">Ámbito</span>
                                             <span className="font-bold text-slate-800">{data.caso.ambito === 'FAMILIAR' ? 'Familiar' : 'No Familiar'}</span>
                                         </div>
                                     </div>
@@ -1036,13 +1036,13 @@ export function TriageForm() {
                                 </>
                             ) : (
                                 <>
-                                    <p className="text-sm text-red-700 bg-red-50 border border-red-100 rounded-xl p-4 mb-5 font-medium">
+                                    <p className="text-sm text-red-700 bg-red-500/10 border border-red-500/20 rounded-xl p-4 mb-5 font-medium">
                                         {modalState.message}
                                     </p>
                                     <Button
                                         onClick={() => setModalState({ ...modalState, open: false })}
                                         variant="outline"
-                                        className="w-full gap-2 border-red-200 text-red-700 hover:bg-red-50 py-6"
+                                        className="w-full gap-2 border-red-200 text-red-700 hover:bg-red-500/10 py-6"
                                     >
                                         <X className="h-5 w-5" />
                                         Cerrar e Intentar de Nuevo

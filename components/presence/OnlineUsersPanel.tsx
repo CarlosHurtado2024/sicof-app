@@ -17,12 +17,12 @@ const ROL_LABELS: Record<string, string> = {
 }
 
 const ROL_COLORS: Record<string, string> = {
-    COMISARIO: 'bg-[#F28C73]/10 text-[#F28C73] border-[#F28C73]/20',
-    SECRETARIO: 'bg-blue-50 text-blue-700 border-blue-100',
+    COMISARIO: 'bg-[#ff7a59]/10 text-[#ff7a59] border-[#ff7a59]/20',
+    SECRETARIO: 'bg-blue-500/15 text-blue-700 border-blue-500/20',
     PSICOLOGO: 'bg-rose-50 text-rose-700 border-rose-100',
-    TRABAJADOR_SOCIAL: 'bg-amber-50 text-amber-700 border-amber-100',
-    ABOGADO: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-    AUXILIAR: 'bg-slate-50 text-slate-700 border-slate-100',
+    TRABAJADOR_SOCIAL: 'bg-amber-500/10 text-amber-700 border-amber-500/20',
+    ABOGADO: 'bg-emerald-500/10 text-emerald-700 border-emerald-500/20',
+    AUXILIAR: 'bg-white/5 text-slate-700 border-white/10',
     PRACTICANTE: 'bg-teal-50 text-teal-700 border-teal-100',
     USUARIO_EXTERNO: 'bg-gray-50 text-gray-700 border-gray-100',
     ADMINISTRADOR: 'bg-indigo-50 text-indigo-700 border-indigo-100',
@@ -51,7 +51,7 @@ function getRelativeTime(dateString: string): string {
 
 function StatusDot({ status }: { status: 'online' | 'away' | 'offline' }) {
     const styles = {
-        online: 'bg-emerald-500 shadow-emerald-400/50',
+        online: 'bg-emerald-500/100 shadow-emerald-400/50',
         away: 'bg-amber-400 shadow-amber-300/50',
         offline: 'bg-slate-300 shadow-transparent',
     }
@@ -79,14 +79,14 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
     const isCurrentUser = user.userId === currentUserId
 
     const avatarColors = {
-        online: 'bg-[#F28C73] text-white ring-emerald-100',
+        online: 'bg-[#ff7a59] text-white ring-emerald-100',
         away: 'bg-amber-400 text-white ring-amber-100',
         offline: 'bg-slate-200 text-slate-500 ring-slate-50',
     }
 
     return (
         <div
-            className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-all duration-200 hover:bg-[#F2EBE1] border border-transparent hover:border-[#F28C73]/10 ${isCurrentUser ? 'bg-[#FDF4E3] border-[#F28C73]/20 shadow-sm' : ''
+            className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-all duration-200 hover:bg-[#F2EBE1] border border-transparent hover:border-[#ff7a59]/10 ${isCurrentUser ? 'bg-white/[0.04] border-[#ff7a59]/20 shadow-sm' : ''
                 }`}
         >
             {/* Avatar */}
@@ -107,7 +107,7 @@ function UserCard({ user, currentUserId }: { user: PresenceUser; currentUserId: 
                     <p className="truncate text-sm font-bold text-gray-800">
                         {user.nombre}
                         {isCurrentUser && (
-                            <span className="ml-1 text-[10px] uppercase font-black text-[#F28C73] tracking-wider">(tú)</span>
+                            <span className="ml-1 text-[10px] uppercase font-black text-[#ff7a59] tracking-wider">(tú)</span>
                         )}
                     </p>
                 </div>
@@ -203,9 +203,9 @@ export default function OnlineUsersPanel({
     const offline = enrichedUsers.filter(u => u.status === 'offline')
 
     return (
-        <div className="flex h-full flex-col bg-[#F8F5EE]">
+        <div className="flex h-full flex-col bg-white/[0.04]">
             {/* Header */}
-            <div className="border-b border-gray-100 bg-[#F28C73] px-5 py-5">
+            <div className="border-b border-gray-100 bg-[#ff7a59] px-5 py-5">
                 <div className="flex items-center gap-3">
                     <div className="p-1.5 bg-white/20 rounded-lg">
                         <Users className="h-4 w-4 text-white" />
@@ -218,9 +218,9 @@ export default function OnlineUsersPanel({
             </div>
 
             {/* Summary bar */}
-            <div className="flex items-center gap-4 border-b border-gray-100 bg-white px-5 py-3">
+            <div className="flex items-center gap-4 border-b border-gray-100 bg-white/[0.03] px-5 py-3">
                 <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
+                    <span className="h-2 w-2 rounded-full bg-emerald-500/100 shadow-[0_0_8px_rgba(16,185,129,0.3)]" />
                     <span className="text-[10px] font-black uppercase text-gray-400">{online.length}</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -241,7 +241,7 @@ export default function OnlineUsersPanel({
                     icon={<Wifi className="h-4 w-4 text-emerald-500" />}
                     count={online.length}
                     defaultOpen={true}
-                    accentColor="bg-emerald-50 text-emerald-600 border border-emerald-100"
+                    accentColor="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
                 >
                     {online.length === 0 ? (
                         <p className="px-3 py-2 text-xs text-white/40 italic">Nadie en línea</p>
@@ -258,7 +258,7 @@ export default function OnlineUsersPanel({
                     icon={<Clock className="h-4 w-4 text-amber-500" />}
                     count={away.length}
                     defaultOpen={true}
-                    accentColor="bg-amber-50 text-amber-600 border border-amber-100"
+                    accentColor="bg-amber-500/10 text-amber-400 border border-amber-500/20"
                 >
                     {away.length === 0 ? (
                         <p className="px-3 py-2 text-xs text-white/40 italic">Nadie ausente</p>
@@ -288,7 +288,7 @@ export default function OnlineUsersPanel({
             </div>
 
             {/* Footer */}
-            <div className="border-t border-gray-100 bg-white px-5 py-3">
+            <div className="border-t border-gray-100 bg-white/[0.03] px-5 py-3">
                 <p className="text-center text-[10px] font-black uppercase tracking-widest text-gray-300">
                     Sincronización en tiempo real
                 </p>

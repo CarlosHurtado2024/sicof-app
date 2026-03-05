@@ -74,12 +74,12 @@ export function MinutaForm() {
     }
 
     return (
-        <Card className="w-full border-gray-100 bg-white shadow-sm overflow-hidden rounded-xl">
+        <Card className="w-full border-gray-100 bg-white/[0.03] shadow-sm overflow-hidden rounded-xl">
             {/* Header */}
-            <CardHeader className="bg-white border-b border-gray-100 pb-5">
+            <CardHeader className="bg-white/[0.03] border-b border-gray-100 pb-5">
                 <div className="flex items-center gap-4">
-                    <div className="p-3 bg-[#F28C73]/10 rounded-xl">
-                        <FileText className="h-6 w-6 text-[#F28C73]" />
+                    <div className="p-3 bg-[#ff7a59]/10 rounded-xl">
+                        <FileText className="h-6 w-6 text-[#ff7a59]" />
                     </div>
                     <div>
                         <CardTitle className="text-gray-900 text-xl font-bold font-display">Minuta de Ingreso</CardTitle>
@@ -95,8 +95,8 @@ export function MinutaForm() {
 
                     {/* Success Banner */}
                     {exito && (
-                        <div className="flex items-center gap-3 p-4 bg-emerald-50 border border-emerald-100 rounded-lg animate-in slide-in-from-top-2 duration-300">
-                            <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+                        <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg animate-in slide-in-from-top-2 duration-300">
+                            <CheckCircle2 className="h-5 w-5 text-emerald-400" />
                             <p className="text-sm font-bold text-emerald-800">✓ Registro completado correctamente</p>
                         </div>
                     )}
@@ -112,10 +112,10 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Cédula del ciudadano..."
-                                className="h-12 pr-10 bg-gray-50 border-gray-100 focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20 text-gray-900 rounded-lg transition-all"
+                                className="h-12 pr-10 bg-gray-50 border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 text-gray-900 rounded-lg transition-all"
                             />
                             {buscando && (
-                                <Loader2 className="absolute right-3 top-4 h-4 w-4 text-[#F28C73] animate-spin" />
+                                <Loader2 className="absolute right-3 top-4 h-4 w-4 text-[#ff7a59] animate-spin" />
                             )}
                         </div>
                     </div>
@@ -124,7 +124,7 @@ export function MinutaForm() {
                     {buscado && resultado?.persona && (
                         <div className="rounded-xl border border-gray-100 overflow-hidden animate-in slide-in-from-top-2 duration-300 shadow-sm">
                             <div className="flex items-center gap-4 p-4 bg-gray-50/50">
-                                <div className="p-2.5 bg-white border border-gray-100 rounded-lg text-[#F28C73]">
+                                <div className="p-2.5 bg-white/[0.03] border border-gray-100 rounded-lg text-[#ff7a59]">
                                     <UserCheck className="h-5 w-5" />
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -134,17 +134,17 @@ export function MinutaForm() {
                             </div>
 
                             {resultado.expedientes.length > 0 && (
-                                <div className="p-5 bg-red-50/50 border-t border-red-100">
+                                <div className="p-5 bg-red-50/50 border-t border-red-500/20">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <AlertTriangle className="h-4 w-4 text-red-600" />
+                                        <AlertTriangle className="h-4 w-4 text-red-400" />
                                         <span className="text-[10px] font-black text-red-700 uppercase tracking-widest">
                                             Alerta Crítica: Reincidencia Detectada ({resultado.expedientes.length})
                                         </span>
                                     </div>
                                     <div className="space-y-2">
                                         {resultado.expedientes.slice(0, 3).map((exp: any, i: number) => (
-                                            <div key={i} className="flex items-center justify-between text-[11px] bg-white p-3 rounded-lg border border-red-100 shadow-sm">
-                                                <span className="font-mono font-black text-red-600">{exp.radicado}</span>
+                                            <div key={i} className="flex items-center justify-between text-[11px] bg-white/[0.03] p-3 rounded-lg border border-red-500/20 shadow-sm">
+                                                <span className="font-mono font-black text-red-400">{exp.radicado}</span>
                                                 <span className={`px-2 py-0.5 rounded-md font-bold text-[9px] uppercase tracking-tighter ${exp.estado === 'TRAMITE' ? 'bg-amber-100 text-amber-700' :
                                                     exp.estado === 'CERRADO' ? 'bg-gray-100 text-gray-500' :
                                                         'bg-blue-100 text-blue-700'
@@ -163,7 +163,7 @@ export function MinutaForm() {
                     {/* Search Result: Not Found */}
                     {buscado && !resultado?.persona && documentoBusqueda.length >= 4 && (
                         <div className="flex items-center gap-3 p-4 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-500 font-medium animate-in slide-in-from-top-2 duration-300">
-                            <User className="h-4 w-4 text-[#F28C73]" />
+                            <User className="h-4 w-4 text-[#ff7a59]" />
                             Usuario no registrado previamente. Documentación requerida para radicación.
                         </div>
                     )}
@@ -181,7 +181,7 @@ export function MinutaForm() {
                                 defaultValue={resultado?.persona?.nombres || ''}
                                 key={resultado?.persona?.nombres || 'empty'}
                                 placeholder="Nombre completo..."
-                                className="h-11 bg-white border-gray-100 focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20"
+                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                         <div className="space-y-2">
@@ -194,7 +194,7 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Cédula..."
-                                className="h-11 bg-white border-gray-100 focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20"
+                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                     </div>
@@ -208,7 +208,7 @@ export function MinutaForm() {
                                 id="telefono_contacto"
                                 name="telefono_contacto"
                                 placeholder="Celular..."
-                                className="h-11 bg-white border-gray-100 focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20"
+                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                         <div className="space-y-2">
@@ -220,7 +220,7 @@ export function MinutaForm() {
                                 name="motivo_visita"
                                 required
                                 defaultValue=""
-                                className="flex h-11 w-full items-center rounded-lg border border-gray-100 bg-white text-gray-900 px-3 py-2 text-sm focus:outline-none focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20 transition-all font-bold shadow-sm cursor-pointer"
+                                className="flex h-11 w-full items-center rounded-lg border border-gray-100 bg-white/[0.03] text-gray-900 px-3 py-2 text-sm focus:outline-none focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 transition-all font-bold shadow-sm cursor-pointer"
                             >
                                 <option value="" disabled className="text-gray-400 font-medium">Seleccione trámite...</option>
                                 <option value="ORIENTACION" className="text-gray-900 font-bold">📋 Orientación General</option>
@@ -240,13 +240,13 @@ export function MinutaForm() {
                             id="observaciones"
                             name="observaciones"
                             placeholder="Notas o requerimientos especiales..."
-                            className="resize-none min-h-[120px] bg-white border-gray-100 focus:ring-4 focus:ring-[#F28C73]/5 focus:border-[#F28C73]/20 rounded-lg"
+                            className="resize-none min-h-[120px] bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 rounded-lg"
                         />
                     </div>
                 </CardContent>
 
                 <CardFooter className="flex justify-between bg-gray-50/30 px-8 py-5 border-t border-gray-100">
-                    <Button variant="ghost" type="button" className="text-gray-400 font-bold hover:text-gray-600 hover:bg-white" onClick={() => {
+                    <Button variant="ghost" type="button" className="text-gray-400 font-bold hover:text-gray-600 hover:bg-white/[0.03]" onClick={() => {
                         formRef.current?.reset()
                         setDocumentoBusqueda('')
                         setResultado(null)
@@ -257,7 +257,7 @@ export function MinutaForm() {
                     <Button
                         type="submit"
                         disabled={guardando}
-                        className="bg-[#F28C73] hover:bg-[#D96C53] text-white gap-2 px-10 py-5 rounded-lg font-bold shadow-sm transition-all hover:scale-105 active:scale-95"
+                        className="bg-[#ff7a59] hover:bg-[#D96C53] text-white gap-2 px-10 py-5 rounded-lg font-bold shadow-sm transition-all hover:scale-105 active:scale-95"
                     >
                         {guardando ? (
                             <><Loader2 className="h-4 w-4 animate-spin" /> Procesando...</>

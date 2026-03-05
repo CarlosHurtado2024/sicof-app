@@ -53,7 +53,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
                     className="w-20 h-20 sm:w-28 sm:h-28 rounded-3xl object-cover ring-8 ring-white shadow-2xl shadow-slate-200/50"
                 />
             ) : (
-                <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-2xl sm:text-3xl font-black ring-8 ring-white shadow-2xl shadow-slate-200/50 transition-all duration-500 scale-100 group-hover:scale-105 ${isVictima ? 'bg-blue-50 text-blue-300 border border-blue-100' : 'bg-red-50 text-red-300 border border-red-100'}`}>
+                <div className={`w-20 h-20 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-2xl sm:text-3xl font-black ring-8 ring-white shadow-2xl shadow-slate-200/50 transition-all duration-500 scale-100 group-hover:scale-105 ${isVictima ? 'bg-blue-500/15 text-blue-300 border border-blue-500/20' : 'bg-red-500/10 text-red-300 border border-red-500/20'}`}>
                     {initials}
                 </div>
             )}
@@ -62,7 +62,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
             <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="absolute -bottom-2 -right-2 w-10 h-10 bg-white border border-slate-100 hover:bg-slate-50 shadow-xl shadow-slate-200/50 text-blue-600 rounded-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 disabled:opacity-50 z-10"
+                className="absolute -bottom-2 -right-2 w-10 h-10 bg-white/[0.03] border border-white/10 hover:bg-white/5 shadow-xl shadow-slate-200/50 text-blue-400 rounded-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 disabled:opacity-50 z-10"
                 title="Subir foto"
             >
                 {isUploading ? (
@@ -83,7 +83,7 @@ export default function PersonaPhoto({ personaId, currentPhotoUrl, initials, tip
 
             {/* Error message */}
             {error && (
-                <p className="absolute -bottom-6 left-0 text-[10px] text-red-500 whitespace-nowrap">{error}</p>
+                <p className="absolute -bottom-6 left-0 text-[10px] text-red-400 whitespace-nowrap">{error}</p>
             )}
         </div>
     )

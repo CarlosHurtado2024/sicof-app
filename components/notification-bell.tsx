@@ -10,11 +10,11 @@ interface NotificationBellProps {
 }
 
 const TIPO_CONFIG: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
-    INFO: { icon: <Info className="w-4 h-4" />, color: 'text-blue-600', bg: 'bg-blue-50 border border-blue-100' },
-    ALERTA: { icon: <Siren className="w-4 h-4 animate-pulse" />, color: 'text-red-600', bg: 'bg-red-50 border border-red-100' },
-    CASO: { icon: <FileText className="w-4 h-4" />, color: 'text-blue-700', bg: 'bg-slate-50 border border-slate-100' },
-    SISTEMA: { icon: <Settings className="w-4 h-4" />, color: 'text-slate-600', bg: 'bg-slate-50 border border-slate-100' },
-    TAREA: { icon: <ClipboardList className="w-4 h-4" />, color: 'text-emerald-600', bg: 'bg-emerald-50 border border-emerald-100' },
+    INFO: { icon: <Info className="w-4 h-4" />, color: 'text-blue-400', bg: 'bg-blue-500/15 border border-blue-500/20' },
+    ALERTA: { icon: <Siren className="w-4 h-4 animate-pulse" />, color: 'text-red-400', bg: 'bg-red-500/10 border border-red-500/20' },
+    CASO: { icon: <FileText className="w-4 h-4" />, color: 'text-blue-700', bg: 'bg-white/5 border border-white/10' },
+    SISTEMA: { icon: <Settings className="w-4 h-4" />, color: 'text-slate-600', bg: 'bg-white/5 border border-white/10' },
+    TAREA: { icon: <ClipboardList className="w-4 h-4" />, color: 'text-emerald-400', bg: 'bg-emerald-500/10 border border-emerald-500/20' },
 }
 
 function timeAgo(dateStr: string): string {
@@ -108,7 +108,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
             {/* Bell Button */}
             <button
                 onClick={() => setOpen(!open)}
-                className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-[#2B463C]/60 hover:text-[#2B463C] border border-transparent hover:border-[#2B463C]/10 hover:bg-white transition-all shadow-sm hover:shadow-md"
+                className="relative flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl text-white/50 hover:text-white border border-transparent hover:border-white/[0.1] hover:bg-white/[0.03] transition-all shadow-sm hover:shadow-md"
                 aria-label="Notificaciones"
             >
                 <Bell className="w-[18px] h-[18px]" strokeWidth={2.5} />
@@ -116,7 +116,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                 {unreadCount > 0 && (
                     <span className="absolute -top-1 -right-1 flex items-center justify-center">
                         <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-400 opacity-75" />
-                        <span className="relative inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#F28C73] text-[9px] font-black text-white border-2 border-white shadow-sm">
+                        <span className="relative inline-flex items-center justify-center h-4 w-4 rounded-full bg-[#ff7a59] text-[9px] font-black text-white border-2 border-white shadow-sm">
                             {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                     </span>
@@ -125,9 +125,9 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
 
             {/* Dropdown */}
             {open && (
-                <div className="fixed inset-x-3 top-14 sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-96 max-h-[480px] bg-white border border-slate-200 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden z-[60] animate-in fade-in slide-in-from-top-2 duration-200">
+                <div className="fixed inset-x-3 top-14 sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-2 w-auto sm:w-96 max-h-[480px] bg-white/[0.03] border border-slate-200 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden z-[60] animate-in fade-in slide-in-from-top-2 duration-200">
                     {/* Header */}
-                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100 bg-slate-50/50">
+                    <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-white/5/50">
                         <div className="flex items-center gap-2">
                             <h3 className="text-sm font-bold text-slate-900">Notificaciones</h3>
                             {unreadCount > 0 && (
@@ -139,7 +139,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                         {unreadCount > 0 && (
                             <button
                                 onClick={markAllAsRead}
-                                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                                className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-800 font-medium transition-colors"
                             >
                                 <CheckCheck className="w-3.5 h-3.5" />
                                 Marcar todas
@@ -166,7 +166,7 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                                     <button
                                         key={notif.id}
                                         onClick={() => handleNotifClick(notif)}
-                                        className={`w-full flex items-start gap-3 px-5 py-3.5 text-left transition-colors hover:bg-slate-50 border-b border-slate-50 last:border-0 ${!notif.leida ? 'bg-blue-50/30' : ''
+                                        className={`w-full flex items-start gap-3 px-5 py-3.5 text-left transition-colors hover:bg-white/5 border-b border-slate-50 last:border-0 ${!notif.leida ? 'bg-blue-500/15/30' : ''
                                             }`}
                                     >
                                         {/* Icon */}
@@ -179,17 +179,17 @@ export default function NotificationBell({ userId }: NotificationBellProps) {
                                                 <p className={`text-sm leading-snug ${!notif.leida ? 'font-semibold text-slate-900' : 'font-medium text-slate-600'}`}>
                                                     {notif.titulo}
                                                 </p>
-                                                <span className="text-[10px] text-slate-400 flex-shrink-0 mt-0.5 font-medium">
+                                                <span className="text-[10px] text-white/40 flex-shrink-0 mt-0.5 font-medium">
                                                     {timeAgo(notif.created_at)}
                                                 </span>
                                             </div>
                                             {notif.mensaje && (
-                                                <p className="text-xs text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
+                                                <p className="text-xs text-white/40 mt-0.5 line-clamp-2 leading-relaxed">
                                                     {notif.mensaje}
                                                 </p>
                                             )}
                                             {notif.enlace && (
-                                                <span className="inline-flex items-center gap-1 text-[10px] text-blue-600 font-semibold mt-1.5">
+                                                <span className="inline-flex items-center gap-1 text-[10px] text-blue-400 font-semibold mt-1.5">
                                                     Ver detalle <ExternalLink className="w-2.5 h-2.5" />
                                                 </span>
                                             )}

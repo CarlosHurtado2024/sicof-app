@@ -84,12 +84,12 @@ function DataTable({ data }: { data: Record<string, unknown>[] }) {
     }
 
     return (
-        <div className="overflow-x-auto rounded-lg border border-[#2B463C]/8">
+        <div className="overflow-x-auto rounded-lg border border-white/[0.08]">
             <table className="w-full text-xs">
                 <thead>
-                    <tr className="bg-[#2B463C]/5">
+                    <tr className="bg-white/[0.05]">
                         {headers.map(h => (
-                            <th key={h} className="px-3 py-2 text-left font-semibold text-[#2B463C]/70 whitespace-nowrap">
+                            <th key={h} className="px-3 py-2 text-left font-semibold text-white/60 whitespace-nowrap">
                                 {formatHeader(h)}
                             </th>
                         ))}
@@ -97,9 +97,9 @@ function DataTable({ data }: { data: Record<string, unknown>[] }) {
                 </thead>
                 <tbody>
                     {data.map((row, i) => (
-                        <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-[#FAFAF8]'}>
+                        <tr key={i} className={i % 2 === 0 ? 'bg-white/[0.03]' : 'bg-white/[0.02]'}>
                             {headers.map(h => (
-                                <td key={h} className="px-3 py-2 text-[#2B463C]/80 whitespace-nowrap border-t border-[#2B463C]/5">
+                                <td key={h} className="px-3 py-2 text-white/70 whitespace-nowrap border-t border-white/[0.08]">
                                     {formatCell(row[h])}
                                 </td>
                             ))}
@@ -230,15 +230,15 @@ export default function DataVisualization({ data, question }: DataVisualizationP
                         key={opt.mode}
                         onClick={() => setView(opt.mode)}
                         className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-semibold transition-all ${view === opt.mode
-                            ? 'bg-[#2B463C] text-white shadow-sm'
-                            : 'bg-[#2B463C]/5 text-[#2B463C]/50 hover:bg-[#2B463C]/10 hover:text-[#2B463C]/70'
+                            ? 'bg-[#ff7a59] text-white shadow-sm'
+                            : 'bg-white/[0.05] text-white/45 hover:bg-[#ff6b47]/10 hover:text-white/60'
                             }`}
                     >
                         {opt.icon}
                         {opt.label}
                     </button>
                 ))}
-                <span className="ml-auto text-[9px] text-[#2B463C]/25 font-medium">
+                <span className="ml-auto text-[9px] text-white/20 font-medium">
                     {data.length} {data.length === 1 ? 'registro' : 'registros'}
                 </span>
             </div>

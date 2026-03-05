@@ -148,15 +148,15 @@ export default async function DashboardPage() {
 
             {/* Komi AI Module — visible for all roles */}
             <div className="space-y-4">
-                <h3 className="text-[11px] font-semibold text-[#2B463C]/30 uppercase tracking-widest flex items-center gap-2 px-1">
-                    <span className="w-6 h-px bg-[#2B463C]/10" />
+                <h3 className="text-[11px] font-semibold text-white/25 uppercase tracking-widest flex items-center gap-2 px-1">
+                    <span className="w-6 h-px bg-white/[0.1]" />
                     Inteligencia Artificial
                 </h3>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     <ModuleCard
                         icon={<BotMessageSquare className="h-4 w-4" />}
-                        iconBg="bg-gradient-to-br from-[#F28C73]/10 to-[#F28C73]/5"
-                        iconColor="text-[#F28C73]"
+                        iconBg="bg-gradient-to-br from-[#ff7a59]/10 to-[#ff7a59]/5"
+                        iconColor="text-[#ff7a59]"
                         title="Komi AI"
                         subtitle="Asistente Inteligente"
                         description="Consulta datos del sistema en lenguaje natural. Pregunta sobre expedientes, víctimas, medidas y más."
@@ -256,8 +256,8 @@ function AuxiliarModules() {
         <>
             <ModuleCard
                 icon={<Users className="h-4 w-4" />}
-                iconBg="bg-[#F8F5EE]"
-                iconColor="text-[#2B463C]"
+                iconBg="bg-white/[0.04]"
+                iconColor="text-white"
                 title="Recepción y Radicación"
                 subtitle="Ventanilla Única Digital"
                 description="Registro de minuta, ingreso de usuarios, validación de competencia y generación de radicado."
@@ -268,8 +268,8 @@ function AuxiliarModules() {
             />
             <ModuleCard
                 icon={<Archive className="h-4 w-4" />}
-                iconBg="bg-amber-50"
-                iconColor="text-amber-600"
+                iconBg="bg-amber-500/10"
+                iconColor="text-amber-400"
                 title="Gestión Documental"
                 subtitle="Expediente Digital"
                 description="Carga de documentos, foliación digital e indexación automática al expediente."
@@ -279,8 +279,8 @@ function AuxiliarModules() {
             />
             <ModuleCard
                 icon={<Calendar className="h-4 w-4" />}
-                iconBg="bg-emerald-50"
-                iconColor="text-emerald-600"
+                iconBg="bg-emerald-500/10"
+                iconColor="text-emerald-400"
                 title="Agenda y Programación"
                 subtitle="Logística de Audiencias"
                 description="Asignación de citas con equipo psicosocial y programación de audiencias."
@@ -309,8 +309,8 @@ function PsicosocialModules() {
             />
             <ModuleCard
                 icon={<FileText className="h-4 w-4" />}
-                iconBg="bg-[#F8F5EE]"
-                iconColor="text-[#2B463C]/70"
+                iconBg="bg-white/[0.04]"
+                iconColor="text-white/60"
                 title="Informes Periciales"
                 subtitle="Equipo Interdisciplinario"
                 description="Generar informes de valoración psicológica, visita domiciliaria y verificación de derechos."
@@ -350,8 +350,8 @@ function SecretarioModules() {
             />
             <ModuleCard
                 icon={<Timer className="h-4 w-4" />}
-                iconBg="bg-red-50"
-                iconColor="text-red-600"
+                iconBg="bg-red-500/10"
+                iconColor="text-red-400"
                 title="Control de Términos"
                 subtitle="Semáforo de Vencimientos"
                 description="Alertas visuales de vencimiento de términos legales (4h medida provisional, 30d audiencia)."
@@ -380,8 +380,8 @@ function ComisarioModules() {
         <>
             <ModuleCard
                 icon={<ShieldCheck className="h-4 w-4" />}
-                iconBg="bg-emerald-50"
-                iconColor="text-emerald-600"
+                iconBg="bg-emerald-500/10"
+                iconColor="text-emerald-400"
                 title="Bandeja de Firma"
                 subtitle="Aprobación de Autos y Medidas"
                 description="Revisar y firmar digitalmente los autos preparados por el Secretario."
@@ -391,8 +391,8 @@ function ComisarioModules() {
             />
             <ModuleCard
                 icon={<Scale className="h-4 w-4" />}
-                iconBg="bg-[#F8F5EE]"
-                iconColor="text-[#2B463C]"
+                iconBg="bg-white/[0.04]"
+                iconColor="text-white"
                 title="Audiencias"
                 subtitle="Sala de Audiencia"
                 description="Programar, dirigir audiencias y emitir fallos de medidas de protección."

@@ -147,17 +147,17 @@ export default function KomiAIChat() {
         <div className="flex flex-col h-[calc(100vh-8rem)] sm:h-[calc(100vh-5rem)] max-w-[900px] mx-auto">
             {/* Header */}
             <div className="flex items-center gap-3 mb-4 flex-shrink-0">
-                <div className="w-10 h-10 bg-gradient-to-br from-[#F28C73] to-[#E06B52] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#F28C73]/20">
+                <div className="w-10 h-10 bg-gradient-to-br from-[#ff7a59] to-[#e06b47] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#ff7a59]/20">
                     <BotMessageSquare className="h-5 w-5" />
                 </div>
                 <div>
-                    <h1 className="text-lg font-bold text-[#2B463C]">Komi AI</h1>
-                    <p className="text-[10px] text-[#2B463C]/40 font-medium uppercase tracking-widest">Asistente de datos inteligente</p>
+                    <h1 className="text-lg font-bold text-white">Komi AI</h1>
+                    <p className="text-[10px] text-white/35 font-medium uppercase tracking-widest">Asistente de datos inteligente</p>
                 </div>
                 {messages.length > 0 && (
                     <button
                         onClick={() => { setMessages([]); setShowSQLFor(null) }}
-                        className="ml-auto text-[10px] font-semibold text-[#2B463C]/30 hover:text-[#F28C73] transition-colors uppercase tracking-wider flex items-center gap-1"
+                        className="ml-auto text-[10px] font-semibold text-white/25 hover:text-[#ff7a59] transition-colors uppercase tracking-wider flex items-center gap-1"
                     >
                         <X className="h-3 w-3" />
                         Limpiar
@@ -168,16 +168,16 @@ export default function KomiAIChat() {
             {/* Chat area */}
             <div
                 ref={chatContainerRef}
-                className="flex-1 overflow-y-auto rounded-2xl bg-white border border-[#2B463C]/5 shadow-sm"
+                className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm"
             >
                 {isEmpty ? (
                     /* Empty state */
                     <div className="flex flex-col items-center justify-center h-full px-6 py-12">
-                        <div className="w-16 h-16 bg-gradient-to-br from-[#F28C73]/10 to-[#F28C73]/5 rounded-2xl flex items-center justify-center mb-5">
-                            <Sparkles className="h-7 w-7 text-[#F28C73]" />
+                        <div className="w-16 h-16 bg-gradient-to-br from-[#ff7a59]/15 to-[#ff7a59]/5 rounded-2xl flex items-center justify-center mb-5">
+                            <Sparkles className="h-7 w-7 text-[#ff7a59]" />
                         </div>
-                        <h2 className="text-base font-bold text-[#2B463C] mb-1">Pregunta lo que necesites</h2>
-                        <p className="text-xs text-[#2B463C]/40 text-center max-w-sm mb-8 leading-relaxed">
+                        <h2 className="text-base font-bold text-white mb-1">Pregunta lo que necesites</h2>
+                        <p className="text-xs text-white/35 text-center max-w-sm mb-8 leading-relaxed">
                             Consulta datos en tiempo real sobre expedientes, personas, medidas, audiencias y más. Respuestas basadas 100% en la base de datos.
                         </p>
 
@@ -186,15 +186,15 @@ export default function KomiAIChat() {
                                 <button
                                     key={i}
                                     onClick={() => sendMessage(s.label)}
-                                    className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-[#FAFAF8] border border-[#2B463C]/5 hover:border-[#F28C73]/20 hover:bg-[#FFF8F6] text-left transition-all group"
+                                    className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-white/[0.08] bg-white/[0.03] hover:border-[#ff7a59]/20 hover:bg-white/[0.06] text-left transition-all group"
                                 >
                                     <span className={`${s.color} opacity-60 group-hover:opacity-100 transition-opacity`}>{s.icon}</span>
-                                    <span className="text-xs text-[#2B463C]/60 group-hover:text-[#2B463C] font-medium transition-colors">{s.label}</span>
+                                    <span className="text-xs text-white/50 group-hover:text-white/80 font-medium transition-colors">{s.label}</span>
                                 </button>
                             ))}
                         </div>
 
-                        <div className="flex items-center gap-1.5 mt-8 text-[10px] text-[#2B463C]/20">
+                        <div className="flex items-center gap-1.5 mt-8 text-[10px] text-white/15">
                             <Database className="h-3 w-3" />
                             <span>Conectado a la base de datos en tiempo real</span>
                         </div>
@@ -206,21 +206,21 @@ export default function KomiAIChat() {
                             <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <div className={`max-w-[85%] ${msg.role === 'user' ? '' : 'flex gap-2.5'}`}>
                                     {msg.role === 'assistant' && (
-                                        <div className="w-7 h-7 bg-gradient-to-br from-[#F28C73] to-[#E06B52] rounded-lg flex items-center justify-center text-white flex-shrink-0 mt-0.5 shadow-sm">
+                                        <div className={`w-7 h-7 bg-gradient-to-br from-[#ff7a59] to-[#e06b47] rounded-lg flex items-center justify-center text-white flex-shrink-0 mt-0.5 shadow-sm`}>
                                             <BotMessageSquare className="h-3.5 w-3.5" />
                                         </div>
                                     )}
                                     <div>
                                         <div
                                             className={`px-4 py-3 rounded-2xl text-sm leading-relaxed ${msg.role === 'user'
-                                                ? 'bg-[#2B463C] text-white rounded-br-md'
-                                                : 'bg-[#FAFAF8] text-[#2B463C] border border-[#2B463C]/5 rounded-bl-md'
+                                                ? 'bg-[#ff7a59] text-white rounded-br-md'
+                                                : 'bg-white/[0.04] text-white/80 border border-white/[0.08] rounded-bl-md'
                                                 }`}
                                         >
                                             {msg.isLoading ? (
                                                 <div className="flex items-center gap-2 py-0.5">
-                                                    <Loader2 className="h-4 w-4 animate-spin text-[#F28C73]" />
-                                                    <span className="text-xs text-[#2B463C]/40 font-medium">Consultando datos...</span>
+                                                    <Loader2 className="h-4 w-4 animate-spin text-[#ff7a59]" />
+                                                    <span className="text-xs text-white/40 font-medium">Consultando datos...</span>
                                                 </div>
                                             ) : (
                                                 <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -238,21 +238,21 @@ export default function KomiAIChat() {
                                             <div className="mt-1.5">
                                                 <button
                                                     onClick={() => setShowSQLFor(showSQLFor === msg.id ? null : msg.id)}
-                                                    className="flex items-center gap-1 text-[10px] text-[#2B463C]/25 hover:text-[#F28C73] transition-colors font-medium"
+                                                    className="flex items-center gap-1 text-[10px] text-white/20 hover:text-[#ff7a59] transition-colors font-medium"
                                                 >
                                                     <Code2 className="h-3 w-3" />
                                                     {showSQLFor === msg.id ? 'Ocultar SQL' : 'Ver SQL'}
                                                     <ChevronDown className={`h-3 w-3 transition-transform ${showSQLFor === msg.id ? 'rotate-180' : ''}`} />
                                                 </button>
                                                 {showSQLFor === msg.id && (
-                                                    <pre className="mt-1.5 p-3 rounded-lg bg-[#2B463C] text-emerald-300 text-[11px] overflow-x-auto font-mono leading-relaxed">
+                                                    <pre className="mt-1.5 p-3 rounded-lg bg-black/40 text-emerald-300 text-[11px] overflow-x-auto font-mono leading-relaxed border border-white/[0.06]">
                                                         {msg.sql}
                                                     </pre>
                                                 )}
                                             </div>
                                         )}
 
-                                        <div className={`text-[9px] mt-1 ${msg.role === 'user' ? 'text-right text-[#2B463C]/20' : 'text-[#2B463C]/20'}`}>
+                                        <div className={`text-[9px] mt-1 ${msg.role === 'user' ? 'text-right text-white/15' : 'text-white/15'}`}>
                                             {msg.timestamp.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })}
                                         </div>
                                     </div>
@@ -266,7 +266,7 @@ export default function KomiAIChat() {
 
             {/* Input area */}
             <div className="flex-shrink-0 mt-3">
-                <div className="flex items-center gap-2 bg-white rounded-xl border border-[#2B463C]/5 shadow-sm px-4 py-2 focus-within:border-[#F28C73]/30 focus-within:shadow-md focus-within:shadow-[#F28C73]/5 transition-all">
+                <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-4 py-2 focus-within:border-[#ff7a59]/30 focus-within:shadow-md focus-within:shadow-[#ff7a59]/5 transition-all">
                     <input
                         ref={inputRef}
                         type="text"
@@ -275,13 +275,13 @@ export default function KomiAIChat() {
                         onKeyDown={handleKeyDown}
                         placeholder="Pregunta sobre los datos del sistema..."
                         disabled={isLoading}
-                        className="flex-1 bg-transparent text-sm text-[#2B463C] placeholder:text-[#2B463C]/25 outline-none py-1.5 font-medium"
+                        className="flex-1 bg-transparent text-sm text-white placeholder:text-white/25 outline-none py-1.5 font-medium"
                         autoFocus
                     />
                     <button
                         onClick={() => sendMessage()}
                         disabled={isLoading || !input.trim()}
-                        className="w-9 h-9 rounded-lg bg-[#2B463C] text-white flex items-center justify-center hover:bg-[#F28C73] disabled:opacity-30 disabled:hover:bg-[#2B463C] transition-colors flex-shrink-0 shadow-sm"
+                        className="w-9 h-9 rounded-lg bg-[#ff7a59] text-white flex items-center justify-center hover:bg-[#ff6b47] disabled:opacity-30 transition-colors flex-shrink-0 shadow-sm"
                     >
                         {isLoading ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -290,7 +290,7 @@ export default function KomiAIChat() {
                         )}
                     </button>
                 </div>
-                <p className="text-center text-[9px] text-[#2B463C]/15 mt-2 font-medium">
+                <p className="text-center text-[9px] text-white/12 mt-2 font-medium">
                     Komi AI consulta datos reales de la base de datos • Las respuestas son tan precisas como los datos registrados
                 </p>
             </div>
