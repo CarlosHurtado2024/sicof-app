@@ -8,13 +8,15 @@ export const metadata: Metadata = {
 
 export default function KnowledgeBasePage() {
     return (
-        <div className="p-4 sm:p-6 lg:p-8 space-y-6">
-            <h1 className="text-2xl font-bold tracking-tight text-white mb-2 text-shadow-sm">
-                Base de Conocimiento Legal
-            </h1>
-            <p className="text-white/60 text-sm mb-6 max-w-2xl">
-                Sube leyes, decretos y lineamientos en PDF. Pregúntale a Komi Legal y te responderá basándose estrictamente en estos documentos.
-            </p>
+        <div className="p-0 sm:p-6 lg:p-8 space-y-0 sm:space-y-6 flex flex-col h-[calc(100vh-4rem)] sm:h-auto overflow-hidden">
+            <div className="hidden sm:block">
+                <h1 className="text-2xl font-bold tracking-tight text-white mb-2 text-shadow-sm">
+                    Base de Conocimiento Legal
+                </h1>
+                <p className="text-white/60 text-sm mb-6 max-w-2xl">
+                    Sube leyes, decretos y lineamientos en PDF. Pregúntale a Komi Legal y te responderá basándose estrictamente en estos documentos.
+                </p>
+            </div>
             <KnowledgeBaseClient />
         </div>
     )

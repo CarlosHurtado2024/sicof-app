@@ -144,7 +144,7 @@ export default function KomiAIChat() {
     const isEmpty = messages.length === 0
 
     return (
-        <div className="flex flex-col h-[calc(100vh-8rem)] sm:h-[calc(100vh-5rem)] max-w-[900px] mx-auto">
+        <div className="flex flex-col h-full sm:h-[calc(100vh-12rem)] max-w-[900px] mx-auto">
             {/* Header */}
             <div className="flex items-center gap-3 mb-4 flex-shrink-0">
                 <div className="w-10 h-10 bg-gradient-to-br from-[#ff7a59] to-[#e06b47] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#ff7a59]/20">
@@ -168,7 +168,7 @@ export default function KomiAIChat() {
             {/* Chat area */}
             <div
                 ref={chatContainerRef}
-                className="flex-1 overflow-y-auto rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm"
+                className="flex-1 overflow-y-auto lg:rounded-2xl border-t border-b lg:border border-white/[0.08] bg-white/[0.02] lg:bg-white/[0.03] backdrop-blur-sm shadow-inner"
             >
                 {isEmpty ? (
                     /* Empty state */

@@ -183,11 +183,11 @@ export default function KnowledgeBaseClient() {
     }, [messages])
 
     return (
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-7rem)] lg:h-[calc(100vh-12rem)]">
+        <div className="flex flex-col lg:flex-row gap-0 lg:gap-6 h-full sm:h-[calc(100vh-12rem)]">
 
             {/* Lado Izquierdo: Documentos (Oculto en móvil por defecto, o mostrado como modal a pantalla completa) */}
             <div className={`
-                ${showMobileDocs ? 'fixed inset-0 z-50 flex bg-[#0a0a0a] p-4 flex-col overflow-y-auto animate-in slide-in-from-left-full' : 'hidden'} 
+                ${showMobileDocs ? 'fixed inset-0 z-50 flex bg-[#0d141b] p-4 flex-col overflow-y-auto animate-in slide-in-from-left-full' : 'hidden'} 
                 lg:relative lg:flex lg:p-0 lg:bg-transparent lg:z-auto
                 w-full lg:w-1/3 flex-col gap-4
             `}>
@@ -281,7 +281,7 @@ export default function KnowledgeBaseClient() {
             </div>
 
             {/* Lado Derecho: Chat AI */}
-            <div className="w-full lg:w-2/3 flex flex-col bg-white/[0.03] border border-white/[0.08] lg:rounded-2xl lg:backdrop-blur-sm overflow-hidden h-full rounded-xl">
+            <div className="w-full lg:w-2/3 flex flex-col bg-white/[0.03] border-t lg:border border-white/[0.08] lg:rounded-2xl lg:backdrop-blur-sm overflow-hidden h-full">
 
                 {/* Header del chat */}
                 <div className="p-3 lg:p-4 border-b border-white/[0.08] flex items-center justify-between gap-3 bg-black/20">
