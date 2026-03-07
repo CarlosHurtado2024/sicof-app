@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function KomiAIPage() {
     return (
-        <div className="max-w-[1200px] mx-auto h-[calc(100vh-4rem)] sm:h-auto">
+        <div className="max-w-[1200px] mx-auto h-screen sm:h-auto overflow-hidden">
             <KomiAIChat />
         </div>
     )

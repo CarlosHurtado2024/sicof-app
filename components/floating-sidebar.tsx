@@ -140,6 +140,9 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
         setMoreMenuOpen(false)
     }, [pathname])
 
+    // Hide UI elements in chat/knowledge contexts for mobile
+    const isChatContext = pathname?.includes('/dashboard/komi-ai') || pathname?.includes('/dashboard/conocimiento')
+
     // Close More menu when clicking outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -215,80 +218,84 @@ export default function TopNavBar({ userRole, rightSlot }: TopNavBarProps) {
             </aside>
 
             {/* ─── Phone-only Top Header Bar (<640px) ─── */}
-            <header className="sm:hidden sticky top-0 left-0 right-0 z-50 safe-top" style={{ background: 'rgba(10, 17, 24, 0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                <div className="flex items-center justify-between h-16 px-4">
-                    {/* Logo */}
-                    <Link href="/dashboard" className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm" style={{ background: '#ff7a59' }}>
-                            <SicofLogoIcon className="w-7 h-7" inverted={true} />
-                        </div>
-                        <span className="text-white font-black text-xl tracking-tighter">Komi</span>
-                    </Link>
+            {!isChatContext && (
+                <header className="sm:hidden sticky top-0 left-0 right-0 z-50 safe-top" style={{ background: 'rgba(10, 17, 24, 0.92)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                    <div className="flex items-center justify-between h-16 px-4">
+                        {/* Logo */}
+                        <Link href="/dashboard" className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-sm" style={{ background: '#ff7a59' }}>
+                                <SicofLogoIcon className="w-7 h-7" inverted={true} />
+                            </div>
+                            <span className="text-white font-black text-xl tracking-tighter">Komi</span>
+                        </Link>
 
-                    {/* Right: Notifications + Team + Avatar */}
-                    <div className="flex items-center gap-1">
-                        {rightSlot}
+                        {/* Right: Notifications + Team + Avatar */}
+                        <div className="flex items-center gap-1">
+                            {rightSlot}
+                        </div>
                     </div>
-                </div>
-            </header>
+                </header>
+            )}
 
             {/* ─── Phone-only Bottom Navigation Bar (<640px) ─── */}
-            <nav className="mobile-bottom-nav sm:hidden" aria-label="Navegación principal móvil">
-                {bottomBarItems.map((item) => {
-                    const isActive = isNavActive(pathname, item.href)
-                    return (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`mobile-bottom-nav-item ${isActive ? 'active' : ''}`}
-                        >
-                            <span className="mobile-bottom-nav-icon">
-                                {item.icon}
-                            </span>
-                            <span className="mobile-bottom-nav-label">{item.label}</span>
-                            {isActive && <span className="mobile-bottom-nav-indicator" />}
-                        </Link>
-                    )
-                })}
+            {!isChatContext && (
+                <nav className="mobile-bottom-nav sm:hidden" aria-label="Navegación principal móvil">
+                    {bottomBarItems.map((item) => {
+                        const isActive = isNavActive(pathname, item.href)
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`mobile-bottom-nav-item ${isActive ? 'active' : ''}`}
+                            >
+                                <span className="mobile-bottom-nav-icon">
+                                    {item.icon}
+                                </span>
+                                <span className="mobile-bottom-nav-label">{item.label}</span>
+                                {isActive && <span className="mobile-bottom-nav-indicator" />}
+                            </Link>
+                        )
+                    })}
 
-                {/* "More" button if overflow items exist */}
-                {needsMore && (
-                    <div className="relative" ref={moreMenuRef}>
-                        <button
-                            onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                            className={`mobile-bottom-nav-item ${isOverflowActive || moreMenuOpen ? 'active' : ''}`}
-                            aria-label="Más opciones"
-                            aria-expanded={moreMenuOpen}
-                        >
-                            <span className="mobile-bottom-nav-icon">
-                                <MoreHorizontal className="h-5 w-5" />
-                            </span>
-                            <span className="mobile-bottom-nav-label">Más</span>
-                            {(isOverflowActive || moreMenuOpen) && <span className="mobile-bottom-nav-indicator" />}
-                        </button>
+                    {/* "More" button if overflow items exist */}
+                    {needsMore && (
+                        <div className="relative" ref={moreMenuRef}>
+                            <button
+                                onClick={() => setMoreMenuOpen(!moreMenuOpen)}
+                                className={`mobile-bottom-nav-item ${isOverflowActive || moreMenuOpen ? 'active' : ''}`}
+                                aria-label="Más opciones"
+                                aria-expanded={moreMenuOpen}
+                            >
+                                <span className="mobile-bottom-nav-icon">
+                                    <MoreHorizontal className="h-5 w-5" />
+                                </span>
+                                <span className="mobile-bottom-nav-label">Más</span>
+                                {(isOverflowActive || moreMenuOpen) && <span className="mobile-bottom-nav-indicator" />}
+                            </button>
 
-                        {/* Overflow menu popup */}
-                        {moreMenuOpen && (
-                            <div className="mobile-bottom-nav-overflow">
-                                {overflowItems.map((item) => {
-                                    const isActive = isNavActive(pathname, item.href)
-                                    return (
-                                        <Link
-                                            key={item.href}
-                                            href={item.href}
-                                            onClick={() => setMoreMenuOpen(false)}
-                                            className={`mobile-bottom-nav-overflow-item ${isActive ? 'active' : ''}`}
-                                        >
-                                            <span className="mobile-bottom-nav-overflow-icon">{item.icon}</span>
-                                            <span>{item.label}</span>
-                                        </Link>
-                                    )
-                                })}
-                            </div>
-                        )}
-                    </div>
-                )}
-            </nav>
+                            {/* Overflow menu popup */}
+                            {moreMenuOpen && (
+                                <div className="mobile-bottom-nav-overflow">
+                                    {overflowItems.map((item) => {
+                                        const isActive = isNavActive(pathname, item.href)
+                                        return (
+                                            <Link
+                                                key={item.href}
+                                                href={item.href}
+                                                onClick={() => setMoreMenuOpen(false)}
+                                                className={`mobile-bottom-nav-overflow-item ${isActive ? 'active' : ''}`}
+                                            >
+                                                <span className="mobile-bottom-nav-overflow-icon">{item.icon}</span>
+                                                <span>{item.label}</span>
+                                            </Link>
+                                        )
+                                    })}
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </nav>
+            )}
         </>
     )
 }
