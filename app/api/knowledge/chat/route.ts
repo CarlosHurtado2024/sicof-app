@@ -59,12 +59,12 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "La pregunta es requerida." }, { status: 400 });
         }
 
-        // 1. Convertir la pregunta en Vector (Embedding)
         let queryEmbedding;
         try {
             queryEmbedding = await getGeminiEmbedding(question);
-        } catch (e) {
-            return NextResponse.json({ error: "Error de IA al generar embedding de la pregunta." }, { status: 500 });
+        } catch (e: any) {
+            console.error("Embedding error:", e);
+            return NextResponse.json({ error: `Error de IA al generar embedding de la pregunta: ${e.message}` }, { status: 500 });
         }
 
         // 2. Buscar en Supabase pgvector fragmentos relevantes
