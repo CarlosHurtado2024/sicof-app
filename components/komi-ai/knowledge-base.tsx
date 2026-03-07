@@ -40,6 +40,7 @@ export default function KnowledgeBaseClient() {
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState("")
     const [isChatting, setIsChatting] = useState(false)
+    const [showMobileDocs, setShowMobileDocs] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
 
     // Cargar documentos al iniciar
@@ -182,10 +183,26 @@ export default function KnowledgeBaseClient() {
     }, [messages])
 
     return (
-        <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-12rem)]">
+        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-[calc(100vh-7rem)] lg:h-[calc(100vh-12rem)]">
 
-            {/* Lado Izquierdo: Documentos */}
-            <div className="w-full lg:w-1/3 flex flex-col gap-4">
+            {/* Lado Izquierdo: Documentos (Oculto en móvil por defecto, o mostrado como modal a pantalla completa) */}
+            <div className={`
+                ${showMobileDocs ? 'fixed inset-0 z-50 flex bg-[#0a0a0a] p-4 flex-col overflow-y-auto animate-in slide-in-from-left-full' : 'hidden'} 
+                lg:relative lg:flex lg:p-0 lg:bg-transparent lg:z-auto
+                w-full lg:w-1/3 flex-col gap-4
+            `}>
+
+                {showMobileDocs && (
+                    <div className="flex justify-between items-center mb-2 lg:hidden">
+                        <h2 className="text-white font-bold text-xl">Tus Documentos</h2>
+                        <button
+                            onClick={() => setShowMobileDocs(false)}
+                            className="bg-white/10 p-2 rounded-full text-white/70 hover:text-white transition-colors"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+                    </div>
+                )}
                 {/* Caja de subida */}
                 <div className="bg-white/[0.03] border border-white/[0.08] rounded-2xl p-6 backdrop-blur-sm">
                     <h2 className="text-white font-semibold mb-4 flex items-center gap-2">
@@ -264,17 +281,27 @@ export default function KnowledgeBaseClient() {
             </div>
 
             {/* Lado Derecho: Chat AI */}
-            <div className="w-full lg:w-2/3 flex flex-col bg-white/[0.03] border border-white/[0.08] rounded-2xl backdrop-blur-sm overflow-hidden h-full">
+            <div className="w-full lg:w-2/3 flex flex-col bg-white/[0.03] border border-white/[0.08] lg:rounded-2xl lg:backdrop-blur-sm overflow-hidden h-full rounded-xl">
 
                 {/* Header del chat */}
-                <div className="p-4 border-b border-white/[0.08] flex items-center gap-3 bg-black/20">
-                    <div className="w-10 h-10 bg-gradient-to-br from-[#ff7a59] to-[#e06b47] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#ff7a59]/20">
-                        <BotMessageSquare className="h-5 w-5" />
+                <div className="p-3 lg:p-4 border-b border-white/[0.08] flex items-center justify-between gap-3 bg-black/20">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-[#ff7a59] to-[#e06b47] rounded-xl flex items-center justify-center text-white shadow-lg shadow-[#ff7a59]/20">
+                            <BotMessageSquare className="h-5 w-5" />
+                        </div>
+                        <div>
+                            <h2 className="text-white font-bold leading-none">Komi Legal</h2>
+                            <p className="text-[10px] text-white/40 font-medium uppercase tracking-widest mt-1">Busca en tus documentos</p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 className="text-white font-bold leading-none">Komi Legal</h2>
-                        <p className="text-[10px] text-white/40 font-medium uppercase tracking-widest mt-1">Busca en tus documentos</p>
-                    </div>
+
+                    <button
+                        onClick={() => setShowMobileDocs(true)}
+                        className="lg:hidden flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-2 rounded-lg text-white text-xs font-medium transition-colors"
+                    >
+                        <FileText className="w-4 h-4 text-[#ff7a59]" />
+                        <span className="hidden sm:inline">Fuentes</span>
+                    </button>
                 </div>
 
                 {/* Área de mensajes */}
