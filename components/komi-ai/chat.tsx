@@ -265,7 +265,7 @@ export default function KomiAIChat() {
             </div>
 
             {/* Input area */}
-            <div className="flex-shrink-0 mt-3">
+            <div className="flex-shrink-0 border-t border-white/[0.08] bg-black/40 p-3 lg:p-4 mt-auto">
                 <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm px-4 py-2 focus-within:border-[#ff7a59]/30 focus-within:shadow-md focus-within:shadow-[#ff7a59]/5 transition-all">
                     <input
                         ref={inputRef}
@@ -273,26 +273,23 @@ export default function KomiAIChat() {
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="Pregunta sobre los datos del sistema..."
+                        placeholder="Escribe un mensaje..."
                         disabled={isLoading}
-                        className="flex-1 bg-transparent text-sm text-white placeholder:text-white/25 outline-none py-1.5 font-medium"
+                        className="flex-1 bg-transparent text-sm text-white placeholder:text-white/25 outline-none py-2 font-medium"
                         autoFocus
                     />
                     <button
                         onClick={() => sendMessage()}
                         disabled={isLoading || !input.trim()}
-                        className="w-9 h-9 rounded-lg bg-[#ff7a59] text-white flex items-center justify-center hover:bg-[#ff6b47] disabled:opacity-30 transition-colors flex-shrink-0 shadow-sm"
+                        className="w-10 h-10 rounded-lg bg-[#ff7a59] text-white flex items-center justify-center hover:bg-[#ff6b47] disabled:opacity-30 transition-colors flex-shrink-0 shadow-sm"
                     >
                         {isLoading ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
+                            <Loader2 className="h-5 w-5 animate-spin" />
                         ) : (
-                            <Send className="h-4 w-4" />
+                            <Send className="h-5 w-5" />
                         )}
                     </button>
                 </div>
-                <p className="text-center text-[9px] text-white/12 mt-2 font-medium">
-                    Komi AI consulta datos reales de la base de datos • Las respuestas son tan precisas como los datos registrados
-                </p>
             </div>
         </div>
     )

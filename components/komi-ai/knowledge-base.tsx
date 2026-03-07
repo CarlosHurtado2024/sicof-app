@@ -377,28 +377,31 @@ export default function KnowledgeBaseClient() {
                     <div ref={messagesEndRef} />
                 </div>
 
-                {/* Input */}
-                <div className="p-4 border-t border-white/[0.08] bg-black/10">
+                {/* Input area */}
+                <div className="flex-shrink-0 border-t border-white/[0.08] bg-black/40 p-3 lg:p-4 mt-auto">
                     <div className="flex items-center gap-2 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2 focus-within:border-[#ff7a59] focus-within:bg-white/[0.05] transition-all">
                         <input
                             type="text"
                             value={input}
                             onChange={e => setInput(e.target.value)}
                             onKeyDown={e => e.key === 'Enter' && !isChatting && handleSendMessage()}
-                            placeholder="Ej: ¿Cuál es el procedimiento según la ley 2126?"
+                            placeholder="Escribe un mensaje..."
                             disabled={isChatting}
-                            className="flex-1 bg-transparent border-none outline-none text-white text-sm placeholder:text-white/30"
+                            className="flex-1 bg-transparent border-none outline-none text-white text-sm placeholder:text-white/30 py-1"
                         />
                         <button
                             onClick={handleSendMessage}
                             disabled={isChatting || !input.trim()}
-                            className="w-8 h-8 rounded-lg bg-[#ff7a59] text-white flex items-center justify-center hover:bg-[#ff6b47] disabled:opacity-50 transition-colors"
+                            className="w-10 h-10 rounded-lg bg-[#ff7a59] text-white flex items-center justify-center hover:bg-[#ff6b47] disabled:opacity-50 transition-colors flex-shrink-0 shadow-sm"
                         >
-                            <Send className="w-4 h-4" />
+                            {isChatting ? (
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                            ) : (
+                                <Send className="w-5 h-5" />
+                            )}
                         </button>
                     </div>
                 </div>
-
             </div>
 
             {/* Modal de confirmación de eliminación */}
