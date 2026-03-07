@@ -43,10 +43,10 @@ const RIESGO_COLORS = {
         label: 'LV'
     },
     SIN_RIESGO: {
-        bg: 'bg-gray-100/20',
-        border: 'border-gray-200/30',
-        icon: 'text-gray-400',
-        badge: 'bg-gray-100 text-gray-400',
+        bg: 'bg-white/[0.06]',
+        border: 'border-white/[0.1]',
+        icon: 'text-white/40',
+        badge: 'bg-white/[0.08] text-white/40',
         label: 'SR'
     }
 }
@@ -81,7 +81,7 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                     </div>
 
                     <div className="hidden lg:flex gap-2">
-                        <button className="flex h-10 items-center justify-center gap-x-1.5 rounded-lg bg-white/[0.03] border border-white/[0.1] px-4 shadow-sm hover:bg-gray-50 transition-all font-medium text-[10px] uppercase tracking-widest text-white">
+                        <button className="flex h-10 items-center justify-center gap-x-1.5 rounded-lg bg-white/[0.03] border border-white/[0.1] px-4 shadow-sm hover:bg-white/[0.06] transition-all font-medium text-[10px] uppercase tracking-widest text-white">
                             <Calendar className="w-3.5 h-3.5 text-[#ff7a59]" />
                             <span>Fecha: Todos</span>
                         </button>
@@ -129,7 +129,7 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                                                 {exp.tipologia_violencia || 'General'}
                                             </p>
                                         </div>
-                                        <div className="w-7 h-7 rounded-full bg-gray-50 flex items-center justify-center text-white/15 group-hover:bg-[#ff7a59] group-hover:text-white transition-all duration-300">
+                                        <div className="w-7 h-7 rounded-full bg-white/[0.05] flex items-center justify-center text-white/15 group-hover:bg-[#ff7a59] group-hover:text-white transition-all duration-300">
                                             <ChevronRight className="w-3.5 h-3.5" />
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                     })}
                 </div>
             ) : (
-                <Card className="border border-white/[0.08] shadow-sm rounded-[1.5rem] overflow-hidden bg-white/80 backdrop-blur-xl">
+                <Card className="border border-white/[0.08] shadow-sm rounded-[1.5rem] overflow-hidden bg-white/[0.03] backdrop-blur-xl">
                     <CardContent className="p-0">
                         <div className="overflow-x-auto">
                             <table className="w-full text-[11px]">
@@ -197,8 +197,8 @@ export default function CasosViewManager({ expedientes, FASE_CONFIG, RIESGO_CONF
                     <ChevronLeft className="w-4 h-4" />
                 </button>
                 <button className="size-9 flex items-center justify-center text-white font-black text-xs rounded-xl bg-[#ff7a59] shadow-md shadow-black/10 transition-all">1</button>
-                <button className="size-9 flex items-center justify-center text-white font-black text-xs rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-gray-50 transition-all">2</button>
-                <button className="size-9 flex items-center justify-center text-white font-black text-xs rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-gray-50 transition-all">3</button>
+                <button className="size-9 flex items-center justify-center text-white font-black text-xs rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.06] transition-all">2</button>
+                <button className="size-9 flex items-center justify-center text-white font-black text-xs rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.06] transition-all">3</button>
                 <button className="flex size-9 items-center justify-center text-white/35 hover:text-white bg-white/[0.03] rounded-xl border border-white/[0.08] shadow-sm transition-all active:scale-95">
                     <ChevronRight className="w-4 h-4" />
                 </button>

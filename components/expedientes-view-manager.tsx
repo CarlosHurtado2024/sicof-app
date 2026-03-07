@@ -23,9 +23,9 @@ const FILTERS: { key: FilterType; label: string; icon: React.ReactNode }[] = [
 ]
 
 const FASE_BADGE: Record<string, { bg: string; text: string }> = {
-    RECEPCION: { bg: 'bg-white/5 border border-slate-200', text: 'text-slate-600' },
+    RECEPCION: { bg: 'bg-white/[0.06] border border-white/10', text: 'text-white/50' },
     VALORACION: { bg: 'bg-amber-500/10 border border-amber-500/20', text: 'text-amber-400' },
-    MEDIDAS: { bg: 'bg-orange-50 border border-orange-100', text: 'text-orange-600' },
+    MEDIDAS: { bg: 'bg-orange-500/10 border border-orange-500/20', text: 'text-orange-400' },
     SEGUIMIENTO: { bg: 'bg-emerald-500/10 border border-emerald-500/20', text: 'text-emerald-400' },
     CIERRE: { bg: 'bg-white/5 border border-white/10', text: 'text-white/40' },
 }
@@ -183,8 +183,8 @@ export default function ExpedientesViewManager({ expedientes, searchQuery }: Pro
                                     key={exp.id}
                                     onClick={() => handleSelect(exp.id)}
                                     className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all border-b border-white/[0.04] ${isSelected
-                                        ? 'bg-[#ff7a59]/8 border-l-2 border-l-[#ff7a59]'
-                                        : 'hover:bg-white/80 border-l-2 border-l-transparent'
+                                        ? 'bg-[#ff7a59]/10 border-l-2 border-l-[#ff7a59]'
+                                        : 'hover:bg-white/[0.06] border-l-2 border-l-transparent'
                                         }`}
                                 >
                                     {/* Folder Icon */}

@@ -74,16 +74,16 @@ export function MinutaForm() {
     }
 
     return (
-        <Card className="w-full border-gray-100 bg-white/[0.03] shadow-sm overflow-hidden rounded-xl">
+        <Card className="w-full border-white/[0.08] bg-white/[0.03] shadow-sm overflow-hidden rounded-xl">
             {/* Header */}
-            <CardHeader className="bg-white/[0.03] border-b border-gray-100 pb-5">
+            <CardHeader className="bg-white/[0.02] border-b border-white/[0.08] pb-5">
                 <div className="flex items-center gap-4">
                     <div className="p-3 bg-[#ff7a59]/10 rounded-xl">
                         <FileText className="h-6 w-6 text-[#ff7a59]" />
                     </div>
                     <div>
-                        <CardTitle className="text-gray-900 text-xl font-bold font-display">Minuta de Ingreso</CardTitle>
-                        <CardDescription className="text-gray-400 font-medium">
+                        <CardTitle className="text-white text-xl font-bold font-display">Minuta de Ingreso</CardTitle>
+                        <CardDescription className="text-white/40 font-medium">
                             Control de recepción y primer contacto con el ciudadano
                         </CardDescription>
                     </div>
@@ -97,13 +97,13 @@ export function MinutaForm() {
                     {exito && (
                         <div className="flex items-center gap-3 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-lg animate-in slide-in-from-top-2 duration-300">
                             <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-                            <p className="text-sm font-bold text-emerald-800">✓ Registro completado correctamente</p>
+                            <p className="text-sm font-bold text-emerald-300">✓ Registro completado correctamente</p>
                         </div>
                     )}
 
                     {/* Search by Document */}
                     <div className="space-y-3">
-                        <Label className="flex items-center gap-2 text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                        <Label className="flex items-center gap-2 text-[10px] font-black text-white/35 uppercase tracking-widest">
                             <Search className="h-3 w-3" />
                             Verificar Antecedentes
                         </Label>
@@ -112,7 +112,7 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Cédula del ciudadano..."
-                                className="h-12 pr-10 bg-gray-50 border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 text-gray-900 rounded-lg transition-all"
+                                className="h-12 pr-10 bg-white/[0.05] border-white/[0.08] focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 text-white rounded-lg transition-all"
                             />
                             {buscando && (
                                 <Loader2 className="absolute right-3 top-4 h-4 w-4 text-[#ff7a59] animate-spin" />
@@ -122,36 +122,36 @@ export function MinutaForm() {
 
                     {/* Search Result: Person Found */}
                     {buscado && resultado?.persona && (
-                        <div className="rounded-xl border border-gray-100 overflow-hidden animate-in slide-in-from-top-2 duration-300 shadow-sm">
-                            <div className="flex items-center gap-4 p-4 bg-gray-50/50">
-                                <div className="p-2.5 bg-white/[0.03] border border-gray-100 rounded-lg text-[#ff7a59]">
+                        <div className="rounded-xl border border-white/[0.08] overflow-hidden animate-in slide-in-from-top-2 duration-300 shadow-sm">
+                            <div className="flex items-center gap-4 p-4 bg-white/[0.04]">
+                                <div className="p-2.5 bg-white/[0.03] border border-white/[0.08] rounded-lg text-[#ff7a59]">
                                     <UserCheck className="h-5 w-5" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-base font-bold text-gray-900 leading-tight">{resultado.persona.nombres}</p>
-                                    <p className="text-xs text-gray-500 font-medium mt-0.5">Identificación Verificada: {resultado.persona.documento}</p>
+                                    <p className="text-base font-bold text-white leading-tight">{resultado.persona.nombres}</p>
+                                    <p className="text-xs text-white/40 font-medium mt-0.5">Identificación Verificada: {resultado.persona.documento}</p>
                                 </div>
                             </div>
 
                             {resultado.expedientes.length > 0 && (
-                                <div className="p-5 bg-red-50/50 border-t border-red-500/20">
+                                <div className="p-5 bg-red-500/10 border-t border-red-500/20">
                                     <div className="flex items-center gap-2 mb-4">
                                         <AlertTriangle className="h-4 w-4 text-red-400" />
-                                        <span className="text-[10px] font-black text-red-700 uppercase tracking-widest">
+                                        <span className="text-[10px] font-black text-red-400 uppercase tracking-widest">
                                             Alerta Crítica: Reincidencia Detectada ({resultado.expedientes.length})
                                         </span>
                                     </div>
                                     <div className="space-y-2">
                                         {resultado.expedientes.slice(0, 3).map((exp: any, i: number) => (
-                                            <div key={i} className="flex items-center justify-between text-[11px] bg-white/[0.03] p-3 rounded-lg border border-red-500/20 shadow-sm">
+                                            <div key={i} className="flex items-center justify-between text-[11px] bg-white/[0.04] p-3 rounded-lg border border-red-500/20 shadow-sm">
                                                 <span className="font-mono font-black text-red-400">{exp.radicado}</span>
-                                                <span className={`px-2 py-0.5 rounded-md font-bold text-[9px] uppercase tracking-tighter ${exp.estado === 'TRAMITE' ? 'bg-amber-100 text-amber-700' :
-                                                    exp.estado === 'CERRADO' ? 'bg-gray-100 text-gray-500' :
-                                                        'bg-blue-100 text-blue-700'
+                                                <span className={`px-2 py-0.5 rounded-md font-bold text-[9px] uppercase tracking-tighter ${exp.estado === 'TRAMITE' ? 'bg-amber-500/15 text-amber-400' :
+                                                    exp.estado === 'CERRADO' ? 'bg-white/[0.06] text-white/40' :
+                                                        'bg-blue-500/15 text-blue-400'
                                                     }`}>
                                                     {exp.estado}
                                                 </span>
-                                                <span className="text-gray-500 font-bold truncate max-w-[120px]">{exp.tipologia_violencia}</span>
+                                                <span className="text-white/45 font-bold truncate max-w-[120px]">{exp.tipologia_violencia}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -162,7 +162,7 @@ export function MinutaForm() {
 
                     {/* Search Result: Not Found */}
                     {buscado && !resultado?.persona && documentoBusqueda.length >= 4 && (
-                        <div className="flex items-center gap-3 p-4 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-500 font-medium animate-in slide-in-from-top-2 duration-300">
+                        <div className="flex items-center gap-3 p-4 bg-white/[0.04] border border-white/[0.08] rounded-lg text-sm text-white/45 font-medium animate-in slide-in-from-top-2 duration-300">
                             <User className="h-4 w-4 text-[#ff7a59]" />
                             Usuario no registrado previamente. Documentación requerida para radicación.
                         </div>
@@ -181,7 +181,7 @@ export function MinutaForm() {
                                 defaultValue={resultado?.persona?.nombres || ''}
                                 key={resultado?.persona?.nombres || 'empty'}
                                 placeholder="Nombre completo..."
-                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
+                                className="h-11 bg-white/[0.05] border-white/[0.08] focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                         <div className="space-y-2">
@@ -194,7 +194,7 @@ export function MinutaForm() {
                                 value={documentoBusqueda}
                                 onChange={e => handleDocumentoChange(e.target.value)}
                                 placeholder="Cédula..."
-                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
+                                className="h-11 bg-white/[0.05] border-white/[0.08] focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                     </div>
@@ -208,7 +208,7 @@ export function MinutaForm() {
                                 id="telefono_contacto"
                                 name="telefono_contacto"
                                 placeholder="Celular..."
-                                className="h-11 bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
+                                className="h-11 bg-white/[0.05] border-white/[0.08] focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20"
                             />
                         </div>
                         <div className="space-y-2">
@@ -220,14 +220,14 @@ export function MinutaForm() {
                                 name="motivo_visita"
                                 required
                                 defaultValue=""
-                                className="flex h-11 w-full items-center rounded-lg border border-gray-100 bg-white/[0.03] text-gray-900 px-3 py-2 text-sm focus:outline-none focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 transition-all font-bold shadow-sm cursor-pointer"
+                                className="flex h-11 w-full items-center rounded-lg border border-white/[0.08] bg-white/[0.05] text-white px-3 py-2 text-sm focus:outline-none focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 transition-all font-bold shadow-sm cursor-pointer"
                             >
-                                <option value="" disabled className="text-gray-400 font-medium">Seleccione trámite...</option>
-                                <option value="ORIENTACION" className="text-gray-900 font-bold">📋 Orientación General</option>
-                                <option value="DENUNCIA" className="text-gray-900 font-bold">🚨 Recepción de Denuncia</option>
-                                <option value="SEGUIMIENTO" className="text-gray-900 font-bold">🔄 Seguimiento de Caso</option>
-                                <option value="AUDIENCIA" className="text-gray-900 font-bold">⚖️ Citación a Audiencia</option>
-                                <option value="OTRO" className="text-gray-900 font-bold">📌 Otro Trámite</option>
+                                <option value="" disabled className="text-white/40 font-medium">Seleccione trámite...</option>
+                                <option value="ORIENTACION" className="text-white font-bold">📋 Orientación General</option>
+                                <option value="DENUNCIA" className="text-white font-bold">🚨 Recepción de Denuncia</option>
+                                <option value="SEGUIMIENTO" className="text-white font-bold">🔄 Seguimiento de Caso</option>
+                                <option value="AUDIENCIA" className="text-white font-bold">⚖️ Citación a Audiencia</option>
+                                <option value="OTRO" className="text-white font-bold">📌 Otro Trámite</option>
                             </select>
                         </div>
                     </div>
@@ -240,13 +240,13 @@ export function MinutaForm() {
                             id="observaciones"
                             name="observaciones"
                             placeholder="Notas o requerimientos especiales..."
-                            className="resize-none min-h-[120px] bg-white/[0.03] border-gray-100 focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 rounded-lg"
+                            className="resize-none min-h-[120px] bg-white/[0.05] border-white/[0.08] focus:ring-4 focus:ring-[#ff7a59]/5 focus:border-[#ff7a59]/20 rounded-lg"
                         />
                     </div>
                 </CardContent>
 
-                <CardFooter className="flex justify-between bg-gray-50/30 px-8 py-5 border-t border-gray-100">
-                    <Button variant="ghost" type="button" className="text-gray-400 font-bold hover:text-gray-600 hover:bg-white/[0.03]" onClick={() => {
+                <CardFooter className="flex justify-between bg-white/[0.02] px-8 py-5 border-t border-white/[0.08]">
+                    <Button variant="ghost" type="button" className="text-white/35 font-bold hover:text-white/60 hover:bg-white/[0.06]" onClick={() => {
                         formRef.current?.reset()
                         setDocumentoBusqueda('')
                         setResultado(null)

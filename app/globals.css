@@ -98,6 +98,22 @@
     color: var(--text-muted) !important;
   }
 
+  /* Dark dropdown options for native selects */
+  select {
+    color-scheme: dark;
+  }
+
+  select option {
+    background: #111821;
+    color: #e5e7eb;
+    padding: 8px 12px;
+  }
+
+  select option:checked {
+    background: rgba(255, 122, 89, 0.2);
+    color: #ff7a59;
+  }
+
   input:focus, select:focus, textarea:focus {
     outline: none !important;
     box-shadow: 0 0 0 2px rgba(255, 122, 89, 0.4) !important;
