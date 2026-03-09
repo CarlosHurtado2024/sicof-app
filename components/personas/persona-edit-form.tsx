@@ -20,6 +20,8 @@ interface PersonaEditFormProps {
         discapacidad?: boolean | null
         fecha_nacimiento?: string | null
         genero?: string | null
+        datos_demograficos?: any
+        tipo?: string
     }
 }
 
@@ -30,18 +32,25 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
     const [success, setSuccess] = useState(false)
     const router = useRouter()
 
+    const demo = (typeof persona.datos_demograficos === 'object' && persona.datos_demograficos) || {}
+
     const [form, setForm] = useState({
         nombres: persona.nombres || '',
         documento: persona.documento || '',
         telefono: persona.telefono || '',
         email: persona.email || '',
         direccion_residencia: persona.direccion_residencia || '',
+        barrio: demo.barrio || '',
         zona: persona.zona || '',
         nivel_educativo: persona.nivel_educativo || '',
         grupo_etnico: persona.grupo_etnico || '',
         discapacidad: persona.discapacidad || false,
         fecha_nacimiento: persona.fecha_nacimiento || '',
         genero: persona.genero || '',
+        identidad_genero: demo.identidad_genero || '',
+        estado_civil: demo.estado_civil || '',
+        eps: demo.regimen_salud || '',
+        parentesco_victima: demo.parentesco_victima || '',
     })
 
     function handleChange(field: string, value: string | boolean) {
@@ -85,14 +94,14 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
             <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-md transition-all duration-300" onClick={() => setIsOpen(false)} />
 
             {/* Modal */}
-            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-xl z-50 max-h-[90vh] overflow-y-auto bg-white/[0.03] rounded-[2rem] shadow-2xl animate-in fade-in zoom-in duration-300">
+            <div className="fixed inset-x-4 top-[5%] sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-xl z-50 max-h-[90vh] overflow-y-auto bg-white rounded-[2rem] shadow-2xl animate-in fade-in zoom-in duration-300">
                 {/* Header */}
-                <div className="sticky top-0 bg-white/80 backdrop-blur-xl border-b border-white/10 px-8 py-6 flex items-center justify-between z-10">
+                <div className="sticky top-0 bg-white/80 backdrop-blur-xl border-b border-slate-100 px-8 py-6 flex items-center justify-between z-10">
                     <div>
                         <h2 className="text-xl font-black text-slate-900 tracking-tight uppercase">Editar Perfil</h2>
-                        <p className="text-xs font-bold text-white/40 uppercase tracking-widest mt-1">Actualice la información básica</p>
+                        <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mt-1">Actualice la información básica</p>
                     </div>
-                    <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-white/40 hover:text-slate-900 hover:bg-slate-100 transition-all">
+                    <button onClick={() => setIsOpen(false)} className="p-2 rounded-xl text-slate-400 hover:text-slate-900 hover:bg-slate-100 transition-all">
                         <X className="h-6 w-6" />
                     </button>
                 </div>
@@ -113,28 +122,70 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-1">Zona de Ubicación</label>
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Zona de Ubicación</label>
                             <select
                                 value={form.zona}
                                 onChange={(e) => handleChange('zona', e.target.value)}
-                                className="w-full px-4 py-3 text-sm bg-white/5 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700"
+                                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700"
                             >
                                 <option value="">Sin especificar</option>
                                 <option value="URBANA">Urbana</option>
                                 <option value="RURAL">Rural</option>
                             </select>
                         </div>
-                        <FormField label="Identidad de Género" value={form.genero} onChange={(v) => handleChange('genero', v)} />
+                        <FormField label="Identidad de Género" value={form.identidad_genero} onChange={(v) => handleChange('identidad_genero', v)} />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Estado Civil</label>
+                            <select
+                                value={form.estado_civil}
+                                onChange={(e) => handleChange('estado_civil', e.target.value)}
+                                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700"
+                            >
+                                <option value="">Seleccione...</option>
+                                <option value="SOLTERO">Soltero(a)</option>
+                                <option value="CASADO">Casado(a)</option>
+                                <option value="UNION_LIBRE">Unión Libre</option>
+                                <option value="DIVORCIADO">Divorciado(a)</option>
+                                <option value="VIUDO">Viudo(a)</option>
+                                <option value="SEPARADO">Separado(a)</option>
+                            </select>
+                        </div>
+                        <FormField label="EPS / Régimen de Salud" value={form.eps} onChange={(v) => handleChange('eps', v)} />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <FormField label="Barrio / Vereda" value={form.barrio} onChange={(v) => handleChange('barrio', v)} />
                         <FormField label="Fecha de Nacimiento" value={form.fecha_nacimiento} onChange={(v) => handleChange('fecha_nacimiento', v)} type="date" />
-                        <FormField label="Nivel Educativo" value={form.nivel_educativo} onChange={(v) => handleChange('nivel_educativo', v)} />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">Nivel Educativo</label>
+                            <select
+                                value={form.nivel_educativo}
+                                onChange={(e) => handleChange('nivel_educativo', e.target.value)}
+                                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700"
+                            >
+                                <option value="">Seleccione...</option>
+                                <option value="NINGUNO">Ninguno</option>
+                                <option value="PRIMARIA">Primaria</option>
+                                <option value="SECUNDARIA">Secundaria</option>
+                                <option value="TECNICO">Técnico/Tecnólogo</option>
+                                <option value="PROFESIONAL">Profesional</option>
+                                <option value="POSTGRADO">Postgrado</option>
+                            </select>
+                        </div>
+                        {persona.tipo === 'AGRESOR' && (
+                            <FormField label="Parentesco con la víctima" value={form.parentesco_victima} onChange={(v) => handleChange('parentesco_victima', v)} />
+                        )}
                     </div>
 
                     <FormField label="Grupo Étnico / Otros" value={form.grupo_etnico} onChange={(v) => handleChange('grupo_etnico', v)} />
 
-                    <div className="flex items-center gap-4 p-4 bg-white/5 border border-white/10 rounded-2xl transition-all hover:bg-slate-100 cursor-pointer">
+                    <div className="flex items-center gap-4 p-4 bg-slate-50 border border-slate-200 rounded-2xl transition-all hover:bg-slate-100 cursor-pointer">
                         <div className="relative flex items-center justify-center">
                             <input
                                 type="checkbox"
@@ -149,16 +200,16 @@ export default function PersonaEditForm({ persona }: PersonaEditFormProps) {
 
                     {/* Error/Success */}
                     {error && (
-                        <div className="p-3 bg-red-500/100/10 border border-red-500/20 text-red-300 text-sm rounded-lg border border-red-200">{error}</div>
+                        <div className="p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl">{error}</div>
                     )}
                     {success && (
-                        <div className="p-3 bg-emerald-500/100/10 border border-emerald-500/20 text-emerald-300 text-sm rounded-lg border border-emerald-200">✅ Datos actualizados correctamente</div>
+                        <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-600 text-sm rounded-xl">✅ Datos actualizados correctamente</div>
                     )}
                 </div>
 
                 {/* Footer */}
-                <div className="sticky bottom-0 bg-white/5/80 backdrop-blur-xl border-t border-white/10 px-8 py-6 flex items-center justify-end gap-4 rounded-b-2xl">
-                    <Button variant="ghost" onClick={() => setIsOpen(false)} className="rounded-2xl px-6 font-bold text-slate-500 hover:bg-slate-200">
+                <div className="sticky bottom-0 bg-white/80 backdrop-blur-xl border-t border-slate-100 px-8 py-6 flex items-center justify-end gap-4 rounded-b-2xl z-10">
+                    <Button variant="ghost" onClick={() => setIsOpen(false)} className="rounded-2xl px-6 font-bold text-slate-500 hover:bg-slate-100">
                         Cancelar
                     </Button>
                     <Button
@@ -180,12 +231,12 @@ function FormField({ label, value, onChange, type = 'text' }: {
 }) {
     return (
         <div className="space-y-2">
-            <label className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em] ml-1">{label}</label>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-1">{label}</label>
             <input
                 type={type}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="w-full px-4 py-3 text-sm bg-white/5 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700 placeholder:text-slate-300"
+                className="w-full px-4 py-3 text-sm bg-slate-50 border border-slate-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all font-bold text-slate-700 placeholder:text-slate-300"
             />
         </div>
     )

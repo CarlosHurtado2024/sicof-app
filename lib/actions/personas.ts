@@ -15,23 +15,53 @@ export async function editarPersona(personaId: string, data: {
     discapacidad?: boolean
     fecha_nacimiento?: string
     genero?: string
+    identidad_genero?: string
+    estado_civil?: string
+    eps?: string
+    barrio?: string
+    parentesco_victima?: string
 }) {
     const supabase = await createClient()
 
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) throw new Error('No autorizado')
 
-    // Clean empty strings to null
-    const cleanData: Record<string, any> = {}
+    // Fetch current persona to preserve other demographics
+    const { data: persona } = await supabase
+        .from('personas')
+        .select('datos_demograficos')
+        .eq('id', personaId)
+        .single()
+
+    const currentDemographics = (persona?.datos_demograficos as any) || {}
+
+    // Fields that go to the top level of the 'personas' table
+    const topLevelFields = [
+        'nombres', 'documento', 'telefono', 'email', 'direccion_residencia',
+        'zona', 'nivel_educativo', 'grupo_etnico', 'discapacidad',
+        'fecha_nacimiento', 'genero', 'alias'
+    ]
+
+    const updateData: Record<string, any> = {}
+    const newDemographics: Record<string, any> = { ...currentDemographics }
+
     for (const [key, value] of Object.entries(data)) {
-        if (value !== undefined) {
-            cleanData[key] = value === '' ? null : value
+        const cleanValue = value === '' ? null : value
+        if (topLevelFields.includes(key)) {
+            updateData[key] = cleanValue
+        } else {
+            // These go into JSONB datos_demograficos
+            newDemographics[key] = cleanValue
         }
+    }
+
+    if (Object.keys(newDemographics).length > 0) {
+        updateData.datos_demograficos = newDemographics
     }
 
     const { error } = await supabase
         .from('personas')
-        .update(cleanData)
+        .update(updateData)
         .eq('id', personaId)
 
     if (error) throw new Error(`Error actualizando persona: ${error.message}`)
